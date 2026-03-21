@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Thunder⚡Study — Science Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════
+   THEME — GIRLY PINK PALETTE
+══════════════════════════════════════ */
+:root{
+  --bg:#0f0510;--surface:#1a0818;--card:#1e0b1c;--border:#3d1535;
+  --p1:#f472b6;--p2:#db2777;--p3:#f9a8d4;--p4:#fbcfe8;
+  --p5:#e879f9;--p6:#c026d3;
+  --glow:rgba(244,114,182,.22);--glow2:rgba(219,39,119,.38);
+  --text:#fce7f3;--text2:#fbcfe8;--muted:#9d4d72;--radius:16px;
+  --inp-bg:rgba(244,114,182,.07);--inp-border:rgba(244,114,182,.25);
+}
+[data-theme="light"]{
+  --bg:#fff0f7;--surface:#fce7f3;--card:#fff;--border:#f9a8d4;
+  --text:#500724;--text2:#9d174d;--muted:#be185d;
+  --inp-bg:rgba(244,114,182,.08);--inp-border:rgba(190,24,93,.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;overflow-x:hidden;transition:background .4s,color .4s;}
+
+/* ══ SPLASH ══ */
+#splash{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .7s,visibility .7s;}
+#splash.hide{opacity:0;visibility:hidden;}
+.splash-bolt{font-size:80px;animation:splashBolt 1s ease-in-out infinite alternate;}
+@keyframes splashBolt{
+  from{filter:drop-shadow(0 0 20px #f472b6);transform:scale(1);}
+  to{filter:drop-shadow(0 0 60px #e879f9) drop-shadow(0 0 100px #db2777);transform:scale(1.12);}
+}
+.splash-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,6vw,3rem);font-weight:900;
+  background:linear-gradient(135deg,#fbcfe8,#f472b6,#db2777,#e879f9);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:3px;text-align:center;}
+.splash-sub{font-family:'Cinzel',serif;font-size:clamp(.7rem,2vw,.9rem);color:var(--p3);
+  letter-spacing:.25em;text-transform:uppercase;text-align:center;}
+.splash-hearts{font-size:1.4rem;letter-spacing:8px;animation:heartbeat .8s ease-in-out infinite alternate;}
+@keyframes heartbeat{from{transform:scale(1);}to{transform:scale(1.18);}}
+.splash-bar-wrap{width:220px;height:4px;background:rgba(244,114,182,.2);border-radius:4px;overflow:hidden;margin-top:6px;}
+.splash-bar{height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,#db2777,#e879f9,#f472b6);animation:loadBar 2.2s ease forwards;}
+@keyframes loadBar{to{width:100%;}}
+
+/* ══ BG CANVAS & NEBULA ══ */
+#star-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+[data-theme="light"] #star-canvas{opacity:.3;}
+.nebula{position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(110px);}
+.n1{width:700px;height:700px;top:-200px;left:-200px;background:radial-gradient(circle,rgba(219,39,119,.14),transparent 70%);}
+.n2{width:600px;height:600px;bottom:-160px;right:-160px;background:radial-gradient(circle,rgba(232,121,249,.12),transparent 70%);}
+.n3{width:400px;height:400px;top:35%;left:52%;background:radial-gradient(circle,rgba(244,114,182,.08),transparent 70%);}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(rgba(244,114,182,.06) 1px,transparent 1px);background-size:26px 26px;}
+
+/* ══ FLOATING HEARTS BG ══ */
+.floating-hearts{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.fh{position:absolute;font-size:1rem;animation:floatHeart linear infinite;opacity:0;}
+@keyframes floatHeart{
+  0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+  10%{opacity:.35;}
+  90%{opacity:.15;}
+  100%{transform:translateY(-120px) rotate(360deg);opacity:0;}
+}
+
+/* ══ THEME BTN ══ */
+.theme-btn{position:fixed;top:18px;right:18px;z-index:200;width:42px;height:42px;border-radius:50%;
+  border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:18px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;
+  box-shadow:0 2px 16px var(--glow);}
+.theme-btn:hover{background:var(--p2);border-color:var(--p2);color:#fff;transform:scale(1.08);}
+
+/* ══ PAGE ══ */
+.page{position:relative;z-index:1;}
+
+/* ══ STREAM BANNER ══ */
+.stream-banner{
+  max-width:700px;margin:0 auto 10px;padding:0 20px;
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;
+}
+.stream-chip{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
+  border-radius:50px;font-size:.76rem;font-weight:700;letter-spacing:.05em;
+  border:1.5px solid;backdrop-filter:blur(6px);
+}
+.sc-phy{background:rgba(96,165,250,.1);border-color:rgba(96,165,250,.3);color:#93c5fd;}
+.sc-che{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:#6ee7b7;}
+.sc-mat{background:rgba(244,114,182,.12);border-color:rgba(244,114,182,.35);color:#f9a8d4;}
+.sc-bio{background:rgba(167,243,208,.1);border-color:rgba(167,243,208,.3);color:#a7f3d0;}
+.sc-cs {background:rgba(192,132,252,.1);border-color:rgba(192,132,252,.3);color:#e9d5ff;}
+.sc-en {background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.3);color:#fde68a;}
+.sc-pe {background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.3);color:#fca5a5;}
+.sc-gat{background:rgba(232,121,249,.1);border-color:rgba(232,121,249,.35);color:#f0abfc;}
+
+/* ══ HERO ══ */
+.hero{text-align:center;padding:72px 24px 36px;position:relative;}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:200px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--p1),var(--p5),transparent);}
+.badge{display:inline-block;margin-bottom:14px;font-family:'Cinzel',serif;
+  font-size:clamp(.62rem,1.8vw,.82rem);font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--p3);border:1.5px solid rgba(244,114,182,.35);border-radius:50px;
+  padding:7px 24px;background:rgba(244,114,182,.07);backdrop-filter:blur(6px);
+  animation:badgeGlow 3s ease-in-out infinite;}
+@keyframes badgeGlow{0%,100%{box-shadow:0 0 0 rgba(244,114,182,0);}50%{box-shadow:0 0 24px rgba(244,114,182,.35);}}
+.logo-row{display:inline-flex;align-items:center;gap:14px;margin-bottom:10px;}
+.bolt{font-size:54px;display:inline-block;animation:boltPulse 2.8s ease-in-out infinite;}
+@keyframes boltPulse{
+  0%,100%{filter:drop-shadow(0 0 14px var(--p1));transform:scale(1);}
+  50%{filter:drop-shadow(0 0 42px var(--p5)) drop-shadow(0 0 80px var(--p2));transform:scale(1.07);}
+}
+.brand{font-family:'Cinzel',serif;font-size:clamp(2.2rem,7vw,4.2rem);font-weight:900;letter-spacing:2px;
+  background:linear-gradient(135deg,#fbcfe8 0%,#f472b6 40%,#db2777 70%,#e879f9 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 28px rgba(244,114,182,.5));}
+.brand-sub{font-family:'Cinzel',serif;font-size:clamp(.85rem,2.5vw,1.1rem);font-weight:700;
+  color:var(--p3);letter-spacing:.12em;margin-bottom:4px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(.95rem,3vw,1.55rem);font-weight:700;
+  color:var(--text);letter-spacing:.04em;margin-bottom:6px;
+  text-shadow:0 0 32px rgba(244,114,182,.55);}
+.hero-sub{font-size:clamp(.78rem,2vw,.92rem);color:var(--muted);font-weight:300;
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:32px;}
+.deco-line{display:flex;align-items:center;justify-content:center;gap:12px;
+  margin-bottom:36px;font-size:.8rem;color:var(--muted);}
+.deco-line::before,.deco-line::after{content:'';width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(244,114,182,.4));}
+.deco-line::before{background:linear-gradient(90deg,transparent,rgba(244,114,182,.4));}
+.deco-line::after{background:linear-gradient(90deg,rgba(244,114,182,.4),transparent);}
+
+/* ══ STATS ══ */
+.stats{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:34px;}
+.stat{display:flex;align-items:center;gap:8px;padding:8px 18px;
+  background:rgba(244,114,182,.07);border:1px solid rgba(244,114,182,.2);
+  border-radius:50px;font-size:.8rem;font-weight:600;color:var(--text2);}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--p1);box-shadow:0 0 8px var(--p1);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.22;}}
+
+/* ══ SOCIAL ══ */
+.social{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:38px;}
+.soc{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:50px;
+  font-size:.82rem;font-weight:600;text-decoration:none;border:1.5px solid transparent;transition:all .25s;backdrop-filter:blur(6px);}
+.soc svg{width:15px;height:15px;fill:currentColor;flex-shrink:0;}
+.s-tg{background:rgba(41,168,229,.1);color:#29A8E5;border-color:rgba(41,168,229,.3);}
+.s-tg:hover{background:#29A8E5;color:#fff;box-shadow:0 0 22px rgba(41,168,229,.45);}
+.s-yt{background:rgba(255,68,68,.1);color:#FF4444;border-color:rgba(255,68,68,.3);}
+.s-yt:hover{background:#FF4444;color:#fff;box-shadow:0 0 22px rgba(255,68,68,.45);}
+.s-ig{background:rgba(225,48,108,.1);color:#E1306C;border-color:rgba(225,48,108,.3);}
+.s-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;border-color:transparent;}
+
+/* ══════════════════════════════════════
+   🔥 HOT RESOURCES
+══════════════════════════════════════ */
+.hot-section{padding:0 0 20px;}
+.sec-label{font-family:'Cinzel',serif;font-size:.67rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--p3);margin-bottom:18px;
+  display:flex;align-items:center;gap:12px;}
+.sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--p2),transparent);}
+.hot-badge-new{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:50px;
+  background:rgba(244,114,182,.15);border:1px solid rgba(244,114,182,.4);color:var(--p1);
+  font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.hot-badge-hot{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:50px;
+  background:rgba(232,121,249,.15);border:1px solid rgba(232,121,249,.4);color:#e879f9;
+  font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.hot-scroll{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;
+  scrollbar-width:thin;scrollbar-color:var(--p2) transparent;-webkit-overflow-scrolling:touch;}
+.hot-scroll::-webkit-scrollbar{height:4px;}
+.hot-scroll::-webkit-scrollbar-track{background:rgba(244,114,182,.08);border-radius:4px;}
+.hot-scroll::-webkit-scrollbar-thumb{background:var(--p2);border-radius:4px;}
+.hot-card{flex:0 0 200px;scroll-snap-align:start;background:var(--card);
+  border:1.5px solid var(--border);border-radius:14px;overflow:hidden;
+  text-decoration:none;color:var(--text);
+  transition:transform .25s,box-shadow .25s,border-color .25s;}
+.hot-card:hover{transform:translateY(-5px) scale(1.02);border-color:rgba(244,114,182,.5);
+  box-shadow:0 16px 40px rgba(219,39,119,.28);}
+.hot-card-img{width:100%;height:115px;display:flex;align-items:center;justify-content:center;
+  font-size:42px;background:linear-gradient(135deg,rgba(219,39,119,.25),rgba(232,121,249,.18));
+  border-bottom:1px solid rgba(244,114,182,.2);position:relative;}
+.hot-card-badge{position:absolute;top:8px;right:8px;}
+.hot-card-body{padding:11px;}
+.hot-card-title{font-weight:700;font-size:.85rem;margin-bottom:2px;color:var(--text);}
+.hot-card-sub{font-size:.7rem;color:var(--muted);}
+
+/* ══════════════════════════════════════
+   📈 TRENDING
+══════════════════════════════════════ */
+.trending-section{margin-bottom:30px;}
+.trending-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:11px;}
+.trend-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;
+  padding:13px 15px;display:flex;align-items:center;gap:12px;
+  transition:transform .25s,border-color .25s,box-shadow .25s;cursor:pointer;position:relative;overflow:hidden;}
+.trend-card::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(244,114,182,.07),transparent 65%);pointer-events:none;}
+.trend-card:hover{transform:translateY(-3px);border-color:rgba(244,114,182,.45);
+  box-shadow:0 10px 30px rgba(219,39,119,.2);}
+.trend-rank{font-family:'Cinzel',serif;font-size:1.3rem;font-weight:900;min-width:32px;text-align:center;
+  background:linear-gradient(135deg,var(--p3),var(--p5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.trend-rank.gold{background:linear-gradient(135deg,#ffd700,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.trend-rank.silver{background:linear-gradient(135deg,#e2e8f0,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.trend-rank.bronze{background:linear-gradient(135deg,#fb923c,#c2410c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.trend-ico{font-size:24px;flex-shrink:0;}
+.trend-info{flex:1;min-width:0;}
+.trend-name{font-weight:700;font-size:.87rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.trend-meta{font-size:.68rem;color:var(--muted);margin-top:2px;}
+.trend-bar-wrap{height:3px;background:rgba(244,114,182,.12);border-radius:3px;margin-top:6px;overflow:hidden;}
+.trend-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--p2),var(--p5));width:0;transition:width 1.8s cubic-bezier(.4,0,.2,1);}
+.trend-arrow{font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;flex-shrink:0;white-space:nowrap;}
+.trend-arrow.up{background:rgba(244,114,182,.15);color:var(--p1);border:1px solid rgba(244,114,182,.3);}
+.trend-arrow.fire{background:rgba(232,121,249,.15);color:#e879f9;border:1px solid rgba(232,121,249,.3);}
+.trend-arrow.new{background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.25);}
+
+/* ══════════════════════════════════════
+   📚 BOOKS
+══════════════════════════════════════ */
+.books-section{margin-bottom:28px;}
+.books-scroll{display:flex;gap:13px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;
+  scrollbar-width:thin;scrollbar-color:var(--p2) transparent;}
+.books-scroll::-webkit-scrollbar{height:4px;}
+.books-scroll::-webkit-scrollbar-thumb{background:var(--p2);border-radius:4px;}
+.book-card{flex:0 0 145px;scroll-snap-align:start;border-radius:12px;overflow:hidden;
+  background:var(--card);border:1.5px solid var(--border);text-decoration:none;
+  color:var(--text);transition:transform .25s,box-shadow .25s,border-color .25s;cursor:pointer;}
+.book-card:hover{transform:translateY(-6px) rotate(-1deg);border-color:rgba(244,114,182,.5);
+  box-shadow:0 18px 38px rgba(219,39,119,.3);}
+.book-cover-placeholder{width:100%;height:185px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;font-size:28px;}
+.book-cover-title{font-family:'Cinzel',serif;font-size:.56rem;font-weight:700;
+  color:#fce7f3;letter-spacing:.05em;text-align:center;padding:0 6px;}
+.book-label{padding:8px;font-size:.7rem;font-weight:600;color:var(--text2);text-align:center;border-top:1px solid var(--border);}
+
+/* ══ SEARCH ══ */
+.search-wrap{max-width:540px;margin:0 auto 32px;padding:0 20px;position:relative;}
+.search-box{width:100%;padding:13px 20px 13px 46px;background:var(--inp-bg);
+  border:1.5px solid var(--inp-border);border-radius:50px;color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.92rem;outline:none;transition:all .25s;}
+.search-box::placeholder{color:var(--muted);}
+.search-box:focus{border-color:var(--p1);box-shadow:0 0 0 3px rgba(244,114,182,.15);}
+.search-icon{position:absolute;left:38px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;}
+.no-results{text-align:center;padding:40px;color:var(--muted);font-size:.9rem;display:none;}
+.no-results.show{display:block;}
+
+/* ══ TABS ══ */
+.tabs{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:0 24px;margin-bottom:38px;}
+.tab{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;padding:11px 26px;border-radius:50px;border:2px solid var(--border);
+  background:var(--surface);color:var(--muted);cursor:pointer;transition:all .28s ease;position:relative;overflow:hidden;}
+.tab::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--p2),var(--p5));opacity:0;transition:opacity .28s;}
+.tab span{position:relative;z-index:1;}
+.tab:hover::before,.tab.on::before{opacity:1;}
+.tab:hover,.tab.on{color:#fff;border-color:transparent;box-shadow:0 0 28px var(--glow2);}
+
+/* ══ WRAP ══ */
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px 90px;}
+.panel{display:none;}.panel.on{display:block;}
+.sec-head{font-family:'Cinzel',serif;font-size:.67rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--p3);margin-bottom:22px;
+  display:flex;align-items:center;gap:12px;}
+.sec-head::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--p2),transparent);}
+
+/* ══ SUBJECT CARDS ══ */
+.list{display:flex;flex-direction:column;gap:10px;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;transition:border-color .25s,box-shadow .25s;position:relative;}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--p2),var(--p5));opacity:0;transition:opacity .3s;
+  border-radius:var(--radius) 0 0 var(--radius);}
+.card:hover{border-color:rgba(244,114,182,.32);}
+.card.open{border-color:rgba(244,114,182,.55);box-shadow:0 0 36px rgba(219,39,119,.15);}
+.card.open::before{opacity:1;}
+.card-head{display:flex;align-items:center;justify-content:space-between;
+  padding:15px 20px;cursor:pointer;user-select:none;gap:12px;transition:background .2s;}
+.card.open .card-head{border-bottom:1px solid rgba(244,114,182,.15);background:rgba(244,114,182,.04);}
+.left{display:flex;align-items:center;gap:14px;}
+.ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:20px;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.2);
+  transition:all .3s;flex-shrink:0;position:relative;overflow:hidden;}
+.ico::after{content:'';position:absolute;inset:0;border-radius:12px;
+  background:radial-gradient(circle,rgba(244,114,182,.3),transparent 70%);opacity:0;transition:opacity .3s;}
+.card:hover .ico{transform:scale(1.12) rotate(-5deg);background:rgba(244,114,182,.2);
+  box-shadow:0 0 20px rgba(244,114,182,.4);border-color:rgba(244,114,182,.5);}
+.card:hover .ico::after{opacity:1;}
+.card.open .ico{background:rgba(244,114,182,.24);animation:iconWiggle .5s ease;}
+@keyframes iconWiggle{
+  0%{transform:scale(1)}25%{transform:scale(1.15) rotate(-8deg)}
+  50%{transform:scale(1.1) rotate(5deg)}75%{transform:scale(1.12) rotate(-3deg)}100%{transform:scale(1.08) rotate(0)}}
+.subj-name{font-weight:600;font-size:.97rem;color:var(--text);}
+.subj-sub{font-size:.72rem;color:var(--muted);margin-top:2px;letter-spacing:.03em;}
+.chev{width:20px;height:20px;color:var(--muted);transition:transform .32s cubic-bezier(.4,0,.2,1),color .25s;flex-shrink:0;}
+.card.open .chev{transform:rotate(180deg);color:var(--p1);}
+.card-body{max-height:0;overflow:hidden;transition:max-height .48s cubic-bezier(.4,0,.2,1);}
+.card.open .card-body{max-height:800px;}
+
+/* ── Resource buttons ── */
+.btn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;padding:16px 18px 18px;}
+.rb{display:flex;align-items:center;gap:8px;padding:10px 13px;border-radius:10px;
+  background:rgba(244,114,182,.05);border:1.5px solid rgba(244,114,182,.15);
+  color:var(--text2);font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.81rem;font-weight:500;text-decoration:none;cursor:pointer;
+  transition:all .2s ease;white-space:nowrap;position:relative;}
+.rb .i{font-size:14px;flex-shrink:0;}
+.rb:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.35);}
+.rb .btn-new{position:absolute;top:-6px;right:-4px;padding:1px 5px;border-radius:4px;
+  font-size:.55rem;font-weight:800;letter-spacing:.06em;background:#f472b6;color:#500724;text-transform:uppercase;line-height:1.6;}
+.rb .btn-hot{position:absolute;top:-6px;right:-4px;padding:1px 5px;border-radius:4px;
+  font-size:.55rem;font-weight:800;letter-spacing:.06em;background:#e879f9;color:#3b0764;text-transform:uppercase;line-height:1.6;}
+
+/* button colour variants */
+.qb{border-color:rgba(96,165,250,.3);color:#93c5fd;}.qb:hover{background:rgba(96,165,250,.12);border-color:#60a5fa;box-shadow:0 4px 18px rgba(96,165,250,.22);}
+.sp{border-color:rgba(249,168,212,.35);color:#fce7f3;}.sp:hover{background:rgba(249,168,212,.12);border-color:#f9a8d4;box-shadow:0 4px 18px rgba(244,114,182,.25);}
+.nt{border-color:rgba(52,211,153,.3);color:#6ee7b7;}.nt:hover{background:rgba(52,211,153,.12);border-color:#34d399;box-shadow:0 4px 18px rgba(52,211,153,.22);}
+.mk{border-color:rgba(232,121,249,.3);color:#f0abfc;}.mk:hover{background:rgba(232,121,249,.12);border-color:#e879f9;box-shadow:0 4px 18px rgba(232,121,249,.25);}
+.py{border-color:rgba(251,191,36,.3);color:#fde68a;}.py:hover{background:rgba(251,191,36,.12);border-color:#fbbf24;box-shadow:0 4px 18px rgba(251,191,36,.22);}
+.mm{border-color:rgba(244,114,182,.35);color:#f9a8d4;}.mm:hover{background:rgba(244,114,182,.12);border-color:#f472b6;box-shadow:0 4px 18px rgba(244,114,182,.3);}
+.dn{border-color:rgba(56,189,248,.3);color:#7dd3fc;}.dn:hover{background:rgba(56,189,248,.12);border-color:#38bdf8;box-shadow:0 4px 18px rgba(56,189,248,.22);}
+.hw{border-color:rgba(245,158,11,.3);color:#fcd34d;}.hw:hover{background:rgba(245,158,11,.12);border-color:#f59e0b;box-shadow:0 4px 18px rgba(245,158,11,.22);}
+.iq{border-color:rgba(219,39,119,.35);color:#fbcfe8;}.iq:hover{background:rgba(219,39,119,.12);border-color:#db2777;box-shadow:0 4px 18px rgba(219,39,119,.28);}
+.it{border-color:rgba(74,222,128,.3);color:#86efac;}.it:hover{background:rgba(74,222,128,.12);border-color:#4ade80;box-shadow:0 4px 18px rgba(74,222,128,.22);}
+.cp{border-color:rgba(192,132,252,.3);color:#e9d5ff;}.cp:hover{background:rgba(192,132,252,.12);border-color:#c084fc;box-shadow:0 4px 18px rgba(192,132,252,.22);}
+.ot{border-color:rgba(251,207,232,.2);color:#fbcfe8;}.ot:hover{background:rgba(251,207,232,.08);border-color:rgba(251,207,232,.4);box-shadow:0 4px 18px rgba(244,114,182,.15);}
+
+/* stagger */
+.card.open .rb{animation:popIn .3s ease both;}
+@keyframes popIn{from{opacity:0;transform:scale(.92) translateY(7px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.card.open .rb:nth-child(1){animation-delay:.02s}.card.open .rb:nth-child(2){animation-delay:.05s}
+.card.open .rb:nth-child(3){animation-delay:.08s}.card.open .rb:nth-child(4){animation-delay:.11s}
+.card.open .rb:nth-child(5){animation-delay:.14s}.card.open .rb:nth-child(6){animation-delay:.17s}
+.card.open .rb:nth-child(7){animation-delay:.20s}.card.open .rb:nth-child(8){animation-delay:.23s}
+.card.open .rb:nth-child(9){animation-delay:.26s}.card.open .rb:nth-child(10){animation-delay:.29s}
+.card.open .rb:nth-child(11){animation-delay:.32s}.card.open .rb:nth-child(12){animation-delay:.35s}
+
+/* ══ CUET CBT ══ */
+.cbt-section{margin-top:30px;padding:26px;
+  background:linear-gradient(135deg,rgba(219,39,119,.15),rgba(232,121,249,.1));
+  border:2px solid rgba(244,114,182,.4);border-radius:20px;text-align:center;position:relative;overflow:hidden;}
+.cbt-section::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(232,121,249,.1),transparent 70%);pointer-events:none;}
+.cbt-title{font-family:'Cinzel',serif;font-size:clamp(.8rem,2.5vw,1.05rem);font-weight:700;
+  color:var(--text);margin-bottom:6px;letter-spacing:.05em;}
+.cbt-sub{font-size:.82rem;color:var(--muted);margin-bottom:18px;}
+.cbt-btn{display:inline-flex;align-items:center;gap:10px;padding:15px 38px;border-radius:50px;
+  text-decoration:none;font-family:'Cinzel',serif;font-size:clamp(.78rem,2.2vw,.95rem);
+  font-weight:700;letter-spacing:.08em;background:linear-gradient(135deg,var(--p2),var(--p5));
+  color:#fff;border:none;cursor:pointer;box-shadow:0 8px 32px rgba(219,39,119,.5);
+  transition:all .3s;position:relative;overflow:hidden;}
+.cbt-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--p5),var(--p2));opacity:0;transition:opacity .3s;}
+.cbt-btn:hover::before{opacity:1;}
+.cbt-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 48px rgba(219,39,119,.65);}
+.cbt-btn span{position:relative;z-index:1;display:flex;align-items:center;gap:10px;}
+.pulse-ring{position:absolute;inset:-4px;border-radius:50px;border:2px solid rgba(244,114,182,.5);animation:ringPulse 2s ease-in-out infinite;}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.04);opacity:1;}}
+.cbt-chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.cbt-chip{padding:5px 14px;border-radius:50px;font-size:.72rem;font-weight:600;
+  background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.25);color:var(--text2);}
+
+/* ══ FOOTER ══ */
+footer{text-align:center;padding:44px 24px;border-top:1px solid rgba(244,114,182,.12);position:relative;z-index:1;}
+.foot-brand{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:700;margin-bottom:8px;
+  background:linear-gradient(135deg,var(--p5),var(--p1));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+footer p{color:var(--muted);font-size:.8rem;margin-top:4px;}
+.up{position:fixed;bottom:28px;right:28px;width:46px;height:46px;
+  background:linear-gradient(135deg,var(--p2),var(--p5));color:#fff;border:none;border-radius:50%;
+  font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 24px var(--glow2);opacity:0;pointer-events:none;
+  transition:opacity .3s,transform .2s;z-index:100;}
+.up.on{opacity:1;pointer-events:all;}
+.up:hover{transform:translateY(-3px);}
+.hidden{display:none!important;}
+
+@media(max-width:600px){
+  .btn-grid{grid-template-columns:repeat(2,1fr);}
+  .trending-grid{grid-template-columns:1fr 1fr;}
+  .hot-card{flex:0 0 170px;}
+  .book-card{flex:0 0 120px;}
+  .book-cover-placeholder{height:155px;}
+  .stream-banner{gap:7px;}
+  .stream-chip{padding:5px 11px;font-size:.68rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-bolt">⚡</div>
+  <div class="splash-title">ThunderStudy</div>
+  <div class="splash-sub">Science Edition 🔬</div>
+  <div class="splash-hearts">💗 💖 💗</div>
+  <div class="splash-bar-wrap"><div class="splash-bar"></div></div>
+</div>
+
+<!-- BG -->
+<button class="theme-btn" id="themeBtn" title="Toggle theme">🌙</button>
+<canvas id="star-canvas"></canvas>
+<div class="nebula n1"></div><div class="nebula n2"></div><div class="nebula n3"></div>
+<div class="floating-hearts" id="floatingHearts"></div>
+
+<div class="page">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">💗 Science Edition · Free For All 💗</div>
+  <div class="logo-row"><span class="bolt">⚡</span><span class="brand">ThunderStudy</span></div>
+  <div class="brand-sub">✨ Science Edition ✨</div>
+  <div class="hero-title">Class 12 CBSE &amp; CUET Science Hub</div>
+  <div class="hero-sub">Physics · Chemistry · Maths · Biology · CS · English · Physical Education</div>
+  <div class="deco-line">💕 By Thunder Team — Free Education For All 💕</div>
+</section>
+
+<!-- SUBJECT CHIPS -->
+<div class="stream-banner">
+  <span class="stream-chip sc-phy">⚛️ Physics</span>
+  <span class="stream-chip sc-che">🧪 Chemistry</span>
+  <span class="stream-chip sc-mat">📐 Maths</span>
+  <span class="stream-chip sc-bio">🔬 Biology</span>
+  <span class="stream-chip sc-cs">💻 Comp. Sci.</span>
+  <span class="stream-chip sc-en">📖 English</span>
+  <span class="stream-chip sc-pe">🏅 Phy. Edu.</span>
+  <span class="stream-chip sc-gat">🧩 CUET GAT</span>
+</div>
+
+<!-- STATS -->
+<div class="stats" style="margin-top:22px;">
+  <div class="stat"><span class="dot"></span>7 Science Subjects</div>
+  <div class="stat"><span class="dot"></span>CUET + Class 12</div>
+  <div class="stat"><span class="dot"></span>12 Resource Types</div>
+  <div class="stat"><span class="dot"></span>100% Free 💗</div>
+</div>
+
+<!-- SOCIAL -->
+<div class="social">
+  <a href="https://t.me/Thunderstudy_official" target="_blank" class="soc s-tg">
+    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>Telegram</a>
+  <a href="https://youtube.com/@Thunderstudy_official" target="_blank" class="soc s-yt">
+    <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
+  <a href="https://instagram.com/Thunderstudy_official" target="_blank" class="soc s-ig">
+    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</a>
+</div>
+
+<!-- HOT RESOURCES -->
+<div class="wrap" style="padding-bottom:0;">
+  <div class="hot-section">
+    <div class="sec-label">💗 New &amp; Hot Resources</div>
+    <div class="hot-scroll" id="hotScroll"></div>
+  </div>
+
+  <!-- TRENDING -->
+  <div class="trending-section">
+    <div class="sec-label">📈 Trending Subjects Right Now</div>
+    <div class="trending-grid" id="trendingGrid"></div>
+  </div>
+
+  <!-- BOOKS -->
+  <div class="books-section">
+    <div class="sec-label">📚 Sample Paper Books
+      <span style="flex:1;height:1px;background:linear-gradient(to right,var(--p2),transparent);display:block;"></span>
+    </div>
+    <div class="books-scroll" id="booksScroll"></div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input type="text" class="search-box" id="searchBox" placeholder="Search… Physics, Biology, English, GAT…"/>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab on" onclick="switchTab('c12',this)"><span>🎓 Class 12 Science</span></button>
+  <button class="tab" onclick="switchTab('cuet',this)"><span>🏆 CUET Science</span></button>
+</div>
+
+<!-- CONTENT -->
+<div class="wrap">
+  <div id="p-c12" class="panel on">
+    <div class="sec-head">Class 12 CBSE — Science Stream</div>
+    <div class="list" id="l-c12"></div>
+    <div class="no-results" id="nr-c12">No subjects found. Try a different search. 💕</div>
+  </div>
+
+  <div id="p-cuet" class="panel">
+    <div class="sec-head">CUET — Science Subjects</div>
+    <div class="list" id="l-cuet"></div>
+    <div class="no-results" id="nr-cuet">No subjects found. Try a different search. 💕</div>
+    <div class="cbt-section">
+      <div style="font-size:38px;margin-bottom:12px;">🖥️💗</div>
+      <div class="cbt-title">CUET CBT Mock Test — Full Simulation</div>
+      <div class="cbt-sub">Experience the real CUET exam interface. Timed, scored, and reviewed.</div>
+      <a href="#" class="cbt-btn" onclick="return false;">
+        <div class="pulse-ring"></div>
+        <span>🎯 Start CUET CBT Mock Test</span>
+      </a>
+      <div class="cbt-chips">
+        <span class="cbt-chip">⏱ Timed Exam</span>
+        <span class="cbt-chip">📊 Instant Score</span>
+        <span class="cbt-chip">🔁 Re-attempt</span>
+        <span class="cbt-chip">📱 Mobile Friendly</span>
+        <span class="cbt-chip">🆓 Completely Free</span>
+        <span class="cbt-chip">💗 You Got This!</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-brand">⚡ ThunderStudy — Science Edition 💗</div>
+  <p>Free Education For All — By Thunder Team</p>
+  <p style="margin-top:4px;">@Thunderstudy_official &nbsp;·&nbsp; All platforms</p>
+  <p style="margin-top:8px;font-size:.75rem;">💗 Study hard, shine bright ✨</p>
+</footer>
+</div>
+
+<button class="up" id="upBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ══ SPLASH ══ */
+setTimeout(()=>document.getElementById('splash').classList.add('hide'), 2600);
+
+/* ══ FLOATING HEARTS ══ */
+(function(){
+  const container = document.getElementById('floatingHearts');
+  const hearts = ['💗','💕','💖','🌸','✨','💫','🌷','💝'];
+  for(let i=0;i<18;i++){
+    const el=document.createElement('div');
+    el.className='fh';
+    el.textContent=hearts[Math.floor(Math.random()*hearts.length)];
+    el.style.left=Math.random()*100+'vw';
+    el.style.fontSize=(0.7+Math.random()*1.1)+'rem';
+    el.style.animationDuration=(12+Math.random()*18)+'s';
+    el.style.animationDelay=(Math.random()*15)+'s';
+    container.appendChild(el);
+  }
+})();
+
+/* ══ STAR CANVAS ══ */
+(function(){
+  const cv=document.getElementById('star-canvas'),ctx=cv.getContext('2d');
+  let W,H,stars=[],shooters=[],frame=0,nextShoot=100,scrollY=0;
+  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+  window.addEventListener('resize',resize);resize();
+  window.addEventListener('scroll',()=>{scrollY=window.scrollY;});
+  function mkStar(){return{x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.2,
+    a:Math.random()*.7+.15,spd:Math.random()*.007+.003,dir:Math.random()<.5?1:-1,
+    py:Math.random()*.15+.03,
+    col:Math.random()<.5?`hsl(${320+Math.random()*50},85%,${72+Math.random()*20}%)`:'#fce7f3'};}
+  for(let i=0;i<220;i++)stars.push(mkStar());
+  function mkShooter(){const ang=Math.PI/5+Math.random()*Math.PI/10,spd=9+Math.random()*10;
+    return{x:Math.random()*W*1.3-.15*W,y:Math.random()*H*.45,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,
+    len:100+Math.random()*120,a:0,maxA:.75+Math.random()*.2,life:0,maxLife:55+Math.random()*40,
+    w:.6+Math.random()*1.2,hue:310+Math.random()*70};}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    stars.forEach(s=>{s.a+=s.spd*s.dir;if(s.a>=.87||s.a<=.08)s.dir*=-1;
+      const py=(s.y-s.py*scrollY+H)%H;
+      ctx.beginPath();ctx.arc(s.x,py,s.r,0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=s.a;ctx.fill();});
+    frame++;
+    if(frame>=nextShoot&&shooters.length<6){shooters.push(mkShooter());nextShoot=frame+90+Math.random()*200;}
+    shooters=shooters.filter(s=>{s.life++;const p=s.life/s.maxLife;
+      s.a=p<.2?(p/.2)*s.maxA:p>.72?((1-p)/.28)*s.maxA:s.maxA;
+      const ang=Math.atan2(s.vy,s.vx),x2=s.x-Math.cos(ang)*s.len,y2=s.y-Math.sin(ang)*s.len;
+      const g=ctx.createLinearGradient(x2,y2,s.x,s.y);
+      g.addColorStop(0,'transparent');g.addColorStop(.55,`hsla(${s.hue},90%,82%,${s.a*.35})`);
+      g.addColorStop(1,`hsla(${s.hue+20},100%,94%,${s.a})`);
+      ctx.globalAlpha=1;ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(s.x,s.y);
+      ctx.strokeStyle=g;ctx.lineWidth=s.w;ctx.lineCap='round';ctx.stroke();
+      const rg=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.w*6);
+      rg.addColorStop(0,`hsla(${s.hue+20},100%,97%,${s.a})`);rg.addColorStop(1,'transparent');
+      ctx.beginPath();ctx.arc(s.x,s.y,s.w*6,0,Math.PI*2);ctx.fillStyle=rg;ctx.fill();
+      s.x+=s.vx;s.y+=s.vy;return s.life<s.maxLife&&s.x<W+250&&s.y<H+250;});
+    ctx.globalAlpha=1;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ══ THEME ══ */
+const themeBtn=document.getElementById('themeBtn');
+(function(){const t=localStorage.getItem('ts-theme-sci');if(t){document.documentElement.dataset.theme=t;themeBtn.textContent=t==='light'?'🌙':'☀️';}})();
+themeBtn.addEventListener('click',()=>{
+  const isDark=document.documentElement.dataset.theme==='dark';
+  document.documentElement.dataset.theme=isDark?'light':'dark';
+  themeBtn.textContent=isDark?'🌙':'☀️';
+  localStorage.setItem('ts-theme-sci',isDark?'light':'dark');
+});
+
+/* ══ DATA ══ */
+const RES=[
+  {l:"Question Bank",    i:"📚",c:"qb",tag:""},
+  {l:"Sample Paper",     i:"📄",c:"sp",tag:"hot"},
+  {l:"Notes",            i:"📝",c:"nt",tag:""},
+  {l:"Mock Test",        i:"🎯",c:"mk",tag:"hot"},
+  {l:"PYQs",             i:"🏆",c:"py",tag:""},
+  {l:"Mind Maps",        i:"🗺️", c:"mm",tag:"new"},
+  {l:"Digital Notes",    i:"💻",c:"dn",tag:"new"},
+  {l:"Handwritten Notes",i:"✍️", c:"hw",tag:""},
+  {l:"IMP Questions",    i:"❗",c:"iq",tag:"hot"},
+  {l:"IMP Topics",       i:"🔥",c:"it",tag:""},
+  {l:"Chapter-wise PYQs",i:"📂",c:"cp",tag:"new"},
+  {l:"Other IMP Data",   i:"⭐",c:"ot",tag:""},
+];
+
+/* Class 12 Science subjects */
+const C12=[
+  {n:"Physics",               s:"Science — Class 12 CBSE",       e:"⚛️"},
+  {n:"Chemistry",             s:"Science — Class 12 CBSE",       e:"🧪"},
+  {n:"Mathematics",           s:"Science — Class 12 CBSE",       e:"📐"},
+  {n:"Biology",               s:"Science — Class 12 CBSE",       e:"🔬"},
+  {n:"Computer Science",      s:"Science / IT — Class 12 CBSE",  e:"💻"},
+  {n:"English",               s:"All Streams — Class 12 CBSE",   e:"📖"},
+  {n:"Physical Education",    s:"All Streams — Class 12 CBSE",   e:"🏅"},
+];
+
+/* CUET Science subjects */
+const CUET=[
+  {n:"Physics",               s:"CUET — Domain Subject",         e:"⚛️"},
+  {n:"Chemistry",             s:"CUET — Domain Subject",         e:"🧪"},
+  {n:"Mathematics",           s:"CUET — Domain Subject",         e:"📐"},
+  {n:"Biology",               s:"CUET — Domain Subject",         e:"🔬"},
+  {n:"Computer Science",      s:"CUET — Domain Subject",         e:"💻"},
+  {n:"English",               s:"CUET — Language Test",          e:"📖"},
+  {n:"Physical Education",    s:"CUET — Domain Subject",         e:"🏅"},
+  {n:"General Aptitude Test", s:"CUET — GAT / Reasoning",        e:"🧩"},
+];
+
+/* Trending */
+const TRENDING=[
+  {n:"Physics",         e:"⚛️", views:18200,pct:96,arrow:"fire",rank:1},
+  {n:"Chemistry",       e:"🧪",views:16500,pct:88,arrow:"fire",rank:2},
+  {n:"Mathematics",     e:"📐",views:15800,pct:83,arrow:"up",  rank:3},
+  {n:"Biology",         e:"🔬",views:14200,pct:76,arrow:"fire",rank:4},
+  {n:"English",         e:"📖",views:11900,pct:63,arrow:"up",  rank:5},
+  {n:"GAT Aptitude",    e:"🧩",views:10500,pct:56,arrow:"new", rank:6},
+  {n:"Computer Science",e:"💻",views:9200, pct:48,arrow:"new", rank:7},
+  {n:"Physical Edu.",   e:"🏅",views:7800, pct:40,arrow:"up",  rank:8},
+];
+
+/* Hot items */
+const HOT_ITEMS=[
+  {title:"Physics Formula Sheet",sub:"All chapters · Class 12 + CUET",emoji:"⚛️",tag:"hot"},
+  {title:"CUET 2025 Science PYQs",sub:"Phy + Che + Bio + Maths",emoji:"🏆",tag:"new"},
+  {title:"Chemistry Mind Maps",sub:"Organic · Inorganic · Physical",emoji:"🧪",tag:"hot"},
+  {title:"Biology NCERT Notes",sub:"Class 12 · Exam ready",emoji:"🔬",tag:"new"},
+  {title:"Maths IMP Questions",sub:"Class 12 · Board focused",emoji:"📐",tag:"hot"},
+  {title:"English GAT Sample Paper",sub:"CUET 2025 · Official pattern",emoji:"📖",tag:"new"},
+  {title:"Chapter-wise PYQs Pack",sub:"Physics · Chemistry · Maths",emoji:"📂",tag:"new"},
+  {title:"Bio Diagrams Booklet",sub:"All imp diagrams labelled",emoji:"🔬",tag:"hot"},
+];
+
+/* Books */
+const BOOKS=[
+  {title:"Physics",        sub:"CBSE 2025",emoji:"⚛️", grad:"linear-gradient(160deg,#1e3a5f,#0f172a)"},
+  {title:"Chemistry",      sub:"CBSE 2025",emoji:"🧪",grad:"linear-gradient(160deg,#064e3b,#0f172a)"},
+  {title:"Mathematics",    sub:"CBSE 2025",emoji:"📐",grad:"linear-gradient(160deg,#831843,#1c0a00)"},
+  {title:"Biology",        sub:"CBSE 2025",emoji:"🔬",grad:"linear-gradient(160deg,#14532d,#0f172a)"},
+  {title:"English Core",   sub:"CBSE 2025",emoji:"📖",grad:"linear-gradient(160deg,#7c1244,#1c0a00)"},
+  {title:"Physical Edu.",  sub:"CBSE 2025",emoji:"🏅",grad:"linear-gradient(160deg,#4a1d96,#0f0720)"},
+  {title:"CUET Physics",   sub:"CUET 2025",emoji:"⚛️", grad:"linear-gradient(160deg,#1e3a5f,#0a0f1e)"},
+  {title:"CUET Chemistry", sub:"CUET 2025",emoji:"🧪",grad:"linear-gradient(160deg,#064e3b,#020c08)"},
+  {title:"CUET Maths",     sub:"CUET 2025",emoji:"📐",grad:"linear-gradient(160deg,#831843,#1c0514)"},
+  {title:"CUET Biology",   sub:"CUET 2025",emoji:"🔬",grad:"linear-gradient(160deg,#14532d,#030f07)"},
+  {title:"CUET English",   sub:"CUET 2025",emoji:"📖",grad:"linear-gradient(160deg,#7c1244,#1a0510)"},
+  {title:"CUET GAT",       sub:"CUET 2025",emoji:"🧩",grad:"linear-gradient(160deg,#3b0764,#0a0318)"},
+];
+
+/* ══ RENDER HOT ══ */
+const hotScroll=document.getElementById('hotScroll');
+HOT_ITEMS.forEach(item=>{
+  const card=document.createElement('a');card.href='#';card.className='hot-card';card.onclick=e=>e.preventDefault();
+  card.innerHTML=`
+    <div class="hot-card-img">
+      <span>${item.emoji}</span>
+      <div class="hot-card-badge">${item.tag==='new'?'<span class="hot-badge-new">💗 New</span>':'<span class="hot-badge-hot">✨ Hot</span>'}</div>
+    </div>
+    <div class="hot-card-body">
+      <div class="hot-card-title">${item.title}</div>
+      <div class="hot-card-sub">${item.sub}</div>
+    </div>`;
+  hotScroll.appendChild(card);
+});
+
+/* ══ RENDER TRENDING ══ */
+function fmtNum(n){return n>=1000?(n/1000).toFixed(1)+'k':n;}
+const trendingGrid=document.getElementById('trendingGrid');
+TRENDING.forEach(t=>{
+  const rankClass=t.rank===1?'gold':t.rank===2?'silver':t.rank===3?'bronze':'';
+  const arrowLabel=t.arrow==='fire'?'🔥 Hot':t.arrow==='new'?'💗 New':'↑ Rising';
+  const card=document.createElement('div');card.className='trend-card';
+  card.innerHTML=`
+    <div class="trend-rank ${rankClass}">#${t.rank}</div>
+    <div class="trend-ico">${t.e}</div>
+    <div class="trend-info">
+      <div class="trend-name">${t.n}</div>
+      <div class="trend-meta">${fmtNum(t.views)} students this week</div>
+      <div class="trend-bar-wrap"><div class="trend-bar" data-pct="${t.pct}"></div></div>
+    </div>
+    <div class="trend-arrow ${t.arrow}">${arrowLabel}</div>`;
+  trendingGrid.appendChild(card);
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){
+    e.target.querySelectorAll('.trend-bar').forEach(b=>{b.style.width=b.dataset.pct+'%';});
+    obs.unobserve(e.target);
+  }});
+},{threshold:.2});
+obs.observe(trendingGrid);
+
+/* ══ RENDER BOOKS ══ */
+const booksScroll=document.getElementById('booksScroll');
+BOOKS.forEach(b=>{
+  const card=document.createElement('a');card.href='#';card.className='book-card';card.onclick=e=>e.preventDefault();
+  card.innerHTML=`
+    <div class="book-cover-placeholder" style="background:${b.grad};">
+      <span style="font-size:32px;">${b.emoji}</span>
+      <div class="book-cover-title">${b.title}</div>
+    </div>
+    <div class="book-label">${b.sub}</div>`;
+  booksScroll.appendChild(card);
+});
+
+/* ══ SUBJECT CARDS ══ */
+function mkCard(subj){
+  const card=document.createElement('div');card.className='card';card.dataset.name=subj.n.toLowerCase();
+  const hd=document.createElement('div');hd.className='card-head';
+  hd.innerHTML=`
+    <div class="left">
+      <div class="ico">${subj.e}</div>
+      <div><div class="subj-name">${subj.n}</div><div class="subj-sub">${subj.s}</div></div>
+    </div>
+    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+  const body=document.createElement('div');body.className='card-body';
+  const grid=document.createElement('div');grid.className='btn-grid';
+  RES.forEach(r=>{
+    const a=document.createElement('a');a.href='#';a.className=`rb ${r.c}`;
+    let badge='';
+    if(r.tag==='new') badge='<span class="btn-new">New</span>';
+    if(r.tag==='hot') badge='<span class="btn-hot">Hot</span>';
+    a.innerHTML=`<span class="i">${r.i}</span>${r.l}${badge}`;
+    a.addEventListener('click',e=>e.preventDefault());
+    grid.appendChild(a);
+  });
+  body.appendChild(grid);card.appendChild(hd);card.appendChild(body);
+  hd.addEventListener('click',()=>{
+    const was=card.classList.contains('open');
+    card.parentElement.querySelectorAll('.card.open').forEach(c=>c.classList.remove('open'));
+    if(!was)card.classList.add('open');
+  });
+  return card;
+}
+function render(arr,id){const el=document.getElementById(id);arr.forEach(s=>el.appendChild(mkCard(s)));}
+render(C12,'l-c12');render(CUET,'l-cuet');
+
+/* ══ SEARCH ══ */
+document.getElementById('searchBox').addEventListener('input',function(){
+  const q=this.value.toLowerCase().trim();
+  const activePanel=document.querySelector('.panel.on');
+  const cards=activePanel.querySelectorAll('.card');
+  let visible=0;
+  cards.forEach(c=>{const match=c.dataset.name.includes(q)||q==='';c.classList.toggle('hidden',!match);if(match)visible++;});
+  const nrId=activePanel.id==='p-c12'?'nr-c12':'nr-cuet';
+  document.getElementById(nrId).classList.toggle('show',visible===0&&q!=='');
+});
+
+/* ══ TABS ══ */
+function switchTab(which,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+which).classList.add('on');
+  btn.classList.add('on');
+  document.getElementById('searchBox').dispatchEvent(new Event('input'));
+}
+
+/* ══ SCROLL TOP ══ */
+window.addEventListener('scroll',()=>document.getElementById('upBtn').classList.toggle('on',window.scrollY>300));
+</script>
+</body>
+</html>
