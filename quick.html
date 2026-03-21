@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT Mock Portal — PCMB · English · GAT</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p50:#fff0f6;--p100:#ffe0ef;--p200:#ffb3d1;--p300:#ff80b5;
+  --p400:#ff4d96;--p500:#e8006f;--p600:#c2005d;--p700:#9a004a;
+  --dark:#1a0010;--mid:#3d0028;--text:#2d0020;--muted:#7a3560;
+  --border:#ffd6e8;--r:14px;
+  --sh:0 4px 24px rgba(232,0,111,.10);
+  --shlg:0 12px 48px rgba(232,0,111,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--p50);color:var(--text);overflow-x:hidden}
+
+/* ── TOPBAR ── */
+.topbar{background:rgba(26,0,16,.97);backdrop-filter:blur(12px);padding:0 30px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:999;border-bottom:2px solid var(--p400);min-height:56px}
+.logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff}
+.logo span{color:var(--p300)}
+.topnav{display:flex;gap:2px;flex-wrap:wrap}
+.topnav a{color:rgba(255,255,255,.68);text-decoration:none;font-size:.78rem;font-weight:500;padding:7px 11px;border-radius:7px;transition:all .2s}
+.topnav a:hover,.topnav a.active{background:var(--p400);color:#fff}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#2d0020 0%,#7a0050 40%,#c2005d 75%,#ff4d96 100%);padding:56px 20px 52px;position:relative;overflow:hidden;text-align:center}
+.hero::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,77,150,.25),transparent 70%);top:-180px;right:-80px;pointer-events:none}
+.hero::after{content:'';position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(255,77,150,.15),transparent 70%);bottom:-100px;left:-50px;pointer-events:none}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.11);border:1px solid rgba(255,200,230,.3);color:#ffd6e8;font-size:.73rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 18px;border-radius:30px;margin-bottom:16px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:#fff;line-height:1.15;margin-bottom:12px;position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:var(--p300)}
+.hero-sub{color:rgba(255,255,255,.65);font-size:.97rem;max-width:540px;margin:0 auto 26px;line-height:1.7;position:relative;z-index:1}
+.pills{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;position:relative;z-index:1}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:7px 20px;border-radius:30px;font-size:.85rem;font-weight:500;text-decoration:none;transition:all .2s}
+.pill:hover{background:var(--p400);border-color:var(--p400);transform:translateY(-2px)}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+.sec-anchor{scroll-margin-top:68px}
+
+/* ── SECTION HEADER ── */
+.sec-head{display:flex;align-items:center;gap:14px;margin:50px 0 20px}
+.sec-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.sec-head h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--mid)}
+.sec-head small{display:block;color:var(--muted);font-size:.83rem;margin-top:2px}
+.sec-div{flex:1;height:2px;background:linear-gradient(90deg,var(--p300),transparent);border-radius:2px}
+
+/* ── BOOK TILES ── */
+.book-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:28px}
+.book-card{background:#fff;border-radius:16px;border:1.5px solid var(--border);box-shadow:var(--shlg);display:flex;gap:0;overflow:hidden;min-height:220px;position:relative}
+.book-spine{width:18px;background:linear-gradient(180deg,var(--p500),var(--p700));flex-shrink:0;position:relative}
+.book-spine::after{content:'';position:absolute;right:0;top:0;bottom:0;width:3px;background:rgba(0,0,0,.15)}
+.book-cover-img{width:160px;flex-shrink:0;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--p100) 0%,var(--p200) 100%)}
+.book-cover-img.qb{background:linear-gradient(135deg,#e8f4ff 0%,#b3d9ff 100%)}
+.book-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:16px}
+.book-img-ph .bicon{font-size:3.2rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,.12))}
+.book-img-ph .blabel{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--p600);text-align:center}
+/* A4 badge */
+.a4-badge{position:absolute;top:8px;right:8px;background:var(--p500);color:#fff;font-size:.6rem;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:1px}
+.book-info{flex:1;padding:22px 20px 18px;display:flex;flex-direction:column;gap:0}
+.book-type-tag{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px;width:fit-content}
+.book-type-tag.sample{background:var(--p100);color:var(--p600)}
+.book-type-tag.qbank{background:#dbeeff;color:#005fa3}
+.book-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--mid);margin-bottom:6px;line-height:1.3}
+.book-about{font-size:.81rem;color:var(--muted);line-height:1.6;flex:1;margin-bottom:14px}
+.book-meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.bmeta{background:var(--p50);border:1px solid var(--border);border-radius:6px;font-size:.7rem;color:var(--muted);padding:3px 9px;font-weight:500}
+.book-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--p400),var(--p600));color:#fff;font-size:.78rem;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none;transition:all .2s;width:fit-content}
+.book-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,0,111,.35)}
+.book-btn.qb-btn{background:linear-gradient(135deg,#0066cc,#004a99)}
+
+/* ── TABS ── */
+.tab-bar{display:flex;gap:0;background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:20px;width:fit-content;box-shadow:var(--sh)}
+.tab-btn{padding:9px 28px;border-radius:9px;font-size:.87rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .2s;letter-spacing:.2px}
+.tab-btn.active{background:linear-gradient(135deg,var(--p400),var(--p600));color:#fff;box-shadow:0 4px 16px rgba(232,0,111,.3)}
+
+/* ── TAB PANES ── */
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ── CHAPTER ACCORDION ── */
+.acc{background:#fff;border-radius:var(--r);border:1.5px solid var(--border);box-shadow:var(--sh);overflow:hidden;margin-bottom:10px}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;background:var(--p50);user-select:none;transition:background .2s}
+.acc-head:hover{background:var(--p100)}
+.acc-left{display:flex;align-items:center;gap:11px}
+.cnum{width:28px;height:28px;background:linear-gradient(135deg,var(--p400),var(--p600));color:#fff;border-radius:7px;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cname{font-weight:600;font-size:.88rem;color:var(--text)}
+.cname small{display:block;font-size:.71rem;font-weight:400;color:var(--muted);margin-top:1px}
+.cacc-arrow{font-size:.86rem;color:var(--p400);transition:transform .25s;flex-shrink:0}
+.acc-body{display:none;padding:16px 18px 18px;background:#fff}
+.acc-body.open{display:block}
+.cacc-arrow.open{transform:rotate(180deg)}
+
+/* ── NOTES BUTTONS (inside ch accordion) ── */
+.notes-btns{display:flex;gap:10px;flex-wrap:wrap}
+.note-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:9px;font-size:.82rem;font-weight:600;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.note-btn.mindmap{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff}
+.note-btn.mindmap:hover{box-shadow:0 6px 20px rgba(124,58,237,.35);transform:translateY(-2px)}
+.note-btn.notes{background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#fff}
+.note-btn.notes:hover{box-shadow:0 6px 20px rgba(14,165,233,.35);transform:translateY(-2px)}
+
+/* ── FULL MOCK CARDS (in Mock tab) ── */
+.mock-section-label{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--mid);margin:18px 0 12px;display:flex;align-items:center;gap:10px}
+.mock-section-label::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,var(--p200),transparent)}
+.full-mock-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.fmc{background:linear-gradient(135deg,var(--mid) 0%,#a3005e 100%);border-radius:var(--r);padding:20px 16px;position:relative;overflow:hidden;box-shadow:var(--shlg)}
+.fmc::before{content:'';position:absolute;width:90px;height:90px;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);top:-20px;right:-20px;border-radius:50%}
+.fmc-set{font-size:.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--p200);margin-bottom:4px}
+.fmc-title{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;margin-bottom:2px}
+.fmc-meta{font-size:.71rem;color:rgba(255,255,255,.5);margin-bottom:10px}
+.fmc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.fmc-tag{background:rgba(255,255,255,.09);color:rgba(255,255,255,.7);font-size:.63rem;padding:2px 8px;border-radius:20px;border:1px solid rgba(255,255,255,.12)}
+.fmc-btn{display:inline-block;background:var(--p300);color:var(--dark);font-weight:700;font-size:.76rem;padding:8px 15px;border-radius:7px;text-decoration:none;transition:all .2s}
+.fmc-btn:hover{background:#fff;transform:translateY(-1px)}
+.fmc-num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:rgba(255,255,255,.08);position:absolute;top:8px;right:12px;line-height:1}
+
+/* ── CHAPTER MOCK SETS (inside ch accordion, mock tab) ── */
+.ch-mock-sets{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cms{background:linear-gradient(135deg,var(--p50),var(--p100));border:1.5px solid var(--border);border-radius:10px;padding:13px 12px;text-align:center}
+.cms-set{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--p500);margin-bottom:4px}
+.cms-info{font-size:.75rem;color:var(--muted);margin-bottom:8px;line-height:1.4}
+.cms-btn{display:inline-block;background:linear-gradient(135deg,var(--p400),var(--p600));color:#fff;font-size:.72rem;font-weight:700;padding:7px 14px;border-radius:7px;text-decoration:none;transition:all .2s}
+.cms-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,0,111,.3)}
+
+/* ── PYQ ── */
+.pyq-section{background:linear-gradient(135deg,#2d0020 0%,#5a0038 100%);border-radius:20px;padding:38px 30px;margin:56px 0 36px;position:relative;overflow:hidden}
+.pyq-section::before{content:'PYQ';position:absolute;font-family:'Playfair Display',serif;font-size:7rem;font-weight:900;color:rgba(255,255,255,.03);right:24px;top:6px;pointer-events:none}
+.pyq-head{text-align:center;margin-bottom:30px}
+.pyq-head h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.9rem;margin-bottom:7px}
+.pyq-head p{color:rgba(255,255,255,.5);font-size:.88rem}
+.pyq-years{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pyq-yr{background:rgba(255,255,255,.06);border:1px solid rgba(255,100,160,.2);border-radius:14px;padding:22px 16px;transition:all .2s}
+.pyq-yr:hover{background:rgba(255,255,255,.1);border-color:var(--p400);transform:translateY(-2px)}
+.pyq-yr-label{display:inline-block;background:linear-gradient(135deg,var(--p400),var(--p600));color:#fff;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;padding:4px 16px;border-radius:7px;margin-bottom:14px}
+.pyq-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.pyq-list a{display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:rgba(255,255,255,.75);font-size:.83rem;padding:7px 10px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);transition:all .18s}
+.pyq-list a:hover{background:var(--p500);color:#fff}
+
+/* ICON COLS */
+.ic-phy{background:linear-gradient(135deg,#7b2ff7,#c34bff)}
+.ic-che{background:linear-gradient(135deg,#0066ff,#00cfff)}
+.ic-mat{background:linear-gradient(135deg,#ff6f00,#ffd600)}
+.ic-bio{background:linear-gradient(135deg,#00b050,#70ff8e)}
+.ic-eng{background:linear-gradient(135deg,#e8006f,#ff9ccc)}
+.ic-gat{background:linear-gradient(135deg,#8b0037,#e8006f)}
+
+footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:.79rem;border-top:1px solid var(--border);margin-top:6px}
+footer strong{color:var(--p500)}
+
+@media(max-width:900px){
+  .book-row{grid-template-columns:1fr}
+  .full-mock-grid{grid-template-columns:1fr 1fr}
+  .ch-mock-sets{grid-template-columns:1fr 1fr}
+  .pyq-years{grid-template-columns:1fr}
+  .topnav{display:none}
+}
+@media(max-width:600px){
+  .book-card{flex-direction:column}
+  .book-cover-img{width:100%;height:160px}
+  .book-spine{width:100%;height:14px}
+  .full-mock-grid{grid-template-columns:1fr}
+  .ch-mock-sets{grid-template-columns:1fr 1fr}
+  .sec-head h2{font-size:1.3rem}
+  .pyq-section{padding:22px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="logo">CBT<span>Mock</span> Portal</div>
+  <div class="topnav">
+    <a href="#physics">⚡ Physics</a>
+    <a href="#chemistry">🧪 Chemistry</a>
+    <a href="#maths">📐 Maths</a>
+    <a href="#biology">🧬 Biology</a>
+    <a href="#english">📘 English</a>
+    <a href="#gat">🧠 GAT</a>
+    <a href="#pyq">📋 PYQ</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Class 12 · CBSE · CUET 2025</div>
+  <h1>Your Complete <em>CBT Mock</em><br>Practice Portal</h1>
+  <p class="hero-sub">Notes · Mindmaps · Chapter Mocks · Full Tests · PYQs — everything in one place.</p>
+  <div class="pills">
+    <a class="pill" href="#physics">⚡ Physics</a>
+    <a class="pill" href="#chemistry">🧪 Chemistry</a>
+    <a class="pill" href="#maths">📐 Maths</a>
+    <a class="pill" href="#biology">🧬 Biology</a>
+    <a class="pill" href="#english">📘 English</a>
+    <a class="pill" href="#gat">🧠 GAT</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════════════
+     PHYSICS
+══════════════════════════════════════════ -->
+<div class="sec-anchor" id="physics">
+  <div class="sec-head">
+    <div class="sec-icon ic-phy">⚡</div>
+    <div><h2>Physics</h2><small>14 Chapters · Notes + Mindmaps · 4-Set Chapter Mocks · 4 Full Mocks</small></div>
+    <div class="sec-div"></div>
+  </div>
+
+  <!-- BOOK TILES -->
+  <div class="book-row">
+    <!-- Sample Book -->
+    <div class="book-card">
+      <div class="book-spine"></div>
+      <div class="book-cover-img">
+        <div class="a4-badge">A4</div>
+        <div class="book-img-ph">
+          <div class="bicon">📗</div>
+          <div class="blabel">Sample Paper Book</div>
+        </div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag sample">📄 Sample Paper Book</span>
+        <div class="book-title">Physics — Solved Sample Papers 2025</div>
+        <div class="book-about">20 fully solved CBSE-pattern sample papers with step-by-step solutions, marking scheme, and examiner tips. Covers all 14 chapters with unit-wise weightage analysis and last-minute revision pointers.</div>
+        <div class="book-meta-row">
+          <span class="bmeta">20 Papers</span>
+          <span class="bmeta">350 Pages</span>
+          <span class="bmeta">A4 Size</span>
+          <span class="bmeta">CBSE 2025</span>
+        </div>
+        <a href="#" class="book-btn">📥 Download PDF</a>
+      </div>
+    </div>
+    <!-- Question Bank -->
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#0066cc,#004499)"></div>
+      <div class="book-cover-img qb">
+        <div class="a4-badge" style="background:#0066cc">A4</div>
+        <div class="book-img-ph">
+          <div class="bicon">📘</div>
+          <div class="blabel">Question Bank</div>
+        </div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag qbank">📚 Question Bank</span>
+        <div class="book-title">Physics — Chapter-wise Question Bank</div>
+        <div class="book-about">2500+ MCQs, assertion-reason, case-based, and short-answer questions sorted chapter-wise with difficulty tags. Includes PYQs from 2015–2024 and topic-wise answer key with concept explanations.</div>
+        <div class="book-meta-row">
+          <span class="bmeta">2500+ Qs</span>
+          <span class="bmeta">420 Pages</span>
+          <span class="bmeta">A4 Size</span>
+          <span class="bmeta">With Answers</span>
+        </div>
+        <a href="#" class="book-btn qb-btn">📥 Download PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('phy','notes',this)">🗒️ Notes</button>
+    <button class="tab-btn" onclick="switchTab('phy','mock',this)">📝 Mock Tests</button>
+  </div>
+
+  <!-- NOTES TAB -->
+  <div class="tab-pane active" id="phy-notes">
+    <!-- Ch 1 -->
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">Electric Charges and Fields<small>Coulomb's Law · Gauss's Law · Field Lines</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Electrostatic Potential &amp; Capacitance<small>Potential · Equipotential Surfaces · Capacitors</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Current Electricity<small>Ohm's Law · Kirchhoff's Laws · Wheatstone Bridge</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">Moving Charges &amp; Magnetism<small>Biot-Savart · Ampere's Law · Cyclotron</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">5</div><div class="cname">Magnetism &amp; Matter<small>Bar Magnets · Magnetic Properties · Earth's Field</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">6</div><div class="cname">Electromagnetic Induction<small>Faraday · Lenz's Law · Self &amp; Mutual Inductance</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">7</div><div class="cname">Alternating Current<small>RMS · LCR Circuits · Resonance · Transformer</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">8</div><div class="cname">Electromagnetic Waves<small>EM Spectrum · Properties · Uses</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">9</div><div class="cname">Ray Optics &amp; Optical Instruments<small>Mirrors · Lenses · Prism · Telescope</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">10</div><div class="cname">Wave Optics<small>Huygens · Interference · Diffraction · Polarisation</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">11</div><div class="cname">Dual Nature of Radiation &amp; Matter<small>Photoelectric Effect · de Broglie · Davisson-Germer</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">12</div><div class="cname">Atoms<small>Bohr Model · Spectral Series · Hydrogen Spectrum</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">13</div><div class="cname">Nuclei<small>Binding Energy · Radioactivity · Fission · Fusion</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">14</div><div class="cname">Semiconductor Electronics<small>Diodes · Transistors · Logic Gates</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+  </div>
+
+  <!-- MOCK TAB -->
+  <div class="tab-pane" id="phy-mock">
+    <div class="mock-section-label">⚡ Full Subject Mock Tests</div>
+    <div class="full-mock-grid">
+      <div class="fmc"><div class="fmc-num">1</div><div class="fmc-set">Set 1</div><div class="fmc-title">Physics Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">All Chapters</span><span class="fmc-tag">CBSE</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">2</div><div class="fmc-set">Set 2</div><div class="fmc-title">Physics Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Optics Heavy</span><span class="fmc-tag">Medium</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">3</div><div class="fmc-set">Set 3</div><div class="fmc-title">Physics Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Electricity Focus</span><span class="fmc-tag">Hard</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">4</div><div class="fmc-set">Set 4</div><div class="fmc-title">Physics Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Modern Physics</span><span class="fmc-tag">Advanced</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+    </div>
+
+    <div class="mock-section-label">📋 Chapter-wise Mock Tests (4 Sets · 50 Qs Each)</div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">Electric Charges and Fields</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Electrostatic Potential &amp; Capacitance</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Current Electricity</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">Moving Charges &amp; Magnetism</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">5</div><div class="cname">Magnetism &amp; Matter</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">6</div><div class="cname">Electromagnetic Induction</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">7</div><div class="cname">Alternating Current</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">8</div><div class="cname">Electromagnetic Waves</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">9</div><div class="cname">Ray Optics &amp; Optical Instruments</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">10</div><div class="cname">Wave Optics</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">11</div><div class="cname">Dual Nature of Radiation &amp; Matter</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">12</div><div class="cname">Atoms</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">13</div><div class="cname">Nuclei</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">14</div><div class="cname">Semiconductor Electronics</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CHEMISTRY
+══════════════════════════════════════════ -->
+<div class="sec-anchor" id="chemistry">
+  <div class="sec-head">
+    <div class="sec-icon ic-che">🧪</div>
+    <div><h2>Chemistry</h2><small>16 Chapters · Notes + Mindmaps · 4-Set Chapter Mocks · 4 Full Mocks</small></div>
+    <div class="sec-div"></div>
+  </div>
+  <div class="book-row">
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#0066ff,#004499)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#e0f0ff,#b3d9ff)">
+        <div class="a4-badge" style="background:#0066ff">A4</div>
+        <div class="book-img-ph"><div class="bicon">📗</div><div class="blabel">Sample Paper Book</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag sample">📄 Sample Paper Book</span>
+        <div class="book-title">Chemistry — Solved Sample Papers 2025</div>
+        <div class="book-about">20 fully solved Chemistry sample papers with detailed solutions for all 16 chapters. Covers Physical, Inorganic, and Organic Chemistry with weightage analysis, common mistakes guide, and quick-revision tables.</div>
+        <div class="book-meta-row"><span class="bmeta">20 Papers</span><span class="bmeta">360 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">CBSE 2025</span></div>
+        <a href="#" class="book-btn">📥 Download PDF</a>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#00b050,#007030)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#e0ffe8,#b3ffc8)">
+        <div class="a4-badge" style="background:#00b050">A4</div>
+        <div class="book-img-ph"><div class="bicon">📘</div><div class="blabel">Question Bank</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag qbank" style="background:#dfffed;color:#007030">📚 Question Bank</span>
+        <div class="book-title">Chemistry — Chapter-wise Question Bank</div>
+        <div class="book-about">3000+ MCQs including assertion-reason, case-study, and match-the-column questions. Chapter-wise and topic-wise sorted with difficulty grading, PYQs 2015–2024, and concept-based answer explanations.</div>
+        <div class="book-meta-row"><span class="bmeta">3000+ Qs</span><span class="bmeta">450 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">With Answers</span></div>
+        <a href="#" class="book-btn" style="background:linear-gradient(135deg,#00b050,#007030)">📥 Download PDF</a>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('che','notes',this)">🗒️ Notes</button>
+    <button class="tab-btn" onclick="switchTab('che','mock',this)">📝 Mock Tests</button>
+  </div>
+  <div class="tab-pane active" id="che-notes">
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">The Solid State<small>Crystal Structures · Unit Cell · Defects</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Solutions<small>Colligative Properties · Osmosis · Raoult's Law</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Electrochemistry<small>Nernst Equation · Batteries · Electrolysis</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">Chemical Kinetics<small>Rate Laws · Order · Arrhenius Equation</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">5</div><div class="cname">Surface Chemistry<small>Adsorption · Colloids · Catalysis</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">6</div><div class="cname">General Principles of Isolation of Elements<small>Ores · Metallurgy · Refining</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">7</div><div class="cname">The p-Block Elements<small>Group 15–18 · Preparation · Properties</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">8</div><div class="cname">The d- and f-Block Elements<small>Transition Metals · Lanthanides · Actinides</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">9</div><div class="cname">Coordination Compounds<small>IUPAC Naming · VBT · CFT · Isomerism</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">10</div><div class="cname">Haloalkanes &amp; Haloarenes<small>SN1 · SN2 · Elimination</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">11</div><div class="cname">Alcohols, Phenols &amp; Ethers<small>Preparation · Properties · Uses</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">12</div><div class="cname">Aldehydes, Ketones &amp; Carboxylic Acids<small>Nucleophilic Addition · Aldol · Cannizzaro</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">13</div><div class="cname">Amines<small>Classification · Gabriel Synthesis · Diazonium</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">14</div><div class="cname">Biomolecules<small>Carbohydrates · Proteins · Nucleic Acids</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">15</div><div class="cname">Polymers<small>Addition · Condensation · Copolymers</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">16</div><div class="cname">Chemistry in Everyday Life<small>Medicines · Food · Cleansing Agents</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+  </div>
+  <div class="tab-pane" id="che-mock">
+    <div class="mock-section-label">🧪 Full Subject Mock Tests</div>
+    <div class="full-mock-grid">
+      <div class="fmc"><div class="fmc-num">1</div><div class="fmc-set">Set 1</div><div class="fmc-title">Chemistry Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">All Chapters</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">2</div><div class="fmc-set">Set 2</div><div class="fmc-title">Chemistry Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Inorganic Focus</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">3</div><div class="fmc-set">Set 3</div><div class="fmc-title">Chemistry Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Organic Heavy</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">4</div><div class="fmc-set">Set 4</div><div class="fmc-title">Chemistry Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Physical Chem</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+    </div>
+    <div class="mock-section-label">📋 Chapter-wise Mock Tests (4 Sets · 50 Qs Each)</div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">The Solid State</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Solutions</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Electrochemistry</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">Chemical Kinetics</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">5</div><div class="cname">Surface Chemistry</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">6</div><div class="cname">Isolation of Elements</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">7</div><div class="cname">p-Block Elements</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">8</div><div class="cname">d- and f-Block Elements</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">9</div><div class="cname">Coordination Compounds</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">10</div><div class="cname">Haloalkanes &amp; Haloarenes</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">11</div><div class="cname">Alcohols, Phenols &amp; Ethers</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">12</div><div class="cname">Aldehydes, Ketones &amp; Carboxylic Acids</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">13</div><div class="cname">Amines</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">14</div><div class="cname">Biomolecules</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">15</div><div class="cname">Polymers</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">16</div><div class="cname">Chemistry in Everyday Life</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     MATHS
+══════════════════════════════════════════ -->
+<div class="sec-anchor" id="maths">
+  <div class="sec-head">
+    <div class="sec-icon ic-mat">📐</div>
+    <div><h2>Mathematics</h2><small>13 Chapters · Notes + Mindmaps · 4-Set Chapter Mocks · 4 Full Mocks</small></div>
+    <div class="sec-div"></div>
+  </div>
+  <div class="book-row">
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#ff6f00,#c45000)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#fff5e0,#ffe0b3)">
+        <div class="a4-badge" style="background:#ff6f00">A4</div>
+        <div class="book-img-ph"><div class="bicon">📗</div><div class="blabel">Sample Paper Book</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag sample">📄 Sample Paper Book</span>
+        <div class="book-title">Mathematics — Solved Sample Papers 2025</div>
+        <div class="book-about">20 fully solved Maths sample papers with complete step-by-step working, common error analysis, and marking scheme. Covers Calculus, Algebra, Vectors, 3D Geometry, and Probability with chapter-wise scoring tips.</div>
+        <div class="book-meta-row"><span class="bmeta">20 Papers</span><span class="bmeta">380 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">CBSE 2025</span></div>
+        <a href="#" class="book-btn" style="background:linear-gradient(135deg,#ff6f00,#c45000)">📥 Download PDF</a>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#ffd600,#c9a800)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#fffde0,#fff9b3)">
+        <div class="a4-badge" style="background:#c9a800">A4</div>
+        <div class="book-img-ph"><div class="bicon">📘</div><div class="blabel">Question Bank</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag qbank" style="background:#fffde0;color:#856200">📚 Question Bank</span>
+        <div class="book-title">Mathematics — Chapter-wise Question Bank</div>
+        <div class="book-about">2800+ problems from MCQs to long-answer type, sorted chapter-wise with difficulty levels. Includes HOTS questions, value-based problems, PYQs 2015–2024, and formula sheets for quick revision.</div>
+        <div class="book-meta-row"><span class="bmeta">2800+ Qs</span><span class="bmeta">430 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">With Solutions</span></div>
+        <a href="#" class="book-btn" style="background:linear-gradient(135deg,#ffd600,#c9a800);color:#1a1a00">📥 Download PDF</a>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('mat','notes',this)">🗒️ Notes</button>
+    <button class="tab-btn" onclick="switchTab('mat','mock',this)">📝 Mock Tests</button>
+  </div>
+  <div class="tab-pane active" id="mat-notes">
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">Relations and Functions<small>Types of Relations · Composition · Binary Operations</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Inverse Trigonometric Functions<small>Principal Value · Identities · Domain</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Matrices<small>Types · Operations · Transpose · Inverse</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">Determinants<small>Properties · Adjoint · Applications</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">5</div><div class="cname">Continuity &amp; Differentiability<small>Limits · Chain Rule · MVT</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">6</div><div class="cname">Application of Derivatives<small>Tangents · Maxima-Minima · Rate of Change</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">7</div><div class="cname">Integrals<small>Substitution · By Parts · Definite Integrals</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">8</div><div class="cname">Application of Integrals<small>Area Under Curves · Bounded Regions</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">9</div><div class="cname">Differential Equations<small>Order · Variable Separable · Homogeneous</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">10</div><div class="cname">Vector Algebra<small>Dot Product · Cross Product · Section Formula</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">11</div><div class="cname">Three Dimensional Geometry<small>Lines · Planes · Direction Cosines</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">12</div><div class="cname">Linear Programming<small>Constraints · Feasible Region · Optimisation</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">13</div><div class="cname">Probability<small>Bayes' Theorem · Random Variables · Distributions</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+  </div>
+  <div class="tab-pane" id="mat-mock">
+    <div class="mock-section-label">📐 Full Subject Mock Tests</div>
+    <div class="full-mock-grid">
+      <div class="fmc"><div class="fmc-num">1</div><div class="fmc-set">Set 1</div><div class="fmc-title">Maths Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">All Chapters</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">2</div><div class="fmc-set">Set 2</div><div class="fmc-title">Maths Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Calculus Heavy</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">3</div><div class="fmc-set">Set 3</div><div class="fmc-title">Maths Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Algebra Focus</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">4</div><div class="fmc-set">Set 4</div><div class="fmc-title">Maths Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Geometry + Prob</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+    </div>
+    <div class="mock-section-label">📋 Chapter-wise Mock Tests (4 Sets · 50 Qs Each)</div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">Relations and Functions</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Inverse Trigonometric Functions</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Matrices</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">Determinants</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">5</div><div class="cname">Continuity &amp; Differentiability</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">6</div><div class="cname">Application of Derivatives</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">7</div><div class="cname">Integrals</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">8</div><div class="cname">Application of Integrals</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">9</div><div class="cname">Differential Equations</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">10</div><div class="cname">Vector Algebra</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">11</div><div class="cname">Three Dimensional Geometry</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">12</div><div class="cname">Linear Programming</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">13</div><div class="cname">Probability</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     BIOLOGY
+══════════════════════════════════════════ -->
+<div class="sec-anchor" id="biology">
+  <div class="sec-head">
+    <div class="sec-icon ic-bio">🧬</div>
+    <div><h2>Biology</h2><small>16 Chapters · Notes + Mindmaps · 4-Set Chapter Mocks · 4 Full Mocks</small></div>
+    <div class="sec-div"></div>
+  </div>
+  <div class="book-row">
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#00b050,#007030)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#e0ffe8,#b3ffc8)">
+        <div class="a4-badge" style="background:#00b050">A4</div>
+        <div class="book-img-ph"><div class="bicon">📗</div><div class="blabel">Sample Paper Book</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag sample">📄 Sample Paper Book</span>
+        <div class="book-title">Biology — Solved Sample Papers 2025</div>
+        <div class="book-about">20 fully solved Biology sample papers covering Genetics, Ecology, Biotechnology, and Human Physiology. Includes diagram-based questions with labelled answers, assertion-reason solutions, and NEET-style MCQ sets.</div>
+        <div class="book-meta-row"><span class="bmeta">20 Papers</span><span class="bmeta">390 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">CBSE + NEET</span></div>
+        <a href="#" class="book-btn" style="background:linear-gradient(135deg,#00b050,#007030)">📥 Download PDF</a>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#009900,#005500)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#f0fff4,#ccffdd)">
+        <div class="a4-badge" style="background:#007030">A4</div>
+        <div class="book-img-ph"><div class="bicon">📘</div><div class="blabel">Question Bank</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag qbank" style="background:#e8fff0;color:#007030">📚 Question Bank</span>
+        <div class="book-title">Biology — Chapter-wise Question Bank</div>
+        <div class="book-about">3500+ MCQs, match the column, and diagram-based Qs. Covers all 16 NCERT chapters with difficulty grading (Easy/Medium/Hard), NEET PYQs 2015–2024, concept clarifications, and topic-wise answer key.</div>
+        <div class="book-meta-row"><span class="bmeta">3500+ Qs</span><span class="bmeta">480 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">NEET + CBSE</span></div>
+        <a href="#" class="book-btn" style="background:linear-gradient(135deg,#009900,#005500)">📥 Download PDF</a>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('bio','notes',this)">🗒️ Notes</button>
+    <button class="tab-btn" onclick="switchTab('bio','mock',this)">📝 Mock Tests</button>
+  </div>
+  <div class="tab-pane active" id="bio-notes">
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">Reproduction in Organisms<small>Asexual · Sexual · Life Span</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Sexual Reproduction in Flowering Plants<small>Pollination · Fertilisation · Seed Formation</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Human Reproduction<small>Male/Female System · Gametogenesis · Fertilisation</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">Reproductive Health<small>STIs · Contraception · MTP</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">5</div><div class="cname">Principles of Inheritance &amp; Variation<small>Mendel's Laws · Linkage · Disorders</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">6</div><div class="cname">Molecular Basis of Inheritance<small>DNA · Replication · Transcription · Translation</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">7</div><div class="cname">Evolution<small>Origin of Life · Darwin · Hardy-Weinberg</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">8</div><div class="cname">Human Health &amp; Disease<small>Immunity · AIDS · Cancer · Vaccines</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">9</div><div class="cname">Strategies for Enhancement in Food Production<small>Animal Husbandry · Plant Breeding</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">10</div><div class="cname">Microbes in Human Welfare<small>Biogas · Sewage · Fermentation</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">11</div><div class="cname">Biotechnology: Principles &amp; Processes<small>Recombinant DNA · PCR · Restriction Enzymes</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">12</div><div class="cname">Biotechnology &amp; its Applications<small>GMOs · Insulin · Ethical Issues</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">13</div><div class="cname">Organisms &amp; Populations<small>Ecology · Population Growth · Interactions</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">14</div><div class="cname">Ecosystem<small>Food Chains · Energy Flow · Nutrient Cycling</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">15</div><div class="cname">Biodiversity &amp; Conservation<small>Hotspots · In-situ · Ex-situ</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">16</div><div class="cname">Environmental Issues<small>Pollution · Global Warming · Deforestation</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Chapter Notes</a></div></div></div>
+  </div>
+  <div class="tab-pane" id="bio-mock">
+    <div class="mock-section-label">🧬 Full Subject Mock Tests</div>
+    <div class="full-mock-grid">
+      <div class="fmc"><div class="fmc-num">1</div><div class="fmc-set">Set 1</div><div class="fmc-title">Biology Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">All Chapters</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">2</div><div class="fmc-set">Set 2</div><div class="fmc-title">Biology Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Genetics Focus</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">3</div><div class="fmc-set">Set 3</div><div class="fmc-title">Biology Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Ecology Heavy</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">4</div><div class="fmc-set">Set 4</div><div class="fmc-title">Biology Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Biotech + Repro</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+    </div>
+    <div class="mock-section-label">📋 Chapter-wise Mock Tests (4 Sets · 50 Qs Each)</div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">Reproduction in Organisms</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Sexual Reproduction in Flowering Plants</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Human Reproduction</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">Reproductive Health</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">5</div><div class="cname">Principles of Inheritance &amp; Variation</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">6</div><div class="cname">Molecular Basis of Inheritance</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">7</div><div class="cname">Evolution</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">8</div><div class="cname">Human Health &amp; Disease</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">9</div><div class="cname">Strategies for Enhancement in Food Production</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">10</div><div class="cname">Microbes in Human Welfare</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">11</div><div class="cname">Biotechnology: Principles &amp; Processes</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">12</div><div class="cname">Biotechnology &amp; its Applications</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">13</div><div class="cname">Organisms &amp; Populations</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">14</div><div class="cname">Ecosystem</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">15</div><div class="cname">Biodiversity &amp; Conservation</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">16</div><div class="cname">Environmental Issues</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     ENGLISH
+══════════════════════════════════════════ -->
+<div class="sec-anchor" id="english">
+  <div class="sec-head">
+    <div class="sec-icon ic-eng">📘</div>
+    <div><h2>English</h2><small>3 Sections · 26 Topics · Notes + Mocks · CUET Pattern</small></div>
+    <div class="sec-div"></div>
+  </div>
+  <div class="book-row">
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#e8006f,#9a004a)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#fff0f6,#ffd6e8)">
+        <div class="a4-badge">A4</div>
+        <div class="book-img-ph"><div class="bicon">📗</div><div class="blabel">Sample Paper Book</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag sample">📄 Sample Paper Book</span>
+        <div class="book-title">English — Solved Sample Papers 2025</div>
+        <div class="book-about">20 fully solved English sample papers covering Grammar, Vocabulary, Reading, and Writing sections. CUET-aligned with detailed answer keys, common error analysis, and vocabulary enrichment exercises.</div>
+        <div class="book-meta-row"><span class="bmeta">20 Papers</span><span class="bmeta">280 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">CUET 2025</span></div>
+        <a href="#" class="book-btn">📥 Download PDF</a>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#7c3aed,#4c1d95)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#f5f0ff,#e0d0ff)">
+        <div class="a4-badge" style="background:#7c3aed">A4</div>
+        <div class="book-img-ph"><div class="bicon">📘</div><div class="blabel">Question Bank</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag qbank" style="background:#f0e8ff;color:#5b21b6">📚 Question Bank</span>
+        <div class="book-title">English — Topic-wise Question Bank</div>
+        <div class="book-about">2000+ MCQs, fill-in-the-blanks, passage comprehension, and grammar exercises. Covers all 26 topics with CUET PYQs 2022–2024, difficulty-graded questions, and a vocabulary booster section with 1000+ words.</div>
+        <div class="book-meta-row"><span class="bmeta">2000+ Qs</span><span class="bmeta">320 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">CUET Pattern</span></div>
+        <a href="#" class="book-btn" style="background:linear-gradient(135deg,#7c3aed,#4c1d95)">📥 Download PDF</a>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('eng','notes',this)">🗒️ Notes</button>
+    <button class="tab-btn" onclick="switchTab('eng','mock',this)">📝 Mock Tests</button>
+  </div>
+  <div class="tab-pane active" id="eng-notes">
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum" style="background:linear-gradient(135deg,#9b30d9,#cc60ff)">A</div><div class="cname">🟣 Section 1 — Vocabulary<small>One Word Sub · Idioms · Antonyms/Synonyms · Phrasal Verbs · Figures of Speech</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Vocab Mindmap</a><a href="#" class="note-btn notes">📖 Vocabulary Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum" style="background:linear-gradient(135deg,#005fd4,#00cfff)">B</div><div class="cname">🔵 Section 2 — Grammar<small>Tenses · Clauses · Modals · Prepositions · Subject-Verb Agreement</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Grammar Mindmap</a><a href="#" class="note-btn notes">📖 Grammar Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum" style="background:linear-gradient(135deg,#00703c,#00d97e)">C</div><div class="cname">🟢 Section 3 — Reading Ability<small>Comprehension · Cloze Test · Para Jumbles · Letter Writing</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Reading Mindmap</a><a href="#" class="note-btn notes">📖 Reading Notes</a></div></div></div>
+  </div>
+  <div class="tab-pane" id="eng-mock">
+    <div class="mock-section-label">📘 Full English Mock Tests</div>
+    <div class="full-mock-grid">
+      <div class="fmc"><div class="fmc-num">1</div><div class="fmc-set">Set 1</div><div class="fmc-title">English Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">All Sections</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">2</div><div class="fmc-set">Set 2</div><div class="fmc-title">English Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Grammar Focus</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">3</div><div class="fmc-set">Set 3</div><div class="fmc-title">English Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Vocab Heavy</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">4</div><div class="fmc-set">Set 4</div><div class="fmc-title">English Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Reading Focus</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+    </div>
+    <div class="mock-section-label">📋 Section-wise Mock Tests (4 Sets · 50 Qs Each)</div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum" style="background:linear-gradient(135deg,#9b30d9,#cc60ff)">A</div><div class="cname">Section 1 — Vocabulary</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum" style="background:linear-gradient(135deg,#005fd4,#00cfff)">B</div><div class="cname">Section 2 — Grammar</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum" style="background:linear-gradient(135deg,#00703c,#00d97e)">C</div><div class="cname">Section 3 — Reading Ability</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     GAT
+══════════════════════════════════════════ -->
+<div class="sec-anchor" id="gat">
+  <div class="sec-head">
+    <div class="sec-icon ic-gat">🧠</div>
+    <div><h2>GAT — General Aptitude Test</h2><small>4 Sections · CUET Syllabus · Notes + Mocks</small></div>
+    <div class="sec-div"></div>
+  </div>
+  <div class="book-row">
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#8b0037,#5c0025)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#fff0f6,#ffd6e8)">
+        <div class="a4-badge">A4</div>
+        <div class="book-img-ph"><div class="bicon">📗</div><div class="blabel">Sample Paper Book</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag sample">📄 Sample Paper Book</span>
+        <div class="book-title">GAT — Solved Sample Papers 2025</div>
+        <div class="book-about">20 fully solved CUET GAT sample papers covering GK, Quantitative Reasoning, Logical Reasoning, and English Language. With detailed explanations, shortcuts, and rapid-fire revision tables for last-minute prep.</div>
+        <div class="book-meta-row"><span class="bmeta">20 Papers</span><span class="bmeta">300 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">CUET 2025</span></div>
+        <a href="#" class="book-btn" style="background:linear-gradient(135deg,#8b0037,#5c0025)">📥 Download PDF</a>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-spine" style="background:linear-gradient(180deg,#c2005d,#7a003a)"></div>
+      <div class="book-cover-img" style="background:linear-gradient(135deg,#ffe8f3,#ffcce6)">
+        <div class="a4-badge" style="background:#c2005d">A4</div>
+        <div class="book-img-ph"><div class="bicon">📘</div><div class="blabel">Question Bank</div></div>
+      </div>
+      <div class="book-info">
+        <span class="book-type-tag qbank" style="background:#fff0f8;color:#8b0037">📚 Question Bank</span>
+        <div class="book-title">GAT — Section-wise Question Bank</div>
+        <div class="book-about">2500+ MCQs for GK, Quant, Reasoning, and English Language. Includes CUET PYQs 2022–2024, 500 current affairs capsule questions, logic puzzles, and difficulty-graded reasoning sets with step-by-step solutions.</div>
+        <div class="book-meta-row"><span class="bmeta">2500+ Qs</span><span class="bmeta">360 Pages</span><span class="bmeta">A4 Size</span><span class="bmeta">CUET Pattern</span></div>
+        <a href="#" class="book-btn" style="background:linear-gradient(135deg,#c2005d,#7a003a)">📥 Download PDF</a>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('gat','notes',this)">🗒️ Notes</button>
+    <button class="tab-btn" onclick="switchTab('gat','mock',this)">📝 Mock Tests</button>
+  </div>
+  <div class="tab-pane active" id="gat-notes">
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">General Knowledge &amp; Current Affairs<small>India · World · Science · Sports · Awards</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 GK Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Quantitative Reasoning<small>Arithmetic · Algebra · Data Interpretation</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Quant Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Logical Reasoning<small>Coding · Syllogisms · Blood Relations · Series</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 Reasoning Notes</a></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">English Language (GAT)<small>Comprehension · Vocabulary · Error Spotting</small></div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="notes-btns"><a href="#" class="note-btn mindmap">🗺️ Mindmap</a><a href="#" class="note-btn notes">📖 English Notes</a></div></div></div>
+  </div>
+  <div class="tab-pane" id="gat-mock">
+    <div class="mock-section-label">🧠 Full GAT Mock Tests</div>
+    <div class="full-mock-grid">
+      <div class="fmc"><div class="fmc-num">1</div><div class="fmc-set">Set 1</div><div class="fmc-title">GAT Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">All Sections</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">2</div><div class="fmc-set">Set 2</div><div class="fmc-title">GAT Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Reasoning Heavy</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">3</div><div class="fmc-set">Set 3</div><div class="fmc-title">GAT Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">GK + Quant</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+      <div class="fmc"><div class="fmc-num">4</div><div class="fmc-set">Set 4</div><div class="fmc-title">GAT Full Mock</div><div class="fmc-meta">50 Qs · 60 Min</div><div class="fmc-tags"><span class="fmc-tag">Advanced</span></div><a href="#" class="fmc-btn">▶ Start</a></div>
+    </div>
+    <div class="mock-section-label">📋 Section-wise Mock Tests (4 Sets · 50 Qs Each)</div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">1</div><div class="cname">GK &amp; Current Affairs</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">2</div><div class="cname">Quantitative Reasoning</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">3</div><div class="cname">Logical Reasoning</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+    <div class="acc"><div class="acc-head" onclick="A(this)"><div class="acc-left"><div class="cnum">4</div><div class="cname">English Language (GAT)</div></div><span class="cacc-arrow">▼</span></div><div class="acc-body"><div class="ch-mock-sets"><div class="cms"><div class="cms-set">Set 1</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 2</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 3</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div><div class="cms"><div class="cms-set">Set 4</div><div class="cms-info">50 Qs · 60 Min</div><a href="#" class="cms-btn">▶ Start</a></div></div></div></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PYQ
+══════════════════════════════════════════ -->
+<div class="sec-anchor" id="pyq">
+  <div class="pyq-section">
+    <div class="pyq-head">
+      <h2>📋 Previous Year Questions</h2>
+      <p>Year-wise PYQs for all 6 subjects — CBSE &amp; CUET Pattern</p>
+    </div>
+    <div class="pyq-years">
+      <div class="pyq-yr">
+        <div class="pyq-yr-label">2025</div>
+        <ul class="pyq-list">
+          <li><a href="#"><span>⚡ Physics PYQ 2025</span><span>→</span></a></li>
+          <li><a href="#"><span>🧪 Chemistry PYQ 2025</span><span>→</span></a></li>
+          <li><a href="#"><span>📐 Mathematics PYQ 2025</span><span>→</span></a></li>
+          <li><a href="#"><span>🧬 Biology PYQ 2025</span><span>→</span></a></li>
+          <li><a href="#"><span>📘 English PYQ 2025</span><span>→</span></a></li>
+          <li><a href="#"><span>🧠 GAT PYQ 2025</span><span>→</span></a></li>
+        </ul>
+      </div>
+      <div class="pyq-yr">
+        <div class="pyq-yr-label">2024</div>
+        <ul class="pyq-list">
+          <li><a href="#"><span>⚡ Physics PYQ 2024</span><span>→</span></a></li>
+          <li><a href="#"><span>🧪 Chemistry PYQ 2024</span><span>→</span></a></li>
+          <li><a href="#"><span>📐 Mathematics PYQ 2024</span><span>→</span></a></li>
+          <li><a href="#"><span>🧬 Biology PYQ 2024</span><span>→</span></a></li>
+          <li><a href="#"><span>📘 English PYQ 2024</span><span>→</span></a></li>
+          <li><a href="#"><span>🧠 GAT PYQ 2024</span><span>→</span></a></li>
+        </ul>
+      </div>
+      <div class="pyq-yr">
+        <div class="pyq-yr-label">2023</div>
+        <ul class="pyq-list">
+          <li><a href="#"><span>⚡ Physics PYQ 2023</span><span>→</span></a></li>
+          <li><a href="#"><span>🧪 Chemistry PYQ 2023</span><span>→</span></a></li>
+          <li><a href="#"><span>📐 Mathematics PYQ 2023</span><span>→</span></a></li>
+          <li><a href="#"><span>🧬 Biology PYQ 2023</span><span>→</span></a></li>
+          <li><a href="#"><span>📘 English PYQ 2023</span><span>→</span></a></li>
+          <li><a href="#"><span>🧠 GAT PYQ 2023</span><span>→</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <strong>CBT Mock Portal</strong> · Class 12 CBSE · CUET 2025 · All subjects covered<br>
+  <span style="opacity:.6;font-size:.77rem">Physics · Chemistry · Maths · Biology · English · GAT — Notes · Mindmaps · Chapter Mocks · Full Mocks</span>
+</footer>
+
+<script>
+// Accordion
+function A(el){
+  const b=el.nextElementSibling,a=el.querySelector('.cacc-arrow'),o=b.classList.contains('open');
+  b.classList.toggle('open',!o);a.classList.toggle('open',!o);
+}
+// Tab switching
+function switchTab(sub,tab,btn){
+  // deactivate all tabs in this subject
+  const tbBar=btn.closest('.tab-bar');
+  tbBar.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  // hide all panes for this subject
+  document.querySelectorAll('[id^="'+sub+'-"]').forEach(p=>p.classList.remove('active'));
+  document.getElementById(sub+'-'+tab).classList.add('active');
+}
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const t=document.querySelector(this.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+});
+// Active nav
+const anch=document.querySelectorAll('.sec-anchor');
+const nav=document.querySelectorAll('.topnav a');
+window.addEventListener('scroll',()=>{
+  let c='';
+  anch.forEach(s=>{if(window.scrollY>=s.offsetTop-100)c=s.id});
+  nav.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+c));
+},{passive:true});
+</script>
+</body>
+</html>
