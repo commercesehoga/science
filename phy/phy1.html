@@ -677,6 +677,12 @@ body.dark-mode .analysis { color: var(--dm-text); }
     body > * { display: none !important; }
     #pdf-print-area { display: block !important; font-family: Arial, sans-serif; color: #111; padding: 20px; }
 }
+.option svg {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
 </style>
 </head>
 <body>
@@ -895,6 +901,8 @@ body.dark-mode .analysis { color: var(--dm-text); }
 
 const mockTest = {
   title: "Physics Mock — Electrostatics",
+   duration: 60 * 60,
+    markingScheme: { correct: 5, incorrect: -1 },
   questions: [
 
 // ─── ELECTRIC CHARGES & COULOMB'S LAW ───────────────────────
@@ -1757,9 +1765,7 @@ const mockTest = {
 }
 
   ] // end questions
-}; // end mockTest
-    duration: 60 * 60,
-    markingScheme: { correct: 5, incorrect: -1 }
+
 };
 
 /* ============================================================
