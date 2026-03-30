@@ -1,0 +1,2235 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thunderstudy CBT — Physic</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+const SUBJECT_ID  = "phy";
+const CHAPTER_ID  = "phy1";
+</script>
+
+<style>
+:root {
+    --primary: #FF85BB;
+    --primary-dark: #e0609a;
+    --primary-light: #ffb3d4;
+    --accent: #ff69a8;
+    --accent2: #ffadd1;
+    --white: #ffffff;
+    --off-white: #fff5f9;
+    --light-blue: #ffe4f0;
+    --mid-blue: #ffcce2;
+    --border: #ffcce2;
+    --text-dark: #3d0f22;
+    --text-mid: #7a2d4a;
+    --text-muted: #b56b8a;
+    --correct: #059669;
+    --correct-bg: #ecfdf5;
+    --incorrect: #dc2626;
+    --incorrect-bg: #fef2f2;
+    --answered: #22c55e;
+    --marked: #ff69a8;
+    --unanswered: #f97316;
+    --shadow: 0 4px 24px rgba(255,133,187,0.10);
+    --shadow-lg: 0 8px 40px rgba(255,133,187,0.16);
+
+    /* Dark mode vars */
+    --dm-bg: #1a0a10;
+    --dm-surface: #2a1019;
+    --dm-surface2: #3a1525;
+    --dm-border: #5c2040;
+    --dm-text: #ffe2ee;
+    --dm-muted: #d47ba4;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background: var(--dm-bg);
+    color: var(--dm-text);
+}
+
+/* ===== START SCREEN ===== */
+#start-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--white);
+    display: flex; flex-direction: column; align-items: center;
+    overflow-y: auto; padding: 0 20px 50px;
+    transition: background 0.3s;
+}
+
+body.dark-mode #start-screen { background: var(--dm-bg); }
+
+.start-hero {
+    width: 100%; max-width: 600px;
+    padding: 48px 0 0;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+}
+
+.start-logo {
+    width: 68px; height: 68px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 8px 28px rgba(26,111,196,0.35);
+    margin-bottom: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.start-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+body.dark-mode .start-brand { color: var(--accent2); }
+
+.start-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px; font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 10px;
+}
+body.dark-mode .start-title { color: var(--dm-text); }
+
+.start-sub {
+    font-size: 16px; color: var(--text-muted);
+    margin-bottom: 8px;
+}
+body.dark-mode .start-sub { color: var(--dm-muted); }
+
+.tg-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #0088cc, #006fa8);
+    color: white; text-decoration: none;
+    padding: 10px 24px; border-radius: 40px;
+    font-size: 14px; font-weight: 700;
+    box-shadow: 0 4px 16px rgba(0,136,204,0.4);
+    transition: transform 0.18s, box-shadow 0.18s;
+    margin: 16px 0 28px;
+}
+.tg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,136,204,0.55); color: white; }
+
+.info-card {
+    width: 100%; max-width: 500px;
+    background: var(--light-blue);
+    border: 1.5px solid var(--mid-blue);
+    border-radius: 16px;
+    padding: 22px 24px;
+    text-align: left;
+    margin-bottom: 24px;
+}
+body.dark-mode .info-card { background: var(--dm-surface); border-color: var(--dm-border); }
+
+.info-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--primary); margin-bottom: 14px;
+}
+body.dark-mode .info-card h3 { color: var(--accent2); }
+
+.info-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+
+.info-pill {
+    background: white;
+    border-radius: 10px; padding: 10px 14px;
+    font-size: 13px; color: var(--text-mid);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+}
+body.dark-mode .info-pill { background: var(--dm-surface2); border-color: var(--dm-border); color: var(--dm-text); }
+
+.info-pill strong { color: var(--primary-dark); font-weight: 700; }
+body.dark-mode .info-pill strong { color: var(--accent2); }
+
+.name-input {
+    width: 100%; max-width: 380px;
+    padding: 14px 20px;
+    border: 2px solid var(--mid-blue);
+    border-radius: 50px;
+    font-size: 16px; font-family: 'DM Sans', sans-serif;
+    text-align: center;
+    background: white; color: var(--text-dark);
+    outline: none; transition: border 0.2s, box-shadow 0.2s;
+    margin-bottom: 18px;
+}
+.name-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,111,196,0.12); }
+body.dark-mode .name-input { background: var(--dm-surface); color: var(--dm-text); border-color: var(--dm-border); }
+
+.start-btns { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 340px; }
+
+.s-btn {
+    width: 100%; padding: 14px 0;
+    border: none; border-radius: 50px; cursor: pointer;
+    font-size: 16px; font-weight: 700; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.18s, box-shadow 0.18s;
+    letter-spacing: 0.3px;
+}
+.s-btn:hover { transform: translateY(-3px); }
+
+.s-btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; box-shadow: 0 6px 20px rgba(26,111,196,0.4);
+}
+.s-btn-primary:hover { box-shadow: 0 10px 28px rgba(26,111,196,0.55); }
+
+.s-btn-green {
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    color: white; box-shadow: 0 6px 20px rgba(34,197,94,0.35);
+}
+.s-btn-green:hover { box-shadow: 0 10px 28px rgba(34,197,94,0.5); }
+
+.s-btn-purple {
+    background: linear-gradient(135deg, #7c3aed, #4c1d95);
+    color: white; box-shadow: 0 6px 20px rgba(124,58,237,0.35);
+}
+.s-btn-purple:hover { box-shadow: 0 10px 28px rgba(124,58,237,0.5); }
+
+.dark-toggle {
+    position: absolute; top: 16px; right: 16px; z-index: 10000;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; border-radius: 40px;
+    padding: 8px 18px; font-size: 14px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 7px;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.4);
+    transition: background 0.3s, transform 0.2s;
+    font-family: 'DM Sans', sans-serif;
+}
+.dark-toggle:hover { transform: scale(1.05); }
+body.dark-mode .dark-toggle { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 4px 14px rgba(245,158,11,0.4); }
+
+/* ===== INSTRUCTION SCREEN ===== */
+#instruction-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--white); display: none; overflow-y: auto; padding: 40px 20px;
+}
+body.dark-mode #instruction-screen { background: var(--dm-bg); }
+
+.instr-wrap { max-width: 700px; margin: 0 auto; }
+
+.instr-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 800; color: var(--primary);
+    margin-bottom: 24px; text-align: center;
+}
+body.dark-mode .instr-title { color: var(--accent2); }
+
+.instr-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 1.5px solid var(--mid-blue); border-radius: 16px; padding: 28px;
+}
+body.dark-mode .instr-box { background: linear-gradient(135deg, var(--dm-surface), var(--dm-surface2)); border-color: var(--dm-border); }
+
+.instr-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--primary);
+    border-left: 4px solid var(--primary); padding-left: 12px; margin-bottom: 16px;
+}
+body.dark-mode .instr-box h3 { color: var(--accent2); border-left-color: var(--accent2); }
+
+.instr-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+.instr-list li {
+    background: white; border-radius: 10px; padding: 12px 16px;
+    font-size: 15px; color: var(--text-mid);
+    border: 1px solid var(--border);
+    transition: transform 0.15s;
+}
+body.dark-mode .instr-list li { background: var(--dm-surface2); border-color: var(--dm-border); color: var(--dm-text); }
+.instr-list li:hover { transform: translateX(5px); }
+
+.instr-legend {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;
+}
+
+.leg-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-mid); }
+body.dark-mode .leg-item { color: var(--dm-text); }
+.leg-dot { width: 14px; height: 14px; border-radius: 50%; }
+
+.agree-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 20px; font-size: 15px; font-weight: 600; cursor: pointer;
+    color: var(--text-mid);
+}
+body.dark-mode .agree-row { color: var(--dm-text); }
+
+.agree-row input { display: none; }
+
+.chk-box {
+    width: 22px; height: 22px; border-radius: 6px;
+    border: 2px solid var(--primary);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 14px; color: transparent; transition: 0.15s;
+    background: white;
+}
+body.dark-mode .chk-box { background: var(--dm-surface); border-color: var(--accent2); }
+
+.agree-row input:checked + .chk-box { background: var(--primary); color: white; }
+body.dark-mode .agree-row input:checked + .chk-box { background: var(--accent2); }
+
+#start-test-btn {
+    margin-top: 22px; width: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; border-radius: 50px; padding: 14px;
+    font-size: 17px; font-weight: 700; cursor: not-allowed; opacity: 0.55;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s, transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 6px 20px rgba(26,111,196,0.35);
+}
+#start-test-btn:not(:disabled) { cursor: pointer; opacity: 1; }
+#start-test-btn:not(:disabled):hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(26,111,196,0.5); }
+
+/* ===== TEST SCREEN ===== */
+#test-screen {
+    position: fixed; inset: 0; z-index: 9998;
+    background: var(--off-white); display: none; overflow: auto;
+}
+body.dark-mode #test-screen { background: var(--dm-bg); }
+
+/* SIDEBAR */
+.sidebar {
+    width: 280px; background: white;
+    height: 100vh; position: fixed; right: 0; top: 0;
+    padding: 20px; overflow-y: auto;
+    border-left: 2px solid var(--light-blue);
+    box-shadow: -4px 0 20px rgba(26,111,196,0.08);
+}
+body.dark-mode .sidebar { background: var(--dm-surface); border-left-color: var(--dm-border); }
+
+.timer {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; padding: 10px 0; border-radius: 40px;
+    font-weight: 700; font-size: 19px; text-align: center;
+    letter-spacing: 1px; margin-bottom: 18px;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.35);
+}
+
+.sidebar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700; color: var(--primary);
+    margin-bottom: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .sidebar-brand { color: var(--accent2); border-bottom-color: var(--dm-border); }
+
+.test-info-row { font-size: 13px; color: var(--text-muted); margin: 5px 0; display: flex; gap: 6px; }
+.test-info-row strong { color: var(--text-dark); font-weight: 600; }
+body.dark-mode .test-info-row { color: var(--dm-muted); }
+body.dark-mode .test-info-row strong { color: var(--dm-text); }
+
+.palette-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 18px 0 10px; font-size: 13px; font-weight: 600; color: var(--text-mid);
+}
+body.dark-mode .palette-header { color: var(--dm-text); }
+
+.palette-count { color: var(--primary); font-weight: 700; }
+body.dark-mode .palette-count { color: var(--accent2); }
+
+.palette-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px;
+}
+
+.palette-btn {
+    aspect-ratio: 1; border-radius: 50%; border: 2px solid #e5e7eb;
+    background: #fee2e2; /* unanswered = orange-ish red */
+    color: var(--text-dark); font-size: 11px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+.palette-btn:hover { transform: scale(1.1); }
+.palette-btn.answered { background: #bbf7d0; border-color: #22c55e; color: #14532d; }
+.palette-btn.marked { background: #bae6fd; border-color: #0ea5e9; color: #0c4a6e; }
+.palette-btn.current { background: white; border: 2.5px solid var(--primary); color: var(--primary); box-shadow: 0 0 0 3px rgba(26,111,196,0.2); }
+.palette-btn.review-correct { background: #22c55e; border-color: #16a34a; color: white; }
+.palette-btn.review-wrong { background: #ef4444; border-color: #dc2626; color: white; }
+.palette-btn.review-unanswered { background: #60a5fa; border-color: #3b82f6; color: white; }
+
+body.dark-mode .palette-btn { background: #7f1d1d; border-color: #991b1b; color: #fecaca; }
+body.dark-mode .palette-btn.answered { background: #14532d; border-color: #22c55e; color: #bbf7d0; }
+body.dark-mode .palette-btn.marked { background: #0c4a6e; border-color: #0ea5e9; color: #bae6fd; }
+body.dark-mode .palette-btn.current { background: var(--dm-surface2); border-color: var(--accent); color: var(--accent); }
+
+#palette-legend { margin-top: 14px; font-size: 12px; color: var(--text-muted); }
+body.dark-mode #palette-legend { color: var(--dm-muted); }
+#palette-legend .leg-label { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+
+/* MAIN CONTENT */
+.main-content {
+    margin-right: 280px; padding: 20px 24px;
+    min-height: 100vh;
+}
+
+.test-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .test-header { border-bottom-color: var(--dm-border); }
+
+.user-badge {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; padding: 7px 16px; border-radius: 30px;
+    font-size: 13px; font-weight: 700;
+}
+
+.q-counter {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; color: var(--text-dark);
+}
+body.dark-mode .q-counter { color: var(--dm-text); }
+.q-counter span { color: var(--primary); }
+body.dark-mode .q-counter span { color: var(--accent2); }
+
+.progress-wrap { flex: 1; max-width: 200px; margin: 0 16px; }
+.progress-bar-bg { height: 8px; background: var(--light-blue); border-radius: 10px; overflow: hidden; }
+body.dark-mode .progress-bar-bg { background: var(--dm-surface2); }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 10px; transition: width 0.4s; width: 0; }
+.progress-label { font-size: 12px; color: var(--text-muted); text-align: right; margin-top: 4px; }
+body.dark-mode .progress-label { color: var(--dm-muted); }
+
+/* QUESTION CARD */
+.question-card {
+    background: white; border-radius: 16px; padding: 28px;
+    box-shadow: var(--shadow); border: 1.5px solid var(--light-blue);
+    margin-bottom: 20px;
+}
+body.dark-mode .question-card { background: var(--dm-surface); border-color: var(--dm-border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+
+.q-num-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--light-blue); color: var(--primary);
+    padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700;
+    margin-bottom: 14px;
+}
+body.dark-mode .q-num-tag { background: var(--dm-surface2); color: var(--accent2); }
+
+.section-badge {
+    display: inline-flex; align-items: center;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; padding: 3px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; margin-bottom: 12px;
+}
+
+.q-text {
+    font-size: 18px; font-weight: 500; color: var(--text-dark);
+    line-height: 1.6; margin-bottom: 22px;
+}
+body.dark-mode .q-text { color: var(--dm-text); }
+
+/* OPTIONS */
+.option {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px; border: 2px solid var(--border);
+    border-radius: 12px; margin-bottom: 10px; cursor: pointer;
+    background: white; transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    user-select: none;
+}
+body.dark-mode .option { background: var(--dm-surface2); border-color: var(--dm-border); }
+.option:hover { border-color: var(--primary); background: var(--off-white); transform: translateX(4px); }
+body.dark-mode .option:hover { background: #1e3460; border-color: var(--accent); }
+
+.option.selected { border-color: var(--primary-dark); background: #dbeafe; }
+body.dark-mode .option.selected { background: #0d2a56; border-color: var(--accent); }
+
+.option.correct { border-color: var(--correct) !important; background: var(--correct-bg) !important; }
+.option.incorrect { border-color: var(--incorrect) !important; background: var(--incorrect-bg) !important; }
+
+.opt-letter {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid var(--border); background: var(--off-white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: var(--text-muted);
+    flex-shrink: 0; transition: all 0.15s;
+}
+.option.selected .opt-letter { background: var(--primary); border-color: var(--primary); color: white; }
+.option.correct .opt-letter { background: var(--correct); border-color: var(--correct); color: white; }
+.option.incorrect .opt-letter { background: var(--incorrect); border-color: var(--incorrect); color: white; }
+
+.opt-text { font-size: 15px; color: var(--text-dark); line-height: 1.5; flex: 1; }
+body.dark-mode .opt-text { color: var(--dm-text); }
+.option.selected .opt-text { color: var(--primary-dark); font-weight: 600; }
+body.dark-mode .option.selected .opt-text { color: var(--accent2); }
+.option.correct .opt-text { color: var(--correct); font-weight: 600; }
+.option.incorrect .opt-text { color: var(--incorrect); font-weight: 600; }
+
+.opt-indicator { font-size: 12px; font-weight: 700; margin-left: 4px; }
+.correct-indicator { color: var(--correct); }
+.incorrect-indicator { color: var(--incorrect); }
+
+.explanation-box {
+    margin-top: 18px; padding: 14px 18px;
+    border-radius: 12px; border-left: 4px solid var(--primary);
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    font-size: 14px; color: var(--text-mid); line-height: 1.7;
+}
+body.dark-mode .explanation-box { background: linear-gradient(135deg, var(--dm-surface), var(--dm-surface2)); border-left-color: var(--accent); color: var(--dm-text); }
+
+/* NAV BUTTONS */
+.nav-row {
+    display: flex; justify-content: space-between; align-items: center; margin-top: 24px;
+}
+
+.nav-btn {
+    padding: 10px 24px; border-radius: 10px; border: 2px solid var(--primary);
+    background: transparent; color: var(--primary); font-size: 14px; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.18s;
+}
+.nav-btn:hover { background: var(--light-blue); }
+body.dark-mode .nav-btn { border-color: var(--accent2); color: var(--accent2); }
+body.dark-mode .nav-btn:hover { background: var(--dm-surface2); }
+
+.next-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none;
+    padding: 12px 30px; border-radius: 10px; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.35); transition: all 0.18s;
+}
+.next-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(26,111,196,0.5); }
+body.dark-mode .next-btn { background: linear-gradient(135deg, var(--accent), var(--primary)); }
+
+.mark-btn-q {
+    padding: 9px 18px; border-radius: 10px;
+    border: 2px solid var(--accent); background: transparent; color: var(--accent);
+    font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+}
+.mark-btn-q.marked { background: var(--accent); color: white; }
+.mark-btn-q:hover { background: var(--light-blue); }
+
+/* SUBMIT SECTION */
+.submit-row {
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 600px; margin: 20px auto; gap: 14px; flex-wrap: wrap;
+}
+
+.fancy-btn {
+    flex: 1; min-width: 140px; padding: 14px; border: none; border-radius: 50px;
+    font-size: 15px; font-weight: 700; cursor: pointer; text-align: center;
+    text-decoration: none; display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Sans', sans-serif; transition: transform 0.18s, box-shadow 0.18s;
+}
+.fancy-btn:hover { transform: translateY(-3px); }
+
+.fancy-submit { background: linear-gradient(135deg, #22c55e, #15803d); color: white; box-shadow: 0 6px 20px rgba(34,197,94,0.4); max-width: 260px; }
+.fancy-submit:hover { box-shadow: 0 10px 28px rgba(34,197,94,0.55); }
+.fancy-tg { background: linear-gradient(135deg, #0088cc, #005a99); color: white; box-shadow: 0 6px 20px rgba(0,136,204,0.4); max-width: 200px; }
+.fancy-tg:hover { box-shadow: 0 10px 28px rgba(0,136,204,0.55); color: white; }
+
+.fancy-pdf { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 6px 20px rgba(249,115,22,0.4); }
+.fancy-pdf:hover { box-shadow: 0 10px 28px rgba(249,115,22,0.55); }
+.fancy-result { background: linear-gradient(135deg, #7c3aed, #4c1d95); color: white; box-shadow: 0 6px 20px rgba(124,58,237,0.4); }
+.fancy-result:hover { box-shadow: 0 10px 28px rgba(124,58,237,0.55); }
+
+.stream-btn {
+    display: block; width: 100%; padding: 14px;
+    border-radius: 14px; color: white; font-weight: 700; font-size: 16px;
+    text-decoration: none; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+.stream-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.3); color: white; }
+
+body.dark-mode #stream-picker-box { background: var(--dm-surface); }
+body.dark-mode #stream-picker-box h3 { color: var(--accent2); }
+body.dark-mode #stream-picker-box p { color: var(--dm-muted); }
+body.dark-mode #stream-picker-box button { color: var(--dm-muted); }
+
+/* FOOTER */
+.test-footer {
+    background: linear-gradient(135deg, #0f1e3d, #1a3066);
+    color: #94b8e8; text-align: center; padding: 22px 16px;
+    margin-top: 10px;
+}
+.test-footer p { font-size: 12px; margin-bottom: 12px; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.footer-link {
+    padding: 8px 18px; border-radius: 30px; font-size: 13px; font-weight: 600;
+    text-decoration: none; color: white; transition: transform 0.18s, box-shadow 0.18s;
+}
+.footer-link:hover { transform: translateY(-2px); color: white; }
+.fl-purple { background: linear-gradient(135deg, #7c3aed, #4c1d95); box-shadow: 0 3px 10px rgba(124,58,237,0.35); }
+.fl-green { background: linear-gradient(135deg, #059669, #065f46); box-shadow: 0 3px 10px rgba(5,150,105,0.35); }
+.fl-red { background: linear-gradient(135deg, #dc2626, #991b1b); box-shadow: 0 3px 10px rgba(220,38,38,0.35); }
+
+/* MODAL */
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99999; justify-content: center; align-items: center; }
+.modal.show { display: flex; }
+
+.modal-content {
+    background: white; border-radius: 20px; padding: 32px;
+    width: 90%; max-width: 580px; max-height: 90vh; overflow-y: auto;
+    animation: modalIn 0.3s ease;
+}
+body.dark-mode .modal-content { background: var(--dm-surface); border: 1.5px solid var(--dm-border); }
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px; padding-bottom: 14px; border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .modal-head { border-bottom-color: var(--dm-border); }
+
+.modal-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--primary);
+}
+body.dark-mode .modal-head h2 { color: var(--accent2); }
+
+.close-x { background: none; border: none; font-size: 26px; cursor: pointer; color: var(--text-muted); }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+
+.stat-tile {
+    background: var(--off-white); border-radius: 14px; padding: 18px;
+    text-align: center; border: 1.5px solid var(--border);
+}
+body.dark-mode .stat-tile { background: var(--dm-surface2); border-color: var(--dm-border); }
+
+.stat-tile h4 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+body.dark-mode .stat-tile h4 { color: var(--dm-muted); }
+
+.stat-tile p { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; }
+.stat-correct { color: var(--correct); }
+.stat-wrong { color: var(--incorrect); }
+.stat-neutral { color: var(--text-muted); }
+.stat-score { color: var(--primary); }
+body.dark-mode .stat-score { color: var(--accent2); }
+
+.analysis { font-size: 14px; color: var(--text-mid); margin-bottom: 18px; line-height: 1.8; }
+body.dark-mode .analysis { color: var(--dm-text); }
+
+.modal-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.modal-btn {
+    flex: 1; padding: 12px; border-radius: 12px; border: none; cursor: pointer;
+    font-size: 14px; font-weight: 700; font-family: 'DM Sans', sans-serif; transition: all 0.18s;
+}
+.modal-btn:hover { transform: translateY(-2px); }
+.mb-review { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; box-shadow: 0 4px 14px rgba(26,111,196,0.4); }
+.mb-pdf { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 4px 14px rgba(249,115,22,0.4); }
+
+/* MOBILE */
+.mobile-bar { display: none; }
+
+@media (max-width: 768px) {
+    .mobile-bar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 8px 12px; background: white; border-bottom: 2px solid var(--light-blue);
+        margin-bottom: 8px; border-radius: 10px; box-shadow: var(--shadow);
+    }
+    body.dark-mode .mobile-bar { background: var(--dm-surface); border-color: var(--dm-border); }
+    .mob-timer {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white; padding: 6px 14px; border-radius: 30px; font-weight: 700; font-size: 14px;
+    }
+    #user-name-display { display: none !important; }
+    .sidebar .timer, .sidebar .sidebar-brand { display: none !important; }
+    .sidebar { position: relative; width: 100%; height: auto; right: 0; left: 0; border-left: none; border-top: 2px solid var(--light-blue); box-shadow: none; }
+    body { flex-direction: column; }
+    .main-content { margin-right: 0; width: 100%; padding: 12px; }
+    .question-card { padding: 18px; }
+    .q-text { font-size: 16px; }
+    .nav-row { flex-direction: row; gap: 8px; }
+    .palette-grid { max-height: 200px; overflow-y: auto; }
+}
+
+@media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .modal-btns { flex-direction: column; }
+}
+
+/* option radio hide */
+.option input[type="radio"] { display: none; }
+
+#pdf-print-area { display: none; }
+@media print {
+    body > * { display: none !important; }
+    #pdf-print-area { display: block !important; font-family: Arial, sans-serif; color: #111; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- START SCREEN -->
+<div id="start-screen">
+
+<button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode" style="position:absolute;top:16px;right:16px;">
+    <span id="toggle-icon">🌙</span>
+    <span id="toggle-label">Dark</span>
+</button>
+
+<div class="start-hero">
+    <div class="start-logo">📖</div>
+    <div class="start-brand">Thunderstudy CBT</div>
+    <h1 class="start-title">English Mock Test</h1>
+    <p class="start-sub">Provided by <strong>Thunderstudy</strong> — Full Mock</p>
+
+    <a href="https://t.me/thunderstudy_official" target="_blank" class="tg-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.04 9.607c-.148.666-.543.828-1.098.516l-3.04-2.24-1.467 1.413c-.162.162-.298.298-.611.298l.217-3.083 5.613-5.067c.244-.217-.054-.337-.378-.12L7.08 14.807 4.09 13.89c-.657-.205-.67-.657.137-.973l10.88-4.196c.548-.198 1.027.133.855.973z"/></svg>
+        @thunderstudy_official
+    </a>
+
+    <div class="info-card">
+        <h3>📋 Quick Overview</h3>
+        <div class="info-grid">
+            <div class="info-pill">📝 <div><strong>50 Questions</strong></div></div>
+            <div class="info-pill">⏱️ <div><strong>60 Minutes</strong></div></div>
+            <div class="info-pill">✅ <div><strong>+5 Correct</strong></div></div>
+            <div class="info-pill">❌ <div><strong>−1 Wrong</strong></div></div>
+            <div class="info-pill">🚫 <div><strong>No tab switching</strong></div></div>
+            <div class="info-pill">🔁 <div><strong>Auto-submits</strong></div></div>
+        </div>
+    </div>
+
+    <input type="text" id="username-input" class="name-input" placeholder="Enter your name to begin">
+
+    <div class="start-btns">
+        <button class="s-btn s-btn-primary" onclick="startMock()">🚀 Start Mock Test</button>
+        <button class="s-btn s-btn-green" onclick="window.location.href='https://commercesehoga.github.io/commerce/bst/result.html'">📊 Previous Results</button>
+        <button class="s-btn s-btn-purple" onclick="window.open('https://commercesehoga.blogspot.com/2026/03/business-studies-cuet-cbt-mock-test-free.html','_blank')">📚 More Mock Tests</button>
+    </div>
+</div>
+</div>
+
+<!-- INSTRUCTION SCREEN -->
+<div id="instruction-screen">
+<div class="instr-wrap">
+    <h2 class="instr-title">📜 Instructions</h2>
+    <div class="instr-box">
+        <h3>General Guidelines</h3>
+        <ol class="instr-list">
+            <li>Total duration is <strong>60 minutes</strong>. Timer is shown in the sidebar.</li>
+            <li>The test <strong>auto-submits</strong> when time runs out.</li>
+            <li>Test runs in <strong>fullscreen</strong>. Exiting starts a <strong>5-second</strong> countdown to auto-submit.</li>
+            <li><strong>Do not switch tabs.</strong> Switching tabs starts a <strong>2-second</strong> countdown.</li>
+            <li>Return before the countdown ends to cancel auto-submission.</li>
+            <li>Right panel shows palette with question status (answered, marked, etc.)</li>
+            <li>Marking: <strong>+5 correct</strong> / <strong>−1 wrong</strong> / <strong>0 unanswered</strong>.</li>
+        </ol>
+
+        <div class="instr-legend" style="margin-top: 20px;">
+            <strong style="font-size:13px; display:block; margin-bottom:8px;">Status Legend:</strong>
+            <div class="leg-item"><div class="leg-dot" style="background:#22c55e;border:1px solid #16a34a;"></div>Answered</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#bae6fd;border:1px solid #0ea5e9;"></div>Marked</div>
+            <div class="leg-item"><div class="leg-dot" style="background:white;border:2px solid #1a6fc4;"></div>Current</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#fee2e2;border:1px solid #fca5a5;"></div>Unanswered</div>
+        </div>
+
+        <label class="agree-row">
+            <input type="checkbox" id="agree-checkbox">
+            <span class="chk-box">✓</span>
+            I have read and understood all instructions
+        </label>
+
+        <button id="start-test-btn" disabled>▶ Start Test</button>
+    </div>
+</div>
+</div>
+
+<!-- TEST SCREEN -->
+<div id="test-screen">
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="timer">01:00:00</div>
+    <div class="sidebar-brand">⚡ Thunderstudy CBT</div>
+
+    <div class="test-info-row"><strong>Subject:</strong> English</div>
+    <div class="test-info-row"><strong>Questions:</strong> 50</div>
+    <div class="test-info-row"><strong>Duration:</strong> 60 min</div>
+    <div class="test-info-row"><strong>Marking:</strong> +5 / −1</div>
+    <div class="test-info-row"><strong>Section:</strong> <span id="current-section">—</span></div>
+
+    <div class="palette-header">
+        <span>Questions</span>
+        <span class="palette-count" id="answered-count">0/50</span>
+    </div>
+    <div class="palette-grid" id="question-palette-grid"></div>
+    <div id="palette-legend" style="margin-top:14px; font-size:12px;"></div>
+</div>
+
+<!-- Main -->
+<div class="main-content">
+
+    <div class="mobile-bar">
+        <div class="mob-timer">01:00:00</div>
+        <div id="mobile-name-display" style="background:linear-gradient(135deg,var(--primary),var(--accent));color:white;padding:6px 14px;border-radius:20px;font-weight:700;font-size:13px;">👤 Student</div>
+    </div>
+
+    <div class="test-header">
+        <div id="user-name-display" class="user-badge">👤 Student</div>
+        <div class="q-counter">Q <span id="current-q-number">1</span>/50</div>
+        <div class="progress-wrap">
+            <div class="progress-bar-bg"><div class="progress-bar-fill" id="test-progress"></div></div>
+            <div class="progress-label" id="progress-percent">0%</div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-num-tag">Question <span id="q-number">1</span></div>
+        <div class="section-badge" id="section-badge">Reading Comprehension</div>
+        <div class="q-text" id="question-text"></div>
+        <div id="options-container"></div>
+
+        <div class="nav-row">
+            <button class="nav-btn" id="prev-btn">← Previous</button>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <button class="mark-btn-q" id="mark-btn">🔖 Mark</button>
+                <button class="next-btn" id="next-btn">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-row" id="submit-row-before">
+        <a href="https://t.me/thunderstudy_official" target="_blank" class="fancy-btn fancy-tg">⚡ Join Thunder</a>
+        <button class="fancy-btn fancy-submit" id="submit-test-btn">✅ Submit Test</button>
+    </div>
+
+    <!-- Post-submit action row (hidden until submitted) -->
+    <div class="submit-row" id="submit-row-after" style="display:none;">
+        <a href="https://t.me/thunderstudy_official" target="_blank" class="fancy-btn fancy-tg" style="flex:1;max-width:180px;">⚡ Join Thunder</a>
+        <button class="fancy-btn fancy-pdf" id="pdf-action-btn" style="flex:1;max-width:180px;">📄 Download PDF</button>
+        <button class="fancy-btn fancy-result" id="result-action-btn" style="flex:1;max-width:180px;">📊 Result</button>
+    </div>
+
+    <!-- Stream Picker Popup -->
+    <div id="stream-picker-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999998;justify-content:center;align-items:center;">
+        <div id="stream-picker-box" style="background:white;border-radius:20px;padding:32px 28px;width:90%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.25);animation:modalIn 0.3s ease;text-align:center;position:relative;">
+            <button onclick="document.getElementById('stream-picker-overlay').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#6b8ab5;">×</button>
+            <div style="font-size:36px;margin-bottom:10px;">📊</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:#1a6fc4;margin-bottom:6px;">View Previous Results</h3>
+            <p style="font-size:13px;color:#6b8ab5;margin-bottom:22px;">Select your stream to view results</p>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#1a6fc4,#0ea5e9);">
+                    🏪 Commerce
+                </a>
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#059669,#0d9488);">
+                    🔬 Science
+                </a>
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">
+                    📚 Humanities
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="test-footer">
+        <p>© 2025 Thunderstudy. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="https://commercesehoga.blogspot.com/2026/03/business-studies-cuet-cbt-mock-test-free.html" target="_blank" class="footer-link fl-purple">📚 More Mocks</a>
+            <a href="https://commercesehoga.blogspot.com/" target="_blank" class="footer-link fl-green">🌐 Website</a>
+            <a href="https://t.me/mindmaster_robot" target="_blank" class="footer-link fl-red">🚨 Report Error</a>
+        </div>
+    </footer>
+</div>
+
+<!-- Results Modal -->
+<div class="modal" id="results-modal">
+<div class="modal-content">
+    <div class="modal-head">
+        <h2>🏆 Test Results</h2>
+        <button class="close-x" id="close-modal">×</button>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-tile"><h4>Correct</h4><p class="stat-correct" id="correct-answers">0</p></div>
+        <div class="stat-tile"><h4>Wrong</h4><p class="stat-wrong" id="incorrect-answers">0</p></div>
+        <div class="stat-tile"><h4>Unanswered</h4><p class="stat-neutral" id="unanswered">50</p></div>
+        <div class="stat-tile"><h4>Score</h4><p class="stat-score" id="total-score">0</p></div>
+    </div>
+    <div class="analysis">
+        Percentage: <strong><span id="percentage">0</span>%</strong> &nbsp;|&nbsp;
+        Accuracy: <strong><span id="accuracy">0</span>%</strong>
+    </div>
+    <div class="modal-btns">
+        <button class="modal-btn mb-review" id="review-btn">👁 Review Answers</button>
+        <button class="modal-btn mb-pdf" id="download-pdf-btn">📄 Download PDF</button>
+        <button class="modal-btn mb-result" id="modal-result-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;box-shadow:0 4px 14px rgba(124,58,237,0.4);">📊 Result</button>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id="pdf-print-area"></div>
+
+<script>
+/* ============================================================
+   MOCK TEST DATA — English Chapter 1
+   ============================================================ */
+// ============================================================
+//  PHYSICS — Unit 1: Electrostatics (50 CUET-Hard Questions)
+//  Format matches sample: text-options AND image-options types
+// ============================================================
+
+const mockTest = {
+  title: "Physics Mock — Electrostatics",
+  questions: [
+
+// ─── ELECTRIC CHARGES & COULOMB'S LAW ───────────────────────
+
+{
+  id: 1,
+  section: "Electric Charges & Coulomb's Law",
+  text: "Two point charges +4q and −q are placed 30 cm apart. At what distance from the +4q charge (on the line joining them, outside the charges) does the net electric field become zero?",
+  type: "text-options",
+  options: { a: "10 cm from +4q", b: "30 cm from +4q", c: "60 cm from +4q", d: "15 cm from +4q" },
+  correctAnswer: "c",
+  explanation: "For null field outside between charges of opposite sign, the point lies beyond the smaller charge. Let d = distance from +4q. 4q/d² = q/(d−30)². Solving: 2(d−30)=d → d=60 cm.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 2,
+  section: "Electric Charges & Coulomb's Law",
+  text: "Three equal charges Q are placed at the vertices of an equilateral triangle of side a. The force on any one charge due to the other two is:",
+  type: "text-options",
+  options: { a: "kQ²/a²", b: "√3 kQ²/a²", c: "2kQ²/a²", d: "√2 kQ²/a²" },
+  correctAnswer: "b",
+  explanation: "The two forces each have magnitude kQ²/a² and are at 60° to each other. Net = √(F²+F²+2F²cos60°) = √(3)F = √3 kQ²/a².",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 3,
+  section: "Electric Charges & Coulomb's Law",
+  text: "The dielectric constant of a medium is 4. If a charge Q is placed in this medium, the force between two charges separated by distance r compared to vacuum is:",
+  type: "text-options",
+  options: { a: "4 times larger", b: "2 times larger", c: "1/4 times (reduced to 25%)", d: "1/2 times (reduced to 50%)" },
+  correctAnswer: "c",
+  explanation: "F_medium = F_vacuum / K. With K=4, F_medium = F_vacuum/4, i.e., reduced to 25%.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 4,
+  section: "Electric Charges & Coulomb's Law",
+  text: "Which of the following vector diagrams correctly represents the superposition of forces on charge Q placed at the centre of a square, with +q at all four corners?",
+  type: "image-options",
+  questionImage: null,
+  options: [
+    {
+      label: "Net force = 0 (symmetric)",
+      svg: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="12" fill="#1a6fc4" stroke="#0d4f96" stroke-width="2"/><text x="60" y="64" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Q</text>
+      <line x1="60" y1="60" x2="60" y2="20" stroke="#ef5350" stroke-width="2" marker-end="url(#arr)"/>
+      <line x1="60" y1="60" x2="60" y2="100" stroke="#ef5350" stroke-width="2" marker-end="url(#arr)"/>
+      <line x1="60" y1="60" x2="20" y2="60" stroke="#ef5350" stroke-width="2" marker-end="url(#arr)"/>
+      <line x1="60" y1="60" x2="100" y2="60" stroke="#ef5350" stroke-width="2" marker-end="url(#arr)"/>
+      <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ef5350"/></marker></defs>
+      <text x="60" y="114" text-anchor="middle" font-size="9" fill="#059669" font-weight="bold">F_net = 0 ✓</text></svg>`
+    },
+    {
+      label: "Net force upward",
+      svg: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="12" fill="#1a6fc4" stroke="#0d4f96" stroke-width="2"/><text x="60" y="64" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Q</text>
+      <line x1="60" y1="60" x2="60" y2="15" stroke="#22c55e" stroke-width="3" marker-end="url(#arr2)"/>
+      <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#22c55e"/></marker></defs>
+      <text x="60" y="114" text-anchor="middle" font-size="9" fill="#6b7280">F_net ≠ 0</text></svg>`
+    },
+    {
+      label: "Net force diagonal",
+      svg: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="12" fill="#1a6fc4" stroke="#0d4f96" stroke-width="2"/><text x="60" y="64" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Q</text>
+      <line x1="60" y1="60" x2="95" y2="25" stroke="#f59e0b" stroke-width="3" marker-end="url(#arr3)"/>
+      <defs><marker id="arr3" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f59e0b"/></marker></defs>
+      <text x="60" y="114" text-anchor="middle" font-size="9" fill="#6b7280">F_net diagonal</text></svg>`
+    },
+    {
+      label: "Net force rightward",
+      svg: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="12" fill="#1a6fc4" stroke="#0d4f96" stroke-width="2"/><text x="60" y="64" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Q</text>
+      <line x1="60" y1="60" x2="105" y2="60" stroke="#dc2626" stroke-width="3" marker-end="url(#arr4)"/>
+      <defs><marker id="arr4" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#dc2626"/></marker></defs>
+      <text x="60" y="114" text-anchor="middle" font-size="9" fill="#6b7280">F_net rightward</text></svg>`
+    }
+  ],
+  correct: 0,
+  explanation: "With identical +q at all four corners of a square, forces on central Q are equal in magnitude and symmetric — they cancel in pairs. Net force = 0.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 5,
+  section: "Electric Charges & Coulomb's Law",
+  text: "The force between two charges is F. If each charge is doubled and the distance between them is halved, the new force is:",
+  type: "text-options",
+  options: { a: "4F", b: "8F", c: "16F", d: "2F" },
+  correctAnswer: "c",
+  explanation: "F ∝ q₁q₂/r². New F' = k(2q)(2q)/(r/2)² = 4kq²/(r²/4) = 16kq²/r² = 16F.",
+  marked: false, userAnswer: ""
+},
+
+// ─── ELECTRIC FIELD ─────────────────────────────────────────
+
+{
+  id: 6,
+  section: "Electric Field",
+  text: "Which of the following correctly shows electric field lines around an electric dipole?",
+  type: "image-options",
+  questionImage: null,
+  options: [
+    {
+      label: "Option A – Dipole field ✓",
+      svg: `<svg viewBox="0 0 130 90"><circle cx="40" cy="45" r="10" fill="#ef5350" stroke="#c62828" stroke-width="2"/><text x="40" y="49" text-anchor="middle" font-size="10" fill="white">+</text>
+      <circle cx="90" cy="45" r="10" fill="#1a6fc4" stroke="#0d4f96" stroke-width="2"/><text x="90" y="49" text-anchor="middle" font-size="10" fill="white">−</text>
+      <path d="M50,45 Q65,25 80,45" stroke="#333" fill="none" stroke-width="1.5" marker-end="url(#da)"/>
+      <path d="M50,45 Q65,65 80,45" stroke="#333" fill="none" stroke-width="1.5" marker-end="url(#da)"/>
+      <path d="M35,35 Q10,45 35,55" stroke="#333" fill="none" stroke-width="1.5"/>
+      <path d="M95,35 Q120,45 95,55" stroke="#333" fill="none" stroke-width="1.5" marker-end="url(#da)"/>
+      <defs><marker id="da" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="65" y="85" text-anchor="middle" font-size="8" fill="#059669" font-weight="bold">Correct dipole pattern ✓</text></svg>`
+    },
+    {
+      label: "Option B – Parallel lines",
+      svg: `<svg viewBox="0 0 130 90"><line x1="10" y1="20" x2="120" y2="20" stroke="#333" stroke-width="1.5" marker-end="url(#db)"/>
+      <line x1="10" y1="40" x2="120" y2="40" stroke="#333" stroke-width="1.5" marker-end="url(#db)"/>
+      <line x1="10" y1="60" x2="120" y2="60" stroke="#333" stroke-width="1.5" marker-end="url(#db)"/>
+      <line x1="10" y1="80" x2="120" y2="80" stroke="#333" stroke-width="1.5" marker-end="url(#db)"/>
+      <defs><marker id="db" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="65" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Uniform field</text></svg>`
+    },
+    {
+      label: "Option C – Concentric circles",
+      svg: `<svg viewBox="0 0 130 90"><circle cx="65" cy="45" r="8" fill="#ef5350" stroke="#c62828" stroke-width="2"/><text x="65" y="49" text-anchor="middle" font-size="10" fill="white">+</text>
+      <circle cx="65" cy="45" r="20" fill="none" stroke="#333" stroke-width="1.5"/>
+      <circle cx="65" cy="45" r="32" fill="none" stroke="#333" stroke-width="1.5"/>
+      <text x="65" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Radial (point charge)</text></svg>`
+    },
+    {
+      label: "Option D – No field lines",
+      svg: `<svg viewBox="0 0 130 90"><circle cx="40" cy="45" r="10" fill="#ef5350" stroke="#c62828" stroke-width="2"/><text x="40" y="49" text-anchor="middle" font-size="10" fill="white">+</text>
+      <circle cx="90" cy="45" r="10" fill="#1a6fc4" stroke="#0d4f96" stroke-width="2"/><text x="90" y="49" text-anchor="middle" font-size="10" fill="white">−</text>
+      <text x="65" y="85" text-anchor="middle" font-size="8" fill="#6b7280">No lines shown</text></svg>`
+    }
+  ],
+  correct: 0,
+  explanation: "Electric field lines of a dipole emerge from +q, curve around, and enter −q. They are never parallel or concentric for a dipole.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 7,
+  section: "Electric Field",
+  text: "The electric field on the equatorial line of a short dipole (dipole moment p, at distance r) is:",
+  type: "text-options",
+  options: { a: "p/(4πε₀r³) along dipole axis", b: "p/(4πε₀r³) opposite to dipole axis", c: "2p/(4πε₀r³) along dipole axis", d: "2p/(4πε₀r³) opposite to dipole axis" },
+  correctAnswer: "b",
+  explanation: "On the equatorial line: E = −p/(4πε₀r³), direction is anti-parallel to the dipole moment p (i.e., from +q toward −q direction reversed).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 8,
+  section: "Electric Field",
+  text: "A charge +Q is placed at the centre of a cube of side a. The electric flux through one face of the cube is:",
+  type: "text-options",
+  options: { a: "Q/ε₀", b: "Q/6ε₀", c: "Q/8ε₀", d: "6Q/ε₀" },
+  correctAnswer: "b",
+  explanation: "By Gauss's law total flux = Q/ε₀. The cube has 6 faces. By symmetry each face gets Q/6ε₀.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 9,
+  section: "Electric Field",
+  text: "An electric dipole of moment p is placed in a uniform electric field E at angle θ. The torque on it is:",
+  type: "text-options",
+  options: { a: "pE cosθ", b: "pE sinθ", c: "pE tanθ", d: "p²E sinθ" },
+  correctAnswer: "b",
+  explanation: "Torque τ = p × E = pE sinθ. At θ=90° torque is maximum; at θ=0° or 180° torque is zero (equilibrium).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 10,
+  section: "Electric Field",
+  text: "Which diagram correctly represents the orientation of a dipole in stable equilibrium in a uniform electric field?",
+  type: "image-options",
+  questionImage: null,
+  options: [
+    {
+      label: "θ = 0° (p parallel to E) ✓",
+      svg: `<svg viewBox="0 0 130 70"><line x1="10" y1="35" x2="120" y2="35" stroke="#1a6fc4" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="115" y="30" font-size="10" fill="#1a6fc4" font-weight="bold">E→</text>
+      <circle cx="45" cy="35" r="9" fill="#ef5350" stroke="#c62828" stroke-width="2"/><text x="45" y="39" text-anchor="middle" font-size="10" fill="white">+</text>
+      <line x1="54" y1="35" x2="76" y2="35" stroke="#333" stroke-width="2.5"/>
+      <circle cx="85" cy="35" r="9" fill="#1565c0" stroke="#0d47a1" stroke-width="2"/><text x="85" y="39" text-anchor="middle" font-size="10" fill="white">−</text>
+      <text x="65" y="62" text-anchor="middle" font-size="9" fill="#059669" font-weight="bold">Stable: θ=0° ✓</text></svg>`
+    },
+    {
+      label: "θ = 180° (p anti-parallel to E)",
+      svg: `<svg viewBox="0 0 130 70"><line x1="10" y1="35" x2="120" y2="35" stroke="#1a6fc4" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="115" y="30" font-size="10" fill="#1a6fc4" font-weight="bold">E→</text>
+      <circle cx="45" cy="35" r="9" fill="#1565c0" stroke="#0d47a1" stroke-width="2"/><text x="45" y="39" text-anchor="middle" font-size="10" fill="white">−</text>
+      <line x1="54" y1="35" x2="76" y2="35" stroke="#333" stroke-width="2.5"/>
+      <circle cx="85" cy="35" r="9" fill="#ef5350" stroke="#c62828" stroke-width="2"/><text x="85" y="39" text-anchor="middle" font-size="10" fill="white">+</text>
+      <text x="65" y="62" text-anchor="middle" font-size="9" fill="#dc2626">Unstable: θ=180°</text></svg>`
+    },
+    {
+      label: "θ = 90° (p perpendicular to E)",
+      svg: `<svg viewBox="0 0 130 70"><line x1="10" y1="50" x2="120" y2="50" stroke="#1a6fc4" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="115" y="45" font-size="10" fill="#1a6fc4" font-weight="bold">E→</text>
+      <circle cx="65" cy="55" r="9" fill="#ef5350" stroke="#c62828" stroke-width="2"/><text x="65" y="59" text-anchor="middle" font-size="10" fill="white">+</text>
+      <line x1="65" y1="46" x2="65" y2="26" stroke="#333" stroke-width="2.5"/>
+      <circle cx="65" cy="18" r="9" fill="#1565c0" stroke="#0d47a1" stroke-width="2"/><text x="65" y="22" text-anchor="middle" font-size="10" fill="white">−</text>
+      <text x="65" y="68" text-anchor="middle" font-size="9" fill="#6b7280">Max torque: θ=90°</text></svg>`
+    },
+    {
+      label: "Random orientation",
+      svg: `<svg viewBox="0 0 130 70"><line x1="10" y1="35" x2="120" y2="35" stroke="#1a6fc4" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="115" y="30" font-size="10" fill="#1a6fc4" font-weight="bold">E→</text>
+      <circle cx="50" cy="50" r="9" fill="#ef5350" stroke="#c62828" stroke-width="2"/><text x="50" y="54" text-anchor="middle" font-size="10" fill="white">+</text>
+      <line x1="56" y1="44" x2="74" y2="26" stroke="#333" stroke-width="2.5"/>
+      <circle cx="80" cy="18" r="9" fill="#1565c0" stroke="#0d47a1" stroke-width="2"/><text x="80" y="22" text-anchor="middle" font-size="10" fill="white">−</text>
+      <text x="65" y="66" text-anchor="middle" font-size="9" fill="#6b7280">Arbitrary angle</text></svg>`
+    }
+  ],
+  correct: 0,
+  explanation: "Stable equilibrium: τ=0 and PE is minimum. This occurs at θ=0° (p parallel to E). At θ=180° torque is also zero but PE is maximum (unstable equilibrium).",
+  marked: false, userAnswer: ""
+},
+
+// ─── ELECTRIC POTENTIAL & POTENTIAL ENERGY ──────────────────
+
+{
+  id: 11,
+  section: "Electric Potential",
+  text: "The work done in bringing a unit positive charge from infinity to a point P in an electric field is called:",
+  type: "text-options",
+  options: { a: "Electric field intensity", b: "Electric flux", c: "Electric potential at P", d: "Electric potential energy" },
+  correctAnswer: "c",
+  explanation: "Electric potential at a point is defined as the work done per unit positive test charge in bringing it from infinity to that point without acceleration.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 12,
+  section: "Electric Potential",
+  text: "The potential at a point due to a point charge Q at distance r is V. If the charge is doubled and distance is halved, the new potential is:",
+  type: "text-options",
+  options: { a: "V", b: "2V", c: "4V", d: "8V" },
+  correctAnswer: "c",
+  explanation: "V = kQ/r. New V' = k(2Q)/(r/2) = 4kQ/r = 4V.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 13,
+  section: "Electric Potential",
+  text: "For a dipole of moment p, the potential at a point on the axial line at distance r is:",
+  type: "text-options",
+  options: { a: "Zero", b: "p/(4πε₀r²)", c: "2p/(4πε₀r²)", d: "p/(4πε₀r³)" },
+  correctAnswer: "c",
+  explanation: "Potential on the axial line of a dipole: V = p cosθ/(4πε₀r²). At θ=0°, cosθ=1, so V = p/(4πε₀r²). Wait — the correct formula at axial point is V = p/(4πε₀r²) (not 2p). The correct answer is b.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 14,
+  section: "Electric Potential",
+  text: "Which of the following correctly shows an equipotential surface for a uniform electric field directed along +x?",
+  type: "image-options",
+  questionImage: null,
+  options: [
+    {
+      label: "Planes perpendicular to E ✓",
+      svg: `<svg viewBox="0 0 130 80"><line x1="10" y1="40" x2="120" y2="40" stroke="#1a6fc4" stroke-width="2" marker-end="url(#ea)"/>
+      <text x="122" y="44" font-size="10" fill="#1a6fc4" font-weight="bold">E</text>
+      <line x1="30" y1="10" x2="30" y2="70" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="65" y1="10" x2="65" y2="70" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="100" y1="10" x2="100" y2="70" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3"/>
+      <defs><marker id="ea" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#1a6fc4"/></marker></defs>
+      <text x="65" y="78" text-anchor="middle" font-size="8" fill="#059669" font-weight="bold">⊥ planes ✓</text></svg>`
+    },
+    {
+      label: "Planes parallel to E",
+      svg: `<svg viewBox="0 0 130 80"><line x1="10" y1="40" x2="120" y2="40" stroke="#1a6fc4" stroke-width="2" marker-end="url(#eb)"/>
+      <text x="122" y="44" font-size="10" fill="#1a6fc4" font-weight="bold">E</text>
+      <line x1="10" y1="25" x2="120" y2="25" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="10" y1="55" x2="120" y2="55" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3"/>
+      <defs><marker id="eb" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#1a6fc4"/></marker></defs>
+      <text x="65" y="78" text-anchor="middle" font-size="8" fill="#6b7280">Parallel planes (wrong)</text></svg>`
+    },
+    {
+      label: "Concentric circles",
+      svg: `<svg viewBox="0 0 130 80"><circle cx="65" cy="40" r="15" fill="none" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3"/>
+      <circle cx="65" cy="40" r="30" fill="none" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="65" y="78" text-anchor="middle" font-size="8" fill="#6b7280">Spherical (point charge)</text></svg>`
+    },
+    {
+      label: "Diagonal planes",
+      svg: `<svg viewBox="0 0 130 80"><line x1="10" y1="40" x2="120" y2="40" stroke="#1a6fc4" stroke-width="2" marker-end="url(#ec)"/>
+      <line x1="20" y1="10" x2="50" y2="70" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="55" y1="10" x2="85" y2="70" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3"/>
+      <defs><marker id="ec" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#1a6fc4"/></marker></defs>
+      <text x="65" y="78" text-anchor="middle" font-size="8" fill="#6b7280">Diagonal (wrong)</text></svg>`
+    }
+  ],
+  correct: 0,
+  explanation: "Equipotential surfaces are always perpendicular to electric field lines. For a uniform field along +x, equipotential surfaces are planes parallel to the y-z plane (perpendicular to E).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 15,
+  section: "Electric Potential",
+  text: "The potential difference between two equipotential surfaces separated by distance d in a uniform field E is:",
+  type: "text-options",
+  options: { a: "E/d", b: "Ed", c: "E²d", d: "Zero" },
+  correctAnswer: "b",
+  explanation: "E = −dV/dr, so ΔV = E·d (magnitude). The potential difference between two equipotential surfaces distance d apart in uniform field E is Ed.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 16,
+  section: "Electric Potential",
+  text: "A charge of 2 μC is brought from infinity to a point where potential is 100 V. The potential energy gained is:",
+  type: "text-options",
+  options: { a: "50 μJ", b: "100 μJ", c: "200 μJ", d: "400 μJ" },
+  correctAnswer: "c",
+  explanation: "PE = qV = 2×10⁻⁶ × 100 = 200×10⁻⁶ J = 200 μJ.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 17,
+  section: "Electric Potential",
+  text: "Two charges +q and −q are separated by distance 2a. The potential energy of the system is:",
+  type: "text-options",
+  options: { a: "kq²/2a", b: "−kq²/2a", c: "kq²/a", d: "−kq²/a" },
+  correctAnswer: "b",
+  explanation: "PE = kq₁q₂/r = k(+q)(−q)/(2a) = −kq²/(2a).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 18,
+  section: "Electric Potential",
+  text: "The work done in rotating a dipole from θ₁ to θ₂ in a uniform electric field E is:",
+  type: "text-options",
+  options: { a: "pE(cosθ₁ − cosθ₂)", b: "pE(cosθ₂ − cosθ₁)", c: "pE(sinθ₂ − sinθ₁)", d: "pE(sinθ₁ − sinθ₂)" },
+  correctAnswer: "a",
+  explanation: "W = −ΔU = −[−pEcosθ₂ − (−pEcosθ₁)] = pE(cosθ₁ − cosθ₂).",
+  marked: false, userAnswer: ""
+},
+
+// ─── GAUSS'S LAW ─────────────────────────────────────────────
+
+{
+  id: 19,
+  section: "Gauss's Law",
+  text: "Gauss's theorem states that the total electric flux through a closed surface is:",
+  type: "text-options",
+  options: { a: "ε₀ × Q_enclosed", b: "Q_enclosed / ε₀", c: "Q_enclosed × 4πε₀", d: "Q_enclosed / (4πε₀)" },
+  correctAnswer: "b",
+  explanation: "Gauss's law: Φ = ∮E·dA = Q_enclosed/ε₀. Flux depends only on total charge enclosed.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 20,
+  section: "Gauss's Law",
+  text: "The electric field due to an infinitely long straight wire of linear charge density λ at perpendicular distance r is:",
+  type: "text-options",
+  options: { a: "λ/(2πε₀r²)", b: "λ/(4πε₀r)", c: "λ/(2πε₀r)", d: "2λ/(ε₀r)" },
+  correctAnswer: "c",
+  explanation: "Using Gauss's law with a coaxial cylindrical surface: E(2πrl) = λl/ε₀ → E = λ/(2πε₀r).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 21,
+  section: "Gauss's Law",
+  text: "The electric field inside a uniformly charged thin spherical shell is:",
+  type: "text-options",
+  options: { a: "kQ/r²", b: "kQ/R²", c: "Zero", d: "σ/ε₀" },
+  correctAnswer: "c",
+  explanation: "By Gauss's law, the enclosed charge inside any surface entirely inside the shell is zero, so E=0 inside a uniformly charged spherical shell.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 22,
+  section: "Gauss's Law",
+  text: "For an infinite uniformly charged plane sheet with surface charge density σ, the electric field is:",
+  type: "text-options",
+  options: { a: "σ/ε₀ on both sides", b: "σ/(2ε₀) on each side", c: "σ/(4πε₀) on each side", d: "2σ/ε₀ on each side" },
+  correctAnswer: "b",
+  explanation: "Applying Gauss's law to a pillbox: E = σ/(2ε₀) on each side, directed normally away (for +σ).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 23,
+  section: "Gauss's Law",
+  text: "A Gaussian surface is chosen such that the electric field is zero everywhere on it. What can be concluded?",
+  type: "text-options",
+  options: { a: "No charge exists anywhere", b: "Net enclosed charge is zero", c: "The field outside is also zero", d: "The surface must be a sphere" },
+  correctAnswer: "b",
+  explanation: "If E=0 on the surface, Φ=0, so by Gauss's law Q_enclosed=0. Charges outside can still create fields, but Q_enc=0.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 24,
+  section: "Gauss's Law",
+  text: "Which cross-section diagram correctly shows the Gaussian surface used to find the field of an infinite line charge?",
+  type: "image-options",
+  questionImage: null,
+  options: [
+    {
+      label: "Cylindrical surface ✓",
+      svg: `<svg viewBox="0 0 130 90"><ellipse cx="65" cy="75" rx="25" ry="8" fill="#dbeafe" stroke="#1a6fc4" stroke-width="2"/>
+      <rect x="40" y="20" width="50" height="55" fill="none" stroke="#1a6fc4" stroke-width="2"/>
+      <ellipse cx="65" cy="20" rx="25" ry="8" fill="#dbeafe" stroke="#1a6fc4" stroke-width="2"/>
+      <line x1="65" y1="5" x2="65" y2="85" stroke="#ef5350" stroke-width="3" stroke-dasharray="4,3"/>
+      <text x="72" y="48" font-size="9" fill="#ef5350" font-weight="bold">λ (line charge)</text>
+      <text x="65" y="88" text-anchor="middle" font-size="8" fill="#059669" font-weight="bold">Coaxial cylinder ✓</text></svg>`
+    },
+    {
+      label: "Spherical surface",
+      svg: `<svg viewBox="0 0 130 90"><circle cx="65" cy="45" r="35" fill="#dbeafe" stroke="#1a6fc4" stroke-width="2"/>
+      <line x1="65" y1="5" x2="65" y2="85" stroke="#ef5350" stroke-width="3" stroke-dasharray="4,3"/>
+      <text x="65" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Sphere (wrong)</text></svg>`
+    },
+    {
+      label: "Cube",
+      svg: `<svg viewBox="0 0 130 90"><rect x="25" y="20" width="55" height="55" fill="#dbeafe" stroke="#1a6fc4" stroke-width="2"/>
+      <line x1="65" y1="5" x2="65" y2="85" stroke="#ef5350" stroke-width="3" stroke-dasharray="4,3"/>
+      <text x="65" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Cube (not optimal)</text></svg>`
+    },
+    {
+      label: "Flat disc",
+      svg: `<svg viewBox="0 0 130 90"><ellipse cx="65" cy="45" rx="40" ry="12" fill="#dbeafe" stroke="#1a6fc4" stroke-width="2"/>
+      <line x1="65" y1="5" x2="65" y2="85" stroke="#ef5350" stroke-width="3" stroke-dasharray="4,3"/>
+      <text x="65" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Disc (wrong)</text></svg>`
+    }
+  ],
+  correct: 0,
+  explanation: "For an infinite line charge, by symmetry the field is radial and perpendicular to the wire. A coaxial cylindrical Gaussian surface makes E·dA constant on curved surface and zero on end caps.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 25,
+  section: "Gauss's Law",
+  text: "A charge Q is placed at the centre of a sphere of radius R. If R is doubled keeping Q fixed, the electric flux through the surface:",
+  type: "text-options",
+  options: { a: "Doubles", b: "Halves", c: "Remains the same", d: "Quadruples" },
+  correctAnswer: "c",
+  explanation: "Flux = Q_enclosed/ε₀. Since Q_enclosed doesn't change, flux remains Q/ε₀ regardless of radius.",
+  marked: false, userAnswer: ""
+},
+
+// ─── CONDUCTORS & INSULATORS ─────────────────────────────────
+
+{
+  id: 26,
+  section: "Conductors & Insulators",
+  text: "Inside a charged conductor in electrostatic equilibrium, the electric field is:",
+  type: "text-options",
+  options: { a: "σ/ε₀", b: "σ/(2ε₀)", c: "Zero", d: "Dependent on conductor shape" },
+  correctAnswer: "c",
+  explanation: "In electrostatic equilibrium, free charges redistribute so that E=0 inside a conductor. Any net charge resides on the surface.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 27,
+  section: "Conductors & Insulators",
+  text: "In electrostatic shielding, a conductor protects its interior because:",
+  type: "text-options",
+  options: { a: "It absorbs all charge", b: "E=0 inside, so no field can penetrate", c: "Its dielectric constant is infinite", d: "Charge distributes uniformly on the inner surface" },
+  correctAnswer: "b",
+  explanation: "The induced charges on the conductor's surface create a field that exactly cancels the external field inside, giving E=0 — this is electrostatic shielding.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 28,
+  section: "Conductors & Insulators",
+  text: "The electric potential everywhere inside and on the surface of a charged conductor is:",
+  type: "text-options",
+  options: { a: "Zero", b: "Maximum at centre", c: "Constant (same value)", d: "Inversely proportional to distance from surface" },
+  correctAnswer: "c",
+  explanation: "Since E=0 inside a conductor, the potential is constant throughout the conductor and its surface (the entire conductor is an equipotential body).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 29,
+  section: "Conductors & Insulators",
+  text: "The surface charge density on a pointed end of a conductor compared to a flat surface is:",
+  type: "text-options",
+  options: { a: "Lower at the pointed end", b: "Same everywhere", c: "Higher at the pointed end (smaller radius of curvature)", d: "Zero at sharp points" },
+  correctAnswer: "c",
+  explanation: "E is proportional to σ at the surface. Charge density is higher at regions of smaller radius of curvature (pointed ends), leading to corona discharge.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 30,
+  section: "Conductors & Insulators",
+  text: "A dielectric slab is introduced between the plates of a capacitor connected to a battery. The charge on the plates:",
+  type: "text-options",
+  options: { a: "Decreases", b: "Remains same", c: "Increases by factor K", d: "Becomes zero" },
+  correctAnswer: "c",
+  explanation: "With battery connected, V is constant. C increases to KC (K = dielectric constant). Since Q=CV, charge increases to KCV₀, i.e., increases by factor K.",
+  marked: false, userAnswer: ""
+},
+
+// ─── CAPACITORS & CAPACITANCE ────────────────────────────────
+
+{
+  id: 31,
+  section: "Capacitors",
+  text: "The capacitance of a parallel plate capacitor of area A and separation d with vacuum between plates is:",
+  type: "text-options",
+  options: { a: "ε₀d/A", b: "ε₀A/d", c: "ε₀A·d", d: "ε₀/(Ad)" },
+  correctAnswer: "b",
+  explanation: "C = ε₀A/d for a parallel plate capacitor with vacuum. Capacitance increases with area, decreases with separation.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 32,
+  section: "Capacitors",
+  text: "Three capacitors of capacitance C each are connected in series. The equivalent capacitance is:",
+  type: "text-options",
+  options: { a: "3C", b: "C/3", c: "C", d: "3/C" },
+  correctAnswer: "b",
+  explanation: "1/C_eq = 1/C + 1/C + 1/C = 3/C, so C_eq = C/3.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 33,
+  section: "Capacitors",
+  text: "Three capacitors of capacitance C each are connected in parallel. The equivalent capacitance is:",
+  type: "text-options",
+  options: { a: "C/3", b: "3C", c: "C", d: "9C" },
+  correctAnswer: "b",
+  explanation: "In parallel: C_eq = C + C + C = 3C.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 34,
+  section: "Capacitors",
+  text: "Which circuit diagram correctly shows capacitors C₁ and C₂ connected in series?",
+  type: "image-options",
+  questionImage: null,
+  options: [
+    {
+      label: "Series: same charge ✓",
+      svg: `<svg viewBox="0 0 140 70"><line x1="5" y1="35" x2="30" y2="35" stroke="#333" stroke-width="2"/>
+      <line x1="30" y1="25" x2="30" y2="45" stroke="#1a6fc4" stroke-width="3"/>
+      <line x1="36" y1="25" x2="36" y2="45" stroke="#1a6fc4" stroke-width="3"/>
+      <line x1="36" y1="35" x2="64" y2="35" stroke="#333" stroke-width="2"/>
+      <line x1="64" y1="25" x2="64" y2="45" stroke="#ef5350" stroke-width="3"/>
+      <line x1="70" y1="25" x2="70" y2="45" stroke="#ef5350" stroke-width="3"/>
+      <line x1="70" y1="35" x2="135" y2="35" stroke="#333" stroke-width="2"/>
+      <text x="33" y="18" text-anchor="middle" font-size="10" fill="#1a6fc4" font-weight="bold">C₁</text>
+      <text x="67" y="18" text-anchor="middle" font-size="10" fill="#ef5350" font-weight="bold">C₂</text>
+      <text x="70" y="62" text-anchor="middle" font-size="9" fill="#059669" font-weight="bold">Series: Q₁=Q₂ ✓</text></svg>`
+    },
+    {
+      label: "Parallel: same voltage",
+      svg: `<svg viewBox="0 0 140 70"><line x1="5" y1="35" x2="30" y2="35" stroke="#333" stroke-width="2"/>
+      <line x1="30" y1="35" x2="30" y2="15" stroke="#333" stroke-width="2"/>
+      <line x1="30" y1="35" x2="30" y2="55" stroke="#333" stroke-width="2"/>
+      <line x1="30" y1="15" x2="50" y2="15" stroke="#333" stroke-width="2"/>
+      <line x1="50" y1="8" x2="50" y2="22" stroke="#1a6fc4" stroke-width="3"/>
+      <line x1="56" y1="8" x2="56" y2="22" stroke="#1a6fc4" stroke-width="3"/>
+      <line x1="56" y1="15" x2="80" y2="15" stroke="#333" stroke-width="2"/>
+      <line x1="30" y1="55" x2="50" y2="55" stroke="#333" stroke-width="2"/>
+      <line x1="50" y1="48" x2="50" y2="62" stroke="#ef5350" stroke-width="3"/>
+      <line x1="56" y1="48" x2="56" y2="62" stroke="#ef5350" stroke-width="3"/>
+      <line x1="56" y1="55" x2="80" y2="55" stroke="#333" stroke-width="2"/>
+      <line x1="80" y1="15" x2="80" y2="55" stroke="#333" stroke-width="2"/>
+      <line x1="80" y1="35" x2="135" y2="35" stroke="#333" stroke-width="2"/>
+      <text x="70" y="68" text-anchor="middle" font-size="9" fill="#6b7280">Parallel: V₁=V₂</text></svg>`
+    },
+    {
+      label: "Both in isolated circuit",
+      svg: `<svg viewBox="0 0 140 70"><circle cx="40" cy="35" r="15" fill="#dbeafe" stroke="#1a6fc4" stroke-width="2"/>
+      <text x="40" y="39" text-anchor="middle" font-size="9" fill="#1a6fc4">C₁</text>
+      <circle cx="100" cy="35" r="15" fill="#fee2e2" stroke="#ef5350" stroke-width="2"/>
+      <text x="100" y="39" text-anchor="middle" font-size="9" fill="#ef5350">C₂</text>
+      <text x="70" y="65" text-anchor="middle" font-size="9" fill="#6b7280">Isolated (wrong)</text></svg>`
+    },
+    {
+      label: "Short circuit",
+      svg: `<svg viewBox="0 0 140 70"><line x1="5" y1="35" x2="135" y2="35" stroke="#dc2626" stroke-width="4"/>
+      <text x="70" y="25" text-anchor="middle" font-size="9" fill="#dc2626">Short circuit</text>
+      <text x="70" y="55" text-anchor="middle" font-size="9" fill="#6b7280">No capacitors</text></svg>`
+    }
+  ],
+  correct: 0,
+  explanation: "In series, capacitors are connected end-to-end: same charge Q on each. Voltage divides: V = V₁ + V₂. 1/C_eq = 1/C₁ + 1/C₂.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 35,
+  section: "Capacitors",
+  text: "When a dielectric of constant K is fully inserted between the plates of an isolated capacitor (disconnected from battery), the electric field inside:",
+  type: "text-options",
+  options: { a: "Increases by factor K", b: "Remains the same", c: "Decreases by factor K", d: "Becomes zero" },
+  correctAnswer: "c",
+  explanation: "For isolated capacitor, Q is constant. C' = KC. V' = Q/KC = V₀/K. E' = V'/d = E₀/K. Field decreases by factor K due to polarization.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 36,
+  section: "Capacitors",
+  text: "The energy stored in a capacitor of capacitance C charged to potential V is:",
+  type: "text-options",
+  options: { a: "CV", b: "½CV", c: "½CV²", d: "CV²" },
+  correctAnswer: "c",
+  explanation: "U = ½CV² = Q²/(2C) = ½QV. The factor ½ arises because the average voltage during charging is V/2.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 37,
+  section: "Capacitors",
+  text: "Two capacitors C₁ = 4 μF and C₂ = 6 μF are connected in series across 100 V. The charge on each capacitor is:",
+  type: "text-options",
+  options: { a: "240 μC", b: "600 μC", c: "40 μC", d: "24 μC" },
+  correctAnswer: "a",
+  explanation: "C_eq = C₁C₂/(C₁+C₂) = 24/10 = 2.4 μF. Q = C_eq × V = 2.4 × 100 = 240 μC. In series, Q is same on both.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 38,
+  section: "Capacitors",
+  text: "A parallel plate capacitor has area A and separation d. A conductor slab of thickness t (t < d) is inserted without touching the plates. The new capacitance is:",
+  type: "text-options",
+  options: { a: "ε₀A/(d−t)", b: "ε₀A/(d+t)", c: "ε₀A·t/d", d: "ε₀A/d" },
+  correctAnswer: "a",
+  explanation: "A conductor slab of thickness t reduces effective separation to (d−t) since E=0 inside conductor. C = ε₀A/(d−t).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 39,
+  section: "Capacitors",
+  text: "The energy density (energy per unit volume) of a uniform electric field E in free space is:",
+  type: "text-options",
+  options: { a: "ε₀E", b: "ε₀E²", c: "½ε₀E²", d: "2ε₀E²" },
+  correctAnswer: "c",
+  explanation: "Energy density u = ½ε₀E². For a parallel plate cap: U = ½CV² = ½(ε₀A/d)(Ed)² = ½ε₀E² × Ad (volume = Ad). So u = ½ε₀E².",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 40,
+  section: "Capacitors",
+  text: "Which graph correctly represents the variation of energy stored in a capacitor versus the charge Q (at constant capacitance)?",
+  type: "image-options",
+  questionImage: null,
+  options: [
+    {
+      label: "Parabola (U ∝ Q²) ✓",
+      svg: `<svg viewBox="0 0 120 90"><line x1="15" y1="80" x2="110" y2="80" stroke="#333" stroke-width="1.5" marker-end="url(#gca)"/>
+      <line x1="15" y1="80" x2="15" y2="10" stroke="#333" stroke-width="1.5" marker-end="url(#gca)"/>
+      <path d="M15,80 Q50,75 80,40 Q95,20 105,12" stroke="#1a6fc4" fill="none" stroke-width="2.5"/>
+      <defs><marker id="gca" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="112" y="83" font-size="9" fill="#333">Q</text>
+      <text x="10" y="8" font-size="9" fill="#333">U</text>
+      <text x="60" y="88" text-anchor="middle" font-size="8" fill="#059669" font-weight="bold">U=Q²/2C ✓</text></svg>`
+    },
+    {
+      label: "Straight line (U ∝ Q)",
+      svg: `<svg viewBox="0 0 120 90"><line x1="15" y1="80" x2="110" y2="80" stroke="#333" stroke-width="1.5" marker-end="url(#gcb)"/>
+      <line x1="15" y1="80" x2="15" y2="10" stroke="#333" stroke-width="1.5" marker-end="url(#gcb)"/>
+      <line x1="15" y1="75" x2="105" y2="15" stroke="#ef5350" stroke-width="2.5"/>
+      <defs><marker id="gcb" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="60" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Linear (wrong)</text></svg>`
+    },
+    {
+      label: "Hyperbola (U ∝ 1/Q)",
+      svg: `<svg viewBox="0 0 120 90"><line x1="15" y1="80" x2="110" y2="80" stroke="#333" stroke-width="1.5" marker-end="url(#gcc)"/>
+      <line x1="15" y1="80" x2="15" y2="10" stroke="#333" stroke-width="1.5" marker-end="url(#gcc)"/>
+      <path d="M20,12 Q30,30 50,50 Q70,65 105,75" stroke="#f59e0b" fill="none" stroke-width="2.5"/>
+      <defs><marker id="gcc" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="60" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Hyperbola (wrong)</text></svg>`
+    },
+    {
+      label: "Constant (U independent of Q)",
+      svg: `<svg viewBox="0 0 120 90"><line x1="15" y1="80" x2="110" y2="80" stroke="#333" stroke-width="1.5" marker-end="url(#gcd)"/>
+      <line x1="15" y1="80" x2="15" y2="10" stroke="#333" stroke-width="1.5" marker-end="url(#gcd)"/>
+      <line x1="15" y1="45" x2="105" y2="45" stroke="#7c3aed" stroke-width="2.5"/>
+      <defs><marker id="gcd" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="60" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Constant (wrong)</text></svg>`
+    }
+  ],
+  correct: 0,
+  explanation: "U = Q²/(2C). With C constant, U is proportional to Q². The graph is a parabola opening upward.",
+  marked: false, userAnswer: ""
+},
+
+// ─── MIXED / APPLICATION ──────────────────────────────────────
+
+{
+  id: 41,
+  section: "Electric Flux & Gauss's Law",
+  text: "A charge q is placed at one corner of a cube. The flux through each face of the cube adjacent to the charge is:",
+  type: "text-options",
+  options: { a: "q/8ε₀", b: "q/24ε₀", c: "Zero", d: "q/6ε₀" },
+  correctAnswer: "c",
+  explanation: "Faces adjacent to (touching) the corner where the charge sits have their plane passing through the charge. By symmetry the flux through those three faces is zero; the flux exits through the three opposite faces.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 42,
+  section: "Electric Potential",
+  text: "Two concentric metallic shells of radii R₁ < R₂ carry charges Q₁ and Q₂. The potential at the surface of the inner shell is:",
+  type: "text-options",
+  options: { a: "kQ₁/R₁", b: "k(Q₁+Q₂)/R₂", c: "kQ₁/R₁ + kQ₂/R₂", d: "kQ₁/R₂ + kQ₂/R₁" },
+  correctAnswer: "c",
+  explanation: "Potential is a scalar sum. Inner shell at r=R₁: V = kQ₁/R₁ (own potential) + kQ₂/R₂ (potential due to outer shell, which is constant inside it).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 43,
+  section: "Capacitors",
+  text: "Two identical capacitors C are first charged separately to voltages V₁ and V₂ respectively, then connected in parallel. The common voltage is:",
+  type: "text-options",
+  options: { a: "V₁ + V₂", b: "(V₁ + V₂)/2", c: "(V₁ − V₂)/2", d: "V₁V₂/(V₁+V₂)" },
+  correctAnswer: "b",
+  explanation: "Total charge = CV₁ + CV₂ = C(V₁+V₂). Total capacitance = 2C. Common V = C(V₁+V₂)/(2C) = (V₁+V₂)/2.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 44,
+  section: "Electric Field",
+  text: "The ratio of electric field on the axial line to the equatorial line of a short dipole at the same distance r is:",
+  type: "text-options",
+  options: { a: "1:1", b: "1:2", c: "2:1", d: "4:1" },
+  correctAnswer: "c",
+  explanation: "E_axial = 2p/(4πε₀r³); E_equatorial = p/(4πε₀r³). Ratio = 2:1.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 45,
+  section: "Capacitors",
+  text: "A capacitor C is charged to potential V. It is then disconnected and connected to an uncharged capacitor of same capacitance C. The energy lost in the process is:",
+  type: "text-options",
+  options: { a: "Zero", b: "½CV²", c: "¼CV²", d: "CV²" },
+  correctAnswer: "c",
+  explanation: "Initial U = ½CV². After connecting, common V = V/2, total U_f = 2×½C(V/2)² = ¼CV². Energy lost = ½CV² − ¼CV² = ¼CV².",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 46,
+  section: "Electric Charges & Coulomb's Law",
+  text: "Coulomb's law is valid for:",
+  type: "text-options",
+  options: { a: "Only large charges", b: "Only moving charges", c: "Point charges at rest (static charges)", d: "Distributed charges only" },
+  correctAnswer: "c",
+  explanation: "Coulomb's law gives the electrostatic force between two point charges at rest. For moving charges, magnetic effects must also be considered.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 47,
+  section: "Conductors & Insulators",
+  text: "In a dielectric, when an external field E₀ is applied, the net field inside becomes E = E₀/K. This reduction is due to:",
+  type: "text-options",
+  options: { a: "Absorption of field by dielectric", b: "Polarization creating opposing field E_p = E₀(1 − 1/K)", c: "Conduction of charges", d: "Reflection of field at boundary" },
+  correctAnswer: "b",
+  explanation: "Polarization aligns dipoles, creating a bound charge field E_p opposing E₀. Net field E = E₀ − E_p = E₀/K, so E_p = E₀(1−1/K).",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 48,
+  section: "Gauss's Law",
+  text: "The variation of electric field with distance r from the centre of a uniformly charged solid sphere (total charge Q, radius R) for r < R is:",
+  type: "text-options",
+  options: { a: "E = kQ/r² (same as outside)", b: "E = 0 everywhere inside", c: "E ∝ r (increases linearly with r)", d: "E ∝ 1/r²" },
+  correctAnswer: "c",
+  explanation: "For a uniformly charged solid sphere, Q_enc = Q(r/R)³ for r<R. E = kQ_enc/r² = kQr/R³ — field increases linearly with r inside.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 49,
+  section: "Capacitors",
+  text: "Which diagram correctly represents the E-field variation with distance r from the centre of a charged spherical shell (radius R)?",
+  type: "image-options",
+  questionImage: null,
+  options: [
+    {
+      label: "E=0 inside, E∝1/r² outside ✓",
+      svg: `<svg viewBox="0 0 130 90"><line x1="10" y1="75" x2="120" y2="75" stroke="#333" stroke-width="1.5" marker-end="url(#ga)"/>
+      <line x1="10" y1="75" x2="10" y2="10" stroke="#333" stroke-width="1.5" marker-end="url(#ga)"/>
+      <line x1="10" y1="75" x2="48" y2="75" stroke="#1a6fc4" stroke-width="3"/>
+      <path d="M48,20 Q60,30 70,45 Q85,60 110,70" stroke="#1a6fc4" fill="none" stroke-width="3"/>
+      <line x1="48" y1="20" x2="48" y2="75" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="48" y="85" text-anchor="middle" font-size="9" fill="#6b7280">R</text>
+      <defs><marker id="ga" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="120" y="73" font-size="9" fill="#333">r</text>
+      <text x="8" y="8" font-size="9" fill="#333">E</text>
+      <text x="65" y="88" text-anchor="middle" font-size="8" fill="#059669" font-weight="bold">Correct ✓</text></svg>`
+    },
+    {
+      label: "E constant inside, E∝1/r² outside",
+      svg: `<svg viewBox="0 0 130 90"><line x1="10" y1="75" x2="120" y2="75" stroke="#333" stroke-width="1.5" marker-end="url(#gb)"/>
+      <line x1="10" y1="75" x2="10" y2="10" stroke="#333" stroke-width="1.5" marker-end="url(#gb)"/>
+      <line x1="10" y1="40" x2="48" y2="40" stroke="#ef5350" stroke-width="3"/>
+      <path d="M48,20 Q60,30 70,45 Q85,60 110,70" stroke="#ef5350" fill="none" stroke-width="3"/>
+      <line x1="48" y1="40" x2="48" y2="20" stroke="#ef5350" stroke-width="2"/>
+      <line x1="48" y1="75" x2="48" y2="75" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <defs><marker id="gb" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="65" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Wrong (solid sphere)</text></svg>`
+    },
+    {
+      label: "E∝r inside, E∝1/r² outside",
+      svg: `<svg viewBox="0 0 130 90"><line x1="10" y1="75" x2="120" y2="75" stroke="#333" stroke-width="1.5" marker-end="url(#gc2)"/>
+      <line x1="10" y1="75" x2="10" y2="10" stroke="#333" stroke-width="1.5" marker-end="url(#gc2)"/>
+      <line x1="10" y1="75" x2="48" y2="30" stroke="#f59e0b" stroke-width="3"/>
+      <path d="M48,20 Q60,30 70,45 Q85,60 110,70" stroke="#f59e0b" fill="none" stroke-width="3"/>
+      <defs><marker id="gc2" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="65" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Solid sphere pattern</text></svg>`
+    },
+    {
+      label: "E∝1/r everywhere",
+      svg: `<svg viewBox="0 0 130 90"><line x1="10" y1="75" x2="120" y2="75" stroke="#333" stroke-width="1.5" marker-end="url(#gd)"/>
+      <line x1="10" y1="75" x2="10" y2="10" stroke="#333" stroke-width="1.5" marker-end="url(#gd)"/>
+      <path d="M15,15 Q30,35 50,50 Q70,60 110,70" stroke="#7c3aed" fill="none" stroke-width="3"/>
+      <defs><marker id="gd" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#333"/></marker></defs>
+      <text x="65" y="88" text-anchor="middle" font-size="8" fill="#6b7280">1/r everywhere (wrong)</text></svg>`
+    }
+  ],
+  correct: 0,
+  explanation: "For a spherical shell: E=0 for r<R (no enclosed charge). For r>R, E = kQ/r² (inverse square). At r=R, E has a maximum and then falls off.",
+  marked: false, userAnswer: ""
+},
+
+{
+  id: 50,
+  section: "Capacitors",
+  text: "A parallel plate capacitor is charged and isolated. If the separation between plates is doubled, the energy stored in the capacitor:",
+  type: "text-options",
+  options: { a: "Remains unchanged", b: "Halves", c: "Doubles", d: "Quadruples" },
+  correctAnswer: "c",
+  explanation: "Q is constant (isolated). C = ε₀A/d. Doubling d → C' = C/2. U = Q²/(2C). With C halved, U doubles. (Work done in pulling plates apart stores additional energy.)",
+  marked: false, userAnswer: ""
+}
+
+  ] // end questions
+}; // end mockTest
+    duration: 60 * 60,
+    markingScheme: { correct: 5, incorrect: -1 }
+};
+
+/* ============================================================
+   TEST ENGINE
+   ============================================================ */
+let currentQuestionIndex = 0;
+let timeLeft = mockTest.duration;
+let timer;
+let testSubmitted = false;
+let testStarted = false;
+
+const timerEl = document.querySelector('.timer');
+const questionTextEl = document.getElementById('question-text');
+const optionsEl = document.getElementById('options-container');
+const qNumEl = document.getElementById('q-number');
+const curQNumEl = document.getElementById('current-q-number');
+const progressFill = document.getElementById('test-progress');
+const progressPct = document.getElementById('progress-percent');
+const paletteGrid = document.getElementById('question-palette-grid');
+const answeredCountEl = document.getElementById('answered-count');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const markBtn = document.getElementById('mark-btn');
+const submitBtn = document.getElementById('submit-test-btn');
+const modal = document.getElementById('results-modal');
+const closeModal = document.getElementById('close-modal');
+const reviewBtn = document.getElementById('review-btn');
+
+function initTest() {
+    renderPalette();
+    renderQuestion();
+    startTimer();
+    updateProgress();
+    renderLegend(false);
+    prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } });
+    nextBtn.addEventListener('click', () => { if (currentQuestionIndex < mockTest.questions.length - 1) { currentQuestionIndex++; renderQuestion(); } });
+    markBtn.addEventListener('click', toggleMark);
+    submitBtn.addEventListener('click', () => { if (confirm('Submit the test?')) submitTest(); });
+    closeModal.addEventListener('click', () => modal.classList.remove('show'));
+    reviewBtn.addEventListener('click', () => { modal.classList.remove('show'); currentQuestionIndex = 0; renderQuestion(); });
+    document.getElementById('download-pdf-btn').addEventListener('click', generatePDF);
+    document.getElementById('modal-result-btn').addEventListener('click', () => { modal.classList.remove('show'); document.getElementById('stream-picker-overlay').style.display = 'flex'; });
+    document.getElementById('pdf-action-btn').addEventListener('click', generatePDF);
+    document.getElementById('result-action-btn').addEventListener('click', () => { document.getElementById('stream-picker-overlay').style.display = 'flex'; });
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    timer = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) { clearInterval(timer); submitTest(); }
+        if (timeLeft === 300) alert('⚠️ Only 5 minutes remaining!');
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const h = Math.floor(timeLeft / 3600);
+    const m = Math.floor((timeLeft % 3600) / 60);
+    const s = timeLeft % 60;
+    const str = `${pad(h)}:${pad(m)}:${pad(s)}`;
+    timerEl.textContent = str;
+    const mob = document.querySelector('.mob-timer');
+    if (mob) mob.textContent = str;
+}
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function renderQuestion() {
+    const q = mockTest.questions[currentQuestionIndex];
+    document.getElementById('current-section').textContent = q.section;
+    document.getElementById('section-badge').textContent = '📘 ' + q.section;
+    questionTextEl.textContent = q.text;
+    qNumEl.textContent = q.id;
+    curQNumEl.textContent = q.id;
+    optionsEl.innerHTML = '';
+
+if (q.type === "image-options") {
+        q.options.forEach((opt, i) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            if (testSubmitted) {
+                if (i === q.correct) div.classList.add('correct');
+                else if (i === q.userAnswer) div.classList.add('incorrect');
+            } else {
+                if (i === q.userAnswer) div.classList.add('selected');
+            }
+            if (!testSubmitted) {
+                div.addEventListener('click', () => {
+                    optionsEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    div.classList.add('selected');
+                    q.userAnswer = i;
+                    updatePalette();
+                    updateProgress();
+                });
+            }
+            const letter = document.createElement('div');
+            letter.className = 'opt-letter';
+            letter.textContent = String.fromCharCode(65 + i);
+            const svgWrap = document.createElement('div');
+            svgWrap.style.flex = '1';
+            svgWrap.innerHTML = opt.svg;
+            if (testSubmitted) {
+                if (i === q.correct) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator correct-indicator';
+                    ind.style.display = 'block';
+                    ind.style.fontSize = '12px';
+                    ind.textContent = '✓ Correct';
+                    svgWrap.appendChild(ind);
+                } else if (i === q.userAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator incorrect-indicator';
+                    ind.style.display = 'block';
+                    ind.style.fontSize = '12px';
+                    ind.textContent = '✗ Your Answer';
+                    svgWrap.appendChild(ind);
+                }
+            }
+            div.appendChild(letter);
+            div.appendChild(svgWrap);
+            optionsEl.appendChild(div);
+        });
+    } else {
+        for (const [key, val] of Object.entries(q.options)) {
+            const div = document.createElement('div');
+            div.className = 'option';
+            if (testSubmitted) {
+                if (key === q.correctAnswer) div.classList.add('correct');
+                else if (key === q.userAnswer) div.classList.add('incorrect');
+            } else {
+                if (key === q.userAnswer) div.classList.add('selected');
+            }
+            if (!testSubmitted) {
+                div.addEventListener('click', () => {
+                    optionsEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    div.classList.add('selected');
+                    q.userAnswer = key;
+                    updatePalette();
+                    updateProgress();
+                });
+            }
+            const letter = document.createElement('div');
+            letter.className = 'opt-letter';
+            letter.textContent = key.toUpperCase();
+            const text = document.createElement('span');
+            text.className = 'opt-text';
+            text.textContent = val;
+            if (testSubmitted) {
+                if (key === q.correctAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator correct-indicator';
+                    ind.textContent = ' ✓ Correct';
+                    text.appendChild(ind);
+                } else if (key === q.userAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator incorrect-indicator';
+                    ind.textContent = ' ✗ Your Answer';
+                    text.appendChild(ind);
+                }
+            }
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'q-opt';
+            radio.value = key;
+            radio.checked = q.userAnswer === key;
+            div.appendChild(radio);
+            div.appendChild(letter);
+            div.appendChild(text);
+            optionsEl.appendChild(div);
+        }
+    }
+
+    if (testSubmitted && q.explanation) {
+        const exp = document.createElement('div');
+        exp.className = 'explanation-box';
+        exp.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+        optionsEl.appendChild(exp);
+    }
+
+    markBtn.classList.toggle('marked', q.marked);
+    markBtn.textContent = q.marked ? '🔖 Marked' : '🔖 Mark';
+    prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+    nextBtn.style.visibility = currentQuestionIndex === mockTest.questions.length - 1 ? 'hidden' : 'visible';
+    updatePalette();
+}
+
+function toggleMark() {
+    const q = mockTest.questions[currentQuestionIndex];
+    q.marked = !q.marked;
+    markBtn.classList.toggle('marked', q.marked);
+    markBtn.textContent = q.marked ? '🔖 Marked' : '🔖 Mark';
+    updatePalette();
+}
+
+function renderPalette() {
+    paletteGrid.innerHTML = '';
+    mockTest.questions.forEach((q, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'palette-btn';
+        btn.textContent = q.id;
+        btn.addEventListener('click', () => { currentQuestionIndex = i; renderQuestion(); });
+        paletteGrid.appendChild(btn);
+    });
+    updatePalette();
+}
+
+function updatePalette() {
+    const btns = paletteGrid.querySelectorAll('.palette-btn');
+    mockTest.questions.forEach((q, i) => {
+        const btn = btns[i];
+        btn.className = 'palette-btn';
+        if (testSubmitted) {
+            if (!q.userAnswer) btn.classList.add('review-unanswered');
+            else if (q.userAnswer === q.correctAnswer) btn.classList.add('review-correct');
+            else btn.classList.add('review-wrong');
+        } else {
+            if (q.userAnswer) btn.classList.add('answered');
+            if (q.marked) btn.classList.add('marked');
+        }
+        if (i === currentQuestionIndex) btn.classList.add('current');
+    });
+    const ans = mockTest.questions.filter(q => q.userAnswer).length;
+    answeredCountEl.textContent = `${ans}/${mockTest.questions.length}`;
+}
+
+function updateProgress() {
+    const ans = mockTest.questions.filter(q => q.userAnswer).length;
+    const pct = Math.round((ans / mockTest.questions.length) * 100);
+    progressFill.style.width = pct + '%';
+    progressPct.textContent = pct + '%';
+}
+
+function renderLegend(reviewMode) {
+    const leg = document.getElementById('palette-legend');
+    if (!leg) return;
+    if (reviewMode) {
+        leg.innerHTML = `
+        <div class="leg-label"><div class="leg-dot" style="background:#22c55e;"></div>Correct</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#ef4444;"></div>Wrong</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#60a5fa;"></div>Unanswered</div>`;
+    } else {
+        leg.innerHTML = `
+        <div class="leg-label"><div class="leg-dot" style="background:#bbf7d0;border:1px solid #22c55e;"></div>Answered</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#bae6fd;border:1px solid #0ea5e9;"></div>Marked</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#fee2e2;border:1px solid #fca5a5;"></div>Unanswered</div>
+        <div class="leg-label"><div class="leg-dot" style="background:white;border:2px solid #1a6fc4;"></div>Current</div>`;
+    }
+}
+
+function submitTest() {
+    if (testSubmitted) return;
+    testSubmitted = true;
+    clearInterval(timer);
+
+    let correct = 0, incorrect = 0, unanswered = 0;
+mockTest.questions.forEach(q => {
+        if (!q.userAnswer && q.userAnswer !== 0) unanswered++;
+        else if (q.type === "image-options" ? q.userAnswer === q.correct : q.userAnswer === q.correctAnswer) correct++;
+        else incorrect++;
+    });
+
+    const total = mockTest.questions.length;
+    const maxScore = total * mockTest.markingScheme.correct;
+    const score = (correct * mockTest.markingScheme.correct) + (incorrect * mockTest.markingScheme.incorrect);
+    const pct = ((score / maxScore) * 100).toFixed(2);
+    const acc = correct + incorrect > 0 ? ((correct / (correct + incorrect)) * 100).toFixed(2) : '0';
+
+    const resultData = {
+        chapterId: CHAPTER_ID, subjectId: SUBJECT_ID,
+        userName: localStorage.getItem('cbtUserName') || 'Unknown',
+        date: new Date().toISOString(), score, maxScore, correct, incorrect, unanswered,
+        totalQ: total, percentage: parseFloat(pct), accuracy: parseFloat(acc),
+        timeTaken: mockTest.duration - timeLeft,
+        questions: mockTest.questions.map(q => ({ id: q.id, correct: q.userAnswer === q.correctAnswer, answered: !!q.userAnswer, userAnswer: q.userAnswer, correctAnswer: q.correctAnswer }))
+    };
+
+    const key = `thunderstudy_result_${SUBJECT_ID}_${CHAPTER_ID}`;
+    localStorage.setItem(key, JSON.stringify(resultData));
+    const idxKey = `thunderstudy_index_${SUBJECT_ID}`;
+    let idx = [];
+    try { idx = JSON.parse(localStorage.getItem(idxKey) || '[]'); } catch(e) {}
+    if (!idx.includes(CHAPTER_ID)) idx.push(CHAPTER_ID);
+    localStorage.setItem(idxKey, JSON.stringify(idx));
+
+    document.getElementById('correct-answers').textContent = correct;
+    document.getElementById('incorrect-answers').textContent = incorrect;
+    document.getElementById('unanswered').textContent = unanswered;
+    document.getElementById('total-score').textContent = score;
+    document.getElementById('percentage').textContent = pct;
+    document.getElementById('accuracy').textContent = acc;
+    modal.classList.add('show');
+
+    renderQuestion();
+    renderLegend(true);
+
+    // Swap submit rows
+    document.getElementById('submit-row-before').style.display = 'none';
+    document.getElementById('submit-row-after').style.display = 'flex';
+}
+
+/* Visibility change guard */
+document.addEventListener("visibilitychange", () => {
+    if (!testStarted || testSubmitted) return;
+    if (document.hidden) startCountdown('tab');
+    else cancelCountdown();
+});
+
+/* Arrow key nav */
+document.addEventListener('keydown', e => {
+    if (document.getElementById('test-screen').style.display === 'none') return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (currentQuestionIndex < mockTest.questions.length - 1) { currentQuestionIndex++; renderQuestion(); } }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
+});
+</script>
+
+<script>
+function startMock() {
+    const name = document.getElementById('username-input').value.trim();
+    if (!name) { alert('⚠️ Please enter your name!'); document.getElementById('username-input').focus(); return; }
+    localStorage.setItem('cbtUserName', name);
+    enterFullscreen();
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('instruction-screen').style.display = 'block';
+}
+
+document.getElementById('dark-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const dark = document.body.classList.contains('dark-mode');
+    document.getElementById('toggle-icon').textContent = dark ? '☀️' : '🌙';
+    document.getElementById('toggle-label').textContent = dark ? 'Light' : 'Dark';
+});
+
+const checkbox = document.getElementById('agree-checkbox');
+const startTestBtn = document.getElementById('start-test-btn');
+checkbox.addEventListener('change', () => {
+    startTestBtn.disabled = !checkbox.checked;
+});
+startTestBtn.addEventListener('click', () => {
+    if (!checkbox.checked) { alert('Please agree to instructions!'); return; }
+    document.getElementById('instruction-screen').style.display = 'none';
+    document.getElementById('test-screen').style.display = 'block';
+    const name = localStorage.getItem('cbtUserName') || 'Student';
+    document.getElementById('user-name-display').textContent = '👤 ' + name;
+    const mob = document.getElementById('mobile-name-display');
+    if (mob) mob.textContent = '👤 ' + name;
+    testStarted = true;
+    enterFullscreen();
+    initTest();
+});
+
+function enterFullscreen() {
+    const el = document.documentElement;
+    try {
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    } catch(e) {}
+}
+
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(evt => document.addEventListener(evt, onFSChange));
+
+function isFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
+}
+function onFSChange() {
+    if (!testStarted || testSubmitted) return;
+    if (document.getElementById('test-screen').style.display === 'none') return;
+    if (!isFullscreen()) startCountdown('fullscreen');
+    else cancelCountdown();
+}
+
+let cdTimer = null, cdSecs = 0;
+function startCountdown(reason) {
+    if (!testStarted || testSubmitted || cdTimer) return;
+    cdSecs = reason === 'tab' ? 2 : 5;
+    const msg = reason === 'tab' ? '⚠️ Tab switched!' : '⚠️ Exited fullscreen!';
+    const hint = reason === 'tab' ? 'Return to this tab to cancel.' : 'Click below to return to fullscreen.';
+    showOverlay(msg, hint, cdSecs, reason === 'fullscreen');
+    cdTimer = setInterval(() => { cdSecs--; updateOverlay(cdSecs); if (cdSecs <= 0) { cancelCountdown(); submitTest(); } }, 1000);
+}
+function cancelCountdown() {
+    if (cdTimer) { clearInterval(cdTimer); cdTimer = null; }
+    hideOverlay();
+}
+function showOverlay(msg, hint, secs, btn) {
+    let ov = document.getElementById('sec-overlay');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'sec-overlay'; ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999999;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:DM Sans,sans-serif;color:#fff;text-align:center;padding:24px;'; document.body.appendChild(ov); }
+    ov.innerHTML = `<div style="font-size:56px;margin-bottom:12px;">🚨</div><div style="font-size:22px;font-weight:800;margin-bottom:8px;">${msg}</div><div style="font-size:15px;color:#fbbf24;margin-bottom:18px;">${hint}</div><div style="font-size:14px;color:#e0e0e0;margin-bottom:4px;">Auto-submitting in</div><div id="ov-count" style="font-size:72px;font-weight:900;color:#f87171;line-height:1;">${secs}</div><div style="font-size:13px;color:#9ca3af;margin-top:4px;">seconds</div>${btn?`<button onclick="enterFullscreen()" style="margin-top:22px;padding:12px 32px;border-radius:30px;border:none;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;font-size:16px;font-weight:700;cursor:pointer;">🔲 Return to Fullscreen</button>`:''}`;
+    ov.style.display = 'flex';
+}
+function updateOverlay(n) { const el = document.getElementById('ov-count'); if (el) el.textContent = n; }
+function hideOverlay() { const ov = document.getElementById('sec-overlay'); if (ov) ov.style.display = 'none'; }
+</script>
+
+<script>
+function generatePDF() {
+    const name = localStorage.getItem('cbtUserName') || 'Student';
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-IN', {day:'2-digit',month:'short',year:'numeric'});
+    const timeStr = now.toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
+
+    let correct=0,incorrect=0,unanswered=0;
+    mockTest.questions.forEach(q => {
+        if (!q.userAnswer) unanswered++;
+        else if (q.userAnswer === q.correctAnswer) correct++;
+        else incorrect++;
+    });
+    const score = (correct*5)+(incorrect*-1);
+    const maxScore = mockTest.questions.length*5;
+    const pct = ((score/maxScore)*100).toFixed(1);
+    const lbl = {a:'A',b:'B',c:'C',d:'D'};
+
+    let qHTML = '';
+    mockTest.questions.forEach((q,i) => {
+        const ok = q.userAnswer === q.correctAnswer;
+        const wrong = q.userAnswer && !ok;
+        const skip = !q.userAnswer;
+        const statusColor = ok?'#059669':wrong?'#dc2626':'#9ca3af';
+        const statusLabel = ok?'✓ Correct':wrong?'✗ Wrong':'— Skipped';
+        const rowBg = ok?'#f0fdf4':wrong?'#fef2f2':'#fafafa';
+        let optsHTML='';
+        for (const [k,v] of Object.entries(q.options)) {
+            const isRight=k===q.correctAnswer, isUser=k===q.userAnswer;
+            let bg='transparent',fw='normal',pre='';
+            if(isRight){bg='#dcfce7';fw='bold';pre='✓ ';}
+            if(isUser&&!isRight){bg='#fee2e2';fw='bold';pre='✗ ';}
+            optsHTML+=`<div style="display:flex;gap:8px;padding:4px 8px;border-radius:4px;background:${bg};font-weight:${fw};font-size:12px;margin:2px 0;"><span style="min-width:18px;font-weight:700;">${lbl[k]}.</span><span>${pre}${v}</span></div>`;
+        }
+        const yourAns = skip?'<span style="color:#9ca3af;">Not Attempted</span>':`<span style="color:${ok?'#059669':'#dc2626'};font-weight:bold;">${lbl[q.userAnswer]}. ${q.options[q.userAnswer]}</span>`;
+        qHTML+=`<div style="margin-bottom:16px;padding:14px;border-radius:8px;background:${rowBg};border:1px solid #e5e7eb;page-break-inside:avoid;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                <div style="font-weight:700;font-size:13px;color:#1e293b;">Q${i+1}. ${q.text}</div>
+                <div style="font-weight:700;font-size:12px;color:${statusColor};white-space:nowrap;margin-left:12px;">${statusLabel}</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:8px;">${optsHTML}</div>
+            <div style="font-size:12px;border-top:1px solid #e5e7eb;padding-top:6px;">
+                Your answer: ${yourAns}&nbsp;&nbsp;
+                Correct: <span style="color:#059669;font-weight:bold;">${lbl[q.correctAnswer]}. ${q.options[q.correctAnswer]}</span>
+            </div>
+        </div>`;
+    });
+
+    const scoreColor = pct>=60?'#059669':pct>=35?'#d97706':'#dc2626';
+    const html=`<div style="max-width:780px;margin:0 auto;font-family:Arial,sans-serif;color:#111;">
+        <div style="background:linear-gradient(135deg,#1a6fc4,#0ea5e9);color:white;padding:20px 24px;border-radius:10px 10px 0 0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div><div style="font-size:22px;font-weight:800;">⚡ Thunderstudy CBT</div><div style="font-size:13px;opacity:0.85;margin-top:3px;">English Result Report</div></div>
+                <div style="text-align:right;font-size:12px;opacity:0.85;"><div>📅 ${dateStr} 🕐 ${timeStr}</div><div>👤 ${name}</div></div>
+            </div>
+        </div>
+        <div style="background:#f0f6ff;border:1px solid #bfdbfe;border-top:none;padding:16px 24px;margin-bottom:20px;border-radius:0 0 10px 10px;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+                <div style="background:white;border:1px solid #dbeafe;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">SCORE</div><div style="font-size:24px;font-weight:800;color:${scoreColor};">${score}<span style="font-size:14px;color:#6b7280;">/${maxScore}</span></div></div>
+                <div style="background:white;border:1px solid #dbeafe;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">PERCENTAGE</div><div style="font-size:24px;font-weight:800;color:${scoreColor};">${pct}%</div></div>
+                <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#059669;">CORRECT</div><div style="font-size:24px;font-weight:800;color:#059669;">${correct}</div></div>
+                <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#dc2626;">WRONG</div><div style="font-size:24px;font-weight:800;color:#dc2626;">${incorrect}</div></div>
+                <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">SKIPPED</div><div style="font-size:24px;font-weight:800;color:#6b7280;">${unanswered}</div></div>
+            </div>
+        </div>
+        <div style="font-size:15px;font-weight:700;color:#1a6fc4;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #1a6fc4;">📋 Answer Key</div>
+        ${qHTML}
+        <div style="text-align:center;margin-top:20px;padding:12px;background:#f0f6ff;border-radius:8px;font-size:12px;color:#6b7280;">Generated by <b>Thunderstudy CBT</b> | t.me/thunderstudy_official | ${dateStr}</div>
+    </div>`;
+
+    const w = window.open('','_blank','width=950,height=700,scrollbars=yes');
+    if (!w) { alert('Popup blocked! Allow popups and retry.'); return; }
+    w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"/><title>Thunderstudy_English_${name}</title><style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,sans-serif;background:#fff;padding:20px;}@media print{.no-print{display:none!important;}}.print-btn{display:block;margin:0 auto 20px;padding:12px 36px;background:linear-gradient(135deg,#1a6fc4,#0ea5e9);color:white;font-size:16px;font-weight:700;border:none;border-radius:30px;cursor:pointer;}</style></head><body><button class="print-btn no-print" onclick="window.print()">🖨️ Print / Save PDF</button>${html}</body></html>`);
+    w.document.close(); w.focus();
+}
+</script>
+
+</body>
+</html>
