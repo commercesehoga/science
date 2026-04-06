@@ -1,0 +1,2350 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thunderstudy CBT — chemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+const SUBJECT_ID  = "che";
+const CHAPTER_ID  = "che9";
+</script>
+
+<style>
+:root {
+    --primary: #FF85BB;
+    --primary-dark: #e0609a;
+    --primary-light: #ffb3d4;
+    --accent: #ff69a8;
+    --accent2: #ffadd1;
+    --white: #ffffff;
+    --off-white: #fff5f9;
+    --light-blue: #ffe4f0;
+    --mid-blue: #ffcce2;
+    --border: #ffcce2;
+    --text-dark: #3d0f22;
+    --text-mid: #7a2d4a;
+    --text-muted: #b56b8a;
+    --correct: #059669;
+    --correct-bg: #ecfdf5;
+    --incorrect: #dc2626;
+    --incorrect-bg: #fef2f2;
+    --answered: #22c55e;
+    --marked: #ff69a8;
+    --unanswered: #f97316;
+    --shadow: 0 4px 24px rgba(255,133,187,0.10);
+    --shadow-lg: 0 8px 40px rgba(255,133,187,0.16);
+
+    /* Dark mode vars */
+    --dm-bg: #1a0a10;
+    --dm-surface: #2a1019;
+    --dm-surface2: #3a1525;
+    --dm-border: #5c2040;
+    --dm-text: #ffe2ee;
+    --dm-muted: #d47ba4;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background: var(--dm-bg);
+    color: var(--dm-text);
+}
+
+/* ===== START SCREEN ===== */
+#start-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--white);
+    display: flex; flex-direction: column; align-items: center;
+    overflow-y: auto; padding: 0 20px 50px;
+    transition: background 0.3s;
+}
+
+body.dark-mode #start-screen { background: var(--dm-bg); }
+
+.start-hero {
+    width: 100%; max-width: 600px;
+    padding: 48px 0 0;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+}
+
+.start-logo {
+    width: 68px; height: 68px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 8px 28px rgba(26,111,196,0.35);
+    margin-bottom: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.start-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+body.dark-mode .start-brand { color: var(--accent2); }
+
+.start-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px; font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 10px;
+}
+body.dark-mode .start-title { color: var(--dm-text); }
+
+.start-sub {
+    font-size: 16px; color: var(--text-muted);
+    margin-bottom: 8px;
+}
+body.dark-mode .start-sub { color: var(--dm-muted); }
+
+.tg-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #0088cc, #006fa8);
+    color: white; text-decoration: none;
+    padding: 10px 24px; border-radius: 40px;
+    font-size: 14px; font-weight: 700;
+    box-shadow: 0 4px 16px rgba(0,136,204,0.4);
+    transition: transform 0.18s, box-shadow 0.18s;
+    margin: 16px 0 28px;
+}
+.tg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,136,204,0.55); color: white; }
+
+.info-card {
+    width: 100%; max-width: 500px;
+    background: var(--light-blue);
+    border: 1.5px solid var(--mid-blue);
+    border-radius: 16px;
+    padding: 22px 24px;
+    text-align: left;
+    margin-bottom: 24px;
+}
+body.dark-mode .info-card { background: var(--dm-surface); border-color: var(--dm-border); }
+
+.info-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--primary); margin-bottom: 14px;
+}
+body.dark-mode .info-card h3 { color: var(--accent2); }
+
+.info-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+
+.info-pill {
+    background: white;
+    border-radius: 10px; padding: 10px 14px;
+    font-size: 13px; color: var(--text-mid);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+}
+body.dark-mode .info-pill { background: var(--dm-surface2); border-color: var(--dm-border); color: var(--dm-text); }
+
+.info-pill strong { color: var(--primary-dark); font-weight: 700; }
+body.dark-mode .info-pill strong { color: var(--accent2); }
+
+.name-input {
+    width: 100%; max-width: 380px;
+    padding: 14px 20px;
+    border: 2px solid var(--mid-blue);
+    border-radius: 50px;
+    font-size: 16px; font-family: 'DM Sans', sans-serif;
+    text-align: center;
+    background: white; color: var(--text-dark);
+    outline: none; transition: border 0.2s, box-shadow 0.2s;
+    margin-bottom: 18px;
+}
+.name-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,111,196,0.12); }
+body.dark-mode .name-input { background: var(--dm-surface); color: var(--dm-text); border-color: var(--dm-border); }
+
+.start-btns { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 340px; }
+
+.s-btn {
+    width: 100%; padding: 14px 0;
+    border: none; border-radius: 50px; cursor: pointer;
+    font-size: 16px; font-weight: 700; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.18s, box-shadow 0.18s;
+    letter-spacing: 0.3px;
+}
+.s-btn:hover { transform: translateY(-3px); }
+
+.s-btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; box-shadow: 0 6px 20px rgba(26,111,196,0.4);
+}
+.s-btn-primary:hover { box-shadow: 0 10px 28px rgba(26,111,196,0.55); }
+
+.s-btn-green {
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    color: white; box-shadow: 0 6px 20px rgba(34,197,94,0.35);
+}
+.s-btn-green:hover { box-shadow: 0 10px 28px rgba(34,197,94,0.5); }
+
+.s-btn-purple {
+    background: linear-gradient(135deg, #7c3aed, #4c1d95);
+    color: white; box-shadow: 0 6px 20px rgba(124,58,237,0.35);
+}
+.s-btn-purple:hover { box-shadow: 0 10px 28px rgba(124,58,237,0.5); }
+
+.dark-toggle {
+    position: absolute; top: 16px; right: 16px; z-index: 10000;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; border-radius: 40px;
+    padding: 8px 18px; font-size: 14px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 7px;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.4);
+    transition: background 0.3s, transform 0.2s;
+    font-family: 'DM Sans', sans-serif;
+}
+.dark-toggle:hover { transform: scale(1.05); }
+body.dark-mode .dark-toggle { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 4px 14px rgba(245,158,11,0.4); }
+
+/* ===== INSTRUCTION SCREEN ===== */
+#instruction-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--white); display: none; overflow-y: auto; padding: 40px 20px;
+}
+body.dark-mode #instruction-screen { background: var(--dm-bg); }
+
+.instr-wrap { max-width: 700px; margin: 0 auto; }
+
+.instr-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 800; color: var(--primary);
+    margin-bottom: 24px; text-align: center;
+}
+body.dark-mode .instr-title { color: var(--accent2); }
+
+.instr-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 1.5px solid var(--mid-blue); border-radius: 16px; padding: 28px;
+}
+body.dark-mode .instr-box { background: linear-gradient(135deg, var(--dm-surface), var(--dm-surface2)); border-color: var(--dm-border); }
+
+.instr-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--primary);
+    border-left: 4px solid var(--primary); padding-left: 12px; margin-bottom: 16px;
+}
+body.dark-mode .instr-box h3 { color: var(--accent2); border-left-color: var(--accent2); }
+
+.instr-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+.instr-list li {
+    background: white; border-radius: 10px; padding: 12px 16px;
+    font-size: 15px; color: var(--text-mid);
+    border: 1px solid var(--border);
+    transition: transform 0.15s;
+}
+body.dark-mode .instr-list li { background: var(--dm-surface2); border-color: var(--dm-border); color: var(--dm-text); }
+.instr-list li:hover { transform: translateX(5px); }
+
+.instr-legend {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;
+}
+
+.leg-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-mid); }
+body.dark-mode .leg-item { color: var(--dm-text); }
+.leg-dot { width: 14px; height: 14px; border-radius: 50%; }
+
+.agree-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 20px; font-size: 15px; font-weight: 600; cursor: pointer;
+    color: var(--text-mid);
+}
+body.dark-mode .agree-row { color: var(--dm-text); }
+
+.agree-row input { display: none; }
+
+.chk-box {
+    width: 22px; height: 22px; border-radius: 6px;
+    border: 2px solid var(--primary);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 14px; color: transparent; transition: 0.15s;
+    background: white;
+}
+body.dark-mode .chk-box { background: var(--dm-surface); border-color: var(--accent2); }
+
+.agree-row input:checked + .chk-box { background: var(--primary); color: white; }
+body.dark-mode .agree-row input:checked + .chk-box { background: var(--accent2); }
+
+#start-test-btn {
+    margin-top: 22px; width: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; border-radius: 50px; padding: 14px;
+    font-size: 17px; font-weight: 700; cursor: not-allowed; opacity: 0.55;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s, transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 6px 20px rgba(26,111,196,0.35);
+}
+#start-test-btn:not(:disabled) { cursor: pointer; opacity: 1; }
+#start-test-btn:not(:disabled):hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(26,111,196,0.5); }
+
+/* ===== TEST SCREEN ===== */
+#test-screen {
+    position: fixed; inset: 0; z-index: 9998;
+    background: var(--off-white); display: none; overflow: auto;
+}
+body.dark-mode #test-screen { background: var(--dm-bg); }
+
+/* SIDEBAR */
+.sidebar {
+    width: 280px; background: white;
+    height: 100vh; position: fixed; right: 0; top: 0;
+    padding: 20px; overflow-y: auto;
+    border-left: 2px solid var(--light-blue);
+    box-shadow: -4px 0 20px rgba(26,111,196,0.08);
+}
+body.dark-mode .sidebar { background: var(--dm-surface); border-left-color: var(--dm-border); }
+
+.timer {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; padding: 10px 0; border-radius: 40px;
+    font-weight: 700; font-size: 19px; text-align: center;
+    letter-spacing: 1px; margin-bottom: 18px;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.35);
+}
+
+.sidebar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700; color: var(--primary);
+    margin-bottom: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .sidebar-brand { color: var(--accent2); border-bottom-color: var(--dm-border); }
+
+.test-info-row { font-size: 13px; color: var(--text-muted); margin: 5px 0; display: flex; gap: 6px; }
+.test-info-row strong { color: var(--text-dark); font-weight: 600; }
+body.dark-mode .test-info-row { color: var(--dm-muted); }
+body.dark-mode .test-info-row strong { color: var(--dm-text); }
+
+.palette-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 18px 0 10px; font-size: 13px; font-weight: 600; color: var(--text-mid);
+}
+body.dark-mode .palette-header { color: var(--dm-text); }
+
+.palette-count { color: var(--primary); font-weight: 700; }
+body.dark-mode .palette-count { color: var(--accent2); }
+
+.palette-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px;
+}
+
+.palette-btn {
+    aspect-ratio: 1; border-radius: 50%; border: 2px solid #e5e7eb;
+    background: #fee2e2; /* unanswered = orange-ish red */
+    color: var(--text-dark); font-size: 11px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+.palette-btn:hover { transform: scale(1.1); }
+.palette-btn.answered { background: #bbf7d0; border-color: #22c55e; color: #14532d; }
+.palette-btn.marked { background: #bae6fd; border-color: #0ea5e9; color: #0c4a6e; }
+.palette-btn.current { background: white; border: 2.5px solid var(--primary); color: var(--primary); box-shadow: 0 0 0 3px rgba(26,111,196,0.2); }
+.palette-btn.review-correct { background: #22c55e; border-color: #16a34a; color: white; }
+.palette-btn.review-wrong { background: #ef4444; border-color: #dc2626; color: white; }
+.palette-btn.review-unanswered { background: #60a5fa; border-color: #3b82f6; color: white; }
+
+body.dark-mode .palette-btn { background: #7f1d1d; border-color: #991b1b; color: #fecaca; }
+body.dark-mode .palette-btn.answered { background: #14532d; border-color: #22c55e; color: #bbf7d0; }
+body.dark-mode .palette-btn.marked { background: #0c4a6e; border-color: #0ea5e9; color: #bae6fd; }
+body.dark-mode .palette-btn.current { background: var(--dm-surface2); border-color: var(--accent); color: var(--accent); }
+
+#palette-legend { margin-top: 14px; font-size: 12px; color: var(--text-muted); }
+body.dark-mode #palette-legend { color: var(--dm-muted); }
+#palette-legend .leg-label { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+
+/* MAIN CONTENT */
+.main-content {
+    margin-right: 280px; padding: 20px 24px;
+    min-height: 100vh;
+}
+
+.test-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .test-header { border-bottom-color: var(--dm-border); }
+
+.user-badge {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; padding: 7px 16px; border-radius: 30px;
+    font-size: 13px; font-weight: 700;
+}
+
+.q-counter {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; color: var(--text-dark);
+}
+body.dark-mode .q-counter { color: var(--dm-text); }
+.q-counter span { color: var(--primary); }
+body.dark-mode .q-counter span { color: var(--accent2); }
+
+.progress-wrap { flex: 1; max-width: 200px; margin: 0 16px; }
+.progress-bar-bg { height: 8px; background: var(--light-blue); border-radius: 10px; overflow: hidden; }
+body.dark-mode .progress-bar-bg { background: var(--dm-surface2); }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 10px; transition: width 0.4s; width: 0; }
+.progress-label { font-size: 12px; color: var(--text-muted); text-align: right; margin-top: 4px; }
+body.dark-mode .progress-label { color: var(--dm-muted); }
+
+/* QUESTION CARD */
+.question-card {
+    background: white; border-radius: 16px; padding: 28px;
+    box-shadow: var(--shadow); border: 1.5px solid var(--light-blue);
+    margin-bottom: 20px;
+}
+body.dark-mode .question-card { background: var(--dm-surface); border-color: var(--dm-border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+
+.q-num-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--light-blue); color: var(--primary);
+    padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700;
+    margin-bottom: 14px;
+}
+body.dark-mode .q-num-tag { background: var(--dm-surface2); color: var(--accent2); }
+
+.section-badge {
+    display: inline-flex; align-items: center;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; padding: 3px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; margin-bottom: 12px;
+}
+
+.q-text {
+    font-size: 18px; font-weight: 500; color: var(--text-dark);
+    line-height: 1.6; margin-bottom: 22px;
+}
+body.dark-mode .q-text { color: var(--dm-text); }
+
+/* OPTIONS */
+.option {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px; border: 2px solid var(--border);
+    border-radius: 12px; margin-bottom: 10px; cursor: pointer;
+    background: white; transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    user-select: none;
+}
+body.dark-mode .option { background: var(--dm-surface2); border-color: var(--dm-border); }
+.option:hover { border-color: var(--primary); background: var(--off-white); transform: translateX(4px); }
+body.dark-mode .option:hover { background: #1e3460; border-color: var(--accent); }
+
+.option.selected { border-color: var(--primary-dark); background: #dbeafe; }
+body.dark-mode .option.selected { background: #0d2a56; border-color: var(--accent); }
+
+.option.correct { border-color: var(--correct) !important; background: var(--correct-bg) !important; }
+.option.incorrect { border-color: var(--incorrect) !important; background: var(--incorrect-bg) !important; }
+
+.opt-letter {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid var(--border); background: var(--off-white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: var(--text-muted);
+    flex-shrink: 0; transition: all 0.15s;
+}
+.option.selected .opt-letter { background: var(--primary); border-color: var(--primary); color: white; }
+.option.correct .opt-letter { background: var(--correct); border-color: var(--correct); color: white; }
+.option.incorrect .opt-letter { background: var(--incorrect); border-color: var(--incorrect); color: white; }
+
+.opt-text { font-size: 15px; color: var(--text-dark); line-height: 1.5; flex: 1; }
+body.dark-mode .opt-text { color: var(--dm-text); }
+.option.selected .opt-text { color: var(--primary-dark); font-weight: 600; }
+body.dark-mode .option.selected .opt-text { color: var(--accent2); }
+.option.correct .opt-text { color: var(--correct); font-weight: 600; }
+.option.incorrect .opt-text { color: var(--incorrect); font-weight: 600; }
+
+.opt-indicator { font-size: 12px; font-weight: 700; margin-left: 4px; }
+.correct-indicator { color: var(--correct); }
+.incorrect-indicator { color: var(--incorrect); }
+
+.explanation-box {
+    margin-top: 18px; padding: 14px 18px;
+    border-radius: 12px; border-left: 4px solid var(--primary);
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    font-size: 14px; color: var(--text-mid); line-height: 1.7;
+}
+body.dark-mode .explanation-box { background: linear-gradient(135deg, var(--dm-surface), var(--dm-surface2)); border-left-color: var(--accent); color: var(--dm-text); }
+
+/* NAV BUTTONS */
+.nav-row {
+    display: flex; justify-content: space-between; align-items: center; margin-top: 24px;
+}
+
+.nav-btn {
+    padding: 10px 24px; border-radius: 10px; border: 2px solid var(--primary);
+    background: transparent; color: var(--primary); font-size: 14px; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.18s;
+}
+.nav-btn:hover { background: var(--light-blue); }
+body.dark-mode .nav-btn { border-color: var(--accent2); color: var(--accent2); }
+body.dark-mode .nav-btn:hover { background: var(--dm-surface2); }
+
+.next-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none;
+    padding: 12px 30px; border-radius: 10px; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.35); transition: all 0.18s;
+}
+.next-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(26,111,196,0.5); }
+body.dark-mode .next-btn { background: linear-gradient(135deg, var(--accent), var(--primary)); }
+
+.mark-btn-q {
+    padding: 9px 18px; border-radius: 10px;
+    border: 2px solid var(--accent); background: transparent; color: var(--accent);
+    font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+}
+.mark-btn-q.marked { background: var(--accent); color: white; }
+.mark-btn-q:hover { background: var(--light-blue); }
+
+/* SUBMIT SECTION */
+.submit-row {
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 600px; margin: 20px auto; gap: 14px; flex-wrap: wrap;
+}
+
+.fancy-btn {
+    flex: 1; min-width: 140px; padding: 14px; border: none; border-radius: 50px;
+    font-size: 15px; font-weight: 700; cursor: pointer; text-align: center;
+    text-decoration: none; display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Sans', sans-serif; transition: transform 0.18s, box-shadow 0.18s;
+}
+.fancy-btn:hover { transform: translateY(-3px); }
+
+.fancy-submit { background: linear-gradient(135deg, #22c55e, #15803d); color: white; box-shadow: 0 6px 20px rgba(34,197,94,0.4); max-width: 260px; }
+.fancy-submit:hover { box-shadow: 0 10px 28px rgba(34,197,94,0.55); }
+.fancy-tg { background: linear-gradient(135deg, #0088cc, #005a99); color: white; box-shadow: 0 6px 20px rgba(0,136,204,0.4); max-width: 200px; }
+.fancy-tg:hover { box-shadow: 0 10px 28px rgba(0,136,204,0.55); color: white; }
+
+.fancy-pdf { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 6px 20px rgba(249,115,22,0.4); }
+.fancy-pdf:hover { box-shadow: 0 10px 28px rgba(249,115,22,0.55); }
+.fancy-result { background: linear-gradient(135deg, #7c3aed, #4c1d95); color: white; box-shadow: 0 6px 20px rgba(124,58,237,0.4); }
+.fancy-result:hover { box-shadow: 0 10px 28px rgba(124,58,237,0.55); }
+
+.stream-btn {
+    display: block; width: 100%; padding: 14px;
+    border-radius: 14px; color: white; font-weight: 700; font-size: 16px;
+    text-decoration: none; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+.stream-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.3); color: white; }
+
+body.dark-mode #stream-picker-box { background: var(--dm-surface); }
+body.dark-mode #stream-picker-box h3 { color: var(--accent2); }
+body.dark-mode #stream-picker-box p { color: var(--dm-muted); }
+body.dark-mode #stream-picker-box button { color: var(--dm-muted); }
+
+/* FOOTER */
+.test-footer {
+    background: linear-gradient(135deg, #0f1e3d, #1a3066);
+    color: #94b8e8; text-align: center; padding: 22px 16px;
+    margin-top: 10px;
+}
+.test-footer p { font-size: 12px; margin-bottom: 12px; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.footer-link {
+    padding: 8px 18px; border-radius: 30px; font-size: 13px; font-weight: 600;
+    text-decoration: none; color: white; transition: transform 0.18s, box-shadow 0.18s;
+}
+.footer-link:hover { transform: translateY(-2px); color: white; }
+.fl-purple { background: linear-gradient(135deg, #7c3aed, #4c1d95); box-shadow: 0 3px 10px rgba(124,58,237,0.35); }
+.fl-green { background: linear-gradient(135deg, #059669, #065f46); box-shadow: 0 3px 10px rgba(5,150,105,0.35); }
+.fl-red { background: linear-gradient(135deg, #dc2626, #991b1b); box-shadow: 0 3px 10px rgba(220,38,38,0.35); }
+
+/* MODAL */
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99999; justify-content: center; align-items: center; }
+.modal.show { display: flex; }
+
+.modal-content {
+    background: white; border-radius: 20px; padding: 32px;
+    width: 90%; max-width: 580px; max-height: 90vh; overflow-y: auto;
+    animation: modalIn 0.3s ease;
+}
+body.dark-mode .modal-content { background: var(--dm-surface); border: 1.5px solid var(--dm-border); }
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px; padding-bottom: 14px; border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .modal-head { border-bottom-color: var(--dm-border); }
+
+.modal-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--primary);
+}
+body.dark-mode .modal-head h2 { color: var(--accent2); }
+
+.close-x { background: none; border: none; font-size: 26px; cursor: pointer; color: var(--text-muted); }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+
+.stat-tile {
+    background: var(--off-white); border-radius: 14px; padding: 18px;
+    text-align: center; border: 1.5px solid var(--border);
+}
+body.dark-mode .stat-tile { background: var(--dm-surface2); border-color: var(--dm-border); }
+
+.stat-tile h4 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+body.dark-mode .stat-tile h4 { color: var(--dm-muted); }
+
+.stat-tile p { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; }
+.stat-correct { color: var(--correct); }
+.stat-wrong { color: var(--incorrect); }
+.stat-neutral { color: var(--text-muted); }
+.stat-score { color: var(--primary); }
+body.dark-mode .stat-score { color: var(--accent2); }
+
+.analysis { font-size: 14px; color: var(--text-mid); margin-bottom: 18px; line-height: 1.8; }
+body.dark-mode .analysis { color: var(--dm-text); }
+
+.modal-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.modal-btn {
+    flex: 1; padding: 12px; border-radius: 12px; border: none; cursor: pointer;
+    font-size: 14px; font-weight: 700; font-family: 'DM Sans', sans-serif; transition: all 0.18s;
+}
+.modal-btn:hover { transform: translateY(-2px); }
+.mb-review { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; box-shadow: 0 4px 14px rgba(26,111,196,0.4); }
+.mb-pdf { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 4px 14px rgba(249,115,22,0.4); }
+
+/* MOBILE */
+.mobile-bar { display: none; }
+
+@media (max-width: 768px) {
+    .mobile-bar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 8px 12px; background: white; border-bottom: 2px solid var(--light-blue);
+        margin-bottom: 8px; border-radius: 10px; box-shadow: var(--shadow);
+    }
+    body.dark-mode .mobile-bar { background: var(--dm-surface); border-color: var(--dm-border); }
+    .mob-timer {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white; padding: 6px 14px; border-radius: 30px; font-weight: 700; font-size: 14px;
+    }
+    #user-name-display { display: none !important; }
+    .sidebar .timer, .sidebar .sidebar-brand { display: none !important; }
+    .sidebar { position: relative; width: 100%; height: auto; right: 0; left: 0; border-left: none; border-top: 2px solid var(--light-blue); box-shadow: none; }
+    body { flex-direction: column; }
+    .main-content { margin-right: 0; width: 100%; padding: 12px; }
+    .question-card { padding: 18px; }
+    .q-text { font-size: 16px; }
+    .nav-row { flex-direction: row; gap: 8px; }
+    .palette-grid { max-height: 200px; overflow-y: auto; }
+}
+
+@media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .modal-btns { flex-direction: column; }
+}
+
+/* option radio hide */
+.option input[type="radio"] { display: none; }
+
+#pdf-print-area { display: none; }
+@media print {
+    body > * { display: none !important; }
+    #pdf-print-area { display: block !important; font-family: Arial, sans-serif; color: #111; padding: 20px; }
+}
+.option svg {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+</style>
+</head>
+<body>
+
+<!-- START SCREEN -->
+<div id="start-screen">
+
+<button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode" style="position:absolute;top:16px;right:16px;">
+    <span id="toggle-icon">🌙</span>
+    <span id="toggle-label">Dark</span>
+</button>
+
+<div class="start-hero">
+    <div class="start-logo">📖</div>
+    <div class="start-brand">Thunderstudy CBT</div>
+    <h1 class="start-title">chemistry Mock Test</h1>
+    <p class="start-sub">Unit 1 <strong>Electrostatics</strong></p>
+    <p class="start-sub">Provided by <strong>Thunderstudy</strong> — Full Mock</p>
+
+    <a href="https://t.me/thunderstudy_official" target="_blank" class="tg-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.04 9.607c-.148.666-.543.828-1.098.516l-3.04-2.24-1.467 1.413c-.162.162-.298.298-.611.298l.217-3.083 5.613-5.067c.244-.217-.054-.337-.378-.12L7.08 14.807 4.09 13.89c-.657-.205-.67-.657.137-.973l10.88-4.196c.548-.198 1.027.133.855.973z"/></svg>
+        @thunderstudy_official
+    </a>
+
+    <div class="info-card">
+        <h3>📋 Quick Overview</h3>
+        <div class="info-grid">
+            <div class="info-pill">📝 <div><strong>50 Questions</strong></div></div>
+            <div class="info-pill">⏱️ <div><strong>60 Minutes</strong></div></div>
+            <div class="info-pill">✅ <div><strong>+5 Correct</strong></div></div>
+            <div class="info-pill">❌ <div><strong>−1 Wrong</strong></div></div>
+            <div class="info-pill">🚫 <div><strong>No tab switching</strong></div></div>
+            <div class="info-pill">🔁 <div><strong>Auto-submits</strong></div></div>
+        </div>
+    </div>
+
+    <input type="text" id="username-input" class="name-input" placeholder="Enter your name to begin">
+
+    <div class="start-btns">
+        <button class="s-btn s-btn-primary" onclick="startMock()">🚀 Start Mock Test</button>
+        <button class="s-btn s-btn-green" onclick="window.location.href='https://commercesehoga.github.io/commerce/bst/result.html'">📊 Previous Results</button>
+        <button class="s-btn s-btn-purple" onclick="window.open('https://commercesehoga.blogspot.com/2026/03/business-studies-cuet-cbt-mock-test-free.html','_blank')">📚 More Mock Tests</button>
+    </div>
+</div>
+</div>
+
+<!-- INSTRUCTION SCREEN -->
+<div id="instruction-screen">
+<div class="instr-wrap">
+    <h2 class="instr-title">📜 Instructions</h2>
+    <div class="instr-box">
+        <h3>General Guidelines</h3>
+        <ol class="instr-list">
+            <li>Total duration is <strong>60 minutes</strong>. Timer is shown in the sidebar.</li>
+            <li>The test <strong>auto-submits</strong> when time runs out.</li>
+            <li>Test runs in <strong>fullscreen</strong>. Exiting starts a <strong>5-second</strong> countdown to auto-submit.</li>
+            <li><strong>Do not switch tabs.</strong> Switching tabs starts a <strong>2-second</strong> countdown.</li>
+            <li>Return before the countdown ends to cancel auto-submission.</li>
+            <li>Right panel shows palette with question status (answered, marked, etc.)</li>
+            <li>Marking: <strong>+5 correct</strong> / <strong>−1 wrong</strong> / <strong>0 unanswered</strong>.</li>
+        </ol>
+
+        <div class="instr-legend" style="margin-top: 20px;">
+            <strong style="font-size:13px; display:block; margin-bottom:8px;">Status Legend:</strong>
+            <div class="leg-item"><div class="leg-dot" style="background:#22c55e;border:1px solid #16a34a;"></div>Answered</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#bae6fd;border:1px solid #0ea5e9;"></div>Marked</div>
+            <div class="leg-item"><div class="leg-dot" style="background:white;border:2px solid #1a6fc4;"></div>Current</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#fee2e2;border:1px solid #fca5a5;"></div>Unanswered</div>
+        </div>
+
+        <label class="agree-row">
+            <input type="checkbox" id="agree-checkbox">
+            <span class="chk-box">✓</span>
+            I have read and understood all instructions
+        </label>
+
+        <button id="start-test-btn" disabled>▶ Start Test</button>
+    </div>
+</div>
+</div>
+
+<!-- TEST SCREEN -->
+<div id="test-screen">
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="timer">01:00:00</div>
+<div class="sidebar-brand">⚡ Thunderstudy CBT</div>
+<div id="focus-laptop" style="font-size:12px;font-weight:bold;color:green;margin-bottom:10px;">● Focus On</div>
+<div class="test-info-row"><strong>Name:</strong> <span id="display-user-name">—</span></div>
+<div class="test-info-row"><strong>ID:</strong> <span id="display-user-sid" style="color:#1976d2;font-family:monospace;font-size:12px;">—</span></div>
+<div class="test-info-row"><strong>Subject:</strong> chemistry</div>
+    <div class="test-info-row"><strong>Questions:</strong> 50</div>
+    <div class="test-info-row"><strong>Duration:</strong> 60 min</div>
+    <div class="test-info-row"><strong>Marking:</strong> +5 / −1</div>
+    <div class="test-info-row"><strong>Section:</strong> <span id="current-section">—</span></div>
+
+    <div class="palette-header">
+        <span>Questions</span>
+        <span class="palette-count" id="answered-count">0/50</span>
+    </div>
+    <div class="palette-grid" id="question-palette-grid"></div>
+    <div id="palette-legend" style="margin-top:14px; font-size:12px;"></div>
+</div>
+
+<!-- Main -->
+<div class="main-content">
+
+<div class="mobile-bar">
+    <div class="mob-timer">01:00:00</div>
+    <div id="focus-mobile" style="font-size:10px;font-weight:bold;color:green;">● Focus On</div>
+    <div id="mobile-name-display" style="background:linear-gradient(135deg,var(--primary),var(--accent));color:white;padding:6px 14px;border-radius:20px;font-weight:700;font-size:13px;">👤 Student</div>
+</div>
+
+    <div class="test-header">
+        <div id="user-name-display" class="user-badge">👤 Student</div>
+        <div class="q-counter">Q <span id="current-q-number">1</span>/50</div>
+        <div class="progress-wrap">
+            <div class="progress-bar-bg"><div class="progress-bar-fill" id="test-progress"></div></div>
+            <div class="progress-label" id="progress-percent">0%</div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-num-tag">Question <span id="q-number">1</span></div>
+        <div class="section-badge" id="section-badge">Reading Comprehension</div>
+        <div class="q-text" id="question-text"></div>
+        <div id="options-container"></div>
+
+        <div class="nav-row">
+            <button class="nav-btn" id="prev-btn">← Previous</button>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <button class="mark-btn-q" id="mark-btn">🔖 Mark</button>
+                <button class="next-btn" id="next-btn">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-row" id="submit-row-before">
+        <a href="https://t.me/thunderstudy_official" target="_blank" class="fancy-btn fancy-tg">⚡ Join Thunder</a>
+        <button class="fancy-btn fancy-submit" id="submit-test-btn">✅ Submit Test</button>
+    </div>
+
+    <!-- Post-submit action row (hidden until submitted) -->
+    <div class="submit-row" id="submit-row-after" style="display:none;">
+        <a href="https://t.me/thunderstudy_official" target="_blank" class="fancy-btn fancy-tg" style="flex:1;max-width:180px;">⚡ Join Thunder</a>
+        <button class="fancy-btn fancy-pdf" id="pdf-action-btn" style="flex:1;max-width:180px;">📄 Download PDF</button>
+        <button class="fancy-btn fancy-result" id="result-action-btn" style="flex:1;max-width:180px;">📊 Result</button>
+    </div>
+
+    <!-- Stream Picker Popup -->
+    <div id="stream-picker-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999998;justify-content:center;align-items:center;">
+        <div id="stream-picker-box" style="background:white;border-radius:20px;padding:32px 28px;width:90%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.25);animation:modalIn 0.3s ease;text-align:center;position:relative;">
+            <button onclick="document.getElementById('stream-picker-overlay').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#6b8ab5;">×</button>
+            <div style="font-size:36px;margin-bottom:10px;">📊</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:#1a6fc4;margin-bottom:6px;">View Previous Results</h3>
+            <p style="font-size:13px;color:#6b8ab5;margin-bottom:22px;">Select your stream to view results</p>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#1a6fc4,#0ea5e9);">
+                    🏪 Commerce
+                </a>
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#059669,#0d9488);">
+                    🔬 Science
+                </a>
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">
+                    📚 Humanities
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="test-footer">
+        <p>© 2025 Thunderstudy. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="https://commercesehoga.blogspot.com/2026/03/business-studies-cuet-cbt-mock-test-free.html" target="_blank" class="footer-link fl-purple">📚 More Mocks</a>
+            <a href="https://commercesehoga.blogspot.com/" target="_blank" class="footer-link fl-green">🌐 Website</a>
+            <a href="https://t.me/mindmaster_robot" target="_blank" class="footer-link fl-red">🚨 Report Error</a>
+        </div>
+    </footer>
+</div>
+
+<!-- Results Modal -->
+<div class="modal" id="results-modal">
+<div class="modal-content">
+    <div class="modal-head">
+        <h2>🏆 Test Results</h2>
+        <button class="close-x" id="close-modal">×</button>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-tile"><h4>Correct</h4><p class="stat-correct" id="correct-answers">0</p></div>
+        <div class="stat-tile"><h4>Wrong</h4><p class="stat-wrong" id="incorrect-answers">0</p></div>
+        <div class="stat-tile"><h4>Unanswered</h4><p class="stat-neutral" id="unanswered">50</p></div>
+        <div class="stat-tile"><h4>Score</h4><p class="stat-score" id="total-score">0</p></div>
+    </div>
+    <div class="analysis">
+        Percentage: <strong><span id="percentage">0</span>%</strong> &nbsp;|&nbsp;
+        Accuracy: <strong><span id="accuracy">0</span>%</strong>
+    </div>
+    <div class="modal-btns">
+        <button class="modal-btn mb-review" id="review-btn">👁 Review Answers</button>
+        <button class="modal-btn mb-pdf" id="download-pdf-btn">📄 Download PDF</button>
+        <button class="modal-btn mb-result" id="modal-result-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;box-shadow:0 4px 14px rgba(124,58,237,0.4);">📊 Result</button>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id="pdf-print-area"></div>
+
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('paste', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
+        e.preventDefault();
+    }
+});
+function detectDevTools() {
+    const threshold = 160;
+    if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        alert("Security Breach: DevTools detected. Test will auto-submit.");
+        submitTest();
+    }
+}
+setInterval(() => { if(testStarted && !testSubmitted) detectDevTools(); }, 1000);
+/* ============================================================
+   MOCK TEST DATA — English Chapter 1
+   ============================================================ */
+// ============================================================
+//  PHYSICS — Unit 1: Electrostatics (50 CUET-Hard Questions)
+//  Format matches sample: text-options AND image-options types
+// ============================================================
+
+const mockTest = {
+  title: "chemistry Mock",
+   duration: 60 * 60,
+    markingScheme: { correct: 5, incorrect: -1 },
+  questions: [
+  // ─── GENERAL INTRODUCTION, STRUCTURE, CLASSIFICATION & NOMENCLATURE ─────
+
+  {
+    id: 1,
+    section: "Introduction & Structure",
+    text: "Amines are derivatives of:",
+    type: "text-options",
+    options: { a: "Alcohols", b: "Carboxylic acids", c: "Ammonia (NH₃)", d: "Aldehydes" },
+    correctAnswer: "c",
+    explanation: "Amines are derived from ammonia (NH₃) by replacing one, two, or all three hydrogen atoms with alkyl or aryl groups.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 2,
+    section: "Structure",
+    text: "The hybridisation state of the nitrogen atom in aliphatic amines is:",
+    type: "text-options",
+    options: { a: "sp", b: "sp²", c: "sp³", d: "sp³d" },
+    correctAnswer: "c",
+    explanation: "Nitrogen in aliphatic amines is sp³ hybridised with a lone pair of electrons in a tetrahedral geometry (trigonal pyramidal shape).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 3,
+    section: "Classification & Nomenclature",
+    text: "An amine with two alkyl groups attached to nitrogen is classified as:",
+    type: "text-options",
+    options: { a: "Primary (1°)", b: "Secondary (2°)", c: "Tertiary (3°)", d: "Quaternary (4°)" },
+    correctAnswer: "b",
+    explanation: "R₂NH: Two organic groups are attached directly to the nitrogen atom, making it a secondary amine.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 4,
+    section: "Classification & Nomenclature",
+    text: "Which diagram correctly represents a primary (1°), secondary (2°), and tertiary (3°) amine?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "Correct structures: 1° (R-NH₂), 2° (R₂NH), 3° (R₃N) ✓",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="25" y="20" text-anchor="middle" font-size="8" fill="#1a6fc4" font-weight="bold">1° Amine</text>
+          <text x="25" y="35" text-anchor="middle" font-size="12" fill="#1a6fc4">R-NH₂</text>
+          <text x="70" y="20" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="bold">2° Amine</text>
+          <text x="70" y="35" text-anchor="middle" font-size="12" fill="#f59e0b">R₂NH</text>
+          <text x="115" y="20" text-anchor="middle" font-size="8" fill="#ef5350" font-weight="bold">3° Amine</text>
+          <text x="115" y="35" text-anchor="middle" font-size="12" fill="#ef5350">R₃N</text>
+          <text x="70" y="70" text-anchor="middle" font-size="8" fill="#059669">Correct classification ✓</text>
+        </svg>`
+      },
+      {
+        label: "Wrong: R-NH₂ as 2°, R₂NH as 3°",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="25" y="20" text-anchor="middle" font-size="8" fill="#ef5350">R-NH₂ (2°)</text>
+          <text x="70" y="20" text-anchor="middle" font-size="8" fill="#ef5350">R₂NH (3°)</text>
+          <text x="70" y="55" text-anchor="middle" font-size="8" fill="#6b7280">Incorrect labels</text>
+        </svg>`
+      },
+      {
+        label: "All with same R₃N structure",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="70" y="35" text-anchor="middle" font-size="12" fill="#ef5350">R₃N</text>
+          <text x="70" y="70" text-anchor="middle" font-size="8" fill="#6b7280">All tertiary (wrong)</text>
+        </svg>`
+      },
+      {
+        label: "Quaternary amine as R₄N⁺",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="70" y="35" text-anchor="middle" font-size="12" fill="#7c3aed">R₄N⁺</text>
+          <text x="70" y="70" text-anchor="middle" font-size="8" fill="#6b7280">Quaternary salt (not a neutral amine)</text>
+        </svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Primary (1°): R-NH₂, Secondary (2°): R₂NH, Tertiary (3°): R₃N. Quaternary ammonium salts (R₄N⁺) are ionic compounds, not neutral amines.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 5,
+    section: "Classification & Nomenclature",
+    text: "The IUPAC name of C₆H₅-NH₂ is:",
+    type: "text-options",
+    options: { a: "Aniline", b: "Benzylamine", c: "Aminobenzene", d: "Phenylamine" },
+    correctAnswer: "d",
+    explanation: "IUPAC name: Phenylamine. 'Aniline' is the common name. Benzenamine is also acceptable, but Phenylamine is more common in IUPAC.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── METHODS OF PREPARATION OF AMINES ─────────────────────────────────
+
+  {
+    id: 6,
+    section: "Methods of Preparation",
+    text: "Reduction of nitrobenzene using Sn/HCl gives:",
+    type: "text-options",
+    options: { a: "Azobenzene", b: "Aniline", c: "Nitrosobenzene", d: "Benzamide" },
+    correctAnswer: "b",
+    explanation: "Sn/HCl reduces nitrobenzene (C₆H₅-NO₂) to aniline (C₆H₅-NH₂). This is a common laboratory preparation of aromatic amines.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 7,
+    section: "Methods of Preparation",
+    text: "Gabriel phthalimide synthesis is used to prepare:",
+    type: "text-options",
+    options: { a: "Primary aliphatic amines", b: "Secondary amines", c: "Tertiary amines", d: "Aromatic amines" },
+    correctAnswer: "a",
+    explanation: "Gabriel synthesis: Phthalimide + KOH + alkyl halide → N-alkylphthalimide → hydrolysis → pure primary aliphatic amine.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 8,
+    section: "Methods of Preparation",
+    text: "Which diagram correctly shows the Gabriel phthalimide synthesis?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "Correct: Phthalimide → N-alkylphthalimide → Amine ✓",
+        svg: `<svg viewBox="0 0 140 100">
+          <rect x="5" y="5" width="35" height="20" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5"/>
+          <text x="22" y="18" text-anchor="middle" font-size="6" fill="#1a6fc4">Phthalimide</text>
+          <polygon points="42,15 48,10 48,20" fill="#333"/>
+          <rect x="50" y="5" width="40" height="20" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="70" y="18" text-anchor="middle" font-size="6" fill="#f59e0b">N-alkylphthalimide</text>
+          <polygon points="92,15 98,10 98,20" fill="#333"/>
+          <rect x="100" y="5" width="35" height="20" fill="#fee2e2" stroke="#ef5350" stroke-width="1.5"/>
+          <text x="117" y="18" text-anchor="middle" font-size="6" fill="#ef5350">R-NH₂</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#059669">Gabriel synthesis ✓</text>
+        </svg>`
+      },
+      {
+        label: "Direct alkylation of NH₃",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="35" text-anchor="middle" font-size="10" fill="#ef5350">NH₃ + R-X → R-NH₂</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Not Gabriel synthesis (gives mixtures)</text>
+        </svg>`
+      },
+      {
+        label: "Reduction of nitrile",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="35" text-anchor="middle" font-size="10" fill="#ef5350">R-CN → R-CH₂-NH₂</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Reduction method (different)</text>
+        </svg>`
+      },
+      {
+        label: "Hoffmann bromamide",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="35" text-anchor="middle" font-size="10" fill="#7c3aed">RCONH₂ → R-NH₂</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Hoffmann degradation</text>
+        </svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Gabriel synthesis: Phthalimide → N-alkylphthalimide (using base + alkyl halide) → hydrolysis → primary amine (R-NH₂).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 9,
+    section: "Methods of Preparation",
+    text: "Hoffmann bromamide degradation converts an amide into an amine with:",
+    type: "text-options",
+    options: { a: "Same number of carbon atoms", b: "One carbon less", c: "One carbon more", d: "Two carbons less" },
+    correctAnswer: "b",
+    explanation: "RCONH₂ + Br₂ + 4NaOH → R-NH₂ + 2NaBr + Na₂CO₃ + 2H₂O. The product amine has one carbon less than the amide.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 10,
+    section: "Methods of Preparation",
+    text: "Reduction of alkyl cyanide (R-CN) with LiAlH₄ gives:",
+    type: "text-options",
+    options: { a: "Primary amine", b: "Secondary amine", c: "Tertiary amine", d: "Aldehyde" },
+    correctAnswer: "a",
+    explanation: "R-CN + 4[H] (LiAlH₄) → R-CH₂-NH₂ (primary amine). This increases the carbon chain by one.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── PHYSICAL PROPERTIES (BOILING POINT & SOLUBILITY) ─────────────────
+
+  {
+    id: 11,
+    section: "Physical Properties",
+    text: "The boiling point of isomeric amines follows the order:",
+    type: "text-options",
+    options: { a: "1° > 2° > 3°", b: "3° > 2° > 1°", c: "1° > 3° > 2°", d: "2° > 1° > 3°" },
+    correctAnswer: "a",
+    explanation: "Primary amines have highest boiling point due to extensive intermolecular H-bonding. Tertiary amines have lowest (no H-bonding).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 12,
+    section: "Physical Properties",
+    text: "Which diagram correctly shows hydrogen bonding in primary and tertiary amines?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "1°: H-bonding between N-H...N, 3°: No H-bonding ✓",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="35" y="20" text-anchor="middle" font-size="8" fill="#1a6fc4" font-weight="bold">Primary Amine</text>
+          <line x1="35" y1="30" x2="35" y2="45" stroke="#1a6fc4" stroke-width="1.5"/>
+          <circle cx="35" cy="28" r="4" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1"/>
+          <text x="35" y="55" text-anchor="middle" font-size="10" fill="#1a6fc4">H-bond</text>
+          <text x="105" y="20" text-anchor="middle" font-size="8" fill="#ef5350" font-weight="bold">Tertiary Amine</text>
+          <circle cx="105" cy="35" r="4" fill="#fee2e2" stroke="#ef5350" stroke-width="1"/>
+          <text x="105" y="55" text-anchor="middle" font-size="10" fill="#ef5350">No H-bond</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#059669">H-bonding in 1° only ✓</text>
+        </svg>`
+      },
+      {
+        label: "All amines show same H-bonding",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="45" text-anchor="middle" font-size="10" fill="#ef5350">All have H-bonding</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Wrong: 3° no H on N</text>
+        </svg>`
+      },
+      {
+        label: "3° has strongest H-bonding",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="45" text-anchor="middle" font-size="10" fill="#ef5350">3° strongest H-bond</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Incorrect</text>
+        </svg>`
+      },
+      {
+        label: "Only aromatic amines H-bond",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="45" text-anchor="middle" font-size="10" fill="#7c3aed">Only Ar-NH₂ has H-bond</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">False</text>
+        </svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Primary amines have N-H bonds, allowing intermolecular hydrogen bonding. Tertiary amines have no H on N, so no H-bonding → lower boiling point.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 13,
+    section: "Physical Properties",
+    text: "Lower aliphatic amines (up to C₅) are:",
+    type: "text-options",
+    options: { a: "Insoluble in water", b: "Soluble in water", c: "Soluble only in organic solvents", d: "Completely immiscible" },
+    correctAnswer: "b",
+    explanation: "Lower amines are soluble in water due to hydrogen bonding between N-H and water molecules. Solubility decreases with increase in hydrocarbon chain length.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 14,
+    section: "Physical Properties",
+    text: "Aniline is sparingly soluble in water because:",
+    type: "text-options",
+    options: { a: "It forms H-bonds with water", b: "Large hydrophobic phenyl group", c: "It is a base", d: "It is a gas" },
+    correctAnswer: "b",
+    explanation: "Large non-polar phenyl group dominates over the polar -NH₂ group, making aniline only slightly soluble in water.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 15,
+    section: "Physical Properties",
+    text: "The boiling point of ethylamine is _____ than that of propane (similar molecular mass) due to _____.",
+    type: "text-options",
+    options: { a: "Lower; dipole-dipole interactions", b: "Higher; hydrogen bonding", c: "Same; similar mass", d: "Lower; no bonding" },
+    correctAnswer: "b",
+    explanation: "Ethylamine (C₂H₅NH₂) has higher boiling point than propane (C₃H₈) due to intermolecular hydrogen bonding in amines.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── BASIC CHARACTER & CHEMICAL PROPERTIES ─────────────────────────────
+
+  {
+    id: 16,
+    section: "Basic Character",
+    text: "The basic nature of amines is due to:",
+    type: "text-options",
+    options: { a: "Presence of alkyl group", b: "Lone pair of electrons on nitrogen", c: "Hydrogen bonding", d: "High molecular weight" },
+    correctAnswer: "b",
+    explanation: "Basicity arises from the ability of the nitrogen lone pair to accept a proton (H⁺) to form an ammonium ion.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 17,
+    section: "Basic Character",
+    text: "In aqueous solution, the basicity order of aliphatic amines is:",
+    type: "text-options",
+    options: { a: "1° > 2° > 3°", b: "3° > 2° > 1°", c: "2° > 1° > 3°", d: "1° > 3° > 2°" },
+    correctAnswer: "c",
+    explanation: "In water: 2° > 1° > 3° due to combination of +I effect, solvation, and steric hindrance. (Gas phase: 3° > 2° > 1°)",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 18,
+    section: "Basic Character",
+    text: "Which is the correct order of basic strength in aqueous solution?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "Correct: (CH₃)₂NH > CH₃NH₂ > (CH₃)₃N ✓",
+        svg: `<svg viewBox="0 0 140 90">
+          <rect x="5" y="5" width="40" height="25" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5"/>
+          <text x="25" y="15" text-anchor="middle" font-size="7" fill="#1a6fc4">(CH₃)₂NH</text>
+          <text x="25" y="25" text-anchor="middle" font-size="6" fill="#1a6fc4">Most basic</text>
+          <rect x="50" y="5" width="40" height="25" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="70" y="15" text-anchor="middle" font-size="7" fill="#f59e0b">CH₃NH₂</text>
+          <text x="70" y="25" text-anchor="middle" font-size="6" fill="#f59e0b">Medium</text>
+          <rect x="95" y="5" width="40" height="25" fill="#fee2e2" stroke="#ef5350" stroke-width="1.5"/>
+          <text x="115" y="15" text-anchor="middle" font-size="7" fill="#ef5350">(CH₃)₃N</text>
+          <text x="115" y="25" text-anchor="middle" font-size="6" fill="#ef5350">Least basic</text>
+          <text x="70" y="80" text-anchor="middle" font-size="8" fill="#059669">2° > 1° > 3° in water ✓</text>
+        </svg>`
+      },
+      {
+        label: "Wrong: 3° > 2° > 1°",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="70" y="40" text-anchor="middle" font-size="10" fill="#ef5350">3° > 2° > 1°</text>
+          <text x="70" y="80" text-anchor="middle" font-size="8" fill="#6b7280">This is gas phase order</text>
+        </svg>`
+      },
+      {
+        label: "1° > 2° > 3° only",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="70" y="40" text-anchor="middle" font-size="10" fill="#ef5350">1° > 2° > 3°</text>
+          <text x="70" y="80" text-anchor="middle" font-size="8" fill="#6b7280">Incorrect</text>
+        </svg>`
+      },
+      {
+        label: "All equal",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="70" y="40" text-anchor="middle" font-size="10" fill="#7c3aed">All equal basicity</text>
+          <text x="70" y="80" text-anchor="middle" font-size="8" fill="#6b7280">Wrong</text>
+        </svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "In aqueous solution: (CH₃)₂NH (2°) > CH₃NH₂ (1°) > (CH₃)₃N (3°) due to solvation effects and steric hindrance.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 19,
+    section: "Basic Character",
+    text: "Aniline is less basic than cyclohexylamine because:",
+    type: "text-options",
+    options: { a: "Phenyl group is electron-withdrawing", b: "Lone pair on N is delocalised into benzene ring", c: "Aniline is more stable", d: "All of the above" },
+    correctAnswer: "d",
+    explanation: "In aniline, the lone pair on N is delocalised into the benzene ring (resonance), making it less available for protonation → weaker base.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 20,
+    section: "Chemical Properties",
+    text: "Alkylation of amines with alkyl halide gives:",
+    type: "text-options",
+    options: { a: "Only primary amine", b: "Mixture of 1°, 2°, 3° amines and quaternary salt", c: "Only tertiary amine", d: "Only quaternary salt" },
+    correctAnswer: "b",
+    explanation: "R-NH₂ + R-X → R₂NH (2°) → R₃N (3°) → R₄N⁺X⁻ (quaternary salt). A mixture is obtained.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── REACTION WITH ACID, ACYLATION, CARBYLAMINE, ETC. ─────────────────
+
+  {
+    id: 21,
+    section: "Chemical Properties",
+    text: "The carbylamine reaction is given by:",
+    type: "text-options",
+    options: { a: "Primary amines only", b: "Secondary amines only", c: "Tertiary amines only", d: "All amines" },
+    correctAnswer: "a",
+    explanation: "R-NH₂ + CHCl₃ + 3KOH → R-NC (isocyanide) + 3KCl + 3H₂O. Only 1° amines give this foul-smelling carbylamine test.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 22,
+    section: "Chemical Properties",
+    text: "Acetylation of aniline with acetic anhydride gives:",
+    type: "text-options",
+    options: { a: "Benzamide", b: "Acetanilide", c: "Nitroaniline", d: "Aniline hydrochloride" },
+    correctAnswer: "b",
+    explanation: "C₆H₅-NH₂ + (CH₃CO)₂O → C₆H₅-NH-COCH₃ (Acetanilide) + CH₃COOH.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 23,
+    section: "Chemical Properties",
+    text: "Which diagram correctly shows the carbylamine reaction mechanism?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "R-NH₂ → R-NC (isocyanide) ✓",
+        svg: `<svg viewBox="0 0 140 80">
+          <rect x="5" y="15" width="40" height="20" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5"/>
+          <text x="25" y="30" text-anchor="middle" font-size="8" fill="#1a6fc4">R-NH₂</text>
+          <polygon points="47,25 55,20 55,30" fill="#333"/>
+          <rect x="57" y="15" width="40" height="20" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="77" y="30" text-anchor="middle" font-size="8" fill="#f59e0b">+ CHCl₃/KOH</text>
+          <polygon points="99,25 107,20 107,30" fill="#333"/>
+          <rect x="109" y="15" width="25" height="20" fill="#fee2e2" stroke="#ef5350" stroke-width="1.5"/>
+          <text x="121" y="30" text-anchor="middle" font-size="8" fill="#ef5350">R-NC</text>
+          <text x="70" y="65" text-anchor="middle" font-size="8" fill="#059669">Carbylamine reaction (1° only) ✓</text>
+        </svg>`
+      },
+      {
+        label: "R₂NH → R₂N-CHCl₂",
+        svg: `<svg viewBox="0 0 140 80">
+          <text x="70" y="35" text-anchor="middle" font-size="10" fill="#ef5350">R₂NH → R₂N-CHCl₂</text>
+          <text x="70" y="65" text-anchor="middle" font-size="8" fill="#6b7280">2° amines don't give carbylamine</text>
+        </svg>`
+      },
+      {
+        label: "R₃N → R₃N-CHCl₃",
+        svg: `<svg viewBox="0 0 140 80">
+          <text x="70" y="35" text-anchor="middle" font-size="10" fill="#ef5350">R₃N → R₃N-CHCl₃</text>
+          <text x="70" y="65" text-anchor="middle" font-size="8" fill="#6b7280">3° amines no reaction</text>
+        </svg>`
+      },
+      {
+        label: "Ar-NH₂ → Ar-OH",
+        svg: `<svg viewBox="0 0 140 80">
+          <text x="70" y="35" text-anchor="middle" font-size="10" fill="#7c3aed">Aniline → Phenol</text>
+          <text x="70" y="65" text-anchor="middle" font-size="8" fill="#6b7280">Different reaction</text>
+        </svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Carbylamine reaction (isocyanide test): Primary amine + CHCl₃ + alc. KOH → foul-smelling isocyanide (R-NC).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 24,
+    section: "Chemical Properties",
+    text: "Aniline does not undergo Friedel-Crafts alkylation because:",
+    type: "text-options",
+    options: { a: "It is a base", b: "It forms a complex with AlCl₃", c: "It is oxidised", d: "Both a and b" },
+    correctAnswer: "d",
+    explanation: "Aniline's lone pair forms a complex with AlCl₃ (Lewis acid), deactivating the ring and preventing Friedel-Crafts reaction.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 25,
+    section: "Chemical Properties",
+    text: "Hinsberg reagent (benzenesulphonyl chloride) reacts with primary amine to give:",
+    type: "text-options",
+    options: { a: "Sulphonamide soluble in alkali", b: "Sulphonamide insoluble in alkali", c: "No reaction", d: "Quaternary salt" },
+    correctAnswer: "a",
+    explanation: "Primary amine + C₆H₅SO₂Cl → N-alkylbenzenesulphonamide (has acidic H, soluble in NaOH).",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── DIAZONIUM SALTS: PREPARATION, PROPERTIES ─────────────────────────
+
+  {
+    id: 26,
+    section: "Diazonium Salts",
+    text: "Diazotisation is the reaction of aniline with _____ at 0-5°C.",
+    type: "text-options",
+    options: { a: "NaNO₂ + HCl", b: "HNO₃", c: "H₂SO₄", d: "NaCl" },
+    correctAnswer: "a",
+    explanation: "C₆H₅-NH₂ + NaNO₂ + 2HCl (0-5°C) → C₆H₅-N₂⁺Cl⁻ (Benzenediazonium chloride) + NaCl + 2H₂O.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 27,
+    section: "Diazonium Salts",
+    text: "The temperature is maintained at 0-5°C during diazotisation to prevent:",
+    type: "text-options",
+    options: { a: "Decomposition of diazonium salt", b: "Formation of phenol", c: "Coupling reaction", d: "All of the above" },
+    correctAnswer: "d",
+    explanation: "Diazonium salts are unstable at room temperature and decompose to give phenol or other products. Low temperature prevents side reactions.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 28,
+    section: "Diazonium Salts",
+    text: "Which diagram correctly shows the formation of benzenediazonium chloride?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "Aniline + NaNO₂/HCl (0-5°C) → C₆H₅-N₂⁺Cl⁻ ✓",
+        svg: `<svg viewBox="0 0 140 90">
+          <rect x="5" y="10" width="30" height="20" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5"/>
+          <text x="20" y="24" text-anchor="middle" font-size="7" fill="#1a6fc4">Aniline</text>
+          <polygon points="37,20 45,15 45,25" fill="#333"/>
+          <rect x="47" y="10" width="45" height="20" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="69" y="24" text-anchor="middle" font-size="6" fill="#f59e0b">NaNO₂/HCl</text>
+          <text x="69" y="32" text-anchor="middle" font-size="5" fill="#f59e0b">0-5°C</text>
+          <polygon points="94,20 102,15 102,25" fill="#333"/>
+          <rect x="104" y="10" width="30" height="20" fill="#fee2e2" stroke="#ef5350" stroke-width="1.5"/>
+          <text x="119" y="24" text-anchor="middle" font-size="6" fill="#ef5350">N₂⁺Cl⁻</text>
+          <text x="70" y="75" text-anchor="middle" font-size="8" fill="#059669">Diazotisation ✓</text>
+        </svg>`
+      },
+      {
+        label: "Aniline + H₂SO₄ → Salt",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="70" y="35" text-anchor="middle" font-size="10" fill="#ef5350">Aniline + H₂SO₄</text>
+          <text x="70" y="75" text-anchor="middle" font-size="8" fill="#6b7280">Forms aniline sulphate (not diazonium)</text>
+        </svg>`
+      },
+      {
+        label: "Direct nitration",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="70" y="35" text-anchor="middle" font-size="10" fill="#ef5350">Aniline + HNO₃</text>
+          <text x="70" y="75" text-anchor="middle" font-size="8" fill="#6b7280">Oxidation, not diazotisation</text>
+        </svg>`
+      },
+      {
+        label: "Room temperature reaction",
+        svg: `<svg viewBox="0 0 140 90">
+          <text x="70" y="35" text-anchor="middle" font-size="10" fill="#7c3aed">25°C reaction</text>
+          <text x="70" y="75" text-anchor="middle" font-size="8" fill="#6b7280">Diazonium salt decomposes</text>
+        </svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Diazotisation: Aromatic primary amine + NaNO₂ + conc. HCl at 0-5°C → Benzenediazonium chloride.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 29,
+    section: "Diazonium Salts",
+    text: "Benzenediazonium chloride on reaction with CuCN/KCN gives:",
+    type: "text-options",
+    options: { a: "Chlorobenzene", b: "Benzonitrile", c: "Benzaldehyde", d: "Benzoic acid" },
+    correctAnswer: "b",
+    explanation: "C₆H₅-N₂⁺Cl⁻ + CuCN → C₆H₅-CN (Benzonitrile) + N₂ + CuCl. This is Sandmeyer reaction.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 30,
+    section: "Diazonium Salts",
+    text: "Benzenediazonium chloride on reaction with H₃PO₂ (hypophosphorous acid) gives:",
+    type: "text-options",
+    options: { a: "Phenol", b: "Chlorobenzene", c: "Benzene", d: "Nitrobenzene" },
+    correctAnswer: "c",
+    explanation: "C₆H₅-N₂⁺Cl⁻ + H₃PO₂ + H₂O → C₆H₆ (Benzene) + N₂ + H₃PO₃ + HCl. Replacement of -N₂⁺ by -H.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── COUPLING REACTIONS & IMPORTANCE IN SYNTHESIS ─────────────────────
+
+  {
+    id: 31,
+    section: "Diazonium Salts",
+    text: "The coupling reaction of benzenediazonium chloride with aniline gives:",
+    type: "text-options",
+    options: { a: "Azobenzene", b: "p-Aminoazobenzene (yellow dye)", c: "Benzene", d: "Phenol" },
+    correctAnswer: "b",
+    explanation: "C₆H₅-N₂⁺ + C₆H₅-NH₂ → C₆H₅-N=N-C₆H₄-NH₂ (p-aminoazobenzene). Coupling occurs at para position of aniline.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 32,
+    section: "Diazonium Salts",
+    text: "Which diagram correctly shows the coupling reaction of diazonium salt with phenol?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "N₂⁺ + C₆H₅-OH → N=N-C₆H₄-OH (p-hydroxyazobenzene) ✓",
+        svg: `<svg viewBox="0 0 140 100">
+          <rect x="5" y="10" width="35" height="25" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5"/>
+          <text x="22" y="20" text-anchor="middle" font-size="6" fill="#1a6fc4">C₆H₅-N₂⁺</text>
+          <text x="22" y="30" text-anchor="middle" font-size="6" fill="#1a6fc4">(Diazonium)</text>
+          <text x="42" y="22" font-size="12" fill="#333">+</text>
+          <rect x="48" y="10" width="35" height="25" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="65" y="20" text-anchor="middle" font-size="6" fill="#f59e0b">C₆H₅-OH</text>
+          <text x="65" y="30" text-anchor="middle" font-size="6" fill="#f59e0b">(Phenol)</text>
+          <text x="85" y="22" font-size="12" fill="#333">→</text>
+          <rect x="95" y="10" width="40" height="25" fill="#fee2e2" stroke="#ef5350" stroke-width="1.5"/>
+          <text x="115" y="18" text-anchor="middle" font-size="5" fill="#ef5350">p-Hydroxy-</text>
+          <text x="115" y="28" text-anchor="middle" font-size="5" fill="#ef5350">azobenzene</text>
+          <text x="70" y="80" text-anchor="middle" font-size="8" fill="#059669">Azo dye formation ✓</text>
+        </svg>`
+      },
+      {
+        label: "N₂⁺ + NH₃ → Hydrazine",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="40" text-anchor="middle" font-size="10" fill="#ef5350">C₆H₅-N₂⁺ + NH₃</text>
+          <text x="70" y="80" text-anchor="middle" font-size="8" fill="#6b7280">Not coupling (different reaction)</text>
+        </svg>`
+      },
+      {
+        label: "N₂⁺ + H₂O → Phenol",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="40" text-anchor="middle" font-size="10" fill="#ef5350">C₆H₅-N₂⁺ + H₂O</text>
+          <text x="70" y="80" text-anchor="middle" font-size="8" fill="#6b7280">Hydrolysis (not coupling)</text>
+        </svg>`
+      },
+      {
+        label: "No reaction",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="40" text-anchor="middle" font-size="10" fill="#7c3aed">Diazonium + Phenol → No reaction</text>
+          <text x="70" y="80" text-anchor="middle" font-size="8" fill="#6b7280">Wrong (coupling occurs)</text>
+        </svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Diazonium salts couple with phenols and amines at para position to form azo compounds (dyes).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 33,
+    section: "Importance of Diazonium Salts",
+    text: "Diazonium salts are important because they are used to synthesise:",
+    type: "text-options",
+    options: { a: "Aryl halides", b: "Aryl cyanides", c: "Azo dyes", d: "All of the above" },
+    correctAnswer: "d",
+    explanation: "Diazonium salts are versatile intermediates for preparing aryl halides (Sandmeyer), aryl cyanides, phenols, and azo dyes.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 34,
+    section: "Diazonium Salts",
+    text: "Sandmeyer reaction uses CuCl to replace diazonium group with:",
+    type: "text-options",
+    options: { a: "-Cl", b: "-Br", c: "-CN", d: "-OH" },
+    correctAnswer: "a",
+    explanation: "Sandmeyer reaction: C₆H₅-N₂⁺ + CuCl → C₆H₅-Cl (Chlorobenzene). Similarly CuBr gives bromobenzene.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 35,
+    section: "Diazonium Salts",
+    text: "The group that can be introduced into benzene ring using diazonium salt is:",
+    type: "text-options",
+    options: { a: "-F (using HBF₄)", b: "-I (using KI)", c: "-OH (using H₂O)", d: "All of the above" },
+    correctAnswer: "d",
+    explanation: "Fluorobenzene (Balz-Schiemann), Iodobenzene (KI), Phenol (H₂O) all from diazonium salts.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── PHYSICAL PROPERTIES (CONTINUED) & DISTINCTION TESTS ───────────────
+
+  {
+    id: 36,
+    section: "Physical Properties",
+    text: "Aromatic amines are _____ than aliphatic amines of comparable molecular mass.",
+    type: "text-options",
+    options: { a: "More basic", b: "Less basic", c: "Equally basic", d: "More volatile" },
+    correctAnswer: "b",
+    explanation: "Aromatic amines (e.g., aniline) are less basic due to delocalisation of lone pair into the benzene ring (resonance).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 37,
+    section: "Distinction Tests",
+    text: "Hinsberg test using benzenesulphonyl chloride distinguishes 1°, 2°, and 3° amines. A tertiary amine gives:",
+    type: "text-options",
+    options: { a: "Soluble sulphonamide", b: "Insoluble sulphonamide", c: "No reaction (remains as oil)", d: "Precipitate of amine hydrochloride" },
+    correctAnswer: "c",
+    explanation: "Tertiary amine has no H on N, so no reaction with benzenesulphonyl chloride. The amine separates as an oil.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 38,
+    section: "Distinction Tests",
+    text: "Which diagram correctly shows the Hinsberg test for primary, secondary, and tertiary amines?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "1°: soluble, 2°: insoluble, 3°: no reaction ✓",
+        svg: `<svg viewBox="0 0 140 100">
+          <rect x="5" y="5" width="40" height="30" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5"/>
+          <text x="25" y="18" text-anchor="middle" font-size="6" fill="#1a6fc4">1° Amine</text>
+          <text x="25" y="28" text-anchor="middle" font-size="6" fill="#1a6fc4">Soluble in alkali</text>
+          <rect x="50" y="5" width="40" height="30" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="70" y="18" text-anchor="middle" font-size="6" fill="#f59e0b">2° Amine</text>
+          <text x="70" y="28" text-anchor="middle" font-size="6" fill="#f59e0b">Insoluble in alkali</text>
+          <rect x="95" y="5" width="40" height="30" fill="#fee2e2" stroke="#ef5350" stroke-width="1.5"/>
+          <text x="115" y="18" text-anchor="middle" font-size="6" fill="#ef5350">3° Amine</text>
+          <text x="115" y="28" text-anchor="middle" font-size="6" fill="#ef5350">No reaction</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#059669">Hinsberg test ✓</text>
+        </svg>`
+      },
+      {
+        label: "All soluble",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="40" text-anchor="middle" font-size="10" fill="#ef5350">All amines soluble</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Incorrect</text>
+        </svg>`
+      },
+      {
+        label: "All insoluble",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="40" text-anchor="middle" font-size="10" fill="#ef5350">All amines insoluble</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Incorrect</text>
+        </svg>`
+      },
+      {
+        label: "Only 1° reacts",
+        svg: `<svg viewBox="0 0 140 100">
+          <text x="70" y="40" text-anchor="middle" font-size="10" fill="#7c3aed">Only 1° reacts</text>
+          <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">2° also reacts</text>
+        </svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Hinsberg test: 1° → sulphonamide soluble in NaOH, 2° → sulphonamide insoluble, 3° → no reaction.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 39,
+    section: "Physical Properties",
+    text: "The order of boiling points of isomeric amines is: 1° > 2° > 3°. This is because:",
+    type: "text-options",
+    options: { a: "Increasing molecular mass", b: "Decreasing hydrogen bonding", c: "Increasing polarity", d: "Decreasing van der Waals forces" },
+    correctAnswer: "b",
+    explanation: "Primary amines have two H on N (strong H-bonding), secondary have one H, tertiary have none → decreasing H-bonding → decreasing boiling point.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 40,
+    section: "Basic Character",
+    text: "Substituted anilines: Electron-donating groups _____ basicity, electron-withdrawing groups _____ basicity.",
+    type: "text-options",
+    options: { a: "Increase, decrease", b: "Decrease, increase", c: "Increase, increase", d: "Decrease, decrease" },
+    correctAnswer: "a",
+    explanation: "Electron-donating groups (+I, +R) increase electron density on N → more basic. Electron-withdrawing groups decrease basicity.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── REACTIONS OF AMINES (CONTINUED) ──────────────────────────────────
+
+  {
+    id: 41,
+    section: "Chemical Properties",
+    text: "Reaction of aniline with bromine water gives:",
+    type: "text-options",
+    options: { a: "o-Bromoaniline", b: "p-Bromoaniline", c: "2,4,6-Tribromoaniline (white precipitate)", d: "No reaction" },
+    correctAnswer: "c",
+    explanation: "Aniline + Br₂/H₂O → 2,4,6-tribromoaniline (white precipitate). -NH₂ group strongly activates the ring.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 42,
+    section: "Chemical Properties",
+    text: "Why is aniline not directly nitrated with HNO₃/H₂SO₄?",
+    type: "text-options",
+    options: { a: "It forms anilinium ion which deactivates the ring", b: "It gets oxidised", c: "It gives tarry products", d: "All of the above" },
+    correctAnswer: "d",
+    explanation: "Aniline gets protonated to anilinium ion (deactivates meta), and is also easily oxidised. Nitration is done after acetylation.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 43,
+    section: "Chemical Properties",
+    text: "Acetylation of aniline before nitration is done to:",
+    type: "text-options",
+    options: { a: "Activate the ring", b: "Protect -NH₂ group and make it meta-directing", c: "Increase yield", d: "Make it water soluble" },
+    correctAnswer: "b",
+    explanation: "Acetylation converts -NH₂ to -NHCOCH₃, which is less basic, protects from oxidation, and is ortho/para directing.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 44,
+    section: "Chemical Properties",
+    text: "The reaction of nitrous acid (NaNO₂ + HCl) with secondary aliphatic amine gives:",
+    type: "text-options",
+    options: { a: "Alcohol", b: "N-Nitrosamine (yellow oil)", c: "Diazonium salt", d: "Phenol" },
+    correctAnswer: "b",
+    explanation: "R₂NH + HNO₂ → R₂N-N=O (N-nitrosamine, yellow oil). This is a confirmatory test for secondary amines.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 45,
+    section: "Chemical Properties",
+    text: "Tertiary aliphatic amine reacts with nitrous acid to form:",
+    type: "text-options",
+    options: { a: "Diazonium salt", b: "N-Nitrosamine", c: "Nitrite salt (unstable, decomposes)", d: "Amide" },
+    correctAnswer: "c",
+    explanation: "R₃N + HNO₂ → R₃NH⁺ NO₂⁻ (nitrite salt) which decomposes to give alcohol and nitrosoamine.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── DIAZONIUM SALTS: MORE REACTIONS & APPLICATIONS ───────────────────
+
+  {
+    id: 46,
+    section: "Importance of Diazonium Salts",
+    text: "Benzenediazonium chloride on reaction with phenol in alkaline medium gives:",
+    type: "text-options",
+    options: { a: "p-Hydroxyazobenzene (orange dye)", b: "Benzene", c: "Chlorobenzene", d: "Nitrobenzene" },
+    correctAnswer: "a",
+    explanation: "Coupling at para position of phenol gives p-hydroxyazobenzene (an azo dye).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 47,
+    section: "Importance of Diazonium Salts",
+    text: "Which of the following cannot be prepared directly from benzenediazonium chloride?",
+    type: "text-options",
+    options: { a: "Chlorobenzene", b: "Bromobenzene", c: "Fluorobenzene", d: "Iodobenzene" },
+    correctAnswer: "d",
+    explanation: "Iodobenzene is prepared by reaction with KI (not Sandmeyer). Sandmeyer uses CuCl/CuBr for Cl/Br. Fluorobenzene by Balz-Schiemann.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 48,
+    section: "Importance of Diazonium Salts",
+    text: "The replacement of diazonium group by -H (using H₃PO₂) is called:",
+    type: "text-options",
+    options: { a: "Sandmeyer reaction", b: "Gattermann reaction", c: "Deamination", d: "Coupling" },
+    correctAnswer: "c",
+    explanation: "Replacement of -N₂⁺ by -H using H₃PO₂ or ethanol is called deamination. It removes the amino group.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 49,
+    section: "Importance of Diazonium Salts",
+    text: "Diazonium salts are stored at low temperature because they:",
+    type: "text-options",
+    options: { a: "Are highly reactive", b: "Decompose on warming", c: "Can explode when dry", d: "All of the above" },
+    correctAnswer: "d",
+    explanation: "Diazonium salts are unstable, decompose at room temperature to give phenols, and dry salts can explode.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 50,
+    section: "Summary & Applications",
+    text: "Azo dyes are characterised by the presence of the functional group:",
+    type: "text-options",
+    options: { a: "-NH₂", b: "-NO₂", c: "-N=N-", d: "-OH" },
+    correctAnswer: "c",
+    explanation: "Azo dyes contain the azo group (-N=N-) linking two aromatic rings, formed by coupling diazonium salts with phenols/amines.",
+    marked: false,
+    userAnswer: ""
+  }
+]
+
+};
+
+/* ============================================================
+   TEST ENGINE
+   ============================================================ */
+let currentQuestionIndex = 0;
+let timeLeft = mockTest.duration;
+let timer;
+let testSubmitted = false;
+let testStarted = false;
+
+const timerEl = document.querySelector('.timer');
+const questionTextEl = document.getElementById('question-text');
+const optionsEl = document.getElementById('options-container');
+const qNumEl = document.getElementById('q-number');
+const curQNumEl = document.getElementById('current-q-number');
+const progressFill = document.getElementById('test-progress');
+const progressPct = document.getElementById('progress-percent');
+const paletteGrid = document.getElementById('question-palette-grid');
+const answeredCountEl = document.getElementById('answered-count');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const markBtn = document.getElementById('mark-btn');
+const submitBtn = document.getElementById('submit-test-btn');
+const modal = document.getElementById('results-modal');
+const closeModal = document.getElementById('close-modal');
+const reviewBtn = document.getElementById('review-btn');
+
+function initTest() {
+    renderPalette();
+    renderQuestion();
+    startTimer();
+    updateProgress();
+    renderLegend(false);
+    prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } });
+    nextBtn.addEventListener('click', () => { if (currentQuestionIndex < mockTest.questions.length - 1) { currentQuestionIndex++; renderQuestion(); } });
+    markBtn.addEventListener('click', toggleMark);
+    submitBtn.addEventListener('click', () => { if (confirm('Submit the test?')) submitTest(); });
+    closeModal.addEventListener('click', () => modal.classList.remove('show'));
+    reviewBtn.addEventListener('click', () => { modal.classList.remove('show'); currentQuestionIndex = 0; renderQuestion(); });
+    document.getElementById('download-pdf-btn').addEventListener('click', generatePDF);
+    document.getElementById('modal-result-btn').addEventListener('click', () => { modal.classList.remove('show'); document.getElementById('stream-picker-overlay').style.display = 'flex'; });
+    document.getElementById('pdf-action-btn').addEventListener('click', generatePDF);
+    document.getElementById('result-action-btn').addEventListener('click', () => { document.getElementById('stream-picker-overlay').style.display = 'flex'; });
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    timer = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) { clearInterval(timer); submitTest(); }
+        if (timeLeft === 300) alert('⚠️ Only 5 minutes remaining!');
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const h = Math.floor(timeLeft / 3600);
+    const m = Math.floor((timeLeft % 3600) / 60);
+    const s = timeLeft % 60;
+    const str = `${pad(h)}:${pad(m)}:${pad(s)}`;
+    timerEl.textContent = str;
+    const mob = document.querySelector('.mob-timer');
+    if (mob) mob.textContent = str;
+}
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function renderQuestion() {
+    const q = mockTest.questions[currentQuestionIndex];
+    document.getElementById('current-section').textContent = q.section;
+    document.getElementById('section-badge').textContent = '📘 ' + q.section;
+    questionTextEl.textContent = q.text;
+    qNumEl.textContent = q.id;
+    curQNumEl.textContent = q.id;
+    optionsEl.innerHTML = '';
+
+if (q.type === "image-options") {
+        q.options.forEach((opt, i) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            if (testSubmitted) {
+                if (i === q.correct) div.classList.add('correct');
+                else if (i === q.userAnswer) div.classList.add('incorrect');
+            } else {
+                if (i === q.userAnswer) div.classList.add('selected');
+            }
+            if (!testSubmitted) {
+                div.addEventListener('click', () => {
+                    optionsEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    div.classList.add('selected');
+                    q.userAnswer = i;
+                    updatePalette();
+                    updateProgress();
+                });
+            }
+            const letter = document.createElement('div');
+            letter.className = 'opt-letter';
+            letter.textContent = String.fromCharCode(65 + i);
+            const svgWrap = document.createElement('div');
+            svgWrap.style.flex = '1';
+            svgWrap.innerHTML = opt.svg;
+            if (testSubmitted) {
+                if (i === q.correct) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator correct-indicator';
+                    ind.style.display = 'block';
+                    ind.style.fontSize = '12px';
+                    ind.textContent = '✓ Correct';
+                    svgWrap.appendChild(ind);
+                } else if (i === q.userAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator incorrect-indicator';
+                    ind.style.display = 'block';
+                    ind.style.fontSize = '12px';
+                    ind.textContent = '✗ Your Answer';
+                    svgWrap.appendChild(ind);
+                }
+            }
+            div.appendChild(letter);
+            div.appendChild(svgWrap);
+            optionsEl.appendChild(div);
+        });
+    } else {
+        for (const [key, val] of Object.entries(q.options)) {
+            const div = document.createElement('div');
+            div.className = 'option';
+            if (testSubmitted) {
+                if (key === q.correctAnswer) div.classList.add('correct');
+                else if (key === q.userAnswer) div.classList.add('incorrect');
+            } else {
+                if (key === q.userAnswer) div.classList.add('selected');
+            }
+            if (!testSubmitted) {
+                div.addEventListener('click', () => {
+                    optionsEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    div.classList.add('selected');
+                    q.userAnswer = key;
+                    updatePalette();
+                    updateProgress();
+                });
+            }
+            const letter = document.createElement('div');
+            letter.className = 'opt-letter';
+            letter.textContent = key.toUpperCase();
+            const text = document.createElement('span');
+            text.className = 'opt-text';
+            text.textContent = val;
+            if (testSubmitted) {
+                if (key === q.correctAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator correct-indicator';
+                    ind.textContent = ' ✓ Correct';
+                    text.appendChild(ind);
+                } else if (key === q.userAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator incorrect-indicator';
+                    ind.textContent = ' ✗ Your Answer';
+                    text.appendChild(ind);
+                }
+            }
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'q-opt';
+            radio.value = key;
+            radio.checked = q.userAnswer === key;
+            div.appendChild(radio);
+            div.appendChild(letter);
+            div.appendChild(text);
+            optionsEl.appendChild(div);
+        }
+    }
+
+    if (testSubmitted && q.explanation) {
+        const exp = document.createElement('div');
+        exp.className = 'explanation-box';
+        exp.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+        optionsEl.appendChild(exp);
+    }
+
+    markBtn.classList.toggle('marked', q.marked);
+    markBtn.textContent = q.marked ? '🔖 Marked' : '🔖 Mark';
+    prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+    nextBtn.style.visibility = currentQuestionIndex === mockTest.questions.length - 1 ? 'hidden' : 'visible';
+    updatePalette();
+}
+
+function toggleMark() {
+    const q = mockTest.questions[currentQuestionIndex];
+    q.marked = !q.marked;
+    markBtn.classList.toggle('marked', q.marked);
+    markBtn.textContent = q.marked ? '🔖 Marked' : '🔖 Mark';
+    updatePalette();
+}
+
+function renderPalette() {
+    paletteGrid.innerHTML = '';
+    mockTest.questions.forEach((q, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'palette-btn';
+        btn.textContent = q.id;
+        btn.addEventListener('click', () => { currentQuestionIndex = i; renderQuestion(); });
+        paletteGrid.appendChild(btn);
+    });
+    updatePalette();
+}
+
+function updatePalette() {
+    const btns = paletteGrid.querySelectorAll('.palette-btn');
+    mockTest.questions.forEach((q, i) => {
+        const btn = btns[i];
+        btn.className = 'palette-btn';
+        if (testSubmitted) {
+            if (!q.userAnswer) btn.classList.add('review-unanswered');
+            else if (q.userAnswer === q.correctAnswer) btn.classList.add('review-correct');
+            else btn.classList.add('review-wrong');
+        } else {
+            if (q.userAnswer) btn.classList.add('answered');
+            if (q.marked) btn.classList.add('marked');
+        }
+        if (i === currentQuestionIndex) btn.classList.add('current');
+    });
+    const ans = mockTest.questions.filter(q => q.userAnswer).length;
+    answeredCountEl.textContent = `${ans}/${mockTest.questions.length}`;
+}
+
+function updateProgress() {
+    const ans = mockTest.questions.filter(q => q.userAnswer).length;
+    const pct = Math.round((ans / mockTest.questions.length) * 100);
+    progressFill.style.width = pct + '%';
+    progressPct.textContent = pct + '%';
+}
+
+function renderLegend(reviewMode) {
+    const leg = document.getElementById('palette-legend');
+    if (!leg) return;
+    if (reviewMode) {
+        leg.innerHTML = `
+        <div class="leg-label"><div class="leg-dot" style="background:#22c55e;"></div>Correct</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#ef4444;"></div>Wrong</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#60a5fa;"></div>Unanswered</div>`;
+    } else {
+        leg.innerHTML = `
+        <div class="leg-label"><div class="leg-dot" style="background:#bbf7d0;border:1px solid #22c55e;"></div>Answered</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#bae6fd;border:1px solid #0ea5e9;"></div>Marked</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#fee2e2;border:1px solid #fca5a5;"></div>Unanswered</div>
+        <div class="leg-label"><div class="leg-dot" style="background:white;border:2px solid #1a6fc4;"></div>Current</div>`;
+    }
+}
+
+function submitTest() {
+    if (testSubmitted) return;
+    testSubmitted = true;
+    clearInterval(timer);
+
+    let correct = 0, incorrect = 0, unanswered = 0;
+mockTest.questions.forEach(q => {
+        if (!q.userAnswer && q.userAnswer !== 0) unanswered++;
+        else if (q.type === "image-options" ? q.userAnswer === q.correct : q.userAnswer === q.correctAnswer) correct++;
+        else incorrect++;
+    });
+
+    const total = mockTest.questions.length;
+    const maxScore = total * mockTest.markingScheme.correct;
+    const score = (correct * mockTest.markingScheme.correct) + (incorrect * mockTest.markingScheme.incorrect);
+    const pct = ((score / maxScore) * 100).toFixed(2);
+    const acc = correct + incorrect > 0 ? ((correct / (correct + incorrect)) * 100).toFixed(2) : '0';
+
+    const resultData = {
+    studentId:  localStorage.getItem('ts_student_id') || '',
+    name:       localStorage.getItem('cbtUserName') || 'Unknown',
+    subject:    SUBJECT_ID,
+    chapter:    CHAPTER_ID,
+    date:       new Date().toISOString(),
+    score, maxScore: total * mockTest.markingScheme.correct,
+    correct, wrong: incorrect, skipped: unanswered,
+    totalQ: total,
+    percentage: parseFloat(pct),
+    accuracy:   parseFloat(acc),
+    timeTaken:  mockTest.duration - timeLeft
+};
+
+const storageKey = `thunderstudy_result_${SUBJECT_ID}_${CHAPTER_ID}`;
+localStorage.setItem(storageKey, JSON.stringify(resultData));
+
+const GS_URL = "https://script.google.com/macros/s/AKfycbyEsrvdSuRh06TIKPK0ozP-jQNjqHO8PaIeBcW5r45aGdr4H3ZVFHpKMm3xaDHrYmqX/exec";
+fetch(GS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(resultData)
+}).then(() => {
+    localStorage.removeItem(storageKey);
+    localStorage.setItem(`synced_${SUBJECT_ID}_${CHAPTER_ID}`, 'true');
+}).catch(err => console.error('Sheet sync failed:', err));
+    const idxKey = `thunderstudy_index_${SUBJECT_ID}`;
+    let idx = [];
+    try { idx = JSON.parse(localStorage.getItem(idxKey) || '[]'); } catch(e) {}
+    if (!idx.includes(CHAPTER_ID)) idx.push(CHAPTER_ID);
+    localStorage.setItem(idxKey, JSON.stringify(idx));
+
+    document.getElementById('correct-answers').textContent = correct;
+    document.getElementById('incorrect-answers').textContent = incorrect;
+    document.getElementById('unanswered').textContent = unanswered;
+    document.getElementById('total-score').textContent = score;
+    document.getElementById('percentage').textContent = pct;
+    document.getElementById('accuracy').textContent = acc;
+    modal.classList.add('show');
+
+    renderQuestion();
+    renderLegend(true);
+
+    // Swap submit rows
+    document.getElementById('submit-row-before').style.display = 'none';
+    document.getElementById('submit-row-after').style.display = 'flex';
+}
+
+/* Visibility change guard */
+
+document.addEventListener("visibilitychange", () => {
+    if (!testStarted || testSubmitted) return;
+    updateFocusMode(); // ADD THIS LINE
+    if (document.hidden) startCountdown('tab');
+    else cancelCountdown();
+});
+
+/* Arrow key nav */
+document.addEventListener('keydown', e => {
+    if (document.getElementById('test-screen').style.display === 'none') return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (currentQuestionIndex < mockTest.questions.length - 1) { currentQuestionIndex++; renderQuestion(); } }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
+});
+</script>
+
+<script>
+  
+function startMock() {
+    const savedName = localStorage.getItem('cbtUserName') || '';
+    const savedSID  = localStorage.getItem('ts_student_id') || '';
+    const inputName = document.getElementById('username-input').value.trim();
+
+    if (!savedName && !inputName) {
+        alert('⚠️ Please enter your name to continue!');
+        document.getElementById('username-input').focus();
+        return;
+    }
+    if (!savedName && inputName) localStorage.setItem('cbtUserName', inputName);
+
+    if (!savedSID) {
+        const go = confirm('⚠️ Student ID not found!\n\nYou need a Student ID to start.\nClick OK to open Dashboard, or Cancel to stay.');
+        if (go) window.open('https://commercesehoga.github.io/dashboard/', '_blank');
+        return;
+    }
+
+    enterFullscreen();
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('instruction-screen').style.display = 'block';
+}
+
+document.getElementById('dark-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const dark = document.body.classList.contains('dark-mode');
+    document.getElementById('toggle-icon').textContent = dark ? '☀️' : '🌙';
+    document.getElementById('toggle-label').textContent = dark ? 'Light' : 'Dark';
+});
+
+const checkbox = document.getElementById('agree-checkbox');
+const startTestBtn = document.getElementById('start-test-btn');
+checkbox.addEventListener('change', () => {
+    startTestBtn.disabled = !checkbox.checked;
+});
+startTestBtn.addEventListener('click', () => {
+    if (!checkbox.checked) { alert('Please agree to instructions!'); return; }
+    const name = localStorage.getItem('cbtUserName') || 'Student';
+    const sid  = localStorage.getItem('ts_student_id') || 'N/A';
+
+    document.getElementById('instruction-screen').style.display = 'none';
+    document.getElementById('test-screen').style.display = 'block';
+    document.getElementById('user-name-display').textContent = '👤 ' + name;
+
+    const mob = document.getElementById('mobile-name-display');
+    if (mob) mob.textContent = '👤 ' + name + ' | ' + sid;
+    if (document.getElementById('display-user-name')) document.getElementById('display-user-name').textContent = name;
+    if (document.getElementById('display-user-sid'))  document.getElementById('display-user-sid').textContent  = sid;
+
+    testStarted = true;
+    enterFullscreen();
+    initTest();
+});
+
+function enterFullscreen() {
+    const el = document.documentElement;
+    try {
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    } catch(e) {}
+}
+
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(evt => document.addEventListener(evt, onFSChange));
+
+function isFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
+}
+function onFSChange() {
+    if (!testStarted || testSubmitted) return;
+    if (document.getElementById('test-screen').style.display === 'none') return;
+    updateFocusMode(); // ADD THIS LINE
+    if (!isFullscreen()) startCountdown('fullscreen');
+    else cancelCountdown();
+}
+
+let cdTimer = null, cdSecs = 0;
+function startCountdown(reason) {
+    if (!testStarted || testSubmitted || cdTimer) return;
+    cdSecs = reason === 'tab' ? 2 : 5;
+    const msg = reason === 'tab' ? '⚠️ Tab switched!' : '⚠️ Exited fullscreen!';
+    const hint = reason === 'tab' ? 'Return to this tab to cancel.' : 'Click below to return to fullscreen.';
+    showOverlay(msg, hint, cdSecs, reason === 'fullscreen');
+    cdTimer = setInterval(() => { cdSecs--; updateOverlay(cdSecs); if (cdSecs <= 0) { cancelCountdown(); submitTest(); } }, 1000);
+}
+function cancelCountdown() {
+    if (cdTimer) { clearInterval(cdTimer); cdTimer = null; }
+    hideOverlay();
+}
+function updateFocusMode() {
+    const disturbed = document.hidden || !isFullscreen();
+    const color = disturbed ? '#ff3d57' : '#00c853';
+    const text  = disturbed ? '● Disturbed' : '● Focus On';
+    [document.getElementById('focus-laptop'), document.getElementById('focus-mobile')]
+        .forEach(el => { if (el) { el.style.color = color; el.textContent = text; } });
+}
+function showOverlay(msg, hint, secs, btn) {
+    let ov = document.getElementById('sec-overlay');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'sec-overlay'; ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999999;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:DM Sans,sans-serif;color:#fff;text-align:center;padding:24px;'; document.body.appendChild(ov); }
+    ov.innerHTML = `<div style="font-size:56px;margin-bottom:12px;">🚨</div><div style="font-size:22px;font-weight:800;margin-bottom:8px;">${msg}</div><div style="font-size:15px;color:#fbbf24;margin-bottom:18px;">${hint}</div><div style="font-size:14px;color:#e0e0e0;margin-bottom:4px;">Auto-submitting in</div><div id="ov-count" style="font-size:72px;font-weight:900;color:#f87171;line-height:1;">${secs}</div><div style="font-size:13px;color:#9ca3af;margin-top:4px;">seconds</div>${btn?`<button onclick="enterFullscreen()" style="margin-top:22px;padding:12px 32px;border-radius:30px;border:none;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;font-size:16px;font-weight:700;cursor:pointer;">🔲 Return to Fullscreen</button>`:''}`;
+    ov.style.display = 'flex';
+}
+function updateOverlay(n) { const el = document.getElementById('ov-count'); if (el) el.textContent = n; }
+function hideOverlay() { const ov = document.getElementById('sec-overlay'); if (ov) ov.style.display = 'none'; }
+</script>
+
+<script>
+function generatePDF() {
+    const name = localStorage.getItem('cbtUserName') || 'Student';
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-IN', {day:'2-digit',month:'short',year:'numeric'});
+    const timeStr = now.toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
+
+    let correct=0,incorrect=0,unanswered=0;
+    mockTest.questions.forEach(q => {
+        if (!q.userAnswer) unanswered++;
+        else if (q.userAnswer === q.correctAnswer) correct++;
+        else incorrect++;
+    });
+    const score = (correct*5)+(incorrect*-1);
+    const maxScore = mockTest.questions.length*5;
+    const pct = ((score/maxScore)*100).toFixed(1);
+    const lbl = {a:'A',b:'B',c:'C',d:'D'};
+
+    let qHTML = '';
+    mockTest.questions.forEach((q,i) => {
+        const ok = q.userAnswer === q.correctAnswer;
+        const wrong = q.userAnswer && !ok;
+        const skip = !q.userAnswer;
+        const statusColor = ok?'#059669':wrong?'#dc2626':'#9ca3af';
+        const statusLabel = ok?'✓ Correct':wrong?'✗ Wrong':'— Skipped';
+        const rowBg = ok?'#f0fdf4':wrong?'#fef2f2':'#fafafa';
+        let optsHTML='';
+        for (const [k,v] of Object.entries(q.options)) {
+            const isRight=k===q.correctAnswer, isUser=k===q.userAnswer;
+            let bg='transparent',fw='normal',pre='';
+            if(isRight){bg='#dcfce7';fw='bold';pre='✓ ';}
+            if(isUser&&!isRight){bg='#fee2e2';fw='bold';pre='✗ ';}
+            optsHTML+=`<div style="display:flex;gap:8px;padding:4px 8px;border-radius:4px;background:${bg};font-weight:${fw};font-size:12px;margin:2px 0;"><span style="min-width:18px;font-weight:700;">${lbl[k]}.</span><span>${pre}${v}</span></div>`;
+        }
+        const yourAns = skip?'<span style="color:#9ca3af;">Not Attempted</span>':`<span style="color:${ok?'#059669':'#dc2626'};font-weight:bold;">${lbl[q.userAnswer]}. ${q.options[q.userAnswer]}</span>`;
+        qHTML+=`<div style="margin-bottom:16px;padding:14px;border-radius:8px;background:${rowBg};border:1px solid #e5e7eb;page-break-inside:avoid;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                <div style="font-weight:700;font-size:13px;color:#1e293b;">Q${i+1}. ${q.text}</div>
+                <div style="font-weight:700;font-size:12px;color:${statusColor};white-space:nowrap;margin-left:12px;">${statusLabel}</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:8px;">${optsHTML}</div>
+            <div style="font-size:12px;border-top:1px solid #e5e7eb;padding-top:6px;">
+                Your answer: ${yourAns}&nbsp;&nbsp;
+                Correct: <span style="color:#059669;font-weight:bold;">${lbl[q.correctAnswer]}. ${q.options[q.correctAnswer]}</span>
+            </div>
+        </div>`;
+    });
+
+    const scoreColor = pct>=60?'#059669':pct>=35?'#d97706':'#dc2626';
+    const html=`<div style="max-width:780px;margin:0 auto;font-family:Arial,sans-serif;color:#111;">
+        <div style="background:linear-gradient(135deg,#1a6fc4,#0ea5e9);color:white;padding:20px 24px;border-radius:10px 10px 0 0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div><div style="font-size:22px;font-weight:800;">⚡ Thunderstudy CBT</div><div style="font-size:13px;opacity:0.85;margin-top:3px;">English Result Report</div></div>
+                <div style="text-align:right;font-size:12px;opacity:0.85;"><div>📅 ${dateStr} 🕐 ${timeStr}</div><div>👤 ${name}</div></div>
+            </div>
+        </div>
+        <div style="background:#f0f6ff;border:1px solid #bfdbfe;border-top:none;padding:16px 24px;margin-bottom:20px;border-radius:0 0 10px 10px;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+                <div style="background:white;border:1px solid #dbeafe;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">SCORE</div><div style="font-size:24px;font-weight:800;color:${scoreColor};">${score}<span style="font-size:14px;color:#6b7280;">/${maxScore}</span></div></div>
+                <div style="background:white;border:1px solid #dbeafe;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">PERCENTAGE</div><div style="font-size:24px;font-weight:800;color:${scoreColor};">${pct}%</div></div>
+                <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#059669;">CORRECT</div><div style="font-size:24px;font-weight:800;color:#059669;">${correct}</div></div>
+                <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#dc2626;">WRONG</div><div style="font-size:24px;font-weight:800;color:#dc2626;">${incorrect}</div></div>
+                <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">SKIPPED</div><div style="font-size:24px;font-weight:800;color:#6b7280;">${unanswered}</div></div>
+            </div>
+        </div>
+        <div style="font-size:15px;font-weight:700;color:#1a6fc4;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #1a6fc4;">📋 Answer Key</div>
+        ${qHTML}
+        <div style="text-align:center;margin-top:20px;padding:12px;background:#f0f6ff;border-radius:8px;font-size:12px;color:#6b7280;">Generated by <b>Thunderstudy CBT</b> | t.me/thunderstudy_official | ${dateStr}</div>
+    </div>`;
+
+    const w = window.open('','_blank','width=950,height=700,scrollbars=yes');
+    if (!w) { alert('Popup blocked! Allow popups and retry.'); return; }
+    w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"/><title>Thunderstudy_English_${name}</title><style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,sans-serif;background:#fff;padding:20px;}@media print{.no-print{display:none!important;}}.print-btn{display:block;margin:0 auto 20px;padding:12px 36px;background:linear-gradient(135deg,#1a6fc4,#0ea5e9);color:white;font-size:16px;font-weight:700;border:none;border-radius:30px;cursor:pointer;}</style></head><body><button class="print-btn no-print" onclick="window.print()">🖨️ Print / Save PDF</button>${html}</body></html>`);
+    w.document.close(); w.focus();
+}
+window.addEventListener('DOMContentLoaded', () => {
+    const savedName = localStorage.getItem('cbtUserName') || '';
+    const savedSID  = localStorage.getItem('ts_student_id') || '';
+    if (savedName) {
+        const inp = document.getElementById('username-input');
+        if (inp) {
+            inp.value = savedName;
+            inp.style.background = 'rgba(21,101,192,0.07)';
+            inp.style.borderColor = '#1976d2';
+            inp.style.color = '#1565c0';
+            inp.style.fontWeight = 'bold';
+            inp.setAttribute('readonly', true);
+            inp.insertAdjacentHTML('afterend',
+                `<div style="font-size:11px;color:#1976d2;font-weight:700;margin-top:5px;">✅ Verified Dashboard Profile</div>`
+            );
+        }
+    }
+    if (savedSID) {
+        // Show SID somewhere on start screen if you want — optional
+    }
+});
+</script>
+
+</body>
+</html>
