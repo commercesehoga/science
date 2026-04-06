@@ -1,0 +1,2226 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thunderstudy CBT — chemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+const SUBJECT_ID  = "che";
+const CHAPTER_ID  = "che7";
+</script>
+
+<style>
+:root {
+    --primary: #FF85BB;
+    --primary-dark: #e0609a;
+    --primary-light: #ffb3d4;
+    --accent: #ff69a8;
+    --accent2: #ffadd1;
+    --white: #ffffff;
+    --off-white: #fff5f9;
+    --light-blue: #ffe4f0;
+    --mid-blue: #ffcce2;
+    --border: #ffcce2;
+    --text-dark: #3d0f22;
+    --text-mid: #7a2d4a;
+    --text-muted: #b56b8a;
+    --correct: #059669;
+    --correct-bg: #ecfdf5;
+    --incorrect: #dc2626;
+    --incorrect-bg: #fef2f2;
+    --answered: #22c55e;
+    --marked: #ff69a8;
+    --unanswered: #f97316;
+    --shadow: 0 4px 24px rgba(255,133,187,0.10);
+    --shadow-lg: 0 8px 40px rgba(255,133,187,0.16);
+
+    /* Dark mode vars */
+    --dm-bg: #1a0a10;
+    --dm-surface: #2a1019;
+    --dm-surface2: #3a1525;
+    --dm-border: #5c2040;
+    --dm-text: #ffe2ee;
+    --dm-muted: #d47ba4;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background: var(--dm-bg);
+    color: var(--dm-text);
+}
+
+/* ===== START SCREEN ===== */
+#start-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--white);
+    display: flex; flex-direction: column; align-items: center;
+    overflow-y: auto; padding: 0 20px 50px;
+    transition: background 0.3s;
+}
+
+body.dark-mode #start-screen { background: var(--dm-bg); }
+
+.start-hero {
+    width: 100%; max-width: 600px;
+    padding: 48px 0 0;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+}
+
+.start-logo {
+    width: 68px; height: 68px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 8px 28px rgba(26,111,196,0.35);
+    margin-bottom: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.start-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+body.dark-mode .start-brand { color: var(--accent2); }
+
+.start-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px; font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 10px;
+}
+body.dark-mode .start-title { color: var(--dm-text); }
+
+.start-sub {
+    font-size: 16px; color: var(--text-muted);
+    margin-bottom: 8px;
+}
+body.dark-mode .start-sub { color: var(--dm-muted); }
+
+.tg-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #0088cc, #006fa8);
+    color: white; text-decoration: none;
+    padding: 10px 24px; border-radius: 40px;
+    font-size: 14px; font-weight: 700;
+    box-shadow: 0 4px 16px rgba(0,136,204,0.4);
+    transition: transform 0.18s, box-shadow 0.18s;
+    margin: 16px 0 28px;
+}
+.tg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,136,204,0.55); color: white; }
+
+.info-card {
+    width: 100%; max-width: 500px;
+    background: var(--light-blue);
+    border: 1.5px solid var(--mid-blue);
+    border-radius: 16px;
+    padding: 22px 24px;
+    text-align: left;
+    margin-bottom: 24px;
+}
+body.dark-mode .info-card { background: var(--dm-surface); border-color: var(--dm-border); }
+
+.info-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--primary); margin-bottom: 14px;
+}
+body.dark-mode .info-card h3 { color: var(--accent2); }
+
+.info-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+
+.info-pill {
+    background: white;
+    border-radius: 10px; padding: 10px 14px;
+    font-size: 13px; color: var(--text-mid);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+}
+body.dark-mode .info-pill { background: var(--dm-surface2); border-color: var(--dm-border); color: var(--dm-text); }
+
+.info-pill strong { color: var(--primary-dark); font-weight: 700; }
+body.dark-mode .info-pill strong { color: var(--accent2); }
+
+.name-input {
+    width: 100%; max-width: 380px;
+    padding: 14px 20px;
+    border: 2px solid var(--mid-blue);
+    border-radius: 50px;
+    font-size: 16px; font-family: 'DM Sans', sans-serif;
+    text-align: center;
+    background: white; color: var(--text-dark);
+    outline: none; transition: border 0.2s, box-shadow 0.2s;
+    margin-bottom: 18px;
+}
+.name-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,111,196,0.12); }
+body.dark-mode .name-input { background: var(--dm-surface); color: var(--dm-text); border-color: var(--dm-border); }
+
+.start-btns { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 340px; }
+
+.s-btn {
+    width: 100%; padding: 14px 0;
+    border: none; border-radius: 50px; cursor: pointer;
+    font-size: 16px; font-weight: 700; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.18s, box-shadow 0.18s;
+    letter-spacing: 0.3px;
+}
+.s-btn:hover { transform: translateY(-3px); }
+
+.s-btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; box-shadow: 0 6px 20px rgba(26,111,196,0.4);
+}
+.s-btn-primary:hover { box-shadow: 0 10px 28px rgba(26,111,196,0.55); }
+
+.s-btn-green {
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    color: white; box-shadow: 0 6px 20px rgba(34,197,94,0.35);
+}
+.s-btn-green:hover { box-shadow: 0 10px 28px rgba(34,197,94,0.5); }
+
+.s-btn-purple {
+    background: linear-gradient(135deg, #7c3aed, #4c1d95);
+    color: white; box-shadow: 0 6px 20px rgba(124,58,237,0.35);
+}
+.s-btn-purple:hover { box-shadow: 0 10px 28px rgba(124,58,237,0.5); }
+
+.dark-toggle {
+    position: absolute; top: 16px; right: 16px; z-index: 10000;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; border-radius: 40px;
+    padding: 8px 18px; font-size: 14px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 7px;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.4);
+    transition: background 0.3s, transform 0.2s;
+    font-family: 'DM Sans', sans-serif;
+}
+.dark-toggle:hover { transform: scale(1.05); }
+body.dark-mode .dark-toggle { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 4px 14px rgba(245,158,11,0.4); }
+
+/* ===== INSTRUCTION SCREEN ===== */
+#instruction-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--white); display: none; overflow-y: auto; padding: 40px 20px;
+}
+body.dark-mode #instruction-screen { background: var(--dm-bg); }
+
+.instr-wrap { max-width: 700px; margin: 0 auto; }
+
+.instr-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 800; color: var(--primary);
+    margin-bottom: 24px; text-align: center;
+}
+body.dark-mode .instr-title { color: var(--accent2); }
+
+.instr-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 1.5px solid var(--mid-blue); border-radius: 16px; padding: 28px;
+}
+body.dark-mode .instr-box { background: linear-gradient(135deg, var(--dm-surface), var(--dm-surface2)); border-color: var(--dm-border); }
+
+.instr-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--primary);
+    border-left: 4px solid var(--primary); padding-left: 12px; margin-bottom: 16px;
+}
+body.dark-mode .instr-box h3 { color: var(--accent2); border-left-color: var(--accent2); }
+
+.instr-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+.instr-list li {
+    background: white; border-radius: 10px; padding: 12px 16px;
+    font-size: 15px; color: var(--text-mid);
+    border: 1px solid var(--border);
+    transition: transform 0.15s;
+}
+body.dark-mode .instr-list li { background: var(--dm-surface2); border-color: var(--dm-border); color: var(--dm-text); }
+.instr-list li:hover { transform: translateX(5px); }
+
+.instr-legend {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;
+}
+
+.leg-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-mid); }
+body.dark-mode .leg-item { color: var(--dm-text); }
+.leg-dot { width: 14px; height: 14px; border-radius: 50%; }
+
+.agree-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 20px; font-size: 15px; font-weight: 600; cursor: pointer;
+    color: var(--text-mid);
+}
+body.dark-mode .agree-row { color: var(--dm-text); }
+
+.agree-row input { display: none; }
+
+.chk-box {
+    width: 22px; height: 22px; border-radius: 6px;
+    border: 2px solid var(--primary);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 14px; color: transparent; transition: 0.15s;
+    background: white;
+}
+body.dark-mode .chk-box { background: var(--dm-surface); border-color: var(--accent2); }
+
+.agree-row input:checked + .chk-box { background: var(--primary); color: white; }
+body.dark-mode .agree-row input:checked + .chk-box { background: var(--accent2); }
+
+#start-test-btn {
+    margin-top: 22px; width: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; border-radius: 50px; padding: 14px;
+    font-size: 17px; font-weight: 700; cursor: not-allowed; opacity: 0.55;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s, transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 6px 20px rgba(26,111,196,0.35);
+}
+#start-test-btn:not(:disabled) { cursor: pointer; opacity: 1; }
+#start-test-btn:not(:disabled):hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(26,111,196,0.5); }
+
+/* ===== TEST SCREEN ===== */
+#test-screen {
+    position: fixed; inset: 0; z-index: 9998;
+    background: var(--off-white); display: none; overflow: auto;
+}
+body.dark-mode #test-screen { background: var(--dm-bg); }
+
+/* SIDEBAR */
+.sidebar {
+    width: 280px; background: white;
+    height: 100vh; position: fixed; right: 0; top: 0;
+    padding: 20px; overflow-y: auto;
+    border-left: 2px solid var(--light-blue);
+    box-shadow: -4px 0 20px rgba(26,111,196,0.08);
+}
+body.dark-mode .sidebar { background: var(--dm-surface); border-left-color: var(--dm-border); }
+
+.timer {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; padding: 10px 0; border-radius: 40px;
+    font-weight: 700; font-size: 19px; text-align: center;
+    letter-spacing: 1px; margin-bottom: 18px;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.35);
+}
+
+.sidebar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700; color: var(--primary);
+    margin-bottom: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .sidebar-brand { color: var(--accent2); border-bottom-color: var(--dm-border); }
+
+.test-info-row { font-size: 13px; color: var(--text-muted); margin: 5px 0; display: flex; gap: 6px; }
+.test-info-row strong { color: var(--text-dark); font-weight: 600; }
+body.dark-mode .test-info-row { color: var(--dm-muted); }
+body.dark-mode .test-info-row strong { color: var(--dm-text); }
+
+.palette-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 18px 0 10px; font-size: 13px; font-weight: 600; color: var(--text-mid);
+}
+body.dark-mode .palette-header { color: var(--dm-text); }
+
+.palette-count { color: var(--primary); font-weight: 700; }
+body.dark-mode .palette-count { color: var(--accent2); }
+
+.palette-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px;
+}
+
+.palette-btn {
+    aspect-ratio: 1; border-radius: 50%; border: 2px solid #e5e7eb;
+    background: #fee2e2; /* unanswered = orange-ish red */
+    color: var(--text-dark); font-size: 11px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+.palette-btn:hover { transform: scale(1.1); }
+.palette-btn.answered { background: #bbf7d0; border-color: #22c55e; color: #14532d; }
+.palette-btn.marked { background: #bae6fd; border-color: #0ea5e9; color: #0c4a6e; }
+.palette-btn.current { background: white; border: 2.5px solid var(--primary); color: var(--primary); box-shadow: 0 0 0 3px rgba(26,111,196,0.2); }
+.palette-btn.review-correct { background: #22c55e; border-color: #16a34a; color: white; }
+.palette-btn.review-wrong { background: #ef4444; border-color: #dc2626; color: white; }
+.palette-btn.review-unanswered { background: #60a5fa; border-color: #3b82f6; color: white; }
+
+body.dark-mode .palette-btn { background: #7f1d1d; border-color: #991b1b; color: #fecaca; }
+body.dark-mode .palette-btn.answered { background: #14532d; border-color: #22c55e; color: #bbf7d0; }
+body.dark-mode .palette-btn.marked { background: #0c4a6e; border-color: #0ea5e9; color: #bae6fd; }
+body.dark-mode .palette-btn.current { background: var(--dm-surface2); border-color: var(--accent); color: var(--accent); }
+
+#palette-legend { margin-top: 14px; font-size: 12px; color: var(--text-muted); }
+body.dark-mode #palette-legend { color: var(--dm-muted); }
+#palette-legend .leg-label { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+
+/* MAIN CONTENT */
+.main-content {
+    margin-right: 280px; padding: 20px 24px;
+    min-height: 100vh;
+}
+
+.test-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .test-header { border-bottom-color: var(--dm-border); }
+
+.user-badge {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; padding: 7px 16px; border-radius: 30px;
+    font-size: 13px; font-weight: 700;
+}
+
+.q-counter {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; color: var(--text-dark);
+}
+body.dark-mode .q-counter { color: var(--dm-text); }
+.q-counter span { color: var(--primary); }
+body.dark-mode .q-counter span { color: var(--accent2); }
+
+.progress-wrap { flex: 1; max-width: 200px; margin: 0 16px; }
+.progress-bar-bg { height: 8px; background: var(--light-blue); border-radius: 10px; overflow: hidden; }
+body.dark-mode .progress-bar-bg { background: var(--dm-surface2); }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 10px; transition: width 0.4s; width: 0; }
+.progress-label { font-size: 12px; color: var(--text-muted); text-align: right; margin-top: 4px; }
+body.dark-mode .progress-label { color: var(--dm-muted); }
+
+/* QUESTION CARD */
+.question-card {
+    background: white; border-radius: 16px; padding: 28px;
+    box-shadow: var(--shadow); border: 1.5px solid var(--light-blue);
+    margin-bottom: 20px;
+}
+body.dark-mode .question-card { background: var(--dm-surface); border-color: var(--dm-border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+
+.q-num-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--light-blue); color: var(--primary);
+    padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700;
+    margin-bottom: 14px;
+}
+body.dark-mode .q-num-tag { background: var(--dm-surface2); color: var(--accent2); }
+
+.section-badge {
+    display: inline-flex; align-items: center;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; padding: 3px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; margin-bottom: 12px;
+}
+
+.q-text {
+    font-size: 18px; font-weight: 500; color: var(--text-dark);
+    line-height: 1.6; margin-bottom: 22px;
+}
+body.dark-mode .q-text { color: var(--dm-text); }
+
+/* OPTIONS */
+.option {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px; border: 2px solid var(--border);
+    border-radius: 12px; margin-bottom: 10px; cursor: pointer;
+    background: white; transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    user-select: none;
+}
+body.dark-mode .option { background: var(--dm-surface2); border-color: var(--dm-border); }
+.option:hover { border-color: var(--primary); background: var(--off-white); transform: translateX(4px); }
+body.dark-mode .option:hover { background: #1e3460; border-color: var(--accent); }
+
+.option.selected { border-color: var(--primary-dark); background: #dbeafe; }
+body.dark-mode .option.selected { background: #0d2a56; border-color: var(--accent); }
+
+.option.correct { border-color: var(--correct) !important; background: var(--correct-bg) !important; }
+.option.incorrect { border-color: var(--incorrect) !important; background: var(--incorrect-bg) !important; }
+
+.opt-letter {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid var(--border); background: var(--off-white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: var(--text-muted);
+    flex-shrink: 0; transition: all 0.15s;
+}
+.option.selected .opt-letter { background: var(--primary); border-color: var(--primary); color: white; }
+.option.correct .opt-letter { background: var(--correct); border-color: var(--correct); color: white; }
+.option.incorrect .opt-letter { background: var(--incorrect); border-color: var(--incorrect); color: white; }
+
+.opt-text { font-size: 15px; color: var(--text-dark); line-height: 1.5; flex: 1; }
+body.dark-mode .opt-text { color: var(--dm-text); }
+.option.selected .opt-text { color: var(--primary-dark); font-weight: 600; }
+body.dark-mode .option.selected .opt-text { color: var(--accent2); }
+.option.correct .opt-text { color: var(--correct); font-weight: 600; }
+.option.incorrect .opt-text { color: var(--incorrect); font-weight: 600; }
+
+.opt-indicator { font-size: 12px; font-weight: 700; margin-left: 4px; }
+.correct-indicator { color: var(--correct); }
+.incorrect-indicator { color: var(--incorrect); }
+
+.explanation-box {
+    margin-top: 18px; padding: 14px 18px;
+    border-radius: 12px; border-left: 4px solid var(--primary);
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    font-size: 14px; color: var(--text-mid); line-height: 1.7;
+}
+body.dark-mode .explanation-box { background: linear-gradient(135deg, var(--dm-surface), var(--dm-surface2)); border-left-color: var(--accent); color: var(--dm-text); }
+
+/* NAV BUTTONS */
+.nav-row {
+    display: flex; justify-content: space-between; align-items: center; margin-top: 24px;
+}
+
+.nav-btn {
+    padding: 10px 24px; border-radius: 10px; border: 2px solid var(--primary);
+    background: transparent; color: var(--primary); font-size: 14px; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.18s;
+}
+.nav-btn:hover { background: var(--light-blue); }
+body.dark-mode .nav-btn { border-color: var(--accent2); color: var(--accent2); }
+body.dark-mode .nav-btn:hover { background: var(--dm-surface2); }
+
+.next-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none;
+    padding: 12px 30px; border-radius: 10px; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.35); transition: all 0.18s;
+}
+.next-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(26,111,196,0.5); }
+body.dark-mode .next-btn { background: linear-gradient(135deg, var(--accent), var(--primary)); }
+
+.mark-btn-q {
+    padding: 9px 18px; border-radius: 10px;
+    border: 2px solid var(--accent); background: transparent; color: var(--accent);
+    font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+}
+.mark-btn-q.marked { background: var(--accent); color: white; }
+.mark-btn-q:hover { background: var(--light-blue); }
+
+/* SUBMIT SECTION */
+.submit-row {
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 600px; margin: 20px auto; gap: 14px; flex-wrap: wrap;
+}
+
+.fancy-btn {
+    flex: 1; min-width: 140px; padding: 14px; border: none; border-radius: 50px;
+    font-size: 15px; font-weight: 700; cursor: pointer; text-align: center;
+    text-decoration: none; display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Sans', sans-serif; transition: transform 0.18s, box-shadow 0.18s;
+}
+.fancy-btn:hover { transform: translateY(-3px); }
+
+.fancy-submit { background: linear-gradient(135deg, #22c55e, #15803d); color: white; box-shadow: 0 6px 20px rgba(34,197,94,0.4); max-width: 260px; }
+.fancy-submit:hover { box-shadow: 0 10px 28px rgba(34,197,94,0.55); }
+.fancy-tg { background: linear-gradient(135deg, #0088cc, #005a99); color: white; box-shadow: 0 6px 20px rgba(0,136,204,0.4); max-width: 200px; }
+.fancy-tg:hover { box-shadow: 0 10px 28px rgba(0,136,204,0.55); color: white; }
+
+.fancy-pdf { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 6px 20px rgba(249,115,22,0.4); }
+.fancy-pdf:hover { box-shadow: 0 10px 28px rgba(249,115,22,0.55); }
+.fancy-result { background: linear-gradient(135deg, #7c3aed, #4c1d95); color: white; box-shadow: 0 6px 20px rgba(124,58,237,0.4); }
+.fancy-result:hover { box-shadow: 0 10px 28px rgba(124,58,237,0.55); }
+
+.stream-btn {
+    display: block; width: 100%; padding: 14px;
+    border-radius: 14px; color: white; font-weight: 700; font-size: 16px;
+    text-decoration: none; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+.stream-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.3); color: white; }
+
+body.dark-mode #stream-picker-box { background: var(--dm-surface); }
+body.dark-mode #stream-picker-box h3 { color: var(--accent2); }
+body.dark-mode #stream-picker-box p { color: var(--dm-muted); }
+body.dark-mode #stream-picker-box button { color: var(--dm-muted); }
+
+/* FOOTER */
+.test-footer {
+    background: linear-gradient(135deg, #0f1e3d, #1a3066);
+    color: #94b8e8; text-align: center; padding: 22px 16px;
+    margin-top: 10px;
+}
+.test-footer p { font-size: 12px; margin-bottom: 12px; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.footer-link {
+    padding: 8px 18px; border-radius: 30px; font-size: 13px; font-weight: 600;
+    text-decoration: none; color: white; transition: transform 0.18s, box-shadow 0.18s;
+}
+.footer-link:hover { transform: translateY(-2px); color: white; }
+.fl-purple { background: linear-gradient(135deg, #7c3aed, #4c1d95); box-shadow: 0 3px 10px rgba(124,58,237,0.35); }
+.fl-green { background: linear-gradient(135deg, #059669, #065f46); box-shadow: 0 3px 10px rgba(5,150,105,0.35); }
+.fl-red { background: linear-gradient(135deg, #dc2626, #991b1b); box-shadow: 0 3px 10px rgba(220,38,38,0.35); }
+
+/* MODAL */
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99999; justify-content: center; align-items: center; }
+.modal.show { display: flex; }
+
+.modal-content {
+    background: white; border-radius: 20px; padding: 32px;
+    width: 90%; max-width: 580px; max-height: 90vh; overflow-y: auto;
+    animation: modalIn 0.3s ease;
+}
+body.dark-mode .modal-content { background: var(--dm-surface); border: 1.5px solid var(--dm-border); }
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px; padding-bottom: 14px; border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .modal-head { border-bottom-color: var(--dm-border); }
+
+.modal-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--primary);
+}
+body.dark-mode .modal-head h2 { color: var(--accent2); }
+
+.close-x { background: none; border: none; font-size: 26px; cursor: pointer; color: var(--text-muted); }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+
+.stat-tile {
+    background: var(--off-white); border-radius: 14px; padding: 18px;
+    text-align: center; border: 1.5px solid var(--border);
+}
+body.dark-mode .stat-tile { background: var(--dm-surface2); border-color: var(--dm-border); }
+
+.stat-tile h4 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+body.dark-mode .stat-tile h4 { color: var(--dm-muted); }
+
+.stat-tile p { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; }
+.stat-correct { color: var(--correct); }
+.stat-wrong { color: var(--incorrect); }
+.stat-neutral { color: var(--text-muted); }
+.stat-score { color: var(--primary); }
+body.dark-mode .stat-score { color: var(--accent2); }
+
+.analysis { font-size: 14px; color: var(--text-mid); margin-bottom: 18px; line-height: 1.8; }
+body.dark-mode .analysis { color: var(--dm-text); }
+
+.modal-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.modal-btn {
+    flex: 1; padding: 12px; border-radius: 12px; border: none; cursor: pointer;
+    font-size: 14px; font-weight: 700; font-family: 'DM Sans', sans-serif; transition: all 0.18s;
+}
+.modal-btn:hover { transform: translateY(-2px); }
+.mb-review { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; box-shadow: 0 4px 14px rgba(26,111,196,0.4); }
+.mb-pdf { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 4px 14px rgba(249,115,22,0.4); }
+
+/* MOBILE */
+.mobile-bar { display: none; }
+
+@media (max-width: 768px) {
+    .mobile-bar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 8px 12px; background: white; border-bottom: 2px solid var(--light-blue);
+        margin-bottom: 8px; border-radius: 10px; box-shadow: var(--shadow);
+    }
+    body.dark-mode .mobile-bar { background: var(--dm-surface); border-color: var(--dm-border); }
+    .mob-timer {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white; padding: 6px 14px; border-radius: 30px; font-weight: 700; font-size: 14px;
+    }
+    #user-name-display { display: none !important; }
+    .sidebar .timer, .sidebar .sidebar-brand { display: none !important; }
+    .sidebar { position: relative; width: 100%; height: auto; right: 0; left: 0; border-left: none; border-top: 2px solid var(--light-blue); box-shadow: none; }
+    body { flex-direction: column; }
+    .main-content { margin-right: 0; width: 100%; padding: 12px; }
+    .question-card { padding: 18px; }
+    .q-text { font-size: 16px; }
+    .nav-row { flex-direction: row; gap: 8px; }
+    .palette-grid { max-height: 200px; overflow-y: auto; }
+}
+
+@media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .modal-btns { flex-direction: column; }
+}
+
+/* option radio hide */
+.option input[type="radio"] { display: none; }
+
+#pdf-print-area { display: none; }
+@media print {
+    body > * { display: none !important; }
+    #pdf-print-area { display: block !important; font-family: Arial, sans-serif; color: #111; padding: 20px; }
+}
+.option svg {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+</style>
+</head>
+<body>
+
+<!-- START SCREEN -->
+<div id="start-screen">
+
+<button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode" style="position:absolute;top:16px;right:16px;">
+    <span id="toggle-icon">🌙</span>
+    <span id="toggle-label">Dark</span>
+</button>
+
+<div class="start-hero">
+    <div class="start-logo">📖</div>
+    <div class="start-brand">Thunderstudy CBT</div>
+    <h1 class="start-title">chemistry Mock Test</h1>
+    <p class="start-sub">Unit 1 <strong>Electrostatics</strong></p>
+    <p class="start-sub">Provided by <strong>Thunderstudy</strong> — Full Mock</p>
+
+    <a href="https://t.me/thunderstudy_official" target="_blank" class="tg-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.04 9.607c-.148.666-.543.828-1.098.516l-3.04-2.24-1.467 1.413c-.162.162-.298.298-.611.298l.217-3.083 5.613-5.067c.244-.217-.054-.337-.378-.12L7.08 14.807 4.09 13.89c-.657-.205-.67-.657.137-.973l10.88-4.196c.548-.198 1.027.133.855.973z"/></svg>
+        @thunderstudy_official
+    </a>
+
+    <div class="info-card">
+        <h3>📋 Quick Overview</h3>
+        <div class="info-grid">
+            <div class="info-pill">📝 <div><strong>50 Questions</strong></div></div>
+            <div class="info-pill">⏱️ <div><strong>60 Minutes</strong></div></div>
+            <div class="info-pill">✅ <div><strong>+5 Correct</strong></div></div>
+            <div class="info-pill">❌ <div><strong>−1 Wrong</strong></div></div>
+            <div class="info-pill">🚫 <div><strong>No tab switching</strong></div></div>
+            <div class="info-pill">🔁 <div><strong>Auto-submits</strong></div></div>
+        </div>
+    </div>
+
+    <input type="text" id="username-input" class="name-input" placeholder="Enter your name to begin">
+
+    <div class="start-btns">
+        <button class="s-btn s-btn-primary" onclick="startMock()">🚀 Start Mock Test</button>
+        <button class="s-btn s-btn-green" onclick="window.location.href='https://commercesehoga.github.io/commerce/bst/result.html'">📊 Previous Results</button>
+        <button class="s-btn s-btn-purple" onclick="window.open('https://commercesehoga.blogspot.com/2026/03/business-studies-cuet-cbt-mock-test-free.html','_blank')">📚 More Mock Tests</button>
+    </div>
+</div>
+</div>
+
+<!-- INSTRUCTION SCREEN -->
+<div id="instruction-screen">
+<div class="instr-wrap">
+    <h2 class="instr-title">📜 Instructions</h2>
+    <div class="instr-box">
+        <h3>General Guidelines</h3>
+        <ol class="instr-list">
+            <li>Total duration is <strong>60 minutes</strong>. Timer is shown in the sidebar.</li>
+            <li>The test <strong>auto-submits</strong> when time runs out.</li>
+            <li>Test runs in <strong>fullscreen</strong>. Exiting starts a <strong>5-second</strong> countdown to auto-submit.</li>
+            <li><strong>Do not switch tabs.</strong> Switching tabs starts a <strong>2-second</strong> countdown.</li>
+            <li>Return before the countdown ends to cancel auto-submission.</li>
+            <li>Right panel shows palette with question status (answered, marked, etc.)</li>
+            <li>Marking: <strong>+5 correct</strong> / <strong>−1 wrong</strong> / <strong>0 unanswered</strong>.</li>
+        </ol>
+
+        <div class="instr-legend" style="margin-top: 20px;">
+            <strong style="font-size:13px; display:block; margin-bottom:8px;">Status Legend:</strong>
+            <div class="leg-item"><div class="leg-dot" style="background:#22c55e;border:1px solid #16a34a;"></div>Answered</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#bae6fd;border:1px solid #0ea5e9;"></div>Marked</div>
+            <div class="leg-item"><div class="leg-dot" style="background:white;border:2px solid #1a6fc4;"></div>Current</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#fee2e2;border:1px solid #fca5a5;"></div>Unanswered</div>
+        </div>
+
+        <label class="agree-row">
+            <input type="checkbox" id="agree-checkbox">
+            <span class="chk-box">✓</span>
+            I have read and understood all instructions
+        </label>
+
+        <button id="start-test-btn" disabled>▶ Start Test</button>
+    </div>
+</div>
+</div>
+
+<!-- TEST SCREEN -->
+<div id="test-screen">
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="timer">01:00:00</div>
+<div class="sidebar-brand">⚡ Thunderstudy CBT</div>
+<div id="focus-laptop" style="font-size:12px;font-weight:bold;color:green;margin-bottom:10px;">● Focus On</div>
+<div class="test-info-row"><strong>Name:</strong> <span id="display-user-name">—</span></div>
+<div class="test-info-row"><strong>ID:</strong> <span id="display-user-sid" style="color:#1976d2;font-family:monospace;font-size:12px;">—</span></div>
+<div class="test-info-row"><strong>Subject:</strong> chemistry</div>
+    <div class="test-info-row"><strong>Questions:</strong> 50</div>
+    <div class="test-info-row"><strong>Duration:</strong> 60 min</div>
+    <div class="test-info-row"><strong>Marking:</strong> +5 / −1</div>
+    <div class="test-info-row"><strong>Section:</strong> <span id="current-section">—</span></div>
+
+    <div class="palette-header">
+        <span>Questions</span>
+        <span class="palette-count" id="answered-count">0/50</span>
+    </div>
+    <div class="palette-grid" id="question-palette-grid"></div>
+    <div id="palette-legend" style="margin-top:14px; font-size:12px;"></div>
+</div>
+
+<!-- Main -->
+<div class="main-content">
+
+<div class="mobile-bar">
+    <div class="mob-timer">01:00:00</div>
+    <div id="focus-mobile" style="font-size:10px;font-weight:bold;color:green;">● Focus On</div>
+    <div id="mobile-name-display" style="background:linear-gradient(135deg,var(--primary),var(--accent));color:white;padding:6px 14px;border-radius:20px;font-weight:700;font-size:13px;">👤 Student</div>
+</div>
+
+    <div class="test-header">
+        <div id="user-name-display" class="user-badge">👤 Student</div>
+        <div class="q-counter">Q <span id="current-q-number">1</span>/50</div>
+        <div class="progress-wrap">
+            <div class="progress-bar-bg"><div class="progress-bar-fill" id="test-progress"></div></div>
+            <div class="progress-label" id="progress-percent">0%</div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-num-tag">Question <span id="q-number">1</span></div>
+        <div class="section-badge" id="section-badge">Reading Comprehension</div>
+        <div class="q-text" id="question-text"></div>
+        <div id="options-container"></div>
+
+        <div class="nav-row">
+            <button class="nav-btn" id="prev-btn">← Previous</button>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <button class="mark-btn-q" id="mark-btn">🔖 Mark</button>
+                <button class="next-btn" id="next-btn">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-row" id="submit-row-before">
+        <a href="https://t.me/thunderstudy_official" target="_blank" class="fancy-btn fancy-tg">⚡ Join Thunder</a>
+        <button class="fancy-btn fancy-submit" id="submit-test-btn">✅ Submit Test</button>
+    </div>
+
+    <!-- Post-submit action row (hidden until submitted) -->
+    <div class="submit-row" id="submit-row-after" style="display:none;">
+        <a href="https://t.me/thunderstudy_official" target="_blank" class="fancy-btn fancy-tg" style="flex:1;max-width:180px;">⚡ Join Thunder</a>
+        <button class="fancy-btn fancy-pdf" id="pdf-action-btn" style="flex:1;max-width:180px;">📄 Download PDF</button>
+        <button class="fancy-btn fancy-result" id="result-action-btn" style="flex:1;max-width:180px;">📊 Result</button>
+    </div>
+
+    <!-- Stream Picker Popup -->
+    <div id="stream-picker-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999998;justify-content:center;align-items:center;">
+        <div id="stream-picker-box" style="background:white;border-radius:20px;padding:32px 28px;width:90%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.25);animation:modalIn 0.3s ease;text-align:center;position:relative;">
+            <button onclick="document.getElementById('stream-picker-overlay').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#6b8ab5;">×</button>
+            <div style="font-size:36px;margin-bottom:10px;">📊</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:#1a6fc4;margin-bottom:6px;">View Previous Results</h3>
+            <p style="font-size:13px;color:#6b8ab5;margin-bottom:22px;">Select your stream to view results</p>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#1a6fc4,#0ea5e9);">
+                    🏪 Commerce
+                </a>
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#059669,#0d9488);">
+                    🔬 Science
+                </a>
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">
+                    📚 Humanities
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="test-footer">
+        <p>© 2025 Thunderstudy. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="https://commercesehoga.blogspot.com/2026/03/business-studies-cuet-cbt-mock-test-free.html" target="_blank" class="footer-link fl-purple">📚 More Mocks</a>
+            <a href="https://commercesehoga.blogspot.com/" target="_blank" class="footer-link fl-green">🌐 Website</a>
+            <a href="https://t.me/mindmaster_robot" target="_blank" class="footer-link fl-red">🚨 Report Error</a>
+        </div>
+    </footer>
+</div>
+
+<!-- Results Modal -->
+<div class="modal" id="results-modal">
+<div class="modal-content">
+    <div class="modal-head">
+        <h2>🏆 Test Results</h2>
+        <button class="close-x" id="close-modal">×</button>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-tile"><h4>Correct</h4><p class="stat-correct" id="correct-answers">0</p></div>
+        <div class="stat-tile"><h4>Wrong</h4><p class="stat-wrong" id="incorrect-answers">0</p></div>
+        <div class="stat-tile"><h4>Unanswered</h4><p class="stat-neutral" id="unanswered">50</p></div>
+        <div class="stat-tile"><h4>Score</h4><p class="stat-score" id="total-score">0</p></div>
+    </div>
+    <div class="analysis">
+        Percentage: <strong><span id="percentage">0</span>%</strong> &nbsp;|&nbsp;
+        Accuracy: <strong><span id="accuracy">0</span>%</strong>
+    </div>
+    <div class="modal-btns">
+        <button class="modal-btn mb-review" id="review-btn">👁 Review Answers</button>
+        <button class="modal-btn mb-pdf" id="download-pdf-btn">📄 Download PDF</button>
+        <button class="modal-btn mb-result" id="modal-result-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;box-shadow:0 4px 14px rgba(124,58,237,0.4);">📊 Result</button>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id="pdf-print-area"></div>
+
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('paste', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
+        e.preventDefault();
+    }
+});
+function detectDevTools() {
+    const threshold = 160;
+    if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        alert("Security Breach: DevTools detected. Test will auto-submit.");
+        submitTest();
+    }
+}
+setInterval(() => { if(testStarted && !testSubmitted) detectDevTools(); }, 1000);
+/* ============================================================
+   MOCK TEST DATA — English Chapter 1
+   ============================================================ */
+// ============================================================
+//  PHYSICS — Unit 1: Electrostatics (50 CUET-Hard Questions)
+//  Format matches sample: text-options AND image-options types
+// ============================================================
+
+const mockTest = {
+  title: "chemistry Mock",
+   duration: 60 * 60,
+    markingScheme: { correct: 5, incorrect: -1 },
+  questions: [
+  // ─── CLASSIFICATION & NOMENCLATURE ─────────────────────────────────
+
+  {
+    id: 1,
+    section: "Classification & Nomenclature",
+    text: "An alcohol in which the -OH group is attached to a carbon bearing two alkyl groups is called:",
+    type: "text-options",
+    options: { a: "Primary alcohol", b: "Secondary alcohol", c: "Tertiary alcohol", d: "Phenol" },
+    correctAnswer: "b",
+    explanation: "Secondary alcohol: -OH attached to carbon with two alkyl groups (R₂CH-OH).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 2,
+    section: "Classification & Nomenclature",
+    text: "The IUPAC name of (CH₃)₂CH-CH₂-OH is:",
+    type: "text-options",
+    options: { a: "Butan-1-ol", b: "2-Methylpropan-1-ol", c: "2-Methylbutan-1-ol", d: "Propan-1-ol" },
+    correctAnswer: "b",
+    explanation: "Longest chain: 3 carbons (propane) with methyl on C2 and -OH on C1 → 2-methylpropan-1-ol.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 3,
+    section: "Classification & Nomenclature",
+    text: "Which of the following is a dihydric phenol?",
+    type: "text-options",
+    options: { a: "C₆H₅-OH", b: "HO-C₆H₄-OH (hydroquinone)", c: "C₆H₅-CH₂-OH", d: "C₆H₅-O-CH₃" },
+    correctAnswer: "b",
+    explanation: "Dihydric phenol: two -OH groups on benzene ring (e.g., hydroquinone, catechol, resorcinol).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 4,
+    section: "Classification & Nomenclature",
+    text: "The common name of CH₃-O-CH₂-CH₃ is:",
+    type: "text-options",
+    options: { a: "Dimethyl ether", b: "Ethyl methyl ether", c: "Diethyl ether", d: "Methoxyethane" },
+    correctAnswer: "b",
+    explanation: "Common name: ethyl methyl ether (ethyl and methyl groups attached to oxygen).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 5,
+    section: "Classification & Nomenclature",
+    text: "Which diagram correctly shows primary, secondary, and tertiary alcohols?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "Primary (R-CH₂OH), Secondary (R₂CH-OH), Tertiary (R₃C-OH) ✓",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="15" text-anchor="middle" font-size="7" font-weight="bold">Classification</text>
+        <text x="20" y="32" font-size="6" fill="#1a6fc4">Primary: R-CH₂-OH</text>
+        <text x="20" y="46" font-size="6" fill="#059669">Secondary: R₂CH-OH</text>
+        <text x="20" y="60" font-size="6" fill="#f59e0b">Tertiary: R₃C-OH</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#059669">Correct classification ✓</text></svg>`
+      },
+      {
+        label: "All same",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#ef5350">All are primary</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Wrong distinction</text></svg>`
+      },
+      {
+        label: "Only primary and secondary",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#f59e0b">No tertiary</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Missing classification</text></svg>`
+      },
+      {
+        label: "Wrong order",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#7c3aed">R-OH = tertiary</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Incorrect</text></svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Primary: one alkyl group, Secondary: two alkyl groups, Tertiary: three alkyl groups attached to carbon bearing -OH.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── STRUCTURE OF FUNCTIONAL GROUPS ────────────────────────────────
+
+  {
+    id: 6,
+    section: "Structure of Functional Groups",
+    text: "The hybridization of oxygen in alcohols and phenols is:",
+    type: "text-options",
+    options: { a: "sp", b: "sp²", c: "sp³", d: "sp³d" },
+    correctAnswer: "c",
+    explanation: "Oxygen in alcohols and phenols is sp³ hybridized with two lone pairs and two bonds (C-O and O-H).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 7,
+    section: "Structure of Functional Groups",
+    text: "The C-O-H bond angle in alcohols is approximately:",
+    type: "text-options",
+    options: { a: "109.5°", b: "120°", c: "104.5°", d: "180°" },
+    correctAnswer: "c",
+    explanation: "Due to lone pair repulsion, C-O-H angle is ~104.5° (similar to water).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 8,
+    section: "Structure of Functional Groups",
+    text: "In phenols, the -OH group is attached to:",
+    type: "text-options",
+    options: { a: "sp³ hybridized carbon", b: "sp² hybridized carbon of benzene ring", c: "sp hybridized carbon", d: "sp³d hybridized carbon" },
+    correctAnswer: "b",
+    explanation: "Phenol: -OH attached directly to benzene ring (sp² hybridized carbon).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 9,
+    section: "Structure of Functional Groups",
+    text: "The C-O-C bond angle in ethers is approximately:",
+    type: "text-options",
+    options: { a: "109.5°", b: "111.7°", c: "104.5°", d: "180°" },
+    correctAnswer: "b",
+    explanation: "C-O-C bond angle in ethers is ~111.7° (slightly more than tetrahedral due to repulsion).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 10,
+    section: "Structure of Functional Groups",
+    text: "Which diagram correctly shows the structure and hydrogen bonding in alcohols?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "O-H···O hydrogen bonding between molecules ✓",
+        svg: `<svg viewBox="0 0 140 80"><circle cx="30" cy="40" r="12" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5"/>
+        <text x="30" y="44" text-anchor="middle" font-size="6" fill="#1a6fc4">R-O-H</text>
+        <circle cx="100" cy="40" r="12" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5"/>
+        <text x="100" y="44" text-anchor="middle" font-size="6" fill="#1a6fc4">R-O-H</text>
+        <line x1="42" y1="40" x2="55" y2="40" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,2"/>
+        <line x1="75" y1="40" x2="88" y2="40" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,2"/>
+        <text x="65" y="35" text-anchor="middle" font-size="6" fill="#ef5350">H-bond</text>
+        <text x="70" y="75" text-anchor="middle" font-size="8" fill="#059669">Intermolecular H-bonding ✓</text></svg>`
+      },
+      {
+        label: "No hydrogen bonding",
+        svg: `<svg viewBox="0 0 140 80"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#ef5350">No H-bonding</text>
+        <text x="70" y="75" text-anchor="middle" font-size="8" fill="#6b7280">Wrong (alcohols have H-bonding)</text></svg>`
+      },
+      {
+        label: "Intramolecular only",
+        svg: `<svg viewBox="0 0 140 80"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#f59e0b">Intramolecular only</text>
+        <text x="70" y="75" text-anchor="middle" font-size="8" fill="#6b7280">Both inter and intra possible</text></svg>`
+      },
+      {
+        label: "Covalent bonds only",
+        svg: `<svg viewBox="0 0 140 80"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#7c3aed">Only covalent bonds</text>
+        <text x="70" y="75" text-anchor="middle" font-size="8" fill="#6b7280">Missing H-bonding</text></svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Alcohols show intermolecular hydrogen bonding (O-H···O), which affects physical properties.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── METHODS OF PREPARATION OF ALCOHOLS ────────────────────────────
+
+  {
+    id: 11,
+    section: "Methods of Preparation (Alcohols)",
+    text: "Alcohols can be prepared from alkenes by:",
+    type: "text-options",
+    options: { a: "Oxidation", b: "Hydration (acid-catalyzed addition of water)", c: "Reduction", d: "Halogenation" },
+    correctAnswer: "b",
+    explanation: "Alkene + H₂O (H⁺) → Alcohol (Markovnikov addition).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 12,
+    section: "Methods of Preparation (Alcohols)",
+    text: "Grignard reagent (RMgX) reacts with formaldehyde to give:",
+    type: "text-options",
+    options: { a: "Primary alcohol", b: "Secondary alcohol", c: "Tertiary alcohol", d: "Phenol" },
+    correctAnswer: "a",
+    explanation: "RMgX + HCHO → R-CH₂-OH (after hydrolysis) → primary alcohol.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 13,
+    section: "Methods of Preparation (Alcohols)",
+    text: "Hydroboration-oxidation of alkenes gives:",
+    type: "text-options",
+    options: { a: "Markovnikov alcohol", b: "Anti-Markovnikov alcohol", c: "Alkane", d: "Ketone" },
+    correctAnswer: "b",
+    explanation: "BH₃ followed by H₂O₂/OH⁻ adds water anti-Markovnikov (OH at less substituted carbon).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 14,
+    section: "Methods of Preparation (Alcohols)",
+    text: "Which of the following is used for the reduction of aldehydes to primary alcohols?",
+    type: "text-options",
+    options: { a: "LiAlH₄", b: "NaBH₄", c: "H₂/Ni", d: "All of the above" },
+    correctAnswer: "d",
+    explanation: "LiAlH₄, NaBH₄, and catalytic hydrogenation all reduce aldehydes to primary alcohols.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 15,
+    section: "Methods of Preparation (Alcohols)",
+    text: "Methanol is commercially prepared by:",
+    type: "text-options",
+    options: { a: "Fermentation of sugar", b: "From water gas (CO + H₂) under high pressure", c: "From methane", d: "From ethene" },
+    correctAnswer: "b",
+    explanation: "CO + 2H₂ --ZnO/Cr₂O₃, 200atm, 300°C→ CH₃OH (methanol).",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── METHODS OF PREPARATION OF PHENOLS ─────────────────────────────
+
+  {
+    id: 16,
+    section: "Methods of Preparation (Phenols)",
+    text: "Phenol is commercially prepared from chlorobenzene by:",
+    type: "text-options",
+    options: { a: "Dow process (NaOH at high temp/pressure)", b: "Sandmeyer reaction", c: "Wurtz reaction", d: "Friedel-Crafts reaction" },
+    correctAnswer: "a",
+    explanation: "Dow process: C₆H₅Cl + NaOH (350°C, 200 atm) → C₆H₅ONa + HCl; then acidification gives phenol.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 17,
+    section: "Methods of Preparation (Phenols)",
+    text: "From cumene (isopropylbenzene), phenol is obtained by:",
+    type: "text-options",
+    options: { a: "Oxidation followed by acid hydrolysis", b: "Reduction", c: "Halogenation", d: "Nitration" },
+    correctAnswer: "a",
+    explanation: "Cumene oxidation gives cumene hydroperoxide, which on acid hydrolysis gives phenol and acetone.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 18,
+    section: "Methods of Preparation (Phenols)",
+    text: "Which of the following is NOT a method for preparation of phenol?",
+    type: "text-options",
+    options: { a: "From diazonium salt", b: "From benzene sulphonic acid", c: "From cumene", d: "From ethene" },
+    correctAnswer: "d",
+    explanation: "Ethene gives ethanol, not phenol. Phenol requires an aromatic ring.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 19,
+    section: "Methods of Preparation (Phenols)",
+    text: "In the laboratory, phenol is prepared from benzene via:",
+    type: "text-options",
+    options: { a: "Direct hydroxylation", b: "Sulphonation then fusion with NaOH", c: "Friedel-Crafts alkylation", d: "Grignard reaction" },
+    correctAnswer: "b",
+    explanation: "Benzene → Benzenesulphonic acid (H₂SO₄) → Fusion with NaOH → Sodium phenoxide → Phenol.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 20,
+    section: "Methods of Preparation (Phenols)",
+    text: "Which diagram correctly shows the cumene process for phenol?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "Cumene → Cumene hydroperoxide → Phenol + Acetone ✓",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="15" text-anchor="middle" font-size="6" font-weight="bold">Cumene Process</text>
+        <rect x="5" y="25" width="35" height="20" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1" rx="3"/>
+        <text x="22" y="39" text-anchor="middle" font-size="5" fill="#1a6fc4">Cumene</text>
+        <text x="50" y="39" text-anchor="middle" font-size="8" fill="#333">→</text>
+        <rect x="60" y="25" width="35" height="20" fill="#fef3c7" stroke="#f59e0b" stroke-width="1" rx="3"/>
+        <text x="77" y="39" text-anchor="middle" font-size="5" fill="#f59e0b">Hydroperoxide</text>
+        <text x="105" y="39" text-anchor="middle" font-size="8" fill="#333">→</text>
+        <rect x="30" y="55" width="30" height="18" fill="#fee2e2" stroke="#ef5350" stroke-width="1" rx="3"/>
+        <text x="45" y="67" text-anchor="middle" font-size="6" fill="#ef5350">Phenol</text>
+        <text x="68" y="67" text-anchor="middle" font-size="8" fill="#333">+</text>
+        <rect x="78" y="55" width="30" height="18" fill="#e0e7ff" stroke="#6366f1" stroke-width="1" rx="3"/>
+        <text x="93" y="67" text-anchor="middle" font-size="6" fill="#6366f1">Acetone</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#059669">Correct ✓</text></svg>`
+      },
+      {
+        label: "Cumene → Phenol only",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#ef5350">Cumene → Phenol</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Missing acetone</text></svg>`
+      },
+      {
+        label: "Benzene → Phenol",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#f59e0b">Benzene → Phenol</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Not cumene process</text></svg>`
+      },
+      {
+        label: "Direct oxidation",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#7c3aed">Direct oxidation</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Wrong</text></svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Cumene (isopropylbenzene) → cumene hydroperoxide → phenol + acetone (industrial method).",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── METHODS OF PREPARATION OF ETHERS ──────────────────────────────
+
+  {
+    id: 21,
+    section: "Methods of Preparation (Ethers)",
+    text: "Williamson's synthesis is used to prepare:",
+    type: "text-options",
+    options: { a: "Alcohols", b: "Phenols", c: "Ethers", d: "Aldehydes" },
+    correctAnswer: "c",
+    explanation: "Williamson's synthesis: Alkoxide + Alkyl halide → Ether (R-O-R').",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 22,
+    section: "Methods of Preparation (Ethers)",
+    text: "Diethyl ether is prepared by heating ethanol with concentrated H₂SO₄ at:",
+    type: "text-options",
+    options: { a: "100°C", b: "140°C", c: "170°C", d: "200°C" },
+    correctAnswer: "b",
+    explanation: "At 140°C, ethanol undergoes intermolecular dehydration to give diethyl ether. At 170°C, ethene is formed.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 23,
+    section: "Methods of Preparation (Ethers)",
+    text: "Methyl tert-butyl ether (MTBE) is prepared by:",
+    type: "text-options",
+    options: { a: "Williamson's synthesis using tert-butyl bromide and sodium methoxide", b: "Hydration of alkene", c: "Oxidation of methane", d: "Reduction of formaldehyde" },
+    correctAnswer: "a",
+    explanation: "(CH₃)₃C-Br + NaOCH₃ → (CH₃)₃C-O-CH₃ + NaBr (Williamson's synthesis).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 24,
+    section: "Methods of Preparation (Ethers)",
+    text: "Anisole (methoxybenzene) is prepared by:",
+    type: "text-options",
+    options: { a: "Williamson's synthesis using sodium phenoxide and methyl iodide", b: "Friedel-Crafts reaction", c: "Oxidation of benzene", d: "Reduction of phenol" },
+    correctAnswer: "a",
+    explanation: "C₆H₅O⁻Na⁺ + CH₃I → C₆H₅-O-CH₃ + NaI (Williamson's synthesis).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 25,
+    section: "Methods of Preparation (Ethers)",
+    text: "Which of the following is NOT suitable for Williamson's synthesis?",
+    type: "text-options",
+    options: { a: "CH₃Cl + CH₃ONa", b: "(CH₃)₃CBr + CH₃ONa", c: "CH₃CH₂Br + C₂H₅ONa", d: "C₆H₅Br + CH₃ONa" },
+    correctAnswer: "d",
+    explanation: "Aryl halides (C₆H₅Br) are unreactive towards nucleophilic substitution in Williamson's synthesis.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── PHYSICAL PROPERTIES ───────────────────────────────────────────
+
+  {
+    id: 26,
+    section: "Physical Properties",
+    text: "Alcohols have higher boiling points than alkanes of similar molecular mass due to:",
+    type: "text-options",
+    options: { a: "Ionic bonding", b: "Intermolecular hydrogen bonding", c: "Higher polarity only", d: "Larger size" },
+    correctAnswer: "b",
+    explanation: "Intermolecular hydrogen bonding (O-H···O) requires extra energy to break, increasing boiling point.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 27,
+    section: "Physical Properties",
+    text: "The boiling point of alcohols decreases in the order:",
+    type: "text-options",
+    options: { a: "Primary > Secondary > Tertiary", b: "Tertiary > Secondary > Primary", c: "Secondary > Primary > Tertiary", d: "All have same boiling point" },
+    correctAnswer: "a",
+    explanation: "Primary alcohols have less steric hindrance for H-bonding, so higher boiling point than secondary/tertiary.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 28,
+    section: "Physical Properties",
+    text: "Phenol is partially soluble in water because:",
+    type: "text-options",
+    options: { a: "It forms hydrogen bonds with water", b: "It is non-polar", c: "It is an acid", d: "It is a base" },
+    correctAnswer: "a",
+    explanation: "Phenol forms H-bonds with water but the large hydrophobic benzene ring limits solubility.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 29,
+    section: "Physical Properties",
+    text: "Ethers have lower boiling points than alcohols of comparable molecular mass because:",
+    type: "text-options",
+    options: { a: "Ethers are more polar", b: "Ethers cannot form intermolecular H-bonds", c: "Ethers are ionic", d: "Ethers are smaller" },
+    correctAnswer: "b",
+    explanation: "Ethers have no O-H bond, so no intermolecular hydrogen bonding → lower boiling point.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 30,
+    section: "Physical Properties",
+    text: "Which graph correctly shows boiling point trend of alcohols with increasing carbon chain length?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "Increasing with chain length ✓",
+        svg: `<svg viewBox="0 0 130 90"><line x1="15" y1="70" x2="110" y2="70" stroke="#333" stroke-width="1.5"/>
+        <line x1="15" y1="70" x2="15" y2="10" stroke="#333" stroke-width="1.5"/>
+        <line x1="15" y1="70" x2="105" y2="20" stroke="#1a6fc4" stroke-width="2.5"/>
+        <text x="112" y="75" font-size="9" fill="#333">Chain length</text>
+        <text x="10" y="8" font-size="9" fill="#333">B.P.</text>
+        <text x="60" y="88" text-anchor="middle" font-size="8" fill="#059669">Boiling point increases ✓</text></svg>`
+      },
+      {
+        label: "Decreasing",
+        svg: `<svg viewBox="0 0 130 90"><line x1="15" y1="20" x2="105" y2="70" stroke="#ef5350" stroke-width="2.5"/>
+        <text x="60" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Wrong trend</text></svg>`
+      },
+      {
+        label: "Constant",
+        svg: `<svg viewBox="0 0 130 90"><line x1="15" y1="45" x2="105" y2="45" stroke="#f59e0b" stroke-width="2.5"/>
+        <text x="60" y="88" text-anchor="middle" font-size="8" fill="#6b7280">No change (wrong)</text></svg>`
+      },
+      {
+        label: "First increase then decrease",
+        svg: `<svg viewBox="0 0 130 90"><path d="M15,60 Q30,30 60,30 Q90,30 105,60" stroke="#7c3aed" fill="none" stroke-width="2"/>
+        <text x="60" y="88" text-anchor="middle" font-size="8" fill="#6b7280">Oscillating (wrong)</text></svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Boiling point of alcohols increases with increasing carbon chain length due to increased van der Waals forces.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── CHEMICAL PROPERTIES OF ALCOHOLS (C-OH & O-H CLEAVAGE) ─────────
+
+  {
+    id: 31,
+    section: "Chemical Properties (Alcohols)",
+    text: "Reaction of alcohol with Lucas reagent (ZnCl₂/HCl) gives turbidity immediately for:",
+    type: "text-options",
+    options: { a: "Primary alcohols", b: "Secondary alcohols", c: "Tertiary alcohols", d: "All alcohols" },
+    correctAnswer: "c",
+    explanation: "Tertiary alcohols form insoluble alkyl chloride immediately (room temperature). Secondary take ~5 min, primary takes longer.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 32,
+    section: "Chemical Properties (Alcohols)",
+    text: "Oxidation of primary alcohol with K₂Cr₂O₇/H⁺ gives:",
+    type: "text-options",
+    options: { a: "Aldehyde then carboxylic acid", b: "Ketone", c: "Alkene", d: "Ether" },
+    correctAnswer: "a",
+    explanation: "Primary alcohol → Aldehyde (further oxidation) → Carboxylic acid.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 33,
+    section: "Chemical Properties (Alcohols)",
+    text: "The reaction of ethanol with concentrated H₂SO₄ at 170°C gives:",
+    type: "text-options",
+    options: { a: "Diethyl ether", b: "Ethene", c: "Ethyl hydrogen sulphate", d: "Acetaldehyde" },
+    correctAnswer: "b",
+    explanation: "At 170°C, ethanol undergoes intramolecular dehydration to form ethene.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 34,
+    section: "Chemical Properties (Alcohols)",
+    text: "The reaction of alcohol with carboxylic acid in presence of conc. H₂SO₄ is called:",
+    type: "text-options",
+    options: { a: "Esterification", b: "Saponification", c: "Fermentation", d: "Hydrolysis" },
+    correctAnswer: "a",
+    explanation: "R-OH + R'-COOH ⇌ R'-COO-R + H₂O (Fischer esterification).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 35,
+    section: "Chemical Properties (Alcohols)",
+    text: "Which diagram correctly shows the Lucas test for alcohols (turbidity with tertiary alcohol)?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "Tertiary: immediate turbidity, Secondary: slow, Primary: no reaction ✓",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="15" text-anchor="middle" font-size="7" font-weight="bold">Lucas Test</text>
+        <rect x="8" y="25" width="35" height="20" fill="#fee2e2" stroke="#ef5350" stroke-width="1.5" rx="3"/>
+        <text x="25" y="39" text-anchor="middle" font-size="5" fill="#ef5350">Tertiary</text>
+        <text x="25" y="52" font-size="5" fill="#ef5350">Immediate</text>
+        <rect x="50" y="25" width="35" height="20" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" rx="3"/>
+        <text x="67" y="39" text-anchor="middle" font-size="5" fill="#f59e0b">Secondary</text>
+        <text x="67" y="52" font-size="5" fill="#f59e0b">Slow (5 min)</text>
+        <rect x="92" y="25" width="40" height="20" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5" rx="3"/>
+        <text x="112" y="39" text-anchor="middle" font-size="5" fill="#1a6fc4">Primary</text>
+        <text x="112" y="52" font-size="5" fill="#1a6fc4">No reaction</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#059669">Correct ✓</text></svg>`
+      },
+      {
+        label: "All immediate",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#ef5350">All give turbidity</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Wrong (primary does not)</text></svg>`
+      },
+      {
+        label: "Only primary",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#f59e0b">Primary only</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Wrong</text></svg>`
+      },
+      {
+        label: "No reaction",
+        svg: `<svg viewBox="0 0 140 90"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#7c3aed">No turbidity</text>
+        <text x="70" y="85" text-anchor="middle" font-size="8" fill="#6b7280">Wrong</text></svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Lucas test: tertiary alcohols give immediate turbidity, secondary in ~5 min, primary no reaction at room temperature.",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── CHEMICAL PROPERTIES OF PHENOLS ────────────────────────────────
+
+  {
+    id: 36,
+    section: "Chemical Properties (Phenols)",
+    text: "Phenol is more acidic than alcohols because:",
+    type: "text-options",
+    options: { a: "Phenoxide ion is stabilized by resonance", b: "Phenol has higher boiling point", c: "Phenol is less polar", d: "Phenol is insoluble" },
+    correctAnswer: "a",
+    explanation: "Phenoxide ion is resonance-stabilized (negative charge delocalized into ring), making phenol more acidic.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 37,
+    section: "Chemical Properties (Phenols)",
+    text: "Phenol gives violet colour with neutral FeCl₃ due to:",
+    type: "text-options",
+    options: { a: "Oxidation", b: "Complex formation", c: "Reduction", d: "Esterification" },
+    correctAnswer: "b",
+    explanation: "Phenol forms coloured complexes with Fe³⁺ ions (violet colour).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 38,
+    section: "Chemical Properties (Phenols)",
+    text: "The reaction of phenol with bromine water (without solvent) gives:",
+    type: "text-options",
+    options: { a: "o-Bromophenol", b: "p-Bromophenol", c: "2,4,6-Tribromophenol", d: "No reaction" },
+    correctAnswer: "c",
+    explanation: "Phenol + Br₂/H₂O → 2,4,6-tribromophenol (white precipitate).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 39,
+    section: "Chemical Properties (Phenols)",
+    text: "Kolbe's reaction of phenol with CO₂ and NaOH gives:",
+    type: "text-options",
+    options: { a: "Benzaldehyde", b: "Salicylaldehyde", c: "Salicylic acid (o-hydroxybenzoic acid)", d: "Benzoic acid" },
+    correctAnswer: "c",
+    explanation: "Phenol + CO₂ (under pressure, NaOH) → Sodium salicylate → Salicylic acid.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 40,
+    section: "Chemical Properties (Phenols)",
+    text: "Reimer-Tiemann reaction of phenol with CHCl₃ and NaOH gives:",
+    type: "text-options",
+    options: { a: "Salicylaldehyde (o-hydroxybenzaldehyde)", b: "Salicylic acid", c: "Benzaldehyde", d: "Phenol" },
+    correctAnswer: "a",
+    explanation: "Phenol + CHCl₃ + NaOH → o-hydroxybenzaldehyde (salicylaldehyde).",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── CHEMICAL PROPERTIES OF ETHERS ─────────────────────────────────
+
+  {
+    id: 41,
+    section: "Chemical Properties (Ethers)",
+    text: "Ethers are generally inert but undergo cleavage with:",
+    type: "text-options",
+    options: { a: "Cold water", b: "Concentrated HI or HBr", c: "Dilute NaOH", d: "Na metal" },
+    correctAnswer: "b",
+    explanation: "Ethers are cleaved by concentrated HI or HBr to give alkyl halides and alcohols.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 42,
+    section: "Chemical Properties (Ethers)",
+    text: "Diethyl ether on reaction with excess HI gives:",
+    type: "text-options",
+    options: { a: "CH₃CH₂I + CH₃CH₂OH", b: "2CH₃CH₂I", c: "CH₃CH₂OH", d: "CH₃CH₂I + I₂" },
+    correctAnswer: "b",
+    explanation: "C₂H₅-O-C₂H₅ + 2HI → 2C₂H₅I + H₂O (excess HI gives two moles of alkyl iodide).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 43,
+    section: "Chemical Properties (Ethers)",
+    text: "Ethers form explosive peroxides when stored for long periods due to:",
+    type: "text-options",
+    options: { a: "Oxidation by air", b: "Reduction", c: "Hydrolysis", d: "Polymerization" },
+    correctAnswer: "a",
+    explanation: "Ethers slowly react with atmospheric oxygen to form hydroperoxides and peroxides, which are explosive.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 44,
+    section: "Chemical Properties (Ethers)",
+    text: "Anisole (C₆H₅-O-CH₃) on cleavage with HI gives:",
+    type: "text-options",
+    options: { a: "C₆H₅OH + CH₃I", b: "C₆H₅I + CH₃OH", c: "C₆H₅I + CH₃I", d: "C₆H₅OH + CH₃OH" },
+    correctAnswer: "a",
+    explanation: "Aryl alkyl ethers cleave to give phenol and alkyl iodide (C₆H₅-O-CH₃ + HI → C₆H₅-OH + CH₃I).",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 45,
+    section: "Chemical Properties (Ethers)",
+    text: "Which diagram correctly shows the cleavage of ether with HI?",
+    type: "image-options",
+    questionImage: null,
+    options: [
+      {
+        label: "R-O-R' + HI → R-I + R'-OH (or R-OH + R'-I) ✓",
+        svg: `<svg viewBox="0 0 140 80"><text x="70" y="20" text-anchor="middle" font-size="7" font-weight="bold">Ether Cleavage</text>
+        <rect x="5" y="30" width="40" height="25" fill="#dbeafe" stroke="#1a6fc4" stroke-width="1.5" rx="3"/>
+        <text x="25" y="45" text-anchor="middle" font-size="6" fill="#1a6fc4">R-O-R'</text>
+        <text x="55" y="45" text-anchor="middle" font-size="10" fill="#333">+</text>
+        <rect x="65" y="30" width="25" height="25" fill="#fee2e2" stroke="#ef5350" stroke-width="1.5" rx="3"/>
+        <text x="77" y="45" text-anchor="middle" font-size="6" fill="#ef5350">HI</text>
+        <text x="100" y="45" text-anchor="middle" font-size="10" fill="#333">→</text>
+        <rect x="15" y="60" width="35" height="18" fill="#fef3c7" stroke="#f59e0b" stroke-width="1" rx="3"/>
+        <text x="32" y="73" text-anchor="middle" font-size="6" fill="#f59e0b">R-I</text>
+        <text x="58" y="73" text-anchor="middle" font-size="10" fill="#333">+</text>
+        <rect x="68" y="60" width="40" height="18" fill="#e0e7ff" stroke="#6366f1" stroke-width="1" rx="3"/>
+        <text x="88" y="73" text-anchor="middle" font-size="6" fill="#6366f1">R'-OH</text>
+        <text x="70" y="78" text-anchor="middle" font-size="8" fill="#059669">Correct cleavage ✓</text></svg>`
+      },
+      {
+        label: "No reaction",
+        svg: `<svg viewBox="0 0 140 80"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#ef5350">No cleavage</text>
+        <text x="70" y="75" text-anchor="middle" font-size="8" fill="#6b7280">Wrong (HI cleaves ethers)</text></svg>`
+      },
+      {
+        label: "Only one product",
+        svg: `<svg viewBox="0 0 140 80"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#f59e0b">Only R-I</text>
+        <text x="70" y="75" text-anchor="middle" font-size="8" fill="#6b7280">Missing alcohol</text></svg>`
+      },
+      {
+        label: "Both alkyl iodides",
+        svg: `<svg viewBox="0 0 140 80"><text x="70" y="35" text-anchor="middle" font-size="8" fill="#7c3aed">2 R-I</text>
+        <text x="70" y="75" text-anchor="middle" font-size="8" fill="#6b7280">Only with excess HI</text></svg>`
+      }
+    ],
+    correct: 0,
+    explanation: "Ether cleavage with HI: R-O-R' + HI → R-I + R'-OH (or R-OH + R'-I depending on nature of R).",
+    marked: false,
+    userAnswer: ""
+  },
+
+  // ─── COMMERCIALLY IMPORTANT ALCOHOLS (METHANOL & ETHANOL) ──────────
+
+  {
+    id: 46,
+    section: "Commercially Important Alcohols",
+    text: "Methanol is also known as:",
+    type: "text-options",
+    options: { a: "Grain alcohol", b: "Wood spirit", c: "Rectified spirit", d: "Absolute alcohol" },
+    correctAnswer: "b",
+    explanation: "Methanol was historically obtained by destructive distillation of wood → wood spirit.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 47,
+    section: "Commercially Important Alcohols",
+    text: "Ethanol is produced commercially by fermentation of sugars. The enzyme in yeast that converts sugar to ethanol is:",
+    type: "text-options",
+    options: { a: "Maltase", b: "Zymase", c: "Diastase", d: "Invertase" },
+    correctAnswer: "b",
+    explanation: "Zymase is the enzyme complex in yeast that converts sugars to ethanol and CO₂.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 48,
+    section: "Commercially Important Alcohols",
+    text: "Denatured alcohol is ethanol that has been made unfit for drinking by adding:",
+    type: "text-options",
+    options: { a: "Methanol and pyridine", b: "Water", c: "Sugar", d: "Salt" },
+    correctAnswer: "a",
+    explanation: "Denatured alcohol contains methanol, pyridine, or other poisonous substances to prevent consumption.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 49,
+    section: "Commercially Important Alcohols",
+    text: "Power alcohol is a mixture of:",
+    type: "text-options",
+    options: { a: "Methanol + petrol", b: "Ethanol + petrol", c: "Propanol + diesel", d: "Butanol + petrol" },
+    correctAnswer: "b",
+    explanation: "Power alcohol = ethanol (10-20%) + petrol (gasoline) used as fuel.",
+    marked: false,
+    userAnswer: ""
+  },
+  {
+    id: 50,
+    section: "Commercially Important Alcohols",
+    text: "Absolute alcohol (100% ethanol) is obtained by:",
+    type: "text-options",
+    options: { a: "Simple distillation", b: "Fractional distillation", c: "Azeotropic distillation with benzene", d: "Fermentation" },
+    correctAnswer: "c",
+    explanation: "95.6% ethanol forms azeotrope with water. Absolute alcohol is obtained by azeotropic distillation with benzene.",
+    marked: false,
+    userAnswer: ""
+  }
+]
+
+};
+
+/* ============================================================
+   TEST ENGINE
+   ============================================================ */
+let currentQuestionIndex = 0;
+let timeLeft = mockTest.duration;
+let timer;
+let testSubmitted = false;
+let testStarted = false;
+
+const timerEl = document.querySelector('.timer');
+const questionTextEl = document.getElementById('question-text');
+const optionsEl = document.getElementById('options-container');
+const qNumEl = document.getElementById('q-number');
+const curQNumEl = document.getElementById('current-q-number');
+const progressFill = document.getElementById('test-progress');
+const progressPct = document.getElementById('progress-percent');
+const paletteGrid = document.getElementById('question-palette-grid');
+const answeredCountEl = document.getElementById('answered-count');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const markBtn = document.getElementById('mark-btn');
+const submitBtn = document.getElementById('submit-test-btn');
+const modal = document.getElementById('results-modal');
+const closeModal = document.getElementById('close-modal');
+const reviewBtn = document.getElementById('review-btn');
+
+function initTest() {
+    renderPalette();
+    renderQuestion();
+    startTimer();
+    updateProgress();
+    renderLegend(false);
+    prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } });
+    nextBtn.addEventListener('click', () => { if (currentQuestionIndex < mockTest.questions.length - 1) { currentQuestionIndex++; renderQuestion(); } });
+    markBtn.addEventListener('click', toggleMark);
+    submitBtn.addEventListener('click', () => { if (confirm('Submit the test?')) submitTest(); });
+    closeModal.addEventListener('click', () => modal.classList.remove('show'));
+    reviewBtn.addEventListener('click', () => { modal.classList.remove('show'); currentQuestionIndex = 0; renderQuestion(); });
+    document.getElementById('download-pdf-btn').addEventListener('click', generatePDF);
+    document.getElementById('modal-result-btn').addEventListener('click', () => { modal.classList.remove('show'); document.getElementById('stream-picker-overlay').style.display = 'flex'; });
+    document.getElementById('pdf-action-btn').addEventListener('click', generatePDF);
+    document.getElementById('result-action-btn').addEventListener('click', () => { document.getElementById('stream-picker-overlay').style.display = 'flex'; });
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    timer = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) { clearInterval(timer); submitTest(); }
+        if (timeLeft === 300) alert('⚠️ Only 5 minutes remaining!');
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const h = Math.floor(timeLeft / 3600);
+    const m = Math.floor((timeLeft % 3600) / 60);
+    const s = timeLeft % 60;
+    const str = `${pad(h)}:${pad(m)}:${pad(s)}`;
+    timerEl.textContent = str;
+    const mob = document.querySelector('.mob-timer');
+    if (mob) mob.textContent = str;
+}
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function renderQuestion() {
+    const q = mockTest.questions[currentQuestionIndex];
+    document.getElementById('current-section').textContent = q.section;
+    document.getElementById('section-badge').textContent = '📘 ' + q.section;
+    questionTextEl.textContent = q.text;
+    qNumEl.textContent = q.id;
+    curQNumEl.textContent = q.id;
+    optionsEl.innerHTML = '';
+
+if (q.type === "image-options") {
+        q.options.forEach((opt, i) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            if (testSubmitted) {
+                if (i === q.correct) div.classList.add('correct');
+                else if (i === q.userAnswer) div.classList.add('incorrect');
+            } else {
+                if (i === q.userAnswer) div.classList.add('selected');
+            }
+            if (!testSubmitted) {
+                div.addEventListener('click', () => {
+                    optionsEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    div.classList.add('selected');
+                    q.userAnswer = i;
+                    updatePalette();
+                    updateProgress();
+                });
+            }
+            const letter = document.createElement('div');
+            letter.className = 'opt-letter';
+            letter.textContent = String.fromCharCode(65 + i);
+            const svgWrap = document.createElement('div');
+            svgWrap.style.flex = '1';
+            svgWrap.innerHTML = opt.svg;
+            if (testSubmitted) {
+                if (i === q.correct) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator correct-indicator';
+                    ind.style.display = 'block';
+                    ind.style.fontSize = '12px';
+                    ind.textContent = '✓ Correct';
+                    svgWrap.appendChild(ind);
+                } else if (i === q.userAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator incorrect-indicator';
+                    ind.style.display = 'block';
+                    ind.style.fontSize = '12px';
+                    ind.textContent = '✗ Your Answer';
+                    svgWrap.appendChild(ind);
+                }
+            }
+            div.appendChild(letter);
+            div.appendChild(svgWrap);
+            optionsEl.appendChild(div);
+        });
+    } else {
+        for (const [key, val] of Object.entries(q.options)) {
+            const div = document.createElement('div');
+            div.className = 'option';
+            if (testSubmitted) {
+                if (key === q.correctAnswer) div.classList.add('correct');
+                else if (key === q.userAnswer) div.classList.add('incorrect');
+            } else {
+                if (key === q.userAnswer) div.classList.add('selected');
+            }
+            if (!testSubmitted) {
+                div.addEventListener('click', () => {
+                    optionsEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    div.classList.add('selected');
+                    q.userAnswer = key;
+                    updatePalette();
+                    updateProgress();
+                });
+            }
+            const letter = document.createElement('div');
+            letter.className = 'opt-letter';
+            letter.textContent = key.toUpperCase();
+            const text = document.createElement('span');
+            text.className = 'opt-text';
+            text.textContent = val;
+            if (testSubmitted) {
+                if (key === q.correctAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator correct-indicator';
+                    ind.textContent = ' ✓ Correct';
+                    text.appendChild(ind);
+                } else if (key === q.userAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator incorrect-indicator';
+                    ind.textContent = ' ✗ Your Answer';
+                    text.appendChild(ind);
+                }
+            }
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'q-opt';
+            radio.value = key;
+            radio.checked = q.userAnswer === key;
+            div.appendChild(radio);
+            div.appendChild(letter);
+            div.appendChild(text);
+            optionsEl.appendChild(div);
+        }
+    }
+
+    if (testSubmitted && q.explanation) {
+        const exp = document.createElement('div');
+        exp.className = 'explanation-box';
+        exp.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+        optionsEl.appendChild(exp);
+    }
+
+    markBtn.classList.toggle('marked', q.marked);
+    markBtn.textContent = q.marked ? '🔖 Marked' : '🔖 Mark';
+    prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+    nextBtn.style.visibility = currentQuestionIndex === mockTest.questions.length - 1 ? 'hidden' : 'visible';
+    updatePalette();
+}
+
+function toggleMark() {
+    const q = mockTest.questions[currentQuestionIndex];
+    q.marked = !q.marked;
+    markBtn.classList.toggle('marked', q.marked);
+    markBtn.textContent = q.marked ? '🔖 Marked' : '🔖 Mark';
+    updatePalette();
+}
+
+function renderPalette() {
+    paletteGrid.innerHTML = '';
+    mockTest.questions.forEach((q, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'palette-btn';
+        btn.textContent = q.id;
+        btn.addEventListener('click', () => { currentQuestionIndex = i; renderQuestion(); });
+        paletteGrid.appendChild(btn);
+    });
+    updatePalette();
+}
+
+function updatePalette() {
+    const btns = paletteGrid.querySelectorAll('.palette-btn');
+    mockTest.questions.forEach((q, i) => {
+        const btn = btns[i];
+        btn.className = 'palette-btn';
+        if (testSubmitted) {
+            if (!q.userAnswer) btn.classList.add('review-unanswered');
+            else if (q.userAnswer === q.correctAnswer) btn.classList.add('review-correct');
+            else btn.classList.add('review-wrong');
+        } else {
+            if (q.userAnswer) btn.classList.add('answered');
+            if (q.marked) btn.classList.add('marked');
+        }
+        if (i === currentQuestionIndex) btn.classList.add('current');
+    });
+    const ans = mockTest.questions.filter(q => q.userAnswer).length;
+    answeredCountEl.textContent = `${ans}/${mockTest.questions.length}`;
+}
+
+function updateProgress() {
+    const ans = mockTest.questions.filter(q => q.userAnswer).length;
+    const pct = Math.round((ans / mockTest.questions.length) * 100);
+    progressFill.style.width = pct + '%';
+    progressPct.textContent = pct + '%';
+}
+
+function renderLegend(reviewMode) {
+    const leg = document.getElementById('palette-legend');
+    if (!leg) return;
+    if (reviewMode) {
+        leg.innerHTML = `
+        <div class="leg-label"><div class="leg-dot" style="background:#22c55e;"></div>Correct</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#ef4444;"></div>Wrong</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#60a5fa;"></div>Unanswered</div>`;
+    } else {
+        leg.innerHTML = `
+        <div class="leg-label"><div class="leg-dot" style="background:#bbf7d0;border:1px solid #22c55e;"></div>Answered</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#bae6fd;border:1px solid #0ea5e9;"></div>Marked</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#fee2e2;border:1px solid #fca5a5;"></div>Unanswered</div>
+        <div class="leg-label"><div class="leg-dot" style="background:white;border:2px solid #1a6fc4;"></div>Current</div>`;
+    }
+}
+
+function submitTest() {
+    if (testSubmitted) return;
+    testSubmitted = true;
+    clearInterval(timer);
+
+    let correct = 0, incorrect = 0, unanswered = 0;
+mockTest.questions.forEach(q => {
+        if (!q.userAnswer && q.userAnswer !== 0) unanswered++;
+        else if (q.type === "image-options" ? q.userAnswer === q.correct : q.userAnswer === q.correctAnswer) correct++;
+        else incorrect++;
+    });
+
+    const total = mockTest.questions.length;
+    const maxScore = total * mockTest.markingScheme.correct;
+    const score = (correct * mockTest.markingScheme.correct) + (incorrect * mockTest.markingScheme.incorrect);
+    const pct = ((score / maxScore) * 100).toFixed(2);
+    const acc = correct + incorrect > 0 ? ((correct / (correct + incorrect)) * 100).toFixed(2) : '0';
+
+    const resultData = {
+    studentId:  localStorage.getItem('ts_student_id') || '',
+    name:       localStorage.getItem('cbtUserName') || 'Unknown',
+    subject:    SUBJECT_ID,
+    chapter:    CHAPTER_ID,
+    date:       new Date().toISOString(),
+    score, maxScore: total * mockTest.markingScheme.correct,
+    correct, wrong: incorrect, skipped: unanswered,
+    totalQ: total,
+    percentage: parseFloat(pct),
+    accuracy:   parseFloat(acc),
+    timeTaken:  mockTest.duration - timeLeft
+};
+
+const storageKey = `thunderstudy_result_${SUBJECT_ID}_${CHAPTER_ID}`;
+localStorage.setItem(storageKey, JSON.stringify(resultData));
+
+const GS_URL = "https://script.google.com/macros/s/AKfycbyEsrvdSuRh06TIKPK0ozP-jQNjqHO8PaIeBcW5r45aGdr4H3ZVFHpKMm3xaDHrYmqX/exec";
+fetch(GS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(resultData)
+}).then(() => {
+    localStorage.removeItem(storageKey);
+    localStorage.setItem(`synced_${SUBJECT_ID}_${CHAPTER_ID}`, 'true');
+}).catch(err => console.error('Sheet sync failed:', err));
+    const idxKey = `thunderstudy_index_${SUBJECT_ID}`;
+    let idx = [];
+    try { idx = JSON.parse(localStorage.getItem(idxKey) || '[]'); } catch(e) {}
+    if (!idx.includes(CHAPTER_ID)) idx.push(CHAPTER_ID);
+    localStorage.setItem(idxKey, JSON.stringify(idx));
+
+    document.getElementById('correct-answers').textContent = correct;
+    document.getElementById('incorrect-answers').textContent = incorrect;
+    document.getElementById('unanswered').textContent = unanswered;
+    document.getElementById('total-score').textContent = score;
+    document.getElementById('percentage').textContent = pct;
+    document.getElementById('accuracy').textContent = acc;
+    modal.classList.add('show');
+
+    renderQuestion();
+    renderLegend(true);
+
+    // Swap submit rows
+    document.getElementById('submit-row-before').style.display = 'none';
+    document.getElementById('submit-row-after').style.display = 'flex';
+}
+
+/* Visibility change guard */
+
+document.addEventListener("visibilitychange", () => {
+    if (!testStarted || testSubmitted) return;
+    updateFocusMode(); // ADD THIS LINE
+    if (document.hidden) startCountdown('tab');
+    else cancelCountdown();
+});
+
+/* Arrow key nav */
+document.addEventListener('keydown', e => {
+    if (document.getElementById('test-screen').style.display === 'none') return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (currentQuestionIndex < mockTest.questions.length - 1) { currentQuestionIndex++; renderQuestion(); } }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
+});
+</script>
+
+<script>
+  
+function startMock() {
+    const savedName = localStorage.getItem('cbtUserName') || '';
+    const savedSID  = localStorage.getItem('ts_student_id') || '';
+    const inputName = document.getElementById('username-input').value.trim();
+
+    if (!savedName && !inputName) {
+        alert('⚠️ Please enter your name to continue!');
+        document.getElementById('username-input').focus();
+        return;
+    }
+    if (!savedName && inputName) localStorage.setItem('cbtUserName', inputName);
+
+    if (!savedSID) {
+        const go = confirm('⚠️ Student ID not found!\n\nYou need a Student ID to start.\nClick OK to open Dashboard, or Cancel to stay.');
+        if (go) window.open('https://commercesehoga.github.io/dashboard/', '_blank');
+        return;
+    }
+
+    enterFullscreen();
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('instruction-screen').style.display = 'block';
+}
+
+document.getElementById('dark-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const dark = document.body.classList.contains('dark-mode');
+    document.getElementById('toggle-icon').textContent = dark ? '☀️' : '🌙';
+    document.getElementById('toggle-label').textContent = dark ? 'Light' : 'Dark';
+});
+
+const checkbox = document.getElementById('agree-checkbox');
+const startTestBtn = document.getElementById('start-test-btn');
+checkbox.addEventListener('change', () => {
+    startTestBtn.disabled = !checkbox.checked;
+});
+startTestBtn.addEventListener('click', () => {
+    if (!checkbox.checked) { alert('Please agree to instructions!'); return; }
+    const name = localStorage.getItem('cbtUserName') || 'Student';
+    const sid  = localStorage.getItem('ts_student_id') || 'N/A';
+
+    document.getElementById('instruction-screen').style.display = 'none';
+    document.getElementById('test-screen').style.display = 'block';
+    document.getElementById('user-name-display').textContent = '👤 ' + name;
+
+    const mob = document.getElementById('mobile-name-display');
+    if (mob) mob.textContent = '👤 ' + name + ' | ' + sid;
+    if (document.getElementById('display-user-name')) document.getElementById('display-user-name').textContent = name;
+    if (document.getElementById('display-user-sid'))  document.getElementById('display-user-sid').textContent  = sid;
+
+    testStarted = true;
+    enterFullscreen();
+    initTest();
+});
+
+function enterFullscreen() {
+    const el = document.documentElement;
+    try {
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    } catch(e) {}
+}
+
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(evt => document.addEventListener(evt, onFSChange));
+
+function isFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
+}
+function onFSChange() {
+    if (!testStarted || testSubmitted) return;
+    if (document.getElementById('test-screen').style.display === 'none') return;
+    updateFocusMode(); // ADD THIS LINE
+    if (!isFullscreen()) startCountdown('fullscreen');
+    else cancelCountdown();
+}
+
+let cdTimer = null, cdSecs = 0;
+function startCountdown(reason) {
+    if (!testStarted || testSubmitted || cdTimer) return;
+    cdSecs = reason === 'tab' ? 2 : 5;
+    const msg = reason === 'tab' ? '⚠️ Tab switched!' : '⚠️ Exited fullscreen!';
+    const hint = reason === 'tab' ? 'Return to this tab to cancel.' : 'Click below to return to fullscreen.';
+    showOverlay(msg, hint, cdSecs, reason === 'fullscreen');
+    cdTimer = setInterval(() => { cdSecs--; updateOverlay(cdSecs); if (cdSecs <= 0) { cancelCountdown(); submitTest(); } }, 1000);
+}
+function cancelCountdown() {
+    if (cdTimer) { clearInterval(cdTimer); cdTimer = null; }
+    hideOverlay();
+}
+function updateFocusMode() {
+    const disturbed = document.hidden || !isFullscreen();
+    const color = disturbed ? '#ff3d57' : '#00c853';
+    const text  = disturbed ? '● Disturbed' : '● Focus On';
+    [document.getElementById('focus-laptop'), document.getElementById('focus-mobile')]
+        .forEach(el => { if (el) { el.style.color = color; el.textContent = text; } });
+}
+function showOverlay(msg, hint, secs, btn) {
+    let ov = document.getElementById('sec-overlay');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'sec-overlay'; ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999999;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:DM Sans,sans-serif;color:#fff;text-align:center;padding:24px;'; document.body.appendChild(ov); }
+    ov.innerHTML = `<div style="font-size:56px;margin-bottom:12px;">🚨</div><div style="font-size:22px;font-weight:800;margin-bottom:8px;">${msg}</div><div style="font-size:15px;color:#fbbf24;margin-bottom:18px;">${hint}</div><div style="font-size:14px;color:#e0e0e0;margin-bottom:4px;">Auto-submitting in</div><div id="ov-count" style="font-size:72px;font-weight:900;color:#f87171;line-height:1;">${secs}</div><div style="font-size:13px;color:#9ca3af;margin-top:4px;">seconds</div>${btn?`<button onclick="enterFullscreen()" style="margin-top:22px;padding:12px 32px;border-radius:30px;border:none;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;font-size:16px;font-weight:700;cursor:pointer;">🔲 Return to Fullscreen</button>`:''}`;
+    ov.style.display = 'flex';
+}
+function updateOverlay(n) { const el = document.getElementById('ov-count'); if (el) el.textContent = n; }
+function hideOverlay() { const ov = document.getElementById('sec-overlay'); if (ov) ov.style.display = 'none'; }
+</script>
+
+<script>
+function generatePDF() {
+    const name = localStorage.getItem('cbtUserName') || 'Student';
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-IN', {day:'2-digit',month:'short',year:'numeric'});
+    const timeStr = now.toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
+
+    let correct=0,incorrect=0,unanswered=0;
+    mockTest.questions.forEach(q => {
+        if (!q.userAnswer) unanswered++;
+        else if (q.userAnswer === q.correctAnswer) correct++;
+        else incorrect++;
+    });
+    const score = (correct*5)+(incorrect*-1);
+    const maxScore = mockTest.questions.length*5;
+    const pct = ((score/maxScore)*100).toFixed(1);
+    const lbl = {a:'A',b:'B',c:'C',d:'D'};
+
+    let qHTML = '';
+    mockTest.questions.forEach((q,i) => {
+        const ok = q.userAnswer === q.correctAnswer;
+        const wrong = q.userAnswer && !ok;
+        const skip = !q.userAnswer;
+        const statusColor = ok?'#059669':wrong?'#dc2626':'#9ca3af';
+        const statusLabel = ok?'✓ Correct':wrong?'✗ Wrong':'— Skipped';
+        const rowBg = ok?'#f0fdf4':wrong?'#fef2f2':'#fafafa';
+        let optsHTML='';
+        for (const [k,v] of Object.entries(q.options)) {
+            const isRight=k===q.correctAnswer, isUser=k===q.userAnswer;
+            let bg='transparent',fw='normal',pre='';
+            if(isRight){bg='#dcfce7';fw='bold';pre='✓ ';}
+            if(isUser&&!isRight){bg='#fee2e2';fw='bold';pre='✗ ';}
+            optsHTML+=`<div style="display:flex;gap:8px;padding:4px 8px;border-radius:4px;background:${bg};font-weight:${fw};font-size:12px;margin:2px 0;"><span style="min-width:18px;font-weight:700;">${lbl[k]}.</span><span>${pre}${v}</span></div>`;
+        }
+        const yourAns = skip?'<span style="color:#9ca3af;">Not Attempted</span>':`<span style="color:${ok?'#059669':'#dc2626'};font-weight:bold;">${lbl[q.userAnswer]}. ${q.options[q.userAnswer]}</span>`;
+        qHTML+=`<div style="margin-bottom:16px;padding:14px;border-radius:8px;background:${rowBg};border:1px solid #e5e7eb;page-break-inside:avoid;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                <div style="font-weight:700;font-size:13px;color:#1e293b;">Q${i+1}. ${q.text}</div>
+                <div style="font-weight:700;font-size:12px;color:${statusColor};white-space:nowrap;margin-left:12px;">${statusLabel}</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:8px;">${optsHTML}</div>
+            <div style="font-size:12px;border-top:1px solid #e5e7eb;padding-top:6px;">
+                Your answer: ${yourAns}&nbsp;&nbsp;
+                Correct: <span style="color:#059669;font-weight:bold;">${lbl[q.correctAnswer]}. ${q.options[q.correctAnswer]}</span>
+            </div>
+        </div>`;
+    });
+
+    const scoreColor = pct>=60?'#059669':pct>=35?'#d97706':'#dc2626';
+    const html=`<div style="max-width:780px;margin:0 auto;font-family:Arial,sans-serif;color:#111;">
+        <div style="background:linear-gradient(135deg,#1a6fc4,#0ea5e9);color:white;padding:20px 24px;border-radius:10px 10px 0 0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div><div style="font-size:22px;font-weight:800;">⚡ Thunderstudy CBT</div><div style="font-size:13px;opacity:0.85;margin-top:3px;">English Result Report</div></div>
+                <div style="text-align:right;font-size:12px;opacity:0.85;"><div>📅 ${dateStr} 🕐 ${timeStr}</div><div>👤 ${name}</div></div>
+            </div>
+        </div>
+        <div style="background:#f0f6ff;border:1px solid #bfdbfe;border-top:none;padding:16px 24px;margin-bottom:20px;border-radius:0 0 10px 10px;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+                <div style="background:white;border:1px solid #dbeafe;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">SCORE</div><div style="font-size:24px;font-weight:800;color:${scoreColor};">${score}<span style="font-size:14px;color:#6b7280;">/${maxScore}</span></div></div>
+                <div style="background:white;border:1px solid #dbeafe;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">PERCENTAGE</div><div style="font-size:24px;font-weight:800;color:${scoreColor};">${pct}%</div></div>
+                <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#059669;">CORRECT</div><div style="font-size:24px;font-weight:800;color:#059669;">${correct}</div></div>
+                <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#dc2626;">WRONG</div><div style="font-size:24px;font-weight:800;color:#dc2626;">${incorrect}</div></div>
+                <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">SKIPPED</div><div style="font-size:24px;font-weight:800;color:#6b7280;">${unanswered}</div></div>
+            </div>
+        </div>
+        <div style="font-size:15px;font-weight:700;color:#1a6fc4;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #1a6fc4;">📋 Answer Key</div>
+        ${qHTML}
+        <div style="text-align:center;margin-top:20px;padding:12px;background:#f0f6ff;border-radius:8px;font-size:12px;color:#6b7280;">Generated by <b>Thunderstudy CBT</b> | t.me/thunderstudy_official | ${dateStr}</div>
+    </div>`;
+
+    const w = window.open('','_blank','width=950,height=700,scrollbars=yes');
+    if (!w) { alert('Popup blocked! Allow popups and retry.'); return; }
+    w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"/><title>Thunderstudy_English_${name}</title><style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,sans-serif;background:#fff;padding:20px;}@media print{.no-print{display:none!important;}}.print-btn{display:block;margin:0 auto 20px;padding:12px 36px;background:linear-gradient(135deg,#1a6fc4,#0ea5e9);color:white;font-size:16px;font-weight:700;border:none;border-radius:30px;cursor:pointer;}</style></head><body><button class="print-btn no-print" onclick="window.print()">🖨️ Print / Save PDF</button>${html}</body></html>`);
+    w.document.close(); w.focus();
+}
+window.addEventListener('DOMContentLoaded', () => {
+    const savedName = localStorage.getItem('cbtUserName') || '';
+    const savedSID  = localStorage.getItem('ts_student_id') || '';
+    if (savedName) {
+        const inp = document.getElementById('username-input');
+        if (inp) {
+            inp.value = savedName;
+            inp.style.background = 'rgba(21,101,192,0.07)';
+            inp.style.borderColor = '#1976d2';
+            inp.style.color = '#1565c0';
+            inp.style.fontWeight = 'bold';
+            inp.setAttribute('readonly', true);
+            inp.insertAdjacentHTML('afterend',
+                `<div style="font-size:11px;color:#1976d2;font-weight:700;margin-top:5px;">✅ Verified Dashboard Profile</div>`
+            );
+        }
+    }
+    if (savedSID) {
+        // Show SID somewhere on start screen if you want — optional
+    }
+});
+</script>
+
+</body>
+</html>
