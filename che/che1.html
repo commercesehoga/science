@@ -2062,7 +2062,6 @@ fetch(GS_URL, {
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(resultData)
 }).then(() => {
-    localStorage.removeItem(storageKey);
     localStorage.setItem(`synced_${SUBJECT_ID}_${CHAPTER_ID}`, 'true');
 }).catch(err => console.error('Sheet sync failed:', err));
     const idxKey = `thunderstudy_index_${SUBJECT_ID}`;
