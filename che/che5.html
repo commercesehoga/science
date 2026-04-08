@@ -1911,7 +1911,7 @@ function submitTest() {
 
     let correct = 0, incorrect = 0, unanswered = 0;
 mockTest.questions.forEach(q => {
-        if (!q.userAnswer && q.userAnswer !== 0) unanswered++;
+        if (q.userAnswer === null || q.userAnswer === undefined || q.userAnswer === '') unanswered++;
         else if (q.type === "image-options" ? q.userAnswer === q.correct : q.userAnswer === q.correctAnswer) correct++;
         else incorrect++;
     });
@@ -1922,18 +1922,30 @@ mockTest.questions.forEach(q => {
     const pct = ((score / maxScore) * 100).toFixed(2);
     const acc = correct + incorrect > 0 ? ((correct / (correct + incorrect)) * 100).toFixed(2) : '0';
 
-    const resultData = {
+const resultData = {
     studentId:  localStorage.getItem('ts_student_id') || '',
     name:       localStorage.getItem('cbtUserName') || 'Unknown',
     subject:    SUBJECT_ID,
     chapter:    CHAPTER_ID,
     date:       new Date().toISOString(),
-    score, maxScore: total * mockTest.markingScheme.correct,
-    correct, wrong: incorrect, skipped: unanswered,
-    totalQ: total,
+    score,
+    maxScore:   total * mockTest.markingScheme.correct,
+    correct,
+    wrong:      incorrect,
+    incorrect:  incorrect,    // ← ADD: dashboard reads this first
+    skipped:    unanswered,
+    unanswered: unanswered,   // ← ADD: dashboard reads this first
+    totalQ:     total,
     percentage: parseFloat(pct),
     accuracy:   parseFloat(acc),
-    timeTaken:  mockTest.duration - timeLeft
+    timeTaken:  mockTest.duration - timeLeft,
+    wrongQs:    mockTest.questions                // ← ADD: for bookmark system
+        .map((q, i) => {
+            const ans = q.userAnswer;
+            const correct_ans = q.type === 'image-options' ? q.correct : q.correctAnswer;
+            return (ans !== null && ans !== undefined && ans !== '' && ans !== correct_ans) ? i + 1 : null;
+        })
+        .filter(Boolean)
 };
 
 const storageKey = `thunderstudy_result_${SUBJECT_ID}_${CHAPTER_ID}`;
@@ -1946,7 +1958,6 @@ fetch(GS_URL, {
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(resultData)
 }).then(() => {
-    localStorage.removeItem(storageKey);
     localStorage.setItem(`synced_${SUBJECT_ID}_${CHAPTER_ID}`, 'true');
 }).catch(err => console.error('Sheet sync failed:', err));
     const idxKey = `thunderstudy_index_${SUBJECT_ID}`;
