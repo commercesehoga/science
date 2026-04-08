@@ -2027,7 +2027,7 @@ function submitTest() {
 
     let correct = 0, incorrect = 0, unanswered = 0;
 mockTest.questions.forEach(q => {
-        if (!q.userAnswer && q.userAnswer !== 0) unanswered++;
+        if (q.userAnswer === null || q.userAnswer === undefined || q.userAnswer === '') unanswered++;
         else if (q.type === "image-options" ? q.userAnswer === q.correct : q.userAnswer === q.correctAnswer) correct++;
         else incorrect++;
     });
