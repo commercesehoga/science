@@ -2318,13 +2318,65 @@ document.addEventListener('keydown', e => {
 
 <script>
 function startMock() {
-    const name = document.getElementById('username-input').value.trim();
-    if (!name) { alert('⚠️ Please enter your name!'); document.getElementById('username-input').focus(); return; }
-    localStorage.setItem('cbtUserName', name);
+    const savedName = localStorage.getItem('cbtUserName') || '';
+    const savedSID = localStorage.getItem('ts_student_id') || '';
+    const inputName = document.getElementById('username-input').value.trim();
+
+    if (!savedName && !inputName) {
+        alert("⚠️ Please enter your name to continue!");
+        document.getElementById('username-input').focus();
+        return;
+    }
+    if (!savedName && inputName) {
+        localStorage.setItem("cbtUserName", inputName);
+    }
+    if (!savedSID) {
+        const goToDash = confirm("⚠️ Student ID not found!\n\nYou must have a Student ID to start the mock.\n\nClick OK to open Dashboard to generate one, or Cancel to stay here.");
+        if (goToDash) {
+            window.open('https://commercesehoga.github.io/dashboard/', '_blank');
+        }
+        return;
+    }
+
     enterFullscreen();
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('instruction-screen').style.display = 'block';
 }
+
+    window.addEventListener('DOMContentLoaded', () => {
+    const savedName = localStorage.getItem('cbtUserName') || '';
+    const savedSID = localStorage.getItem('ts_student_id') || '';
+
+    if (savedName) {
+        const inp = document.getElementById('username-input');
+        if (inp) {
+            inp.value = savedName;
+            inp.style.background = 'rgba(255,133,187,0.1)';
+            inp.style.borderColor = '#FF85BB';
+            inp.style.color = '#e0609a';
+            inp.style.fontWeight = 'bold';
+            inp.setAttribute('readonly', true);
+            inp.insertAdjacentHTML('afterend',
+                `<div style="font-size:11px; color:#FF85BB; font-weight:700; margin-top:5px;">
+                    ✅ Verified Dashboard Profile
+                </div>`
+            );
+        }
+    }
+
+    if (savedSID) {
+        // Add SID display below the name input area
+        const startBtns = document.querySelector('.start-btns');
+        if (startBtns) {
+            startBtns.insertAdjacentHTML('beforebegin',
+                `<div style="font-size:13px; font-weight:700; color:#e0609a; background:rgba(255,133,187,0.12);
+                padding:5px 15px; border-radius:20px; margin-bottom:10px;">
+                    🪪 ID: ${savedSID}
+                </div>`
+            );
+        }
+    }
+});
 
 document.getElementById('dark-toggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
@@ -2343,9 +2395,10 @@ startTestBtn.addEventListener('click', () => {
     document.getElementById('instruction-screen').style.display = 'none';
     document.getElementById('test-screen').style.display = 'block';
     const name = localStorage.getItem('cbtUserName') || 'Student';
+    const sid = localStorage.getItem('ts_student_id') || 'N/A';
     document.getElementById('user-name-display').textContent = '👤 ' + name;
     const mob = document.getElementById('mobile-name-display');
-    if (mob) mob.textContent = '👤 ' + name;
+    if (mob) mob.textContent = '👤 ' + name + ' | ' + sid;
     testStarted = true;
     enterFullscreen();
     initTest();
