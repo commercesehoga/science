@@ -219,8 +219,25 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 @keyframes blossomFall{0%{opacity:0;transform:translateY(-20px) rotate(0deg);}10%{opacity:0.8;}100%{opacity:0;transform:translateY(110vh) rotate(720deg) translateX(60px);}}
 
 /* SOCIAL PROMO */
-.social-promo{position:relative;width:100%;padding:44px 26px 52px;background:linear-gradient(180deg,rgba(240,235,255,0) 0%,rgba(28,10,60,0.97) 30%,rgba(28,10,60,1) 70%,rgba(240,235,255,0) 100%);overflow:hidden;z-index:1;}
-.social-promo::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(108,63,197,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(108,63,197,0.07) 1px,transparent 1px);background-size:40px 40px;animation:gridMove 12s linear infinite;pointer-events:none;}
+.social-promo {
+  position: relative;
+  width: 100%;
+  padding: 48px 28px 56px;
+  background: linear-gradient(135deg, #1a0050 0%, #6b1a8a 30%, #c2185b 65%, #0d47a1 100%);
+  overflow: hidden;
+  z-index: 1;
+}
+.social-promo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(173,216,255,0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,182,193,0.10) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridMove 12s linear infinite;
+  pointer-events: none;
+}
 @keyframes gridMove{0%{background-position:0 0;}100%{background-position:40px 40px;}}
 .sp-cards{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;max-width:760px;margin:0 auto 28px;}
 .sp-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:9px;padding:18px 16px 16px;border-radius:18px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);cursor:pointer;text-decoration:none;min-width:120px;flex:1;max-width:150px;transition:all .3s cubic-bezier(.34,1.56,.64,1);overflow:hidden;}
@@ -241,7 +258,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .sp-ticker{display:flex;gap:0;animation:tickerRoll 22s linear infinite;white-space:nowrap;width:max-content;}
 @keyframes tickerRoll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 .sp-tick-item{display:inline-flex;align-items:center;gap:7px;padding:0 20px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:.3px;}
-.sp-tick-dot{width:4px;height:4px;border-radius:50%;background:rgba(168,85,247,0.7);flex-shrink:0;}
+.sp-tick-dot{width:4px;height:4px;border-radius:50%;background:rgba(249,168,212,0.8);flex-shrink:0;}
 
 /* TOAST */
 .toast-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:99999;pointer-events:none;}
@@ -378,7 +395,7 @@ canvas#sparkles-canvas{position:absolute;top:0;left:0;right:0;height:100%;pointe
       <!-- SOCIAL PROMO -->
       <div class="social-promo" id="social-promo">
         <div style="text-align:center;font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(168,85,247,0.8);margin-bottom:8px;">Join the Community</div>
-        <div style="text-align:center;font-family:var(--fnh);font-size:clamp(20px,4vw,34px);font-weight:800;color:#fff;margin-bottom:7px;">Learn with <span style="background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ThunderStudy</span></div>
+        <div style="text-align:center;font-family:var(--fnh);font-size:clamp(20px,4vw,34px);font-weight:800;color:#fff;margin-bottom:7px;">Learn with <span style="background:linear-gradient(135deg,#f9a8d4,#93c5fd,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ThunderStudy</span></div>
         <div style="text-align:center;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:30px;">Follow us for daily updates, free resources &amp; exam tips</div>
         <div class="sp-cards">
           <a href="https://t.me/thunderstudy_official" target="_blank" class="sp-card tg">
