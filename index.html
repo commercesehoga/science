@@ -305,14 +305,14 @@ canvas#sparkles-canvas{position:absolute;top:0;left:0;right:0;height:100%;pointe
     <div style="font-size:13px;color:var(--text3);line-height:1.7;">Personalise your Science Dashboard experience!</div>
     <div class="gender-icon-wrap">
       <button class="gender-btn girl-opt" onclick="setGender('girl')">
-        <div class="gender-btn-icon">🌸</div>
+        <div class="gender-btn-icon">♀️</div>
         <div class="gender-btn-label" style="color:#e91e8c;">Girl</div>
         <div class="gender-btn-sub">Rose Blossom &amp; Cheer Theme</div>
       </button>
       <button class="gender-btn boy-opt" onclick="setGender('boy')">
         <div class="gender-btn-icon">⚡</div>
         <div class="gender-btn-label" style="color:#1565c0;">Boy</div>
-        <div class="gender-btn-sub">Commerce Blue Theme</div>
+        <div class="gender-btn-sub">Sky blue Theme</div>
       </button>
     </div>
     <div style="font-size:10px;color:var(--text3);">Change anytime in Settings</div>
@@ -576,7 +576,7 @@ function setGender(g){
   applyTheme(g);
   document.getElementById('gender-ov').classList.remove('open');
   if(g==='girl')startBlossoms();
-  toast('Theme set to '+(g==='girl'?'Rose Blossom 🌸':'Commerce Blue ⚡'));
+  toast('Theme set to '+(g==='girl'?'Rose Blossom 🌸':'Sky blue ⚡'));
   renderHome();
 }
 function applyTheme(g){
