@@ -665,7 +665,7 @@ function goPage(id){
 function updateSidebarProfile(){
   const sid=getSID(), name=getName();
   const gender=localStorage.getItem('ts_gender')||'';
-  const gIcon=gender==='girl'?'🌸':gender==='boy'?'📊':'👤';
+    const gIcon=gender==='girl'?'♀️':'🚺':gender==='boy'?'♂️':'🚹';
   const gLabel=gender==='girl'?'Girl · Rose Theme':gender==='boy'?'Boy · Commerce Theme':'';
   document.getElementById('sb-av').textContent=gIcon;
   document.getElementById('sb-nm').textContent=name;
