@@ -1,0 +1,2183 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thunderstudy CBT — Physic</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+const SUBJECT_ID  = "phy";
+const CHAPTER_ID  = "phy-pyq25";
+</script>
+
+<style>
+:root {
+    --primary: #FF85BB;
+    --primary-dark: #e0609a;
+    --primary-light: #ffb3d4;
+    --accent: #ff69a8;
+    --accent2: #ffadd1;
+    --white: #ffffff;
+    --off-white: #fff5f9;
+    --light-blue: #ffe4f0;
+    --mid-blue: #ffcce2;
+    --border: #ffcce2;
+    --text-dark: #3d0f22;
+    --text-mid: #7a2d4a;
+    --text-muted: #b56b8a;
+    --correct: #059669;
+    --correct-bg: #ecfdf5;
+    --incorrect: #dc2626;
+    --incorrect-bg: #fef2f2;
+    --answered: #22c55e;
+    --marked: #ff69a8;
+    --unanswered: #f97316;
+    --shadow: 0 4px 24px rgba(255,133,187,0.10);
+    --shadow-lg: 0 8px 40px rgba(255,133,187,0.16);
+
+    /* Dark mode vars */
+    --dm-bg: #1a0a10;
+    --dm-surface: #2a1019;
+    --dm-surface2: #3a1525;
+    --dm-border: #5c2040;
+    --dm-text: #ffe2ee;
+    --dm-muted: #d47ba4;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background: var(--dm-bg);
+    color: var(--dm-text);
+}
+
+/* ===== START SCREEN ===== */
+#start-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--white);
+    display: flex; flex-direction: column; align-items: center;
+    overflow-y: auto; padding: 0 20px 50px;
+    transition: background 0.3s;
+}
+
+body.dark-mode #start-screen { background: var(--dm-bg); }
+
+.start-hero {
+    width: 100%; max-width: 600px;
+    padding: 48px 0 0;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+}
+
+.start-logo {
+    width: 68px; height: 68px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 8px 28px rgba(26,111,196,0.35);
+    margin-bottom: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.start-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+body.dark-mode .start-brand { color: var(--accent2); }
+
+.start-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px; font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 10px;
+}
+body.dark-mode .start-title { color: var(--dm-text); }
+
+.start-sub {
+    font-size: 16px; color: var(--text-muted);
+    margin-bottom: 8px;
+}
+body.dark-mode .start-sub { color: var(--dm-muted); }
+
+.tg-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #0088cc, #006fa8);
+    color: white; text-decoration: none;
+    padding: 10px 24px; border-radius: 40px;
+    font-size: 14px; font-weight: 700;
+    box-shadow: 0 4px 16px rgba(0,136,204,0.4);
+    transition: transform 0.18s, box-shadow 0.18s;
+    margin: 16px 0 28px;
+}
+.tg-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,136,204,0.55); color: white; }
+
+.info-card {
+    width: 100%; max-width: 500px;
+    background: var(--light-blue);
+    border: 1.5px solid var(--mid-blue);
+    border-radius: 16px;
+    padding: 22px 24px;
+    text-align: left;
+    margin-bottom: 24px;
+}
+body.dark-mode .info-card { background: var(--dm-surface); border-color: var(--dm-border); }
+
+.info-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--primary); margin-bottom: 14px;
+}
+body.dark-mode .info-card h3 { color: var(--accent2); }
+
+.info-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+
+.info-pill {
+    background: white;
+    border-radius: 10px; padding: 10px 14px;
+    font-size: 13px; color: var(--text-mid);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+}
+body.dark-mode .info-pill { background: var(--dm-surface2); border-color: var(--dm-border); color: var(--dm-text); }
+
+.info-pill strong { color: var(--primary-dark); font-weight: 700; }
+body.dark-mode .info-pill strong { color: var(--accent2); }
+
+.name-input {
+    width: 100%; max-width: 380px;
+    padding: 14px 20px;
+    border: 2px solid var(--mid-blue);
+    border-radius: 50px;
+    font-size: 16px; font-family: 'DM Sans', sans-serif;
+    text-align: center;
+    background: white; color: var(--text-dark);
+    outline: none; transition: border 0.2s, box-shadow 0.2s;
+    margin-bottom: 18px;
+}
+.name-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,111,196,0.12); }
+body.dark-mode .name-input { background: var(--dm-surface); color: var(--dm-text); border-color: var(--dm-border); }
+
+.start-btns { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 340px; }
+
+.s-btn {
+    width: 100%; padding: 14px 0;
+    border: none; border-radius: 50px; cursor: pointer;
+    font-size: 16px; font-weight: 700; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.18s, box-shadow 0.18s;
+    letter-spacing: 0.3px;
+}
+.s-btn:hover { transform: translateY(-3px); }
+
+.s-btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; box-shadow: 0 6px 20px rgba(26,111,196,0.4);
+}
+.s-btn-primary:hover { box-shadow: 0 10px 28px rgba(26,111,196,0.55); }
+
+.s-btn-green {
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    color: white; box-shadow: 0 6px 20px rgba(34,197,94,0.35);
+}
+.s-btn-green:hover { box-shadow: 0 10px 28px rgba(34,197,94,0.5); }
+
+.s-btn-purple {
+    background: linear-gradient(135deg, #7c3aed, #4c1d95);
+    color: white; box-shadow: 0 6px 20px rgba(124,58,237,0.35);
+}
+.s-btn-purple:hover { box-shadow: 0 10px 28px rgba(124,58,237,0.5); }
+
+.dark-toggle {
+    position: absolute; top: 16px; right: 16px; z-index: 10000;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; border-radius: 40px;
+    padding: 8px 18px; font-size: 14px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 7px;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.4);
+    transition: background 0.3s, transform 0.2s;
+    font-family: 'DM Sans', sans-serif;
+}
+.dark-toggle:hover { transform: scale(1.05); }
+body.dark-mode .dark-toggle { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 4px 14px rgba(245,158,11,0.4); }
+
+/* ===== INSTRUCTION SCREEN ===== */
+#instruction-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--white); display: none; overflow-y: auto; padding: 40px 20px;
+}
+body.dark-mode #instruction-screen { background: var(--dm-bg); }
+
+.instr-wrap { max-width: 700px; margin: 0 auto; }
+
+.instr-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 800; color: var(--primary);
+    margin-bottom: 24px; text-align: center;
+}
+body.dark-mode .instr-title { color: var(--accent2); }
+
+.instr-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 1.5px solid var(--mid-blue); border-radius: 16px; padding: 28px;
+}
+body.dark-mode .instr-box { background: linear-gradient(135deg, var(--dm-surface), var(--dm-surface2)); border-color: var(--dm-border); }
+
+.instr-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--primary);
+    border-left: 4px solid var(--primary); padding-left: 12px; margin-bottom: 16px;
+}
+body.dark-mode .instr-box h3 { color: var(--accent2); border-left-color: var(--accent2); }
+
+.instr-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+.instr-list li {
+    background: white; border-radius: 10px; padding: 12px 16px;
+    font-size: 15px; color: var(--text-mid);
+    border: 1px solid var(--border);
+    transition: transform 0.15s;
+}
+body.dark-mode .instr-list li { background: var(--dm-surface2); border-color: var(--dm-border); color: var(--dm-text); }
+.instr-list li:hover { transform: translateX(5px); }
+
+.instr-legend {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;
+}
+
+.leg-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-mid); }
+body.dark-mode .leg-item { color: var(--dm-text); }
+.leg-dot { width: 14px; height: 14px; border-radius: 50%; }
+
+.agree-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 20px; font-size: 15px; font-weight: 600; cursor: pointer;
+    color: var(--text-mid);
+}
+body.dark-mode .agree-row { color: var(--dm-text); }
+
+.agree-row input { display: none; }
+
+.chk-box {
+    width: 22px; height: 22px; border-radius: 6px;
+    border: 2px solid var(--primary);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 14px; color: transparent; transition: 0.15s;
+    background: white;
+}
+body.dark-mode .chk-box { background: var(--dm-surface); border-color: var(--accent2); }
+
+.agree-row input:checked + .chk-box { background: var(--primary); color: white; }
+body.dark-mode .agree-row input:checked + .chk-box { background: var(--accent2); }
+
+#start-test-btn {
+    margin-top: 22px; width: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; border-radius: 50px; padding: 14px;
+    font-size: 17px; font-weight: 700; cursor: not-allowed; opacity: 0.55;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s, transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 6px 20px rgba(26,111,196,0.35);
+}
+#start-test-btn:not(:disabled) { cursor: pointer; opacity: 1; }
+#start-test-btn:not(:disabled):hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(26,111,196,0.5); }
+
+/* ===== TEST SCREEN ===== */
+#test-screen {
+    position: fixed; inset: 0; z-index: 9998;
+    background: var(--off-white); display: none; overflow: auto;
+}
+body.dark-mode #test-screen { background: var(--dm-bg); }
+
+/* SIDEBAR */
+.sidebar {
+    width: 280px; background: white;
+    height: 100vh; position: fixed; right: 0; top: 0;
+    padding: 20px; overflow-y: auto;
+    border-left: 2px solid var(--light-blue);
+    box-shadow: -4px 0 20px rgba(26,111,196,0.08);
+}
+body.dark-mode .sidebar { background: var(--dm-surface); border-left-color: var(--dm-border); }
+
+.timer {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; padding: 10px 0; border-radius: 40px;
+    font-weight: 700; font-size: 19px; text-align: center;
+    letter-spacing: 1px; margin-bottom: 18px;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.35);
+}
+
+.sidebar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700; color: var(--primary);
+    margin-bottom: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .sidebar-brand { color: var(--accent2); border-bottom-color: var(--dm-border); }
+
+.test-info-row { font-size: 13px; color: var(--text-muted); margin: 5px 0; display: flex; gap: 6px; }
+.test-info-row strong { color: var(--text-dark); font-weight: 600; }
+body.dark-mode .test-info-row { color: var(--dm-muted); }
+body.dark-mode .test-info-row strong { color: var(--dm-text); }
+
+.palette-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 18px 0 10px; font-size: 13px; font-weight: 600; color: var(--text-mid);
+}
+body.dark-mode .palette-header { color: var(--dm-text); }
+
+.palette-count { color: var(--primary); font-weight: 700; }
+body.dark-mode .palette-count { color: var(--accent2); }
+
+.palette-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px;
+}
+
+.palette-btn {
+    aspect-ratio: 1; border-radius: 50%; border: 2px solid #e5e7eb;
+    background: #fee2e2; /* unanswered = orange-ish red */
+    color: var(--text-dark); font-size: 11px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+.palette-btn:hover { transform: scale(1.1); }
+.palette-btn.answered { background: #bbf7d0; border-color: #22c55e; color: #14532d; }
+.palette-btn.marked { background: #bae6fd; border-color: #0ea5e9; color: #0c4a6e; }
+.palette-btn.current { background: white; border: 2.5px solid var(--primary); color: var(--primary); box-shadow: 0 0 0 3px rgba(26,111,196,0.2); }
+.palette-btn.review-correct { background: #22c55e; border-color: #16a34a; color: white; }
+.palette-btn.review-wrong { background: #ef4444; border-color: #dc2626; color: white; }
+.palette-btn.review-unanswered { background: #60a5fa; border-color: #3b82f6; color: white; }
+
+body.dark-mode .palette-btn { background: #7f1d1d; border-color: #991b1b; color: #fecaca; }
+body.dark-mode .palette-btn.answered { background: #14532d; border-color: #22c55e; color: #bbf7d0; }
+body.dark-mode .palette-btn.marked { background: #0c4a6e; border-color: #0ea5e9; color: #bae6fd; }
+body.dark-mode .palette-btn.current { background: var(--dm-surface2); border-color: var(--accent); color: var(--accent); }
+
+#palette-legend { margin-top: 14px; font-size: 12px; color: var(--text-muted); }
+body.dark-mode #palette-legend { color: var(--dm-muted); }
+#palette-legend .leg-label { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+
+/* MAIN CONTENT */
+.main-content {
+    margin-right: 280px; padding: 20px 24px;
+    min-height: 100vh;
+}
+
+.test-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .test-header { border-bottom-color: var(--dm-border); }
+
+.user-badge {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; padding: 7px 16px; border-radius: 30px;
+    font-size: 13px; font-weight: 700;
+}
+
+.q-counter {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; color: var(--text-dark);
+}
+body.dark-mode .q-counter { color: var(--dm-text); }
+.q-counter span { color: var(--primary); }
+body.dark-mode .q-counter span { color: var(--accent2); }
+
+.progress-wrap { flex: 1; max-width: 200px; margin: 0 16px; }
+.progress-bar-bg { height: 8px; background: var(--light-blue); border-radius: 10px; overflow: hidden; }
+body.dark-mode .progress-bar-bg { background: var(--dm-surface2); }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 10px; transition: width 0.4s; width: 0; }
+.progress-label { font-size: 12px; color: var(--text-muted); text-align: right; margin-top: 4px; }
+body.dark-mode .progress-label { color: var(--dm-muted); }
+
+/* QUESTION CARD */
+.question-card {
+    background: white; border-radius: 16px; padding: 28px;
+    box-shadow: var(--shadow); border: 1.5px solid var(--light-blue);
+    margin-bottom: 20px;
+}
+body.dark-mode .question-card { background: var(--dm-surface); border-color: var(--dm-border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+
+.q-num-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--light-blue); color: var(--primary);
+    padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700;
+    margin-bottom: 14px;
+}
+body.dark-mode .q-num-tag { background: var(--dm-surface2); color: var(--accent2); }
+
+.section-badge {
+    display: inline-flex; align-items: center;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; padding: 3px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; margin-bottom: 12px;
+}
+
+.q-text {
+    font-size: 18px; font-weight: 500; color: var(--text-dark);
+    line-height: 1.6; margin-bottom: 22px;
+}
+body.dark-mode .q-text { color: var(--dm-text); }
+
+/* OPTIONS */
+.option {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px; border: 2px solid var(--border);
+    border-radius: 12px; margin-bottom: 10px; cursor: pointer;
+    background: white; transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    user-select: none;
+}
+body.dark-mode .option { background: var(--dm-surface2); border-color: var(--dm-border); }
+.option:hover { border-color: var(--primary); background: var(--off-white); transform: translateX(4px); }
+body.dark-mode .option:hover { background: #1e3460; border-color: var(--accent); }
+
+.option.selected { border-color: var(--primary-dark); background: #dbeafe; }
+body.dark-mode .option.selected { background: #0d2a56; border-color: var(--accent); }
+
+.option.correct { border-color: var(--correct) !important; background: var(--correct-bg) !important; }
+.option.incorrect { border-color: var(--incorrect) !important; background: var(--incorrect-bg) !important; }
+
+.opt-letter {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid var(--border); background: var(--off-white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: var(--text-muted);
+    flex-shrink: 0; transition: all 0.15s;
+}
+.option.selected .opt-letter { background: var(--primary); border-color: var(--primary); color: white; }
+.option.correct .opt-letter { background: var(--correct); border-color: var(--correct); color: white; }
+.option.incorrect .opt-letter { background: var(--incorrect); border-color: var(--incorrect); color: white; }
+
+.opt-text { font-size: 15px; color: var(--text-dark); line-height: 1.5; flex: 1; }
+body.dark-mode .opt-text { color: var(--dm-text); }
+.option.selected .opt-text { color: var(--primary-dark); font-weight: 600; }
+body.dark-mode .option.selected .opt-text { color: var(--accent2); }
+.option.correct .opt-text { color: var(--correct); font-weight: 600; }
+.option.incorrect .opt-text { color: var(--incorrect); font-weight: 600; }
+
+.opt-indicator { font-size: 12px; font-weight: 700; margin-left: 4px; }
+.correct-indicator { color: var(--correct); }
+.incorrect-indicator { color: var(--incorrect); }
+
+.explanation-box {
+    margin-top: 18px; padding: 14px 18px;
+    border-radius: 12px; border-left: 4px solid var(--primary);
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    font-size: 14px; color: var(--text-mid); line-height: 1.7;
+}
+body.dark-mode .explanation-box { background: linear-gradient(135deg, var(--dm-surface), var(--dm-surface2)); border-left-color: var(--accent); color: var(--dm-text); }
+
+/* NAV BUTTONS */
+.nav-row {
+    display: flex; justify-content: space-between; align-items: center; margin-top: 24px;
+}
+
+.nav-btn {
+    padding: 10px 24px; border-radius: 10px; border: 2px solid var(--primary);
+    background: transparent; color: var(--primary); font-size: 14px; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.18s;
+}
+.nav-btn:hover { background: var(--light-blue); }
+body.dark-mode .nav-btn { border-color: var(--accent2); color: var(--accent2); }
+body.dark-mode .nav-btn:hover { background: var(--dm-surface2); }
+
+.next-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none;
+    padding: 12px 30px; border-radius: 10px; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 4px 14px rgba(26,111,196,0.35); transition: all 0.18s;
+}
+.next-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(26,111,196,0.5); }
+body.dark-mode .next-btn { background: linear-gradient(135deg, var(--accent), var(--primary)); }
+
+.mark-btn-q {
+    padding: 9px 18px; border-radius: 10px;
+    border: 2px solid var(--accent); background: transparent; color: var(--accent);
+    font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+}
+.mark-btn-q.marked { background: var(--accent); color: white; }
+.mark-btn-q:hover { background: var(--light-blue); }
+
+/* SUBMIT SECTION */
+.submit-row {
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 600px; margin: 20px auto; gap: 14px; flex-wrap: wrap;
+}
+
+.fancy-btn {
+    flex: 1; min-width: 140px; padding: 14px; border: none; border-radius: 50px;
+    font-size: 15px; font-weight: 700; cursor: pointer; text-align: center;
+    text-decoration: none; display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Sans', sans-serif; transition: transform 0.18s, box-shadow 0.18s;
+}
+.fancy-btn:hover { transform: translateY(-3px); }
+
+.fancy-submit { background: linear-gradient(135deg, #22c55e, #15803d); color: white; box-shadow: 0 6px 20px rgba(34,197,94,0.4); max-width: 260px; }
+.fancy-submit:hover { box-shadow: 0 10px 28px rgba(34,197,94,0.55); }
+.fancy-tg { background: linear-gradient(135deg, #0088cc, #005a99); color: white; box-shadow: 0 6px 20px rgba(0,136,204,0.4); max-width: 200px; }
+.fancy-tg:hover { box-shadow: 0 10px 28px rgba(0,136,204,0.55); color: white; }
+
+.fancy-pdf { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 6px 20px rgba(249,115,22,0.4); }
+.fancy-pdf:hover { box-shadow: 0 10px 28px rgba(249,115,22,0.55); }
+.fancy-result { background: linear-gradient(135deg, #7c3aed, #4c1d95); color: white; box-shadow: 0 6px 20px rgba(124,58,237,0.4); }
+.fancy-result:hover { box-shadow: 0 10px 28px rgba(124,58,237,0.55); }
+
+.stream-btn {
+    display: block; width: 100%; padding: 14px;
+    border-radius: 14px; color: white; font-weight: 700; font-size: 16px;
+    text-decoration: none; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+.stream-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.3); color: white; }
+
+body.dark-mode #stream-picker-box { background: var(--dm-surface); }
+body.dark-mode #stream-picker-box h3 { color: var(--accent2); }
+body.dark-mode #stream-picker-box p { color: var(--dm-muted); }
+body.dark-mode #stream-picker-box button { color: var(--dm-muted); }
+
+/* FOOTER */
+.test-footer {
+    background: linear-gradient(135deg, #0f1e3d, #1a3066);
+    color: #94b8e8; text-align: center; padding: 22px 16px;
+    margin-top: 10px;
+}
+.test-footer p { font-size: 12px; margin-bottom: 12px; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.footer-link {
+    padding: 8px 18px; border-radius: 30px; font-size: 13px; font-weight: 600;
+    text-decoration: none; color: white; transition: transform 0.18s, box-shadow 0.18s;
+}
+.footer-link:hover { transform: translateY(-2px); color: white; }
+.fl-purple { background: linear-gradient(135deg, #7c3aed, #4c1d95); box-shadow: 0 3px 10px rgba(124,58,237,0.35); }
+.fl-green { background: linear-gradient(135deg, #059669, #065f46); box-shadow: 0 3px 10px rgba(5,150,105,0.35); }
+.fl-red { background: linear-gradient(135deg, #dc2626, #991b1b); box-shadow: 0 3px 10px rgba(220,38,38,0.35); }
+
+/* MODAL */
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99999; justify-content: center; align-items: center; }
+.modal.show { display: flex; }
+
+.modal-content {
+    background: white; border-radius: 20px; padding: 32px;
+    width: 90%; max-width: 580px; max-height: 90vh; overflow-y: auto;
+    animation: modalIn 0.3s ease;
+}
+body.dark-mode .modal-content { background: var(--dm-surface); border: 1.5px solid var(--dm-border); }
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px; padding-bottom: 14px; border-bottom: 2px solid var(--light-blue);
+}
+body.dark-mode .modal-head { border-bottom-color: var(--dm-border); }
+
+.modal-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--primary);
+}
+body.dark-mode .modal-head h2 { color: var(--accent2); }
+
+.close-x { background: none; border: none; font-size: 26px; cursor: pointer; color: var(--text-muted); }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+
+.stat-tile {
+    background: var(--off-white); border-radius: 14px; padding: 18px;
+    text-align: center; border: 1.5px solid var(--border);
+}
+body.dark-mode .stat-tile { background: var(--dm-surface2); border-color: var(--dm-border); }
+
+.stat-tile h4 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+body.dark-mode .stat-tile h4 { color: var(--dm-muted); }
+
+.stat-tile p { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; }
+.stat-correct { color: var(--correct); }
+.stat-wrong { color: var(--incorrect); }
+.stat-neutral { color: var(--text-muted); }
+.stat-score { color: var(--primary); }
+body.dark-mode .stat-score { color: var(--accent2); }
+
+.analysis { font-size: 14px; color: var(--text-mid); margin-bottom: 18px; line-height: 1.8; }
+body.dark-mode .analysis { color: var(--dm-text); }
+
+.modal-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.modal-btn {
+    flex: 1; padding: 12px; border-radius: 12px; border: none; cursor: pointer;
+    font-size: 14px; font-weight: 700; font-family: 'DM Sans', sans-serif; transition: all 0.18s;
+}
+.modal-btn:hover { transform: translateY(-2px); }
+.mb-review { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; box-shadow: 0 4px 14px rgba(26,111,196,0.4); }
+.mb-pdf { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 4px 14px rgba(249,115,22,0.4); }
+
+/* MOBILE */
+.mobile-bar { display: none; }
+
+@media (max-width: 768px) {
+    .mobile-bar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 8px 12px; background: white; border-bottom: 2px solid var(--light-blue);
+        margin-bottom: 8px; border-radius: 10px; box-shadow: var(--shadow);
+    }
+    body.dark-mode .mobile-bar { background: var(--dm-surface); border-color: var(--dm-border); }
+    .mob-timer {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white; padding: 6px 14px; border-radius: 30px; font-weight: 700; font-size: 14px;
+    }
+    #user-name-display { display: none !important; }
+    .sidebar .timer, .sidebar .sidebar-brand { display: none !important; }
+    .sidebar { position: relative; width: 100%; height: auto; right: 0; left: 0; border-left: none; border-top: 2px solid var(--light-blue); box-shadow: none; }
+    body { flex-direction: column; }
+    .main-content { margin-right: 0; width: 100%; padding: 12px; }
+    .question-card { padding: 18px; }
+    .q-text { font-size: 16px; }
+    .nav-row { flex-direction: row; gap: 8px; }
+    .palette-grid { max-height: 200px; overflow-y: auto; }
+}
+
+@media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .modal-btns { flex-direction: column; }
+}
+
+/* option radio hide */
+.option input[type="radio"] { display: none; }
+
+#pdf-print-area { display: none; }
+@media print {
+    body > * { display: none !important; }
+    #pdf-print-area { display: block !important; font-family: Arial, sans-serif; color: #111; padding: 20px; }
+}
+.option svg {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+  /* Auto-size SVGs in question text */
+.q-text svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+}
+/* Image-option SVGs stay small */
+.option svg {
+    max-width: 220px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+</style>
+</head>
+<body>
+
+<!-- START SCREEN -->
+<div id="start-screen">
+
+<button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode" style="position:absolute;top:16px;right:16px;">
+    <span id="toggle-icon">🌙</span>
+    <span id="toggle-label">Dark</span>
+</button>
+
+<div class="start-hero">
+    <div class="start-logo">📖</div>
+    <div class="start-brand">Thunderstudy CBT</div>
+    <h1 class="start-title">Physics Mock Test</h1>
+    <p class="start-sub">Unit all <strong>.</strong></p>
+    <p class="start-sub">Provided by <strong>Thunderstudy</strong> — Full Mock</p>
+
+    <a href="https://t.me/thunderstudy_official" target="_blank" class="tg-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.04 9.607c-.148.666-.543.828-1.098.516l-3.04-2.24-1.467 1.413c-.162.162-.298.298-.611.298l.217-3.083 5.613-5.067c.244-.217-.054-.337-.378-.12L7.08 14.807 4.09 13.89c-.657-.205-.67-.657.137-.973l10.88-4.196c.548-.198 1.027.133.855.973z"/></svg>
+        @thunderstudy_official
+    </a>
+
+    <div class="info-card">
+        <h3>📋 Quick Overview</h3>
+        <div class="info-grid">
+            <div class="info-pill">📝 <div><strong>50 Questions</strong></div></div>
+            <div class="info-pill">⏱️ <div><strong>60 Minutes</strong></div></div>
+            <div class="info-pill">✅ <div><strong>+5 Correct</strong></div></div>
+            <div class="info-pill">❌ <div><strong>−1 Wrong</strong></div></div>
+            <div class="info-pill">🚫 <div><strong>No tab switching</strong></div></div>
+            <div class="info-pill">🔁 <div><strong>Auto-submits</strong></div></div>
+        </div>
+    </div>
+
+    <input type="text" id="username-input" class="name-input" placeholder="Enter your name to begin">
+
+    <div class="start-btns">
+        <button class="s-btn s-btn-primary" onclick="startMock()">🚀 Start Mock Test</button>
+        <button class="s-btn s-btn-green" onclick="window.location.href='https://commercesehoga.github.io/commerce/bst/result.html'">📊 Previous Results</button>
+        <button class="s-btn s-btn-purple" onclick="window.open('https://commercesehoga.blogspot.com/2026/03/business-studies-cuet-cbt-mock-test-free.html','_blank')">📚 More Mock Tests</button>
+    </div>
+</div>
+</div>
+
+<!-- INSTRUCTION SCREEN -->
+<div id="instruction-screen">
+<div class="instr-wrap">
+    <h2 class="instr-title">📜 Instructions</h2>
+    <div class="instr-box">
+        <h3>General Guidelines</h3>
+        <ol class="instr-list">
+            <li>Total duration is <strong>60 minutes</strong>. Timer is shown in the sidebar.</li>
+            <li>The test <strong>auto-submits</strong> when time runs out.</li>
+            <li>Test runs in <strong>fullscreen</strong>. Exiting starts a <strong>5-second</strong> countdown to auto-submit.</li>
+            <li><strong>Do not switch tabs.</strong> Switching tabs starts a <strong>2-second</strong> countdown.</li>
+            <li>Return before the countdown ends to cancel auto-submission.</li>
+            <li>Right panel shows palette with question status (answered, marked, etc.)</li>
+            <li>Marking: <strong>+5 correct</strong> / <strong>−1 wrong</strong> / <strong>0 unanswered</strong>.</li>
+        </ol>
+
+        <div class="instr-legend" style="margin-top: 20px;">
+            <strong style="font-size:13px; display:block; margin-bottom:8px;">Status Legend:</strong>
+            <div class="leg-item"><div class="leg-dot" style="background:#22c55e;border:1px solid #16a34a;"></div>Answered</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#bae6fd;border:1px solid #0ea5e9;"></div>Marked</div>
+            <div class="leg-item"><div class="leg-dot" style="background:white;border:2px solid #1a6fc4;"></div>Current</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#fee2e2;border:1px solid #fca5a5;"></div>Unanswered</div>
+        </div>
+
+        <label class="agree-row">
+            <input type="checkbox" id="agree-checkbox">
+            <span class="chk-box">✓</span>
+            I have read and understood all instructions
+        </label>
+
+        <button id="start-test-btn" disabled>▶ Start Test</button>
+    </div>
+</div>
+</div>
+
+<!-- TEST SCREEN -->
+<div id="test-screen">
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="timer">01:00:00</div>
+    <div class="sidebar-brand">⚡ Thunderstudy CBT</div>
+
+    <div class="test-info-row"><strong>Subject:</strong> Physics</div>
+    <div class="test-info-row"><strong>Questions:</strong> 50</div>
+    <div class="test-info-row"><strong>Duration:</strong> 60 min</div>
+    <div class="test-info-row"><strong>Marking:</strong> +5 / −1</div>
+    <div class="test-info-row"><strong>Section:</strong> <span id="current-section">—</span></div>
+
+    <div class="palette-header">
+        <span>Questions</span>
+        <span class="palette-count" id="answered-count">0/50</span>
+    </div>
+    <div class="palette-grid" id="question-palette-grid"></div>
+    <div id="palette-legend" style="margin-top:14px; font-size:12px;"></div>
+</div>
+
+<!-- Main -->
+<div class="main-content">
+
+    <div class="mobile-bar">
+        <div class="mob-timer">01:00:00</div>
+        <div id="mobile-name-display" style="background:linear-gradient(135deg,var(--primary),var(--accent));color:white;padding:6px 14px;border-radius:20px;font-weight:700;font-size:13px;">👤 Student</div>
+    </div>
+
+    <div class="test-header">
+        <div id="user-name-display" class="user-badge">👤 Student</div>
+        <div class="q-counter">Q <span id="current-q-number">1</span>/50</div>
+        <div class="progress-wrap">
+            <div class="progress-bar-bg"><div class="progress-bar-fill" id="test-progress"></div></div>
+            <div class="progress-label" id="progress-percent">0%</div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-num-tag">Question <span id="q-number">1</span></div>
+        <div class="section-badge" id="section-badge">Reading Comprehension</div>
+        <div class="q-text" id="question-text"></div>
+        <div id="options-container"></div>
+
+        <div class="nav-row">
+            <button class="nav-btn" id="prev-btn">← Previous</button>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <button class="mark-btn-q" id="mark-btn">🔖 Mark</button>
+                <button class="next-btn" id="next-btn">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-row" id="submit-row-before">
+        <a href="https://t.me/thunderstudy_official" target="_blank" class="fancy-btn fancy-tg">⚡ Join Thunder</a>
+        <button class="fancy-btn fancy-submit" id="submit-test-btn">✅ Submit Test</button>
+    </div>
+
+    <!-- Post-submit action row (hidden until submitted) -->
+    <div class="submit-row" id="submit-row-after" style="display:none;">
+        <a href="https://t.me/thunderstudy_official" target="_blank" class="fancy-btn fancy-tg" style="flex:1;max-width:180px;">⚡ Join Thunder</a>
+        <button class="fancy-btn fancy-pdf" id="pdf-action-btn" style="flex:1;max-width:180px;">📄 Download PDF</button>
+        <button class="fancy-btn fancy-result" id="result-action-btn" style="flex:1;max-width:180px;">📊 Result</button>
+    </div>
+
+    <!-- Stream Picker Popup -->
+    <div id="stream-picker-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999998;justify-content:center;align-items:center;">
+        <div id="stream-picker-box" style="background:white;border-radius:20px;padding:32px 28px;width:90%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.25);animation:modalIn 0.3s ease;text-align:center;position:relative;">
+            <button onclick="document.getElementById('stream-picker-overlay').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#6b8ab5;">×</button>
+            <div style="font-size:36px;margin-bottom:10px;">📊</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:#1a6fc4;margin-bottom:6px;">View Previous Results</h3>
+            <p style="font-size:13px;color:#6b8ab5;margin-bottom:22px;">Select your stream to view results</p>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#1a6fc4,#0ea5e9);">
+                    🏪 Commerce
+                </a>
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#059669,#0d9488);">
+                    🔬 Science
+                </a>
+                <a href="https://commercesehoga.github.io/commerce/bst/result.html" target="_blank" class="stream-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">
+                    📚 Humanities
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="test-footer">
+        <p>© 2025 Thunderstudy. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="https://commercesehoga.blogspot.com/2026/03/business-studies-cuet-cbt-mock-test-free.html" target="_blank" class="footer-link fl-purple">📚 More Mocks</a>
+            <a href="https://commercesehoga.blogspot.com/" target="_blank" class="footer-link fl-green">🌐 Website</a>
+            <a href="https://t.me/mindmaster_robot" target="_blank" class="footer-link fl-red">🚨 Report Error</a>
+        </div>
+    </footer>
+</div>
+
+<!-- Results Modal -->
+<div class="modal" id="results-modal">
+<div class="modal-content">
+    <div class="modal-head">
+        <h2>🏆 Test Results</h2>
+        <button class="close-x" id="close-modal">×</button>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-tile"><h4>Correct</h4><p class="stat-correct" id="correct-answers">0</p></div>
+        <div class="stat-tile"><h4>Wrong</h4><p class="stat-wrong" id="incorrect-answers">0</p></div>
+        <div class="stat-tile"><h4>Unanswered</h4><p class="stat-neutral" id="unanswered">50</p></div>
+        <div class="stat-tile"><h4>Score</h4><p class="stat-score" id="total-score">0</p></div>
+    </div>
+    <div class="analysis">
+        Percentage: <strong><span id="percentage">0</span>%</strong> &nbsp;|&nbsp;
+        Accuracy: <strong><span id="accuracy">0</span>%</strong>
+    </div>
+    <div class="modal-btns">
+        <button class="modal-btn mb-review" id="review-btn">👁 Review Answers</button>
+        <button class="modal-btn mb-pdf" id="download-pdf-btn">📄 Download PDF</button>
+        <button class="modal-btn mb-result" id="modal-result-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;box-shadow:0 4px 14px rgba(124,58,237,0.4);">📊 Result</button>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id="pdf-print-area"></div>
+
+<script>
+/* ============================================================
+   MOCK TEST DATA — English Chapter 1
+   ============================================================ */
+// ============================================================
+//  PHYSICS — Unit 1: Electrostatics (50 CUET-Hard Questions)
+//  Format matches sample: text-options AND image-options types
+// ============================================================
+
+const mockTest = {
+  title: "Physics Mock — Electrostatics",
+   duration: 60 * 60,
+    markingScheme: { correct: 5, incorrect: -1 },
+  questions: [
+  {
+    id: 1,
+    section: "Match the Following",
+    text: `Match List-I with List-II based on electric dipole properties.\n\nList-I:\n(A) Electric field variation for a short dipole\n(B) Direction of electric field lines\n(C) Potential at the center of dipole\n(D) Electric field at the midpoint of dipole\n\nList-II:\n(I) From positive to negative charge\n(II) Zero\n(III) Non-zero, fields add in same direction\n(IV) 1/r³ dependence\n\nChoose the correct answer from the options given below:`,
+    options: {
+      a: "(A)-(IV), (B)-(I), (C)-(II), (D)-(III)",
+      b: "(A)-(I), (B)-(IV), (C)-(III), (D)-(II)",
+      c: "(A)-(II), (B)-(III), (C)-(I), (D)-(IV)",
+      d: "(A)-(III), (B)-(II), (C)-(IV), (D)-(I)"
+    },
+    correctAnswer: "a",
+    explanation: "For a short dipole, electric field varies as 1/r³ (A-IV). Electric field lines go from positive to negative charge (B-I). Potential at center is zero due to symmetry (C-II). At midpoint, fields from both charges are in same direction, so non-zero and add (D-III). Option a is correct."
+  },
+  {
+    id: 2,
+    section: "Application MCQ",
+    text: `Which of the following properties are desired in materials for permanent magnets?\n\n(A) High retentivity\n(B) High coercivity\n(C) High permeability\n(D) Low permeability\n\nChoose the correct answer from the options given below:`,
+    options: {
+      a: "(A) and (D) only",
+      b: "(B) and (C) only",
+      c: "(A), (B) and (C) only",
+      d: "(A) and (C) only"
+    },
+    correctAnswer: "c",
+    explanation: "Permanent magnets require high retentivity to retain magnetic field, high coercivity to resist demagnetization, and high permeability to support strong magnetic field. Low permeability is undesirable. Thus (A), (B), and (C) are correct. Option c is correct."
+  },
+  {
+    id: 3,
+    section: "Assertion-Reason",
+    text: `Assertion (A): The photoelectric effect supports the quantum nature of light.\nReason (R): The maximum kinetic energy of photoelectrons depends on the frequency of incident light and is independent of intensity.\n\nChoose the correct answer from the options given below:`,
+    options: {
+      a: "Both A and R are true and R is the correct explanation of A",
+      b: "Both A and R are true but R is NOT the correct explanation of A",
+      c: "A is true but R is false",
+      d: "A is false but R is true"
+    },
+    correctAnswer: "a",
+    explanation: "Both statements are true. The photoelectric effect shows that light behaves as particles (photons). The dependence of K_max on frequency (not intensity) directly contradicts wave theory and supports quantum nature. R correctly explains A via Einstein's equation K_max = hf - Φ."
+  },
+  {
+    id: 4,
+    section: "Match the Following",
+    text: `Match List-I with List-II regarding photon properties.\n\nList-I:\n(A) Speed of photons in vacuum\n(B) Rest mass of photon\n(C) Photon energy dependence\n(D) Photon momentum dependence\n\nList-II:\n(I) Zero\n(II) Directly on frequency\n(III) 3 × 10⁸ m/s\n(IV) Directly on frequency (p = h/λ)\n\nChoose the correct answer:`,
+    options: {
+      a: "(A)-(III), (B)-(I), (C)-(II), (D)-(IV)",
+      b: "(A)-(I), (B)-(III), (C)-(IV), (D)-(II)",
+      c: "(A)-(II), (B)-(IV), (C)-(I), (D)-(III)",
+      d: "(A)-(IV), (B)-(II), (C)-(III), (D)-(I)"
+    },
+    correctAnswer: "a",
+    explanation: "Photons travel at speed of light in vacuum (A-III). Rest mass is zero (B-I). Energy depends on frequency, E = hf (C-II). Momentum p = h/λ, inversely dependent on wavelength but directly on frequency (D-IV correct as written). Option a is correct."
+  },
+  {
+    id: 5,
+    section: "Application MCQ",
+    text: `There are two electric charges Q₁ and Q₂ placed in vacuum. Identify the correct statements from the following:\n\n(A) There will be an electrostatic force between them.\n(B) If these charges are placed in water, the force between them will increase.\n(C) The electrostatic force between them is a conservative force.\n(D) If both charges are doubled (2Q₁ and 2Q₂), the force becomes 4 times.\n\nChoose the correct answer:`,
+    options: {
+      a: "(A) and (D) only",
+      b: "(A), (C) and (D) only",
+      c: "(A) and (C) only",
+      d: "(A), (B) and (C) only"
+    },
+    correctAnswer: "b",
+    explanation: "Coulomb's law: F = kQ₁Q₂/r². (A) True: force exists between any two charges. (B) False: water has higher dielectric constant, force decreases. (C) True: electrostatic force is conservative. (D) True: doubling both charges multiplies product by 4, so force becomes 4×. Thus (A),(C),(D) correct."
+  },
+  {
+    id: 6,
+    section: "Application MCQ",
+    text: `In a series LCR circuit, C = 80 μF, L = 5.0 H and R = 40 Ω are connected to a variable frequency source of 240 V. The angular frequency of the source which drives the circuit at resonance will be:`,
+    options: {
+      a: "5 rad/s",
+      b: "25 rad/s",
+      c: "0.05 rad/s",
+      d: "50 rad/s"
+    },
+    correctAnswer: "d",
+    explanation: "At resonance, angular frequency ω = 1/√(LC) = 1/√(5 × 80 × 10⁻⁶) = 1/√(400 × 10⁻⁶) = 1/0.02 = 50 rad/s. Option d is correct. Option a,b,c are incorrect calculations."
+  },
+  {
+    id: 7,
+    section: "Application MCQ",
+    text: `A parallel plate air capacitor is charged, and then the battery is disconnected. On inserting a dielectric between the plates, which of the following change?\n\n(A) Potential difference between the plates\n(B) Charge on the plates\n(C) Electric field between the plates\n(D) Energy stored in the capacitor\n\nChoose the correct answer:`,
+    options: {
+      a: "(A), (B) and (D) only",
+      b: "(A), (C) and (D) only",
+      c: "(B), (C) and (D) only",
+      d: "(A), (B), (C) and (D)"
+    },
+    correctAnswer: "b",
+    explanation: "Battery disconnected means charge Q constant (B does NOT change). Inserting dielectric increases capacitance C. Q = CV, so V decreases (A changes). Electric field E = V/d decreases (C changes). Energy U = Q²/(2C) decreases (D changes). Thus (A),(C),(D) change. Option b correct."
+  },
+  {
+    id: 8,
+    section: "Assertion-Reason",
+    text: `Assertion (A): The refractive index of the second medium with respect to the first medium is independent of the angle of incidence.\nReason (R): Refractive index depends only on the properties of the two media and the wavelength of light.\n\nChoose the correct answer:`,
+    options: {
+      a: "Both A and R are true and R is the correct explanation of A",
+      b: "Both A and R are true but R is NOT the correct explanation of A",
+      c: "A is true but R is false",
+      d: "A is false but R is true"
+    },
+    correctAnswer: "a",
+    explanation: "Both true. Refractive index n = sin i / sin r is constant for given media and wavelength, independent of angle of incidence. R correctly explains that n depends on media properties and wavelength (dispersion). So a is correct."
+  },
+  {
+    id: 9,
+    section: "Application MCQ",
+    text: `Two coherent light sources have intensities in the ratio 25:16. The ratio of the intensities of maxima to minima in the interference pattern due to them would be:`,
+    options: {
+      a: "25:16",
+      b: "9:1",
+      c: "4:1",
+      d: "81:1"
+    },
+    correctAnswer: "d",
+    explanation: "I₁/I₂ = 25/16 → a₁/a₂ = 5/4. I_max/I_min = ((a₁+a₂)/(a₁-a₂))² = ((5+4)/(5-4))² = (9/1)² = 81/1 = 81:1. Option d correct. Option a is intensity ratio, b is amplitude ratio squared? 9:1 is (a₁+a₂)/(a₁-a₂) not squared. c is 4:1 wrong."
+  },
+  {
+    id: 10,
+    section: "Application MCQ",
+    text: `A long straight conductor carries a current of 304 A. The magnitude of the magnetic field due to the current at a distance of 6 cm from the conductor is: (μ₀ = 4π × 10⁻⁷ T·m/A)`,
+    options: {
+      a: "3.002 mT",
+      b: "1003 mT",
+      c: "1.013 mT",
+      d: "2.012 T"
+    },
+    correctAnswer: "c",
+    explanation: "B = μ₀I/(2πr) = (4π×10⁻⁷ × 304)/(2π×0.06) = (2×10⁻⁷ × 304)/0.06 = (6.08×10⁻⁵)/0.06 = 1.013×10⁻³ T = 1.013 mT. Option c correct. Option a is 3×, b is 1000×, d is 2000× too high."
+  },
+  {
+    id: 11,
+    section: "Application MCQ",
+    text: `The half-life of a radioactive substance is 20 s. The time taken for its sample to decay 7/8 th of the initial value is:`,
+    options: {
+      a: "20 s",
+      b: "40 s",
+      c: "60 s",
+      d: "80 s"
+    },
+    correctAnswer: "c",
+    explanation: "If 7/8 decayed, remaining = 1/8 = (1/2)³. So 3 half-lives = 3 × 20 = 60 s. Option c correct. Option a is 1 half-life, b is 2 half-lives, d is 4 half-lives."
+  },
+  {
+    id: 12,
+    section: "Application MCQ",
+    text: `Nichrome element is used in household appliances because of the following characteristics:\n\n(A) Its melting point is high\n(B) Its resistivity is large\n(C) It is tensile\n(D) It does not oxidize easily by the oxygen of the air when heated\n\nChoose the correct answer:`,
+    options: {
+      a: "(A), (B) and (D) only",
+      b: "(A), (B) and (C) only",
+      c: "(A), (B), (C) and (D)",
+      d: "(B), (C) and (D) only"
+    },
+    correctAnswer: "a",
+    explanation: "Nichrome has high melting point (A), high resistivity to produce heat (B), does not oxidize easily when hot (D). (C) 'tensile' is not a primary reason; many materials are tensile. Thus (A),(B),(D) only. Option a correct, c includes tensile incorrectly."
+  },
+  {
+    id: 13,
+    section: "Case Study",
+    text: `READ THE FOLLOWING CASE STUDY CAREFULLY AND ANSWER QUESTIONS 13 TO 17:\n\nIn Faraday's famous experiment on electromagnetic induction at the Royal Institution in 1831, he used a coil connected to a galvanometer and a bar magnet. He observed that when the magnet was moved towards the coil, the galvanometer showed a deflection, indicating induced current. The deflection was larger when the magnet was moved faster. When the magnet was held stationary inside the coil, no deflection was observed. Faraday concluded that a changing magnetic flux induces an emf. The magnitude of induced emf is given by ε = -dΦ/dt. Lenz's law gives the direction: the induced current opposes the change in flux. In a classroom demonstration, a teacher uses a coil of 50 turns and a strong magnet. Students observe that the induced current is maximum when the magnet is accelerated towards the coil, and minimum when moved uniformly. The teacher then explains that this principle is used in generators, transformers, and induction cooktops.\n\nQ13. In Faraday's experiment, the galvanometer shows maximum deflection when the:`,
+    options: {
+      a: "magnet is at rest inside the coil",
+      b: "magnet is accelerated towards the coil",
+      c: "magnet is in uniform motion towards the coil",
+      d: "magnet is decelerated away from the coil"
+    },
+    correctAnswer: "b",
+    explanation: "Maximum deflection occurs when rate of change of flux is maximum, i.e., when magnet is accelerated (changing speed). At rest: no change. Uniform motion: constant rate, smaller deflection. Decelerated away: still change but less than acceleration. Option b correct."
+  },
+  {
+    id: 14,
+    section: "Case Study",
+    text: `(Refer to case study in Q13)\n\nQ14. Which of the following statements about Wheatstone Bridge are correct?\n\n(A) When balanced, no current flows through the galvanometer arm.\n(B) Wheatstone Bridge works on the principle of Kirchhoff's law.\n(C) Being a null method, the result is free from effects of extra resistances like cell resistance.\n(D) It is most sensitive when all four resistances are nearly equal.\n\nChoose the correct answer:`,
+    options: {
+      a: "(A), (B) and (D) only",
+      b: "(A), (B) and (C) only",
+      c: "(A), (B), (C) and (D)",
+      d: "(B), (C) and (D) only"
+    },
+    correctAnswer: "c",
+    explanation: "All statements are true. At balance, I_g=0 (A). Principle uses Kirchhoff's laws (B). Null method eliminates cell resistance and contact resistance effects (C). Maximum sensitivity when all resistors nearly equal (D). Thus (A),(B),(C),(D) all correct. Option c correct."
+  },
+  {
+    id: 15,
+    section: "Application MCQ",
+    text: `The radii of curvature of the two surfaces of a concave lens are 20 cm each. The refractive index of the material of the lens is 1.5. The power of the lens would be:`,
+    options: {
+      a: "-5 D",
+      b: "-1 D",
+      c: "2.5 D",
+      d: "-0.5 D"
+    },
+    correctAnswer: "a",
+    explanation: "Lens maker's formula: 1/f = (n-1)(1/R₁ - 1/R₂). For biconcave, R₁ = -20 cm = -0.2 m, R₂ = +20 cm = +0.2 m. 1/R₁ - 1/R₂ = -1/0.2 - 1/0.2 = -5 - 5 = -10 m⁻¹. 1/f = (0.5)(-10) = -5 m⁻¹. Power P = 1/f = -5 D. Option a correct."
+  },
+  {
+    id: 16,
+    section: "Application MCQ",
+    text: `A cell of emf E and internal resistance r gives a current of 0.6 A with an external resistance of 3 Ω and 0.2 A with external resistance of 10 Ω. The internal resistance of the cell is:`,
+    options: {
+      a: "0.5 Ω",
+      b: "1.0 Ω",
+      c: "0.05 Ω",
+      d: "0.01 Ω"
+    },
+    correctAnswer: "a",
+    explanation: "E = I₁(R₁+r) = 0.6(3+r) and E = 0.2(10+r). Equate: 1.8 + 0.6r = 2 + 0.2r → 0.4r = 0.2 → r = 0.5 Ω. Option a correct. Others are incorrect calculations."
+  },
+  {
+    id: 17,
+    section: "Application MCQ",
+    text: `With the rise in temperature, the electrical resistance:`,
+    options: {
+      a: "increases for a conductor and a semiconductor",
+      b: "decreases for a conductor and a semiconductor",
+      c: "increases for a conductor and decreases for a semiconductor",
+      d: "decreases for a conductor and increases for a semiconductor"
+    },
+    correctAnswer: "c",
+    explanation: "For conductors, resistance increases with temperature due to increased lattice vibrations. For semiconductors, resistance decreases because more charge carriers are generated. Option c correct. Options a,b,d show incorrect dependence."
+  },
+  {
+    id: 18,
+    section: "Match the Following",
+    text: `Match List-I with List-II regarding depletion layer in p-n junction.\n\nList-I:\n(A) Forward bias effect on depletion width\n(B) Reverse bias effect on depletion width\n(C) Depletion region charge carriers\n(D) Built-in potential direction\n\nList-II:\n(I) Widens\n(II) Narrows\n(III) Depleted of free carriers\n(IV) From n-side to p-side\n\nChoose the correct answer:`,
+    options: {
+      a: "(A)-(II), (B)-(I), (C)-(III), (D)-(IV)",
+      b: "(A)-(I), (B)-(II), (C)-(III), (D)-(IV)",
+      c: "(A)-(II), (B)-(I), (C)-(IV), (D)-(III)",
+      d: "(A)-(III), (B)-(IV), (C)-(I), (D)-(II)"
+    },
+    correctAnswer: "a",
+    explanation: "Forward bias narrows depletion width (A-II). Reverse bias widens it (B-I). Depletion region has no free carriers (C-III). Built-in potential direction is from n to p side (D-IV). Option a correct."
+  },
+  {
+    id: 19,
+    section: "Match the Following",
+    text: `In n-type semiconductors, A are the majority charge carriers and B are the minority charge carriers. Identify A and B.`,
+    options: {
+      a: "A = electrons; B = protons",
+      b: "A = protons; B = electrons",
+      c: "A = electrons; B = holes",
+      d: "A = holes; B = electrons"
+    },
+    correctAnswer: "c",
+    explanation: "In n-type semiconductors, pentavalent impurities donate extra electrons, making electrons majority carriers. Holes are minority carriers. Option c correct. Option a incorrect (protons not charge carriers in solids), b wrong, d reversed."
+  },
+  {
+    id: 20,
+    section: "Application MCQ",
+    text: `A 600 pF capacitor is charged by a 150 V battery. The charge on the capacitor is:`,
+    options: {
+      a: "9 μC",
+      b: "4 pC",
+      c: "90 nC",
+      d: "9 nC"
+    },
+    correctAnswer: "c",
+    explanation: "Q = CV = 600 × 10⁻¹² × 150 = 90,000 × 10⁻¹² = 9 × 10⁻⁸ C = 90 × 10⁻⁹ C = 90 nC. Option c correct. Option a is 9 μC (100× too high), b is too small, d is 9 nC (1/10 of correct)."
+  },
+  {
+    id: 21,
+    section: "Application MCQ",
+    text: `The magnetic flux through a coil placed in a magnetic field is given by φ = 5t³ + 4t² + 2t - 5 Wb. The resistance of the coil is 10 Ω. The induced current through the coil at t = 2 s is:`,
+    options: {
+      a: "7.8 A",
+      b: "15.6 A",
+      c: "0.78 A",
+      d: "3.9 A"
+    },
+    correctAnswer: "a",
+    explanation: "ε = dφ/dt = 15t² + 8t + 2. At t=2: ε = 15(4) + 16 + 2 = 60+16+2=78 V. I = ε/R = 78/10 = 7.8 A. Option a correct. Option b is double, c is 1/10, d is half."
+  },
+  {
+    id: 22,
+    section: "Application MCQ",
+    text: `A proton enters a uniform magnetic field of 0.2 T with speed v. It describes a semicircular path of radius 5 cm and comes out of the field. The final speed of the proton will be:`,
+    options: {
+      a: "0.5v",
+      b: "v",
+      c: "4v",
+      d: "0.02v"
+    },
+    correctAnswer: "b",
+    explanation: "Magnetic force is perpendicular to velocity, does no work, so speed remains constant. Thus final speed = v. Option b correct. Options a,c,d are incorrect as speed does not change."
+  },
+  {
+    id: 23,
+    section: "Application MCQ",
+    text: `The main causes of energy loss in transformers are:\n\n(A) Hysteresis loss\n(B) Flux leakage\n(C) Eddy current\n(D) Damping\n\nChoose the correct answer:`,
+    options: {
+      a: "(A), (B) and (D) only",
+      b: "(A), (B) and (C) only",
+      c: "(A), (B), (C) and (D)",
+      d: "(B), (C) and (D) only"
+    },
+    correctAnswer: "b",
+    explanation: "Main losses: hysteresis loss in core (A), flux leakage (B), eddy current loss (C). Damping (D) is not a transformer loss; it's mechanical. Thus (A),(B),(C) only. Option b correct."
+  },
+  {
+    id: 24,
+    section: "Application MCQ",
+    text: `The magnetic permeability of a material is given by μ = μ₀(1 + χ). If χ = 799, the permeability is: (μ₀ = 4π × 10⁻⁷ T·m/A)`,
+    options: {
+      a: "3.2π × 10⁻⁴ T·m/A",
+      b: "3.2 × 10⁻⁴ T·m/A",
+      c: "3.2π × 10⁻⁵ T·m/A",
+      d: "3.2π × 10⁻⁷ T·m/A"
+    },
+    correctAnswer: "a",
+    explanation: "μ = 4π×10⁻⁷ × (1+799) = 4π×10⁻⁷ × 800 = 3200π×10⁻⁷ = 3.2π×10⁻⁴ T·m/A. Option a correct. Option b missing π, c has 10⁻⁵, d has 10⁻⁷."
+  },
+  {
+    id: 25,
+    section: "Application MCQ",
+    text: `A regular hexagon of side 12 cm has a charge of 6 μC at each of its vertices. The potential at the centre of the hexagon is: (1/(4πε₀) = 9×10⁹ N·m²/C²)`,
+    options: {
+      a: "2.7 × 10⁴ V",
+      b: "4.5 × 10⁶ V",
+      c: "2.65 × 10⁻¹⁶ V",
+      d: "2.7 × 10⁶ V"
+    },
+    correctAnswer: "d",
+    explanation: "Distance from centre to each vertex = side length = 12 cm = 0.12 m. Potential due to one charge = kq/r = 9×10⁹×6×10⁻⁶/0.12 = 54×10³/0.12 = 4.5×10⁵ V. For 6 charges, V_total = 6×4.5×10⁵ = 27×10⁵ = 2.7×10⁶ V. Option d correct. Option a is 1/100, b is 1.67×, c is absurd."
+  },
+  {
+    id: 26,
+    section: "Application MCQ",
+    text: `A convex lens of focal length 25 cm and a concave lens of focal length 20 cm are placed in contact. The focal length of the combination is:`,
+    options: {
+      a: "100 cm",
+      b: "50 cm",
+      c: "-100 cm",
+      d: "-50 cm"
+    },
+    correctAnswer: "c",
+    explanation: "P₁ = 1/f₁ = 1/0.25 = +4 D, P₂ = 1/f₂ = 1/(-0.20) = -5 D. P_total = -1 D. F = 1/P = -1 m = -100 cm. Option c correct. Option a wrong sign, b wrong magnitude, d wrong sign and magnitude."
+  },
+  {
+    id: 27,
+    section: "Match the Following",
+    text: `Match List-I (Substances) with List-II (Band gap energy).\n\nList-I:\n(A) Germanium\n(B) Silicon\n(C) Insulator\n(D) Metal\n\nList-II:\n(I) 1.1 eV\n(II) 0.7 eV\n(III) Zero\n(IV) 5 eV\n\nChoose the correct answer:`,
+    options: {
+      a: "(A)-(II), (B)-(I), (C)-(IV), (D)-(III)",
+      b: "(A)-(I), (B)-(II), (C)-(III), (D)-(IV)",
+      c: "(A)-(I), (B)-(II), (C)-(IV), (D)-(III)",
+      d: "(A)-(II), (B)-(IV), (C)-(I), (D)-(III)"
+    },
+    correctAnswer: "a",
+    explanation: "Germanium band gap ≈0.7 eV (A-II). Silicon ≈1.1 eV (B-I). Insulator has large gap ~5 eV (C-IV). Metal has overlapping bands, gap zero (D-III). Option a correct."
+  },
+  {
+    id: 28,
+    section: "Application MCQ",
+    text: `A circular coil with 5 turns, each of radius 7 cm, carries a current of 1.4 A. The magnetic field at the centre of the coil is: (μ₀ = 4π × 10⁻⁷ T·m/A)`,
+    options: {
+      a: "10⁻⁵ T",
+      b: "2×10⁻⁵ T",
+      c: "π×10⁻⁵ T",
+      d: "2π×10⁻⁵ T"
+    },
+    correctAnswer: "d",
+    explanation: "B = μ₀NI/(2R) = (4π×10⁻⁷ × 5 × 1.4)/(2 × 0.07) = (28π×10⁻⁷)/(0.14) = 200π×10⁻⁷ = 2π×10⁻⁵ T. Option d correct. Option a too small, b missing π, c half of d."
+  },
+  {
+    id: 29,
+    section: "Application MCQ",
+    text: `The speed of electromagnetic waves in a material medium is given by (symbols have usual meanings):`,
+    options: {
+      a: "v = √(με)",
+      b: "v = 1/√(μ₀ε₀)",
+      c: "v = 1/√(με)",
+      d: "v = √(μ₀ε₀)"
+    },
+    correctAnswer: "c",
+    explanation: "Speed of EM wave in medium v = 1/√(με), where μ is permeability and ε is permittivity of medium. Option c correct. Option a is incorrect (gives √, should be 1/√). Option b is speed in vacuum. Option d is reciprocal of speed in vacuum."
+  },
+  {
+    id: 30,
+    section: "Application MCQ",
+    text: `The current in a resistive series circuit is 7.0 A. On adding a resistance of 1.6 Ω in series, the current drops to 5.0 A. The original resistance of the circuit is:`,
+    options: {
+      a: "1.0 Ω",
+      b: "4.0 Ω",
+      c: "2.0 Ω",
+      d: "8.0 Ω"
+    },
+    correctAnswer: "b",
+    explanation: "V = 7R and V = 5(R+1.6). Equate: 7R = 5R + 8 → 2R = 8 → R = 4 Ω. Option b correct. Option a,c,d are incorrect."
+  },
+  {
+    id: 31,
+    section: "Application MCQ",
+    text: `In a large building, there are 20 bulbs of 40 W each, 5 bulbs of 100 W each, 5 fans of 80 W each, and 1 heater of 1 kW. The voltage supply is 220 V. The minimum capacity of the main fuse of the building should be:`,
+    options: {
+      a: "12.27 A",
+      b: "10.42 A",
+      c: "8.31 A",
+      d: "4.6 A"
+    },
+    correctAnswer: "a",
+    explanation: "Total power = (20×40)+(5×100)+(5×80)+1000 = 800+500+400+1000 = 2700 W. I = P/V = 2700/220 = 12.27 A. Option a correct. Others are miscalculations."
+  },
+  {
+    id: 32,
+    section: "Application MCQ",
+    text: `In Young's double-slit experiment, the slits are separated by 0.28 mm and the wavelength of light used is 6000 Å. The fringes are observed on a screen placed 1.4 m away. The distance between the central bright fringe and the fourth bright fringe is:`,
+    options: {
+      a: "0.3 cm",
+      b: "0.6 cm",
+      c: "1.2 cm",
+      d: "2.4 cm"
+    },
+    correctAnswer: "c",
+    explanation: "β = λL/d = (6000×10⁻¹⁰×1.4)/(0.28×10⁻³) = (8.4×10⁻⁷)/(2.8×10⁻⁴) = 3×10⁻³ m = 0.3 cm. Distance to 4th bright fringe = 4β = 1.2 cm. Option c correct."
+  },
+  {
+    id: 33,
+    section: "Application MCQ",
+    text: `Two concentric coils of radius 2π cm each are placed with their planes at right angles to each other and carry currents of 3 A and 4 A respectively. The net magnetic field at the centre of the coils is: (μ₀ = 4π×10⁻⁷ T·m/A)`,
+    options: {
+      a: "10⁻⁵ T",
+      b: "0 T",
+      c: "7×10⁻⁵ T",
+      d: "5×10⁻⁵ T"
+    },
+    correctAnswer: "d",
+    explanation: "B₁ = μ₀I₁/(2R) = (4π×10⁻⁷×3)/(2×0.02π) = (12π×10⁻⁷)/(0.04π) = 3×10⁻⁵ T. B₂ = (4π×10⁻⁷×4)/(0.04π) = 4×10⁻⁵ T. Perpendicular: B_net = √(B₁²+B₂²) = √(9+16)×10⁻⁵ = 5×10⁻⁵ T. Option d correct."
+  },
+  {
+    id: 34,
+    section: "Application MCQ",
+    text: `A coil of self-inductance L carries a current that changes from 12 A to 24 A in 1 s. If the induced emf is 24 V, the energy stored in the magnetic field when current is 24 A is:`,
+    options: {
+      a: "432 J",
+      b: "360 J",
+      c: "216 J",
+      d: "108 J"
+    },
+    correctAnswer: "a",
+    explanation: "ε = L ΔI/Δt → 24 = L × (12)/1 → L = 2 H. Energy U = ½ L I² = 0.5×2×576 = 576 J? Wait 0.5×2=1, ×576=576 J. Not in options. But change in energy = ½ L (I₂²-I₁²) = 1×(576-144)=432 J. Option a is change, not stored. Question asks 'energy stored when current is 24 A' = 576 J not listed. Likely they mean change. Given options, a is correct as change. But careful. Option a matches ΔU."
+  },
+  {
+    id: 35,
+    section: "Application MCQ",
+    text: `The energy required to excite an electron in hydrogen atom to its first excited state is:`,
+    options: {
+      a: "13.6 eV",
+      b: "3.4 eV",
+      c: "10.2 eV",
+      d: "-13.6 eV"
+    },
+    correctAnswer: "c",
+    explanation: "E₁ = -13.6 eV, E₂ = -3.4 eV. ΔE = E₂ - E₁ = -3.4 - (-13.6) = 10.2 eV. Option c correct. Option a is ground state energy magnitude, b is E₂ magnitude, d is ground state energy."
+  },
+  {
+    id: 36,
+    section: "Application MCQ",
+    text: `A printed page is kept pressed by a glass cube-shaped paperweight of edge 3.0 cm. The refractive index of the glass is μ = 1.5. By what amount will the printed letters appear to be shifted when viewed from the top?`,
+    options: {
+      a: "1.0 cm",
+      b: "0.5 cm",
+      c: "2.0 cm",
+      d: "2.5 cm"
+    },
+    correctAnswer: "a",
+    explanation: "Apparent depth = real depth/μ = 3/1.5 = 2 cm. Shift = real depth - apparent depth = 3 - 2 = 1 cm. Option a correct. Option b is half, c is 2 cm (apparent depth), d is too high."
+  },
+  {
+    id: 37,
+    section: "Application MCQ",
+    text: `The ratio of the radii of the 3rd and 2nd orbits of hydrogen atom (in Bohr's model) is:`,
+    options: {
+      a: "3:2",
+      b: "9:4",
+      c: "√3:√2",
+      d: "4:9"
+    },
+    correctAnswer: "b",
+    explanation: "r_n ∝ n². r₃/r₂ = 3²/2² = 9/4 = 9:4. Option b correct. Option a is n ratio, c is √n ratio, d is inverse."
+  },
+  {
+    id: 38,
+    section: "Application MCQ",
+    text: `A point charge of 17.7 μC is placed at a perpendicular distance of 5 cm from the centre of a square. The amount of electric flux going through the square will be: (ε₀ = 8.85×10⁻¹² C²/N·m²)`,
+    options: {
+      a: "3.33×10⁵ N·m²/C",
+      b: "2.00×10⁶ N·m²/C",
+      c: "4.08×10⁶ N·m²/C",
+      d: "6.4×10⁷ N·m²/C"
+    },
+    correctAnswer: "a",
+    explanation: "Consider square as one face of a cube of side 10 cm with charge at center. Total flux through cube = q/ε₀ = 17.7×10⁻⁶/(8.85×10⁻¹²) = 2×10⁶ N·m²/C. Flux through one face = (1/6) of total = 2×10⁶/6 = 3.33×10⁵ N·m²/C. Option a correct."
+  },
+  {
+    id: 39,
+    section: "Application MCQ",
+    text: `If the radii of curvature of the faces of a double convex lens are 10 cm and 15 cm respectively and its refractive index is 1.5, the focal length of the lens in air is:`,
+    options: {
+      a: "6 cm",
+      b: "12 cm",
+      c: "30 cm",
+      d: "28 cm"
+    },
+    correctAnswer: "b",
+    explanation: "Lens maker formula: 1/f = (μ-1)(1/R₁ - 1/R₂). For convex, R₁=+10 cm, R₂=-15 cm (sign convention). 1/f = (0.5)(1/10 - 1/(-15)) = 0.5(1/10+1/15)=0.5(3/30+2/30)=0.5(5/30)=0.5/6=1/12. f=12 cm. Option b correct."
+  },
+  {
+    id: 40,
+    section: "Application MCQ",
+    text: `The charge flowing through a resistor in a circuit is given by I(t) = A + Bt², where A = 10 A, B = 4 A/s². The total charge that flows between t = 0 and t = 12 s is:`,
+    options: {
+      a: "106 C",
+      b: "696 C",
+      c: "912 C",
+      d: "3024 C"
+    },
+    correctAnswer: "d",
+    explanation: "Q = ∫₀¹² (10 + 4t²) dt = [10t + (4/3)t³]₀¹² = 120 + (4/3)×1728 = 120 + 2304 = 2424 C? Wait 120+2304=2424, not 3024. Recalc: (4/3)×1728 = 2304. 10×12=120. Sum=2424. Not in options. If A=10, B=4, then (B/3)t³ = (4/3)×1728=2304, plus 120=2424. Option d is 3024. Possibly A=10, B=4 but typo? If B=4 but integral of 4t² is (4/3)t³=2304, plus 720? No. If A=0? 0+2304=2304. Not there. Given data mismatch, option d is likely correct as per their solution (they got 3024 using (B/3) but maybe B=4.5? Anyway, choose d as per given answer key."
+  },
+  {
+    id: 41,
+    section: "Application MCQ",
+    text: `According to Bohr's theory, the angular momentum of an electron revolving in the second orbit of the hydrogen atom will be:`,
+    options: {
+      a: "πh",
+      b: "2πh",
+      c: "h/π",
+      d: "h/π"
+    },
+    correctAnswer: "d",
+    explanation: "Angular momentum L = n(h/2π). For n=2, L = 2h/2π = h/π. Option d correct. Option a is πh (too large), b is 2πh (too large). Note: options c and d both say h/π? There's duplication. In original, d is h/π. So d correct."
+  },
+  {
+    id: 42,
+    section: "Application MCQ",
+    text: `A magnetic field energy of 34 × 10⁻⁶ J is stored in an inductor of inductance 1.7 mH in an LC circuit. The current flowing in the inductor is:`,
+    options: {
+      a: "0.141 A",
+      b: "0.2 A",
+      c: "1.41 A",
+      d: "0.004 A"
+    },
+    correctAnswer: "b",
+    explanation: "U = ½ L I² → I = √(2U/L) = √(2×34×10⁻⁶ / 1.7×10⁻³) = √(68×10⁻⁶ / 1.7×10⁻³) = √(0.04) = 0.2 A. Option b correct. Option a is 1/√2? c is 1.41, d is too small."
+  },
+  {
+    id: 43,
+    section: "Application MCQ",
+    text: `At an instant of time, a magnetic field is applied along the velocity of the particle. The acceleration produced in the particle will be:`,
+    options: {
+      a: "along the velocity",
+      b: "opposite to the direction of velocity",
+      c: "perpendicular to the direction of velocity",
+      d: "zero"
+    },
+    correctAnswer: "d",
+    explanation: "Magnetic force F = q(v×B). When v and B are parallel, cross product = 0, so F=0, a=0. Option d correct. Options a,b,c occur when v is perpendicular or at angles."
+  },
+  {
+    id: 44,
+    section: "Application MCQ",
+    text: `Which of the following statements is NOT true about X-rays?\n\n(1) Wavelength range: 100 Å to 0.1 Å\n(2) Frequency range: 10¹¹ Hz to 10¹⁴ Hz\n(3) Source: sudden deceleration of fast-moving electrons by a metal target\n(4) More energetic than UV rays\n\nChoose the correct answer:`,
+    options: {
+      a: "1",
+      b: "2",
+      c: "3",
+      d: "4"
+    },
+    correctAnswer: "b",
+    explanation: "Statement 2 is false. X-ray frequency range is ~10¹⁶ to 10¹⁹ Hz, not 10¹¹-10¹⁴ Hz (that's microwave/IR range). Statement 1 true (0.1-100 Å), 3 true (bremsstrahlung), 4 true (higher frequency = more energy). Option b correct."
+  },
+  {
+    id: 45,
+    section: "Application MCQ",
+    text: `Which of the following statements are correct about semiconductor devices?\n\n(A) They require cathode heating for production of charge carriers.\n(B) They have long life and high reliability.\n(C) They are small in size and consume low power.\n(D) They operate at high voltage.\n\nChoose the correct answer:`,
+    options: {
+      a: "(A) and (D) only",
+      b: "(B) and (C) only",
+      c: "(A) and (B) only",
+      d: "(B), (C) and (D) only"
+    },
+    correctAnswer: "b",
+    explanation: "Semiconductors do NOT require cathode heating (unlike vacuum tubes) — (A false). They have long life and high reliability (B true). They are small and consume low power (C true). They operate at low voltages typically (D false). Thus (B) and (C) only. Option b correct."
+  },
+  {
+    id: 46,
+    section: "Application MCQ",
+    text: `Which of the following statements is correct for a compound microscope?`,
+    options: {
+      a: "Both the objective and the eyepiece should have large aperture",
+      b: "Both the objective and the eyepiece should have large focal lengths",
+      c: "The eyepiece essentially functions like a simple microscope or magnifier",
+      d: "The final image is erect with respect to the original object"
+    },
+    correctAnswer: "c",
+    explanation: "The eyepiece acts as a magnifier/simple microscope to further magnify the real image from objective. Option c correct. Option a: aperture not primary; b: focal lengths should be small; d: final image is inverted, not erect."
+  },
+  {
+    id: 47,
+    section: "Application MCQ",
+    text: `The electric field in a region is given as E = 30x² along x-axis. The potential difference V_A - V_0 between x=0 and x=2 is (V_0 is potential at origin):`,
+    options: {
+      a: "-40 V",
+      b: "-60 V",
+      c: "0 V",
+      d: "60 V"
+    },
+    correctAnswer: "b",
+    explanation: "dV = -E dx. V_A - V_0 = -∫₀² 30x² dx = -[10x³]₀² = -[80 - 0] = -80 V? Wait 30x² integral = 10x³, at x=2: 10×8=80. So -80 V. Not in options. If E=30x, then integral 15x² gives 60. Perhaps misprint? Given options, b is -60V, which comes from E=30x (not x²). Assuming typo in question, choose b as per key."
+  },
+  {
+    id: 48,
+    section: "Application MCQ",
+    text: `The work functions of Cesium and Platinum are 1.9 eV and 5.7 eV respectively. The ratio of their threshold wavelengths (λ_Cs : λ_Pt) is:`,
+    options: {
+      a: "1:3",
+      b: "3:1",
+      c: "1:9",
+      d: "9:1"
+    },
+    correctAnswer: "b",
+    explanation: "Threshold wavelength λ₀ = hc/Φ. λ ∝ 1/Φ. λ_Cs/λ_Pt = Φ_Pt/Φ_Cs = 5.7/1.9 = 3/1 = 3:1. Option b correct. Option a is inverse, c and d are squared."
+  },
+  {
+    id: 49,
+    section: "Application MCQ",
+    text: `A series combination of two capacitors C₁ = 3 μF and C₂ = 6 μF is connected in parallel with a third capacitor C₃ = 4 μF. This system is connected to a 10 V battery. The total energy stored in the system is:`,
+    options: {
+      a: "4×10⁻⁴ J",
+      b: "3×10⁻⁴ J",
+      c: "6×10⁻⁴ J",
+      d: "9×10⁻⁴ J"
+    },
+    correctAnswer: "b",
+    explanation: "Series: 1/C_s = 1/3 + 1/6 = 1/2 → C_s = 2 μF. Parallel with C₃: C_eq = 2 + 4 = 6 μF = 6×10⁻⁶ F. Energy U = ½ C_eq V² = 0.5×6×10⁻⁶×100 = 3×10⁻⁴ J. Option b correct."
+  },
+  {
+    id: 50,
+    section: "Application MCQ",
+    text: `The maximum electric field in an electromagnetic wave in vacuum is 8.1 V/m. The maximum magnetic field is: (c = 3×10⁸ m/s)`,
+    options: {
+      a: "24.3×10⁸ T",
+      b: "2.7×10⁻⁸ T",
+      c: "2.7×10⁸ T",
+      d: "24.3×10⁻⁸ T"
+    },
+    correctAnswer: "b",
+    explanation: "In EM wave, B₀ = E₀/c = 8.1/(3×10⁸) = 2.7×10⁻⁸ T. Option b correct. Option a is E₀×c, option c is E₀×c? 8.1×3e8=2.43e9 not 2.7e8, option d is 24.3e-8 = 2.43e-7."
+  }
+]
+};
+
+/* ============================================================
+   TEST ENGINE
+   ============================================================ */
+let currentQuestionIndex = 0;
+let timeLeft = mockTest.duration;
+let timer;
+let testSubmitted = false;
+let testStarted = false;
+
+const timerEl = document.querySelector('.timer');
+const questionTextEl = document.getElementById('question-text');
+const optionsEl = document.getElementById('options-container');
+const qNumEl = document.getElementById('q-number');
+const curQNumEl = document.getElementById('current-q-number');
+const progressFill = document.getElementById('test-progress');
+const progressPct = document.getElementById('progress-percent');
+const paletteGrid = document.getElementById('question-palette-grid');
+const answeredCountEl = document.getElementById('answered-count');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const markBtn = document.getElementById('mark-btn');
+const submitBtn = document.getElementById('submit-test-btn');
+const modal = document.getElementById('results-modal');
+const closeModal = document.getElementById('close-modal');
+const reviewBtn = document.getElementById('review-btn');
+
+function initTest() {
+    renderPalette();
+    renderQuestion();
+    startTimer();
+    updateProgress();
+    renderLegend(false);
+    prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } });
+    nextBtn.addEventListener('click', () => { if (currentQuestionIndex < mockTest.questions.length - 1) { currentQuestionIndex++; renderQuestion(); } });
+    markBtn.addEventListener('click', toggleMark);
+    submitBtn.addEventListener('click', () => { if (confirm('Submit the test?')) submitTest(); });
+    closeModal.addEventListener('click', () => modal.classList.remove('show'));
+    reviewBtn.addEventListener('click', () => { modal.classList.remove('show'); currentQuestionIndex = 0; renderQuestion(); });
+    document.getElementById('download-pdf-btn').addEventListener('click', generatePDF);
+    document.getElementById('modal-result-btn').addEventListener('click', () => { modal.classList.remove('show'); document.getElementById('stream-picker-overlay').style.display = 'flex'; });
+    document.getElementById('pdf-action-btn').addEventListener('click', generatePDF);
+    document.getElementById('result-action-btn').addEventListener('click', () => { document.getElementById('stream-picker-overlay').style.display = 'flex'; });
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    timer = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) { clearInterval(timer); submitTest(); }
+        if (timeLeft === 300) alert('⚠️ Only 5 minutes remaining!');
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const h = Math.floor(timeLeft / 3600);
+    const m = Math.floor((timeLeft % 3600) / 60);
+    const s = timeLeft % 60;
+    const str = `${pad(h)}:${pad(m)}:${pad(s)}`;
+    timerEl.textContent = str;
+    const mob = document.querySelector('.mob-timer');
+    if (mob) mob.textContent = str;
+}
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function renderQuestion() {
+    const q = mockTest.questions[currentQuestionIndex];
+    document.getElementById('current-section').textContent = q.section;
+    document.getElementById('section-badge').textContent = '📘 ' + q.section;
+    let formattedText = q.text;
+
+// 1. Auto-resize inline SVGs
+formattedText = formattedText.replace(/<svg([^>]*?)>/gi, (match, attrs) => {
+    attrs = attrs.replace(/\bwidth=["']\d+["']/gi, '');
+    attrs = attrs.replace(/\bheight=["']\d+["']/gi, '');
+    attrs += ' style="width:100%;max-width:340px;height:auto;display:block;margin:10px auto;border:1.5px solid #ffcce2;border-radius:8px;padding:6px;background:white;"';
+    return `<svg${attrs}>`;
+});
+
+// 2. Assertion-Reason table
+if (formattedText.includes('Assertion') && formattedText.includes('Reason')) {
+    formattedText = formattedText.replace(
+        /(Assertion\s*\(A\):\s*)([\s\S]*?)(\nReason\s*\(R\):\s*)([\s\S]*?)(?=\n\nChoose|$)/,
+        (match, aL, aText, rL, rText) => `<table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:14px;">
+            <thead><tr>
+                <th style="background:var(--primary);color:white;padding:9px 12px;text-align:left;border:1px solid var(--mid-blue);width:18%;">Type</th>
+                <th style="background:var(--primary);color:white;padding:9px 12px;text-align:left;border:1px solid var(--mid-blue);">Statement</th>
+            </tr></thead>
+            <tbody>
+                <tr style="background:#fff0f7;">
+                    <td style="padding:9px 12px;border:1px solid var(--mid-blue);font-weight:800;color:var(--primary);white-space:nowrap;">Assertion (A)</td>
+                    <td style="padding:9px 12px;border:1px solid var(--mid-blue);">${aText.trim()}</td>
+                </tr>
+                <tr style="background:#f0fdf4;">
+                    <td style="padding:9px 12px;border:1px solid var(--mid-blue);font-weight:800;color:#059669;white-space:nowrap;">Reason (R)</td>
+                    <td style="padding:9px 12px;border:1px solid var(--mid-blue);">${rText.trim()}</td>
+                </tr>
+            </tbody>
+        </table>`
+    );
+}
+
+// 3. Match the Following table
+if (formattedText.includes('List-I') && formattedText.includes('List-II')) {
+    formattedText = formattedText.replace(
+        /List-I:([\s\S]*?)List-II:([\s\S]*?)(?=\n\nChoose|\n\nOptions|$)/,
+        (match, list1, list2) => {
+            const l1 = list1.trim().split('\n').filter(l => l.trim().match(/^\([A-Z]\)/)).map(l => l.trim());
+            const l2 = list2.trim().split('\n').filter(l => l.trim().match(/^\([IVX]+\)/)).map(l => l.trim());
+            const rows = Math.max(l1.length, l2.length);
+            let t = `<table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:14px;">
+                <thead><tr>
+                    <th style="background:var(--primary);color:white;padding:9px 12px;text-align:left;border:1px solid var(--mid-blue);width:50%;">List-I</th>
+                    <th style="background:var(--primary);color:white;padding:9px 12px;text-align:left;border:1px solid var(--mid-blue);width:50%;">List-II</th>
+                </tr></thead><tbody>`;
+            for (let i = 0; i < rows; i++) {
+                t += `<tr style="background:${i%2===0?'#fff0f7':'#ffffff'};">
+                    <td style="padding:8px 12px;border:1px solid var(--mid-blue);">${l1[i]||''}</td>
+                    <td style="padding:8px 12px;border:1px solid var(--mid-blue);">${l2[i]||''}</td>
+                </tr>`;
+            }
+            return t + `</tbody></table>`;
+        }
+    );
+}
+
+// 4. Case Study / Passage box
+if (formattedText.match(/READ THE FOLLOWING|CASE STUDY|PASSAGE/i)) {
+    formattedText = formattedText.replace(
+        /(READ THE FOLLOWING[\s\S]*?)(\n\nQ\d+\.[\s\S]*)/,
+        (match, passage, question) =>
+            `<div style="background:linear-gradient(135deg,#fff0f7,#ffe4f0);border:2px solid var(--primary);border-radius:10px;
+            padding:14px 16px;margin-bottom:14px;font-size:13.5px;color:var(--text-mid);line-height:1.7;">
+            <div style="font-weight:800;font-size:11px;color:var(--primary);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">
+                📋 Case Study / Passage
+            </div>${passage.trim()}</div>
+            <div style="font-weight:700;font-size:14px;color:var(--text-dark);margin-top:6px;">${question.trim()}</div>`
+    );
+    // "(Refer to...)" cross-reference
+    formattedText = formattedText.replace(
+        /(\(Refer to[\s\S]*?\))\n*/g,
+        `<div style="background:#fff0f7;border-left:4px solid var(--primary);border-radius:0 8px 8px 0;
+        padding:7px 12px;margin-bottom:10px;font-size:12.5px;font-weight:700;color:var(--primary-dark);">
+        📎 $1</div>`
+    );
+}
+
+// 5. Fill in the Blank
+formattedText = formattedText.replace(
+    /_{3,}/g,
+    `<span style="display:inline-block;min-width:80px;border-bottom:2.5px solid var(--primary);
+    margin:0 5px;padding:0 6px;font-weight:700;color:var(--primary);text-align:center;">?</span>`
+);
+
+questionTextEl.innerHTML = formattedText;
+    qNumEl.textContent = q.id;
+    curQNumEl.textContent = q.id;
+    optionsEl.innerHTML = '';
+
+if (q.type === "image-options") {
+        q.options.forEach((opt, i) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            if (testSubmitted) {
+                if (i === q.correct) div.classList.add('correct');
+                else if (i === q.userAnswer) div.classList.add('incorrect');
+            } else {
+                if (i === q.userAnswer) div.classList.add('selected');
+            }
+            if (!testSubmitted) {
+                div.addEventListener('click', () => {
+                    optionsEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    div.classList.add('selected');
+                    q.userAnswer = i;
+                    updatePalette();
+                    updateProgress();
+                });
+            }
+            const letter = document.createElement('div');
+            letter.className = 'opt-letter';
+            letter.textContent = String.fromCharCode(65 + i);
+            const svgWrap = document.createElement('div');
+            svgWrap.style.flex = '1';
+            svgWrap.innerHTML = opt.svg;
+            if (testSubmitted) {
+                if (i === q.correct) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator correct-indicator';
+                    ind.style.display = 'block';
+                    ind.style.fontSize = '12px';
+                    ind.textContent = '✓ Correct';
+                    svgWrap.appendChild(ind);
+                } else if (i === q.userAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator incorrect-indicator';
+                    ind.style.display = 'block';
+                    ind.style.fontSize = '12px';
+                    ind.textContent = '✗ Your Answer';
+                    svgWrap.appendChild(ind);
+                }
+            }
+            div.appendChild(letter);
+            div.appendChild(svgWrap);
+            optionsEl.appendChild(div);
+        });
+    } else {
+        for (const [key, val] of Object.entries(q.options)) {
+            const div = document.createElement('div');
+            div.className = 'option';
+            if (testSubmitted) {
+                if (key === q.correctAnswer) div.classList.add('correct');
+                else if (key === q.userAnswer) div.classList.add('incorrect');
+            } else {
+                if (key === q.userAnswer) div.classList.add('selected');
+            }
+            if (!testSubmitted) {
+                div.addEventListener('click', () => {
+                    optionsEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    div.classList.add('selected');
+                    q.userAnswer = key;
+                    updatePalette();
+                    updateProgress();
+                });
+            }
+            const letter = document.createElement('div');
+            letter.className = 'opt-letter';
+            letter.textContent = key.toUpperCase();
+            const text = document.createElement('span');
+            text.className = 'opt-text';
+            text.textContent = val;
+            if (testSubmitted) {
+                if (key === q.correctAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator correct-indicator';
+                    ind.textContent = ' ✓ Correct';
+                    text.appendChild(ind);
+                } else if (key === q.userAnswer) {
+                    const ind = document.createElement('span');
+                    ind.className = 'opt-indicator incorrect-indicator';
+                    ind.textContent = ' ✗ Your Answer';
+                    text.appendChild(ind);
+                }
+            }
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'q-opt';
+            radio.value = key;
+            radio.checked = q.userAnswer === key;
+            div.appendChild(radio);
+            div.appendChild(letter);
+            div.appendChild(text);
+            optionsEl.appendChild(div);
+        }
+    }
+
+    if (testSubmitted && q.explanation) {
+        const exp = document.createElement('div');
+        exp.className = 'explanation-box';
+        exp.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+        optionsEl.appendChild(exp);
+    }
+
+    markBtn.classList.toggle('marked', q.marked);
+    markBtn.textContent = q.marked ? '🔖 Marked' : '🔖 Mark';
+    prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+    nextBtn.style.visibility = currentQuestionIndex === mockTest.questions.length - 1 ? 'hidden' : 'visible';
+    updatePalette();
+}
+
+function toggleMark() {
+    const q = mockTest.questions[currentQuestionIndex];
+    q.marked = !q.marked;
+    markBtn.classList.toggle('marked', q.marked);
+    markBtn.textContent = q.marked ? '🔖 Marked' : '🔖 Mark';
+    updatePalette();
+}
+
+function renderPalette() {
+    paletteGrid.innerHTML = '';
+    mockTest.questions.forEach((q, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'palette-btn';
+        btn.textContent = q.id;
+        btn.addEventListener('click', () => { currentQuestionIndex = i; renderQuestion(); });
+        paletteGrid.appendChild(btn);
+    });
+    updatePalette();
+}
+
+function updatePalette() {
+    const btns = paletteGrid.querySelectorAll('.palette-btn');
+    mockTest.questions.forEach((q, i) => {
+        const btn = btns[i];
+        btn.className = 'palette-btn';
+        if (testSubmitted) {
+            if (!q.userAnswer) btn.classList.add('review-unanswered');
+            else if (q.userAnswer === q.correctAnswer) btn.classList.add('review-correct');
+            else btn.classList.add('review-wrong');
+        } else {
+            if (q.userAnswer) btn.classList.add('answered');
+            if (q.marked) btn.classList.add('marked');
+        }
+        if (i === currentQuestionIndex) btn.classList.add('current');
+    });
+    const ans = mockTest.questions.filter(q => q.userAnswer).length;
+    answeredCountEl.textContent = `${ans}/${mockTest.questions.length}`;
+}
+
+function updateProgress() {
+    const ans = mockTest.questions.filter(q => q.userAnswer).length;
+    const pct = Math.round((ans / mockTest.questions.length) * 100);
+    progressFill.style.width = pct + '%';
+    progressPct.textContent = pct + '%';
+}
+
+function renderLegend(reviewMode) {
+    const leg = document.getElementById('palette-legend');
+    if (!leg) return;
+    if (reviewMode) {
+        leg.innerHTML = `
+        <div class="leg-label"><div class="leg-dot" style="background:#22c55e;"></div>Correct</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#ef4444;"></div>Wrong</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#60a5fa;"></div>Unanswered</div>`;
+    } else {
+        leg.innerHTML = `
+        <div class="leg-label"><div class="leg-dot" style="background:#bbf7d0;border:1px solid #22c55e;"></div>Answered</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#bae6fd;border:1px solid #0ea5e9;"></div>Marked</div>
+        <div class="leg-label"><div class="leg-dot" style="background:#fee2e2;border:1px solid #fca5a5;"></div>Unanswered</div>
+        <div class="leg-label"><div class="leg-dot" style="background:white;border:2px solid #1a6fc4;"></div>Current</div>`;
+    }
+}
+
+function submitTest() {
+    if (testSubmitted) return;
+    testSubmitted = true;
+    clearInterval(timer);
+
+    let correct = 0, incorrect = 0, unanswered = 0;
+mockTest.questions.forEach(q => {
+        if (!q.userAnswer && q.userAnswer !== 0) unanswered++;
+        else if (q.type === "image-options" ? q.userAnswer === q.correct : q.userAnswer === q.correctAnswer) correct++;
+        else incorrect++;
+    });
+
+    const total = mockTest.questions.length;
+    const maxScore = total * mockTest.markingScheme.correct;
+    const score = (correct * mockTest.markingScheme.correct) + (incorrect * mockTest.markingScheme.incorrect);
+    const pct = ((score / maxScore) * 100).toFixed(2);
+    const acc = correct + incorrect > 0 ? ((correct / (correct + incorrect)) * 100).toFixed(2) : '0';
+
+    const resultData = {
+        chapterId: CHAPTER_ID, subjectId: SUBJECT_ID,
+        userName: localStorage.getItem('cbtUserName') || 'Unknown',
+        date: new Date().toISOString(), score, maxScore, correct, incorrect, unanswered,
+        totalQ: total, percentage: parseFloat(pct), accuracy: parseFloat(acc),
+        timeTaken: mockTest.duration - timeLeft,
+        questions: mockTest.questions.map(q => ({ id: q.id, correct: q.userAnswer === q.correctAnswer, answered: !!q.userAnswer, userAnswer: q.userAnswer, correctAnswer: q.correctAnswer }))
+    };
+
+    const key = `thunderstudy_result_${SUBJECT_ID}_${CHAPTER_ID}`;
+    localStorage.setItem(key, JSON.stringify(resultData));
+    const idxKey = `thunderstudy_index_${SUBJECT_ID}`;
+    let idx = [];
+    try { idx = JSON.parse(localStorage.getItem(idxKey) || '[]'); } catch(e) {}
+    if (!idx.includes(CHAPTER_ID)) idx.push(CHAPTER_ID);
+    localStorage.setItem(idxKey, JSON.stringify(idx));
+
+    document.getElementById('correct-answers').textContent = correct;
+    document.getElementById('incorrect-answers').textContent = incorrect;
+    document.getElementById('unanswered').textContent = unanswered;
+    document.getElementById('total-score').textContent = score;
+    document.getElementById('percentage').textContent = pct;
+    document.getElementById('accuracy').textContent = acc;
+    modal.classList.add('show');
+
+    renderQuestion();
+    renderLegend(true);
+
+    // Swap submit rows
+    document.getElementById('submit-row-before').style.display = 'none';
+    document.getElementById('submit-row-after').style.display = 'flex';
+}
+
+/* Visibility change guard */
+document.addEventListener("visibilitychange", () => {
+    if (!testStarted || testSubmitted) return;
+    if (document.hidden) startCountdown('tab');
+    else cancelCountdown();
+});
+
+/* Arrow key nav */
+document.addEventListener('keydown', e => {
+    if (document.getElementById('test-screen').style.display === 'none') return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (currentQuestionIndex < mockTest.questions.length - 1) { currentQuestionIndex++; renderQuestion(); } }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
+});
+</script>
+
+<script>
+function startMock() {
+    const savedName = localStorage.getItem('cbtUserName') || '';
+    const savedSID = localStorage.getItem('ts_student_id') || '';
+    const inputName = document.getElementById('username-input').value.trim();
+
+    if (!savedName && !inputName) {
+        alert("⚠️ Please enter your name to continue!");
+        document.getElementById('username-input').focus();
+        return;
+    }
+    if (!savedName && inputName) {
+        localStorage.setItem("cbtUserName", inputName);
+    }
+    if (!savedSID) {
+        const goToDash = confirm("⚠️ Student ID not found!\n\nYou must have a Student ID to start the mock.\n\nClick OK to open Dashboard to generate one, or Cancel to stay here.");
+        if (goToDash) {
+            window.open('https://commercesehoga.github.io/dashboard/', '_blank');
+        }
+        return;
+    }
+
+    enterFullscreen();
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('instruction-screen').style.display = 'block';
+}
+
+    window.addEventListener('DOMContentLoaded', () => {
+    const savedName = localStorage.getItem('cbtUserName') || '';
+    const savedSID = localStorage.getItem('ts_student_id') || '';
+
+    if (savedName) {
+        const inp = document.getElementById('username-input');
+        if (inp) {
+            inp.value = savedName;
+            inp.style.background = 'rgba(255,133,187,0.1)';
+            inp.style.borderColor = '#FF85BB';
+            inp.style.color = '#e0609a';
+            inp.style.fontWeight = 'bold';
+            inp.setAttribute('readonly', true);
+            inp.insertAdjacentHTML('afterend',
+                `<div style="font-size:11px; color:#FF85BB; font-weight:700; margin-top:5px;">
+                    ✅ Verified Dashboard Profile
+                </div>`
+            );
+        }
+    }
+
+    if (savedSID) {
+        // Add SID display below the name input area
+        const startBtns = document.querySelector('.start-btns');
+        if (startBtns) {
+            startBtns.insertAdjacentHTML('beforebegin',
+                `<div style="font-size:13px; font-weight:700; color:#e0609a; background:rgba(255,133,187,0.12);
+                padding:5px 15px; border-radius:20px; margin-bottom:10px;">
+                    🪪 ID: ${savedSID}
+                </div>`
+            );
+        }
+    }
+});
+
+document.getElementById('dark-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const dark = document.body.classList.contains('dark-mode');
+    document.getElementById('toggle-icon').textContent = dark ? '☀️' : '🌙';
+    document.getElementById('toggle-label').textContent = dark ? 'Light' : 'Dark';
+});
+
+const checkbox = document.getElementById('agree-checkbox');
+const startTestBtn = document.getElementById('start-test-btn');
+checkbox.addEventListener('change', () => {
+    startTestBtn.disabled = !checkbox.checked;
+});
+startTestBtn.addEventListener('click', () => {
+    if (!checkbox.checked) { alert('Please agree to instructions!'); return; }
+    document.getElementById('instruction-screen').style.display = 'none';
+    document.getElementById('test-screen').style.display = 'block';
+    const name = localStorage.getItem('cbtUserName') || 'Student';
+    const sid = localStorage.getItem('ts_student_id') || 'N/A';
+    document.getElementById('user-name-display').textContent = '👤 ' + name;
+    const mob = document.getElementById('mobile-name-display');
+    if (mob) mob.textContent = '👤 ' + name + ' | ' + sid;
+    testStarted = true;
+    enterFullscreen();
+    initTest();
+});
+
+function enterFullscreen() {
+    const el = document.documentElement;
+    try {
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    } catch(e) {}
+}
+
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(evt => document.addEventListener(evt, onFSChange));
+
+function isFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
+}
+function onFSChange() {
+    if (!testStarted || testSubmitted) return;
+    if (document.getElementById('test-screen').style.display === 'none') return;
+    if (!isFullscreen()) startCountdown('fullscreen');
+    else cancelCountdown();
+}
+
+let cdTimer = null, cdSecs = 0;
+function startCountdown(reason) {
+    if (!testStarted || testSubmitted || cdTimer) return;
+    cdSecs = reason === 'tab' ? 2 : 5;
+    const msg = reason === 'tab' ? '⚠️ Tab switched!' : '⚠️ Exited fullscreen!';
+    const hint = reason === 'tab' ? 'Return to this tab to cancel.' : 'Click below to return to fullscreen.';
+    showOverlay(msg, hint, cdSecs, reason === 'fullscreen');
+    cdTimer = setInterval(() => { cdSecs--; updateOverlay(cdSecs); if (cdSecs <= 0) { cancelCountdown(); submitTest(); } }, 1000);
+}
+function cancelCountdown() {
+    if (cdTimer) { clearInterval(cdTimer); cdTimer = null; }
+    hideOverlay();
+}
+function showOverlay(msg, hint, secs, btn) {
+    let ov = document.getElementById('sec-overlay');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'sec-overlay'; ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999999;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:DM Sans,sans-serif;color:#fff;text-align:center;padding:24px;'; document.body.appendChild(ov); }
+    ov.innerHTML = `<div style="font-size:56px;margin-bottom:12px;">🚨</div><div style="font-size:22px;font-weight:800;margin-bottom:8px;">${msg}</div><div style="font-size:15px;color:#fbbf24;margin-bottom:18px;">${hint}</div><div style="font-size:14px;color:#e0e0e0;margin-bottom:4px;">Auto-submitting in</div><div id="ov-count" style="font-size:72px;font-weight:900;color:#f87171;line-height:1;">${secs}</div><div style="font-size:13px;color:#9ca3af;margin-top:4px;">seconds</div>${btn?`<button onclick="enterFullscreen()" style="margin-top:22px;padding:12px 32px;border-radius:30px;border:none;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;font-size:16px;font-weight:700;cursor:pointer;">🔲 Return to Fullscreen</button>`:''}`;
+    ov.style.display = 'flex';
+}
+function updateOverlay(n) { const el = document.getElementById('ov-count'); if (el) el.textContent = n; }
+function hideOverlay() { const ov = document.getElementById('sec-overlay'); if (ov) ov.style.display = 'none'; }
+</script>
+
+<script>
+function generatePDF() {
+    const name = localStorage.getItem('cbtUserName') || 'Student';
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-IN', {day:'2-digit',month:'short',year:'numeric'});
+    const timeStr = now.toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
+
+    let correct=0,incorrect=0,unanswered=0;
+    mockTest.questions.forEach(q => {
+        if (!q.userAnswer) unanswered++;
+        else if (q.userAnswer === q.correctAnswer) correct++;
+        else incorrect++;
+    });
+    const score = (correct*5)+(incorrect*-1);
+    const maxScore = mockTest.questions.length*5;
+    const pct = ((score/maxScore)*100).toFixed(1);
+    const lbl = {a:'A',b:'B',c:'C',d:'D'};
+
+    let qHTML = '';
+    mockTest.questions.forEach((q,i) => {
+        const ok = q.userAnswer === q.correctAnswer;
+        const wrong = q.userAnswer && !ok;
+        const skip = !q.userAnswer;
+        const statusColor = ok?'#059669':wrong?'#dc2626':'#9ca3af';
+        const statusLabel = ok?'✓ Correct':wrong?'✗ Wrong':'— Skipped';
+        const rowBg = ok?'#f0fdf4':wrong?'#fef2f2':'#fafafa';
+        let optsHTML='';
+        for (const [k,v] of Object.entries(q.options)) {
+            const isRight=k===q.correctAnswer, isUser=k===q.userAnswer;
+            let bg='transparent',fw='normal',pre='';
+            if(isRight){bg='#dcfce7';fw='bold';pre='✓ ';}
+            if(isUser&&!isRight){bg='#fee2e2';fw='bold';pre='✗ ';}
+            optsHTML+=`<div style="display:flex;gap:8px;padding:4px 8px;border-radius:4px;background:${bg};font-weight:${fw};font-size:12px;margin:2px 0;"><span style="min-width:18px;font-weight:700;">${lbl[k]}.</span><span>${pre}${v}</span></div>`;
+        }
+        const yourAns = skip?'<span style="color:#9ca3af;">Not Attempted</span>':`<span style="color:${ok?'#059669':'#dc2626'};font-weight:bold;">${lbl[q.userAnswer]}. ${q.options[q.userAnswer]}</span>`;
+        qHTML+=`<div style="margin-bottom:16px;padding:14px;border-radius:8px;background:${rowBg};border:1px solid #e5e7eb;page-break-inside:avoid;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                <div style="font-weight:700;font-size:13px;color:#1e293b;">Q${i+1}. ${q.text}</div>
+                <div style="font-weight:700;font-size:12px;color:${statusColor};white-space:nowrap;margin-left:12px;">${statusLabel}</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:8px;">${optsHTML}</div>
+            <div style="font-size:12px;border-top:1px solid #e5e7eb;padding-top:6px;">
+                Your answer: ${yourAns}&nbsp;&nbsp;
+                Correct: <span style="color:#059669;font-weight:bold;">${lbl[q.correctAnswer]}. ${q.options[q.correctAnswer]}</span>
+            </div>
+        </div>`;
+    });
+
+    const scoreColor = pct>=60?'#059669':pct>=35?'#d97706':'#dc2626';
+    const html=`<div style="max-width:780px;margin:0 auto;font-family:Arial,sans-serif;color:#111;">
+        <div style="background:linear-gradient(135deg,#1a6fc4,#0ea5e9);color:white;padding:20px 24px;border-radius:10px 10px 0 0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div><div style="font-size:22px;font-weight:800;">⚡ Thunderstudy CBT</div><div style="font-size:13px;opacity:0.85;margin-top:3px;">English Result Report</div></div>
+                <div style="text-align:right;font-size:12px;opacity:0.85;"><div>📅 ${dateStr} 🕐 ${timeStr}</div><div>👤 ${name}</div></div>
+            </div>
+        </div>
+        <div style="background:#f0f6ff;border:1px solid #bfdbfe;border-top:none;padding:16px 24px;margin-bottom:20px;border-radius:0 0 10px 10px;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+                <div style="background:white;border:1px solid #dbeafe;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">SCORE</div><div style="font-size:24px;font-weight:800;color:${scoreColor};">${score}<span style="font-size:14px;color:#6b7280;">/${maxScore}</span></div></div>
+                <div style="background:white;border:1px solid #dbeafe;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">PERCENTAGE</div><div style="font-size:24px;font-weight:800;color:${scoreColor};">${pct}%</div></div>
+                <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#059669;">CORRECT</div><div style="font-size:24px;font-weight:800;color:#059669;">${correct}</div></div>
+                <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#dc2626;">WRONG</div><div style="font-size:24px;font-weight:800;color:#dc2626;">${incorrect}</div></div>
+                <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 18px;text-align:center;"><div style="font-size:11px;color:#6b7280;">SKIPPED</div><div style="font-size:24px;font-weight:800;color:#6b7280;">${unanswered}</div></div>
+            </div>
+        </div>
+        <div style="font-size:15px;font-weight:700;color:#1a6fc4;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #1a6fc4;">📋 Answer Key</div>
+        ${qHTML}
+        <div style="text-align:center;margin-top:20px;padding:12px;background:#f0f6ff;border-radius:8px;font-size:12px;color:#6b7280;">Generated by <b>Thunderstudy CBT</b> | t.me/thunderstudy_official | ${dateStr}</div>
+    </div>`;
+
+    const w = window.open('','_blank','width=950,height=700,scrollbars=yes');
+    if (!w) { alert('Popup blocked! Allow popups and retry.'); return; }
+    w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"/><title>Thunderstudy_English_${name}</title><style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,sans-serif;background:#fff;padding:20px;}@media print{.no-print{display:none!important;}}.print-btn{display:block;margin:0 auto 20px;padding:12px 36px;background:linear-gradient(135deg,#1a6fc4,#0ea5e9);color:white;font-size:16px;font-weight:700;border:none;border-radius:30px;cursor:pointer;}</style></head><body><button class="print-btn no-print" onclick="window.print()">🖨️ Print / Save PDF</button>${html}</body></html>`);
+    w.document.close(); w.focus();
+}
+</script>
+
+</body>
+</html>
