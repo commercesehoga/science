@@ -543,6 +543,17 @@
   .ht-grade   { font-weight:800; font-size:16px; }
   .history-summary-bar { display:flex; gap:16px; flex-wrap:wrap; padding:11px 18px; background:#eff6ff; border-top:1px solid #bfdbfe; font-size:12px; font-weight:700; color:var(--gray-mid); }
   .history-summary-bar span { color:#1976d2; }
+  /* Auto-size SVGs inside question text */
+.q-text svg, .question-scroll svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  padding: 8px;
+}
 </style>
 </head>
 <body>
@@ -2230,6 +2241,16 @@ function formatText(txt) {
     `<span style="display:inline-block;min-width:80px;border-bottom:2.5px solid #1976d2;
       margin:0 5px;padding:0 6px;font-weight:700;color:#1976d2;text-align:center;">?</span>`
   );
+
+  // Auto-resize inline SVGs — remove fixed width/height, add responsive attrs
+out = out.replace(/<svg([^>]*?)>/gi, (match, attrs) => {
+  // Remove fixed width/height that make SVG tiny or huge
+  attrs = attrs.replace(/\bwidth=["']\d+["']/gi, '');
+  attrs = attrs.replace(/\bheight=["']\d+["']/gi, '');
+  // Add responsive style
+  attrs += ' style="width:100%;max-width:320px;height:auto;"';
+  return `<svg${attrs}>`;
+});
 
   return out;
 }
