@@ -1,0 +1,2296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Class 12 Physics Notes — ThunderStudy</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#eef4fb;color:#1a2b45;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.7;min-height:100vh}
+:root{
+  --sky:#d6eaf8;--skydeep:#b8d9f4;
+  --blue:#1a6fff;--bluedark:#1254cc;--bluelight:#e8f3ff;
+  --white:#ffffff;--text:#1a2b45;--muted:#5a7a9a;
+  --border:#c2d9f0;--gold:#d97706;--green:#059669;--red:#dc2626;
+  --shadow:0 2px 12px rgba(26,111,255,.10);--shadow-lg:0 6px 30px rgba(26,111,255,.16);
+}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:300;background:linear-gradient(135deg,#1a6fff,#1254cc);box-shadow:0 2px 16px rgba(26,111,255,.35)}
+.hdr-in{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:10px 20px;gap:14px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:rgba(255,255,255,.22);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.logo-name{font-size:18px;font-weight:800;color:#fff;letter-spacing:.3px}
+.logo-name span{color:#fde68a}
+.badge{background:#fde68a;color:#1a2b45;font-size:10px;font-weight:800;padding:3px 8px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.search-inp{border:none;border-radius:8px;padding:8px 14px;font-size:13px;width:220px;outline:none;background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(4px)}
+.search-inp::placeholder{color:rgba(255,255,255,.7)}
+.search-inp:focus{background:rgba(255,255,255,.28)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a6fff 0%,#0e3fa0 100%);color:#fff;text-align:center;padding:36px 20px 28px}
+.hero h1{font-size:clamp(22px,5vw,36px);font-weight:900;letter-spacing:.5px;margin-bottom:8px}
+.hero h1 span{color:#fde68a}
+.hero p{font-size:13px;opacity:.85;margin-bottom:18px}
+.stats{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.stat{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;backdrop-filter:blur(4px)}
+
+/* CONTROLS */
+.ctrl-bar{background:var(--white);border-bottom:2px solid var(--border);padding:10px 20px;position:sticky;top:57px;z-index:200}
+.ctrl-bar-in{display:flex;gap:8px;max-width:1100px;margin:0 auto;flex-wrap:wrap}
+
+/* NAV */
+.nav-wrap{background:var(--bluelight);border-bottom:2px solid var(--skydeep);padding:8px 0;overflow-x:auto;position:sticky;top:97px;z-index:190}
+.nav-pills{display:flex;gap:6px;max-width:1100px;margin:0 auto;padding:0 16px;min-width:max-content}
+.pill{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11.5px;font-weight:700;color:var(--blue);text-decoration:none;transition:.18s;white-space:nowrap}
+.pill:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* MAIN */
+.main{max-width:1100px;margin:0 auto;padding:20px 16px 40px}
+
+/* CHAPTER */
+.chapter{background:var(--white);border:2px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;box-shadow:var(--shadow)}
+.chapter-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(135deg,var(--bluelight),#dceeff);border-bottom:2px solid var(--skydeep)}
+.ch-icon{font-size:22px}
+.ch-title{flex:1;font-size:16px;font-weight:800;color:var(--text)}
+.ch-title span{font-size:12px;font-weight:500;color:var(--muted);margin-left:8px}
+.ch-pdf-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;transition:.18s}
+.ch-pdf-btn:hover{background:var(--bluedark)}
+
+/* UNIT HEADER */
+.unit-head{background:linear-gradient(90deg,#1a6fff,#1254cc);color:#fff;padding:10px 18px;font-size:13px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;gap:8px}
+.unit-badge{background:rgba(255,255,255,.2);border-radius:12px;padding:2px 10px;font-size:11px}
+
+/* SECTION */
+.section{border-top:1px solid var(--border)}
+.sec-head{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;cursor:pointer;background:var(--white);transition:.15s;user-select:none}
+.sec-head:hover{background:var(--bluelight)}
+.sec-title{font-weight:700;color:var(--text);font-size:13.5px}
+.sec-hi{font-weight:500;color:var(--muted);font-size:12px;margin-left:6px}
+.sec-right{display:flex;align-items:center;gap:8px}
+.sec-arrow{color:var(--blue);font-size:12px;transition:transform .25s}
+.section.open .sec-arrow{transform:rotate(180deg)}
+.sec-body{display:none;padding:16px 18px;border-top:1px solid var(--sky);animation:fadeIn .2s ease}
+.section.open .sec-body{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+/* CONTENT */
+.ftable{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px}
+.ftable th{background:var(--blue);color:#fff;padding:7px 10px;text-align:left;font-weight:700;font-size:12px}
+.ftable td{padding:7px 10px;border-bottom:1px solid var(--sky);vertical-align:top}
+.ftable tr:nth-child(even) td{background:#f4f9ff}
+.ftable tr:hover td{background:#e8f3ff}
+.ftable td:first-child{font-weight:700;color:var(--blue);min-width:180px}
+
+.fl{list-style:none;padding:0}
+.fl li{padding:4px 0 4px 16px;border-bottom:1px dashed var(--sky);position:relative;font-size:13px}
+.fl li::before{content:"→";position:absolute;left:0;color:var(--blue);font-weight:700}
+
+.note-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-left:4px solid var(--gold);border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px}
+.note-box strong{color:var(--gold)}
+.warn-box{background:#fff1f1;border-left:4px solid var(--red);border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px}
+.tip-box{background:#f0fdf4;border-left:4px solid var(--green);border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px}
+.tip-box strong{color:var(--green)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+
+h4{color:var(--blue);font-size:13px;font-weight:800;margin:12px 0 6px;letter-spacing:.2px;text-transform:uppercase}
+h5{color:var(--text);font-size:13px;font-weight:700;margin:10px 0 4px}
+.formula{background:#f4f9ff;border:1px solid var(--skydeep);border-radius:6px;padding:8px 12px;font-family:monospace;font-size:13px;margin:4px 0;color:var(--text)}
+.tag{display:inline-block;background:var(--bluelight);color:var(--blue);border-radius:12px;padding:2px 9px;font-size:11px;font-weight:700;margin:2px}
+.tag.red{background:#fff1f1;color:var(--red)}
+.tag.green{background:#f0fdf4;color:var(--green)}
+.tag.gold{background:#fffbeb;color:var(--gold)}
+.sec-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+
+/* BUTTONS */
+.btn{border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;transition:.18s}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:var(--bluedark)}
+.btn-outline{background:transparent;border:2px solid var(--blue);color:var(--blue)}
+.btn-outline:hover{background:var(--blue);color:#fff}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#047857}
+.btn-sm{padding:5px 11px;font-size:12px}
+
+/* SCROLL TOP */
+#stb{position:fixed;bottom:24px;right:24px;background:linear-gradient(135deg,var(--blue),#1e7fd4);border:none;border-radius:50%;width:44px;height:44px;color:#fff;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(26,111,255,.35);z-index:99}
+#stb.show{display:flex}
+
+/* PDF OVERLAY */
+.pdf-loading{position:fixed;inset:0;background:rgba(14,63,160,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9998;flex-direction:column}
+.pdf-loading.show{display:flex}
+.pdf-card{background:#fff;border-radius:20px;padding:30px 36px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25);min-width:280px}
+.pdf-spinner{width:44px;height:44px;border:4px solid var(--sky);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pdf-msg{color:var(--text);font-weight:700;font-size:14px;margin-bottom:14px}
+.pdf-prog-wrap{width:100%;height:5px;background:var(--sky);border-radius:5px;overflow:hidden}
+.pdf-prog-bar{height:100%;width:5%;background:linear-gradient(90deg,#1a6fff,#1e7fd4);border-radius:5px;transition:width .3s ease}
+
+/* PAGE LOADER */
+#pageLoader{position:fixed;inset:0;z-index:99999;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .4s ease,visibility .4s ease}
+#pageLoader.hide{opacity:0;visibility:hidden}
+.loader-logo{display:flex;align-items:center;gap:10px}
+.loader-bolt{animation:boltPulse .9s ease-in-out infinite alternate}
+@keyframes boltPulse{from{opacity:.5;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.loader-name{font-size:26px;font-weight:800;color:#1a2b45;letter-spacing:.3px}
+.loader-name span{color:#1a6fff}
+.loader-bar-wrap{width:200px;height:4px;background:#e8f3ff;border-radius:4px;overflow:hidden}
+.loader-bar{height:100%;width:0%;background:linear-gradient(90deg,#1a6fff,#1e7fd4);border-radius:4px;transition:width .25s ease}
+.loader-label{font-size:12px;color:#5a7a9a;font-weight:600;letter-spacing:.4px}
+
+/* DONATE POPUP */
+#donateModal{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(10,20,50,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .35s}
+#donateModal.show{opacity:1;pointer-events:all}
+.donate-box{position:relative;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.38);border-radius:24px;padding:36px 36px 30px;max-width:420px;width:100%;box-shadow:0 16px 60px rgba(10,40,120,.35),0 0 0 1px rgba(255,255,255,.12) inset;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);animation:popIn .38s cubic-bezier(.34,1.56,.64,1) both;text-align:center;color:#fff}
+@keyframes popIn{from{transform:scale(.85) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.donate-close{position:absolute;top:14px;right:16px;width:30px;height:30px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.35);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.18s;color:#fff;font-size:16px;font-weight:700;line-height:1}
+.donate-close:hover{background:rgba(255,255,255,.38);transform:scale(1.1)}
+.donate-icon{width:48px;height:48px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.2);border-radius:50%;border:2px solid rgba(255,255,255,.35)}
+.donate-title{font-size:20px;font-weight:800;letter-spacing:.3px;margin-bottom:6px;text-shadow:0 1px 8px rgba(0,0,0,.2)}
+.donate-sub{font-size:13px;opacity:.88;line-height:1.6;margin-bottom:20px}
+.donate-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#fde68a,#f59e0b);color:#1a2b45;font-weight:800;font-size:14px;padding:11px 28px;border-radius:50px;text-decoration:none;letter-spacing:.4px;transition:.2s;box-shadow:0 4px 16px rgba(245,158,11,.4)}
+.donate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.5);color:#0e3fa0}
+.donate-powered{font-size:10px;opacity:.55;margin-top:14px;letter-spacing:.3px}
+
+/* FOOTER */
+footer{background:linear-gradient(135deg,#1a6fff 0%,#1254cc 60%,#0e3fa0 100%);color:#fff;text-align:center;padding:18px 24px;font-size:13px;letter-spacing:.2px;line-height:1.8}
+footer a{color:#fde68a;text-decoration:none;font-weight:700;transition:.18s}
+footer a:hover{color:#fff;text-decoration:underline}
+footer .footer-divider{margin:0 10px;opacity:.5}
+
+/* HIGHLIGHT */
+.hl{background:#fde68a;border-radius:2px;padding:0 1px}
+.section.hidden-sec{display:none}
+.chapter.hidden-ch{display:none}
+
+@media print{.hdr,.ctrl-bar,.nav-wrap,.ch-pdf-btn,#stb{display:none!important}.section{display:block!important}.sec-body{display:block!important}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<!-- PAGE LOADER -->
+<div id="pageLoader">
+  <div class="loader-logo">
+    <div class="loader-bolt"><svg width="32" height="32" viewBox="0 0 24 24" fill="#1a6fff" stroke="#1a6fff" stroke-width=".5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <div class="loader-name"><span>Thunder</span>Study</div>
+  </div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
+  <div class="loader-label" id="loaderLabel">Loading…</div>
+</div>
+
+<!-- PDF LOADING -->
+<div class="pdf-loading" id="pdfOverlay">
+  <div class="pdf-card">
+    <div class="pdf-spinner"></div>
+    <div class="pdf-msg" id="pdfMsg">Generating PDF…</div>
+    <div class="pdf-prog-wrap"><div class="pdf-prog-bar" id="pdfProgBar"></div></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-in">
+    <div class="logo">
+      <div class="logo-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="logo-name"><span>Thunder</span>Study</div>
+      <span class="badge">CUET Physics</span>
+    </div>
+    <div class="hdr-right">
+      <input class="search-inp" id="searchInp" placeholder="Search topics, formulas…" oninput="doSearch(this.value)">
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Class 12 Physics <span>Notes</span></h1>
+  <p>CUET UG 2026 · Complete NCERT Coverage · 9 Units · 14 Chapters</p>
+  <div class="stats">
+    <div class="stat"><strong>14</strong> Chapters</div>
+    <div class="stat"><strong>9</strong> Units</div>
+    <div class="stat"><strong>100+</strong> Key Formulas</div>
+    <div class="stat"><strong>CUET</strong> 2026</div>
+    <div class="stat"><strong>PDF</strong> Per Chapter</div>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="ctrl-bar">
+  <div class="ctrl-bar-in">
+    <button class="btn btn-blue btn-sm" onclick="expandAll()">&#9660; Expand All</button>
+    <button class="btn btn-outline btn-sm" onclick="collapseAll()">&#9650; Collapse All</button>
+    <button class="btn btn-green btn-sm" onclick="downloadAllPDF()">&#11015; Download All PDF</button>
+  </div>
+</div>
+
+<!-- NAV PILLS -->
+<div class="nav-wrap">
+  <div class="nav-pills">
+    <a class="pill" href="#u1-ch1">Ch 1: Electric Charges</a>
+    <a class="pill" href="#u1-ch2">Ch 2: Electrostatic Potential</a>
+    <a class="pill" href="#u2-ch3">Ch 3: Current Electricity</a>
+    <a class="pill" href="#u3-ch4">Ch 4: Moving Charges</a>
+    <a class="pill" href="#u3-ch5">Ch 5: Magnetism &amp; Matter</a>
+    <a class="pill" href="#u4-ch6">Ch 6: EMI</a>
+    <a class="pill" href="#u4-ch7">Ch 7: AC Circuits</a>
+    <a class="pill" href="#u5-ch8">Ch 8: EM Waves</a>
+    <a class="pill" href="#u6-ch9">Ch 9: Ray Optics</a>
+    <a class="pill" href="#u6-ch10">Ch 10: Wave Optics</a>
+    <a class="pill" href="#u7-ch11">Ch 11: Dual Nature</a>
+    <a class="pill" href="#u8-ch12">Ch 12: Atoms</a>
+    <a class="pill" href="#u8-ch13">Ch 13: Nuclei</a>
+    <a class="pill" href="#u9-ch14">Ch 14: Semiconductors</a>
+  </div>
+</div>
+
+<div class="main" id="mainContent">
+
+<!-- ═══════════ UNIT 1: ELECTROSTATICS ═══════════ -->
+<!-- CHAPTER 1 -->
+<div class="chapter" id="u1-ch1" data-chapter="Electric Charges and Fields">
+  <div class="unit-head">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    Unit 1: Electrostatics <span class="unit-badge">Ch 1–2</span>
+  </div>
+  <div class="chapter-head">
+    <span class="ch-icon">&#9889;</span>
+    <div class="ch-title">Chapter 1: Electric Charges and Fields <span>Conceptual Weight: HIGH | Numerical: MEDIUM</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u1-ch1','Ch1_Electric_Charges')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch1-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics <span class="sec-hi">/ मुख्य विषय</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch1-topics','Ch1 Core Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag">HIGH Conceptual</span><span class="tag gold">MEDIUM Numerical</span><span class="tag green">Gauss Law Apps</span></div>
+      <ul class="fl">
+        <li>Electric charge properties: <strong>quantization, conservation, additive nature</strong></li>
+        <li><strong>Coulomb's Law</strong>: force between point charges in vacuum and medium</li>
+        <li>Electric field due to point charge, dipole, and continuous charge distributions</li>
+        <li>Electric field lines: properties and patterns</li>
+        <li>Electric dipole: field on <strong>axial and equatorial lines</strong></li>
+        <li><strong>Gauss's Theorem</strong> and its applications: infinite wire, infinite plane, spherical shell</li>
+        <li>Electric flux and its physical significance</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch1-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas <span class="sec-hi">/ मुख्य सूत्र</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch1-formulas','Ch1 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Coulomb's Force</td><td>F = (1/4&#960;&#949;&#8320;) &middot; (q&#8321;q&#8322;/r&sup2;)</td><td>In vacuum; multiply by K for medium</td></tr>
+        <tr><td>Electric Field</td><td>E = F/q&#8320; = (1/4&#960;&#949;&#8320;) &middot; (q/r&sup2;)</td><td>Due to point charge</td></tr>
+        <tr><td>Dipole Axial Field</td><td>E = (1/4&#960;&#949;&#8320;) &middot; (2p/r&sup3;)</td><td>On axis of dipole</td></tr>
+        <tr><td>Dipole Equatorial Field</td><td>E = (1/4&#960;&#949;&#8320;) &middot; (p/r&sup3;)</td><td>On perpendicular bisector</td></tr>
+        <tr><td>Electric Flux</td><td>&#934; = E &middot; A = EA cos&#952;</td><td>Through a surface</td></tr>
+        <tr><td>Gauss's Law</td><td>&#934; = q<sub>enclosed</sub> / &#949;&#8320;</td><td>Total flux through closed surface</td></tr>
+      </table>
+      <div class="note-box"><strong>Key Trap:</strong> Point charges follow 1/r&sup2; dependence; dipoles follow 1/r&sup3;. This distinction is a common exam trick. Always select the correct Gaussian surface for Gauss's law applications.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch1-exercise">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Exercise Types &amp; Exam Tips <span class="sec-hi">/ परीक्षा सुझाव</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch1-exercise','Ch1 Exam Tips')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag">Conceptual Q</span><span class="tag gold">Gauss Derivations</span><span class="tag">Assertion-Reasoning</span></div>
+      <ul class="fl">
+        <li>Conceptual questions on charge properties (conservation, quantization)</li>
+        <li>Derivations using Gauss's law for symmetric charge distributions</li>
+        <li>Numericals: Coulomb force, electric field superposition, dipole field</li>
+        <li>Assertion-Reasoning: charge conservation and field line properties</li>
+      </ul>
+      <div class="tip-box"><strong>Strategy:</strong> Priority 2 chapter. Focus on Gauss's law geometric intuition. Master field line properties and dipole behavior — these appear in MCQs repeatedly.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch1-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch1-notes','Ch1 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Electric Charge — Properties</h4>
+      <ul class="fl">
+        <li><strong>Quantization:</strong> Charge exists only in integer multiples of e (e = 1.6×10⁻¹⁹ C). q = ±ne. You can never have a charge of 1.5e.</li>
+        <li><strong>Conservation:</strong> Total charge of an isolated system is always constant. Charges can be created or destroyed only in equal and opposite pairs (pair production/annihilation).</li>
+        <li><strong>Additive nature:</strong> Total charge = algebraic sum of all individual charges. Signs matter.</li>
+        <li><strong>Invariance:</strong> Charge of a particle does NOT change with its speed (unlike mass). Charge is Lorentz invariant.</li>
+      </ul>
+      <h4>2. Coulomb's Law — In Depth</h4>
+      <p style="font-size:13px;margin-bottom:8px">Force between two point charges q₁ and q₂ separated by distance r:</p>
+      <div class="formula">F = (1/4πε₀) × (q₁q₂/r²) — in vacuum (free space)</div>
+      <div class="formula">F = (1/4πε₀K) × (q₁q₂/r²) = (1/4πε) × (q₁q₂/r²) — in medium of dielectric constant K</div>
+      <ul class="fl">
+        <li>1/4πε₀ = 9×10⁹ N·m²/C² (Coulomb's constant)</li>
+        <li>ε₀ = 8.85×10⁻¹² C²/N·m² (permittivity of free space)</li>
+        <li>Force is along the line joining charges. Like charges repel, unlike attract.</li>
+        <li><strong>Principle of Superposition:</strong> Net force on a charge = vector sum of individual forces from all other charges. Forces don't affect each other.</li>
+      </ul>
+      <h4>3. Electric Field</h4>
+      <ul class="fl">
+        <li>E = F/q₀ — force per unit positive test charge (q₀ → 0 to avoid disturbing source field)</li>
+        <li>Due to point charge: E = (1/4πε₀)(q/r²) — directed away from +q, toward −q</li>
+        <li>Electric field is a vector; use superposition to find net field from multiple charges</li>
+      </ul>
+      <h4>4. Electric Dipole</h4>
+      <div class="formula">Dipole moment: p = q × 2l (direction: −q to +q)</div>
+      <ul class="fl">
+        <li><strong>Axial field</strong> (on axis, distance r from centre): E = (1/4πε₀)(2p/r³) — direction same as p</li>
+        <li><strong>Equatorial field</strong> (on perpendicular bisector): E = (1/4πε₀)(p/r³) — direction opposite to p</li>
+        <li>At same distance: E_axial = 2 × E_equatorial</li>
+        <li>Both vary as 1/r³ (unlike point charge which varies as 1/r²) — KEY EXAM POINT</li>
+      </ul>
+      <h4>5. Electric Field Lines — Rules</h4>
+      <ul class="fl">
+        <li>Start on +ve charge, end on −ve charge (or go to infinity)</li>
+        <li>Never intersect (field has unique direction at any point)</li>
+        <li>Perpendicular to conductor surface at every point</li>
+        <li>Denser field lines = stronger field</li>
+        <li>No closed loops for electrostatic field (conservative field)</li>
+      </ul>
+      <h4>6. Electric Flux and Gauss's Law</h4>
+      <div class="formula">Φ = E · A = EA cosθ (for uniform field through flat surface)</div>
+      <div class="formula">Gauss's Law: Φ_total = q_enclosed / ε₀</div>
+      <ul class="fl">
+        <li>Flux depends only on enclosed charge, NOT on shape/size of Gaussian surface</li>
+        <li>Charges outside the surface contribute ZERO net flux</li>
+      </ul>
+      <h4>7. Gauss's Law Applications (Must Know)</h4>
+      <table class="ftable">
+        <tr><th>Shape</th><th>Field Expression</th><th>Gaussian Surface Used</th></tr>
+        <tr><td>Infinite line charge (λ C/m)</td><td>E = λ/2πε₀r</td><td>Coaxial cylinder</td></tr>
+        <tr><td>Infinite plane sheet (σ C/m²)</td><td>E = σ/2ε₀ (each side)</td><td>Pill-box (cylinder)</td></tr>
+        <tr><td>Two parallel sheets (±σ)</td><td>E = σ/ε₀ (between), 0 (outside)</td><td>Pill-box</td></tr>
+        <tr><td>Spherical shell (total Q)</td><td>Outside: E = Q/4πε₀r²; Inside: E = 0</td><td>Concentric sphere</td></tr>
+        <tr><td>Solid sphere (uniform ρ)</td><td>Outside: E = Q/4πε₀r²; Inside: E = Qr/4πε₀R³</td><td>Concentric sphere</td></tr>
+      </table>
+      <div class="note-box"><strong>⚠️ Key Exam Traps:</strong><br>
+        • Inside a uniformly charged hollow spherical shell: E = 0<br>
+        • Conductor surface: E = σ/ε₀ (both σ from surface); sheet: E = σ/2ε₀ per side<br>
+        • Dipole fields vary as 1/r³; point charges as 1/r² — don't mix these up</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 2 -->
+<div class="chapter" id="u1-ch2" data-chapter="Electrostatic Potential and Capacitance">
+  <div class="chapter-head">
+    <span class="ch-icon">&#9889;</span>
+    <div class="ch-title">Chapter 2: Electrostatic Potential &amp; Capacitance <span>Conceptual Weight: HIGH | Numerical: HIGH</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u1-ch2','Ch2_Electrostatic_Potential')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch2-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics <span class="sec-hi">/ मुख्य विषय</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch2-topics','Ch2 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag red">HIGH Numerical</span><span class="tag">HIGH Conceptual</span><span class="tag gold">Priority 1</span></div>
+      <ul class="fl">
+        <li>Electrostatic potential and potential difference</li>
+        <li>Potential due to point charge, dipole, and charge distributions</li>
+        <li>Equipotential surfaces and relationship to field lines</li>
+        <li>Electrostatic potential energy of charge systems</li>
+        <li>Capacitance: <strong>parallel plate, spherical, cylindrical</strong> capacitors</li>
+        <li>Dielectrics and polarization: bound charges, dielectric strength</li>
+        <li>Capacitor combinations: series and parallel</li>
+        <li>Energy stored in capacitors and energy density</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch2-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas <span class="sec-hi">/ मुख्य सूत्र</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch2-formulas','Ch2 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Potential (point charge)</td><td>V = (1/4&#960;&#949;&#8320;) &middot; (q/r)</td><td>Scalar quantity</td></tr>
+        <tr><td>Potential energy</td><td>U = (1/4&#960;&#949;&#8320;) &middot; (q&#8321;q&#8322;/r)</td><td>Two-charge system</td></tr>
+        <tr><td>Dipole potential</td><td>V = (1/4&#960;&#949;&#8320;) &middot; (p&middot;r&#770;/r&sup2;)</td><td>Position-dependent</td></tr>
+        <tr><td>Parallel plate capacitor</td><td>C = &#949;&#8320;A/d</td><td>Without dielectric</td></tr>
+        <tr><td>With dielectric</td><td>C = K&#949;&#8320;A/d = KC&#8320;</td><td>K = dielectric constant</td></tr>
+        <tr><td>Energy stored</td><td>U = &frac12;CV&sup2; = Q&sup2;/2C = &frac12;QV</td><td>Three equivalent forms</td></tr>
+        <tr><td>Energy density</td><td>u = &frac12;&#949;&#8320;E&sup2;</td><td>J/m&sup3;</td></tr>
+        <tr><td>Series combination</td><td>1/C<sub>eq</sub> = 1/C&#8321; + 1/C&#8322; + ...</td><td>Charge same, V adds</td></tr>
+        <tr><td>Parallel combination</td><td>C<sub>eq</sub> = C&#8321; + C&#8322; + ...</td><td>V same, charge adds</td></tr>
+      </table>
+      <div class="warn-box"><strong>Common Error:</strong> Students confuse potential (V) with potential energy (U). Also: inserting dielectric when capacitor is connected vs disconnected from battery gives different results — this is a classic exam trap.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch2-exercise">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Exercise Types &amp; Exam Tips</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch2-exercise','Ch2 Exam Tips')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <ul class="fl">
+        <li>Equivalent capacitance in complex networks</li>
+        <li>Energy changes when dielectrics are inserted</li>
+        <li>Potential calculation for continuous distributions</li>
+        <li>Heavy numericals on capacitor combinations and energy</li>
+      </ul>
+      <div class="tip-box"><strong>Strategy:</strong> <strong>Priority 1</strong> — most calculation-intensive chapter in electrostatics. Practice 60% numericals here. Energy density connects to Ch 8 (EM Waves).</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch2-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch2-notes','Ch2 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Electric Potential (V)</h4>
+      <ul class="fl">
+        <li>Work done per unit positive charge to bring a test charge from infinity to that point: V = W/q₀</li>
+        <li>Scalar quantity — add algebraically (no direction needed)</li>
+        <li>Potential due to point charge: V = (1/4πε₀)(q/r); negative for −q</li>
+        <li>Relation with field: E = −dV/dr (field = negative potential gradient)</li>
+        <li>For uniform field: V = −E·d</li>
+      </ul>
+      <h4>2. Equipotential Surfaces</h4>
+      <ul class="fl">
+        <li>Surface on which potential is same everywhere — no work done moving charge along it</li>
+        <li>Always perpendicular to electric field lines</li>
+        <li>For point charge: concentric spheres; for uniform field: parallel planes</li>
+        <li>Equipotential surfaces cannot intersect each other</li>
+      </ul>
+      <h4>3. Electrostatic Potential Energy</h4>
+      <div class="formula">U = (1/4πε₀)(q₁q₂/r) — two-charge system</div>
+      <div class="formula">For n charges: U = Σ (1/4πε₀)(qᵢqⱼ/rᵢⱼ) — sum over all pairs</div>
+      <ul class="fl">
+        <li>U > 0 (positive): like charges — stored energy, unstable if released</li>
+        <li>U &lt; 0 (negative): unlike charges — bound state</li>
+      </ul>
+      <h4>4. Capacitance and Capacitors</h4>
+      <div class="formula">C = Q/V (ratio of charge to potential difference)</div>
+      <table class="ftable">
+        <tr><th>Capacitor Type</th><th>Capacitance Formula</th><th>Note</th></tr>
+        <tr><td>Parallel plate (no dielectric)</td><td>C = ε₀A/d</td><td>A = area, d = separation</td></tr>
+        <tr><td>Parallel plate (with dielectric K)</td><td>C = Kε₀A/d = KC₀</td><td>K always ≥ 1</td></tr>
+        <tr><td>Spherical (isolated)</td><td>C = 4πε₀R</td><td>R = radius</td></tr>
+        <tr><td>Cylindrical (length L)</td><td>C = 2πε₀L/ln(b/a)</td><td>a,b = inner/outer radii</td></tr>
+      </table>
+      <h4>5. Dielectrics — Critical Concept</h4>
+      <ul class="fl">
+        <li>Dielectric constant K (or ε_r): dimensionless, always ≥ 1</li>
+        <li>Inserting dielectric increases capacitance by factor K</li>
+        <li><strong>With battery connected (V = constant):</strong> Q increases (Q = CV), E stays constant (V/d), energy increases (U = ½CV²)</li>
+        <li><strong>Disconnected from battery (Q = constant):</strong> V decreases (V = Q/C), E decreases, energy decreases (dielectric gets pulled in — energy released)</li>
+      </ul>
+      <h4>6. Combination of Capacitors</h4>
+      <div class="grid2">
+        <div>
+          <h5>Series</h5>
+          <div class="formula">1/C_eq = 1/C₁ + 1/C₂ + ...</div>
+          <ul class="fl"><li>Charge (Q) is SAME on each</li><li>Voltage adds: V = V₁ + V₂</li><li>C_eq < smallest capacitor</li></ul>
+        </div>
+        <div>
+          <h5>Parallel</h5>
+          <div class="formula">C_eq = C₁ + C₂ + ...</div>
+          <ul class="fl"><li>Voltage (V) is SAME across each</li><li>Charge adds: Q = Q₁ + Q₂</li><li>C_eq > largest capacitor</li></ul>
+        </div>
+      </div>
+      <h4>7. Energy Stored in Capacitor</h4>
+      <div class="formula">U = ½QV = ½CV² = Q²/2C — all three forms equivalent</div>
+      <div class="formula">Energy density (per unit volume): u = ½ε₀E²</div>
+      <div class="note-box"><strong>⚠️ Must-Know Distinction:</strong><br>
+        • Potential V (Volts) ≠ Potential Energy U (Joules)<br>
+        • V = W/q; U = qV = work done<br>
+        • When dielectric inserted with battery: energy INCREASES (battery does extra work)<br>
+        • When dielectric inserted without battery: energy DECREASES (used to polarize dielectric)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ UNIT 2: CURRENT ELECTRICITY ═══════════ -->
+<div class="chapter" id="u2-ch3" data-chapter="Current Electricity">
+  <div class="unit-head">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    Unit 2: Current Electricity <span class="unit-badge">Ch 3</span>
+  </div>
+  <div class="chapter-head">
+    <span class="ch-icon">&#128267;</span>
+    <div class="ch-title">Chapter 3: Current Electricity <span>Conceptual Weight: MEDIUM | Numerical: HIGH</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u2-ch3','Ch3_Current_Electricity')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch3-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch3-topics','Ch3 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag red">HIGH Numerical</span><span class="tag">Kirchhoff's Laws</span><span class="tag gold">Priority 2</span></div>
+      <ul class="fl">
+        <li>Electric current: <strong>drift velocity, mobility</strong></li>
+        <li>Ohm's Law and resistance: V = IR</li>
+        <li>Resistivity and conductivity: temperature dependence</li>
+        <li>Carbon resistors: color coding</li>
+        <li>Combination of resistors: series and parallel</li>
+        <li><strong>Kirchhoff's Laws</strong>: junction rule and loop rule</li>
+        <li>Wheatstone bridge and meter bridge</li>
+        <li>Potentiometer: principle and applications</li>
+        <li>Internal resistance of cells and EMF</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch3-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch3-formulas','Ch3 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Current (drift)</td><td>I = nAev<sub>d</sub></td><td>n = carrier density, v<sub>d</sub> = drift velocity</td></tr>
+        <tr><td>Ohm's Law</td><td>V = IR</td><td>For ohmic conductors</td></tr>
+        <tr><td>Resistance</td><td>R = &#961;L/A</td><td>&#961; = resistivity</td></tr>
+        <tr><td>Temp dependence</td><td>&#961;<sub>t</sub> = &#961;&#8320;(1 + &#945;&#916;T)</td><td>&#945; > 0 (conductor), &#945; &lt; 0 (semiconductor)</td></tr>
+        <tr><td>KVL (Loop rule)</td><td>&#931;IR + &#931;E = 0</td><td>Algebraic sum around loop</td></tr>
+        <tr><td>KCL (Junction rule)</td><td>&#931;I = 0</td><td>Current in = current out</td></tr>
+        <tr><td>Wheatstone bridge</td><td>P/Q = R/S</td><td>Balance condition</td></tr>
+        <tr><td>Potentiometer</td><td>E&#8321;/E&#8322; = l&#8321;/l&#8322;</td><td>Comparing EMFs</td></tr>
+        <tr><td>Internal resistance</td><td>r = R(l&#8321;/l&#8322; &minus; 1)</td><td>From potentiometer</td></tr>
+      </table>
+      <div class="note-box"><strong>Key Distinction:</strong> EMF vs terminal voltage. Conductors: positive &#945; (resistance increases with T). Semiconductors: negative &#945;. Alloys: small &#945;. This connects directly to Ch 14.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch3-exercise">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Exercise Types &amp; Exam Tips</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch3-exercise','Ch3 Tips')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <ul class="fl">
+        <li>Resistance networks — apply Kirchhoff's laws systematically</li>
+        <li>Meter bridge calculations and potentiometer experiments</li>
+        <li>Assertion-Reasoning: Ohm's law validity, temperature effects</li>
+      </ul>
+      <div class="tip-box"><strong>Strategy:</strong> Formulaic but extensive numericals. Practice network problems systematically. High Assertion-Reasoning density in CUET.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch3-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch3-notes','Ch3 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Drift Velocity and Current</h4>
+      <ul class="fl">
+        <li>Free electrons in conductor are in random thermal motion (no net current)</li>
+        <li>On applying field E: electrons drift opposite to E with average velocity v_d</li>
+        <li>I = nAev_d — where n = free electron density (electrons/m³), A = cross-section, e = 1.6×10⁻¹⁹ C</li>
+        <li>Mobility μ = v_d/E = eτ/m (τ = relaxation time, m = electron mass)</li>
+        <li>v_d is very small (~10⁻⁴ m/s) but electrons move at ~10⁶ m/s thermally</li>
+      </ul>
+      <h4>2. Ohm's Law and Resistance</h4>
+      <div class="formula">V = IR (Ohm's Law — valid for ohmic conductors)</div>
+      <div class="formula">R = ρL/A — ρ = resistivity (Ω·m), L = length, A = area</div>
+      <ul class="fl">
+        <li>Resistivity depends on material and temperature, NOT on dimensions</li>
+        <li>Conductivity σ = 1/ρ</li>
+        <li>Ohm's law NOT valid for: diodes, electrolytes, gas discharge tubes (non-ohmic)</li>
+      </ul>
+      <h4>3. Temperature Dependence of Resistivity</h4>
+      <div class="formula">ρ_T = ρ₀(1 + αΔT)</div>
+      <table class="ftable">
+        <tr><th>Material</th><th>Temperature Coefficient α</th><th>Reason</th></tr>
+        <tr><td>Conductors (metals)</td><td>Positive (α > 0)</td><td>More collisions at higher T; resistance increases</td></tr>
+        <tr><td>Semiconductors (Si, Ge)</td><td>Negative (α &lt; 0)</td><td>More carriers at higher T; resistance decreases</td></tr>
+        <tr><td>Alloys (Nichrome, Manganin)</td><td>Very small (α ≈ 0)</td><td>Nearly constant resistance — used in standards</td></tr>
+      </table>
+      <h4>4. Kirchhoff's Laws</h4>
+      <div class="grid2">
+        <div>
+          <h5>KCL — Junction Rule</h5>
+          <div class="formula">ΣI = 0 at any junction</div>
+          <ul class="fl"><li>Based on conservation of charge</li><li>Sum of currents entering = sum leaving</li></ul>
+        </div>
+        <div>
+          <h5>KVL — Loop Rule</h5>
+          <div class="formula">ΣIR + ΣE = 0 around any loop</div>
+          <ul class="fl"><li>Based on conservation of energy</li><li>Algebraic sum of all potential drops = 0</li></ul>
+        </div>
+      </div>
+      <h4>5. EMF vs Terminal Voltage</h4>
+      <ul class="fl">
+        <li>EMF (ε): work done per unit charge by battery (open circuit voltage)</li>
+        <li>Internal resistance r: resistance of the battery itself</li>
+        <li>Terminal voltage during discharge: V = ε − Ir (less than EMF)</li>
+        <li>Terminal voltage during charging: V = ε + Ir (more than EMF)</li>
+      </ul>
+      <h4>6. Wheatstone Bridge</h4>
+      <div class="formula">Balance condition: P/Q = R/S (no current through galvanometer)</div>
+      <ul class="fl">
+        <li>Meter bridge: P/Q = l/(100−l) where l = balancing length</li>
+        <li>Unknown resistance: X = R(100−l)/l</li>
+      </ul>
+      <h4>7. Potentiometer</h4>
+      <ul class="fl">
+        <li>Works on principle: potential drop ∝ length of wire</li>
+        <li>Comparing EMFs: E₁/E₂ = l₁/l₂</li>
+        <li>Internal resistance: r = R(l₁/l₂ − 1)</li>
+        <li>Advantage over voltmeter: draws no current — measures true EMF</li>
+      </ul>
+      <div class="note-box"><strong>⚠️ Exam Traps:</strong><br>
+        • Carbon resistor color code: BB ROY of Great Britain has Very Good Wife (Black, Brown, Red, Orange, Yellow, Green, Blue, Violet, Grey, White = 0–9)<br>
+        • Series resistors: R_eq = R₁ + R₂ (larger); Parallel: 1/R_eq = 1/R₁ + 1/R₂ (smaller than smallest)<br>
+        • Semiconductor conductivity increases with temperature (opposite to metals)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ UNIT 3: MAGNETIC EFFECTS ═══════════ -->
+<!-- CHAPTER 4 -->
+<div class="chapter" id="u3-ch4" data-chapter="Moving Charges and Magnetism">
+  <div class="unit-head">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 0 20"/><path d="M12 2v20M2 12h10"/></svg>
+    Unit 3: Magnetic Effects of Current &amp; Magnetism <span class="unit-badge">Ch 4–5</span>
+  </div>
+  <div class="chapter-head">
+    <span class="ch-icon">&#129522;</span>
+    <div class="ch-title">Chapter 4: Moving Charges and Magnetism <span>Conceptual Weight: HIGH | Numerical: HIGH</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u3-ch4','Ch4_Moving_Charges')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch4-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch4-topics','Ch4 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag red">HIGH Numerical</span><span class="tag red">HIGH Conceptual</span><span class="tag gold">Priority 1</span></div>
+      <ul class="fl">
+        <li>Magnetic force on moving charge: <strong>Lorentz force</strong> F = q(v &times; B)</li>
+        <li>Motion of charged particles: circular / helical paths</li>
+        <li>Velocity selector and <strong>cyclotron</strong> principles</li>
+        <li>Magnetic force on current-carrying conductor</li>
+        <li>Torque on current loop: magnetic dipole moment</li>
+        <li><strong>Biot-Savart Law</strong>: field due to current elements</li>
+        <li>Magnetic field on axis of circular current loop</li>
+        <li><strong>Ampere's Circuital Law</strong> and applications</li>
+        <li>Force between parallel current-carrying conductors</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch4-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch4-formulas','Ch4 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Lorentz Force</td><td>F = q(v &times; B) = qvB sin&#952;</td><td>Direction: right-hand rule</td></tr>
+        <tr><td>Cyclotron radius</td><td>r = mv/qB</td><td>Radius of circular orbit</td></tr>
+        <tr><td>Cyclotron frequency</td><td>f = qB/2&#960;m</td><td>Independent of speed!</td></tr>
+        <tr><td>Torque on coil</td><td>&#964; = nIBA sin&#952; = MB sin&#952;</td><td>n = turns</td></tr>
+        <tr><td>Magnetic dipole moment</td><td>M = nIA</td><td>Unit: A&middot;m&sup2;</td></tr>
+        <tr><td>Biot-Savart Law</td><td>dB = (&#956;&#8320;/4&#960;) &middot; (Idl &times; r)/r&sup3;</td><td>Vector form</td></tr>
+        <tr><td>Infinite straight wire</td><td>B = &#956;&#8320;I/2&#960;r</td><td>Perpendicular distance r</td></tr>
+        <tr><td>Circular loop (centre)</td><td>B = &#956;&#8320;I/2R</td><td>At centre of loop</td></tr>
+        <tr><td>Solenoid</td><td>B = &#956;&#8320;nI</td><td>n = turns per unit length</td></tr>
+        <tr><td>Force between wires</td><td>F/L = &#956;&#8320;I&#8321;I&#8322;/2&#960;d</td><td>Attractive if same direction</td></tr>
+        <tr><td>Ampere's Law</td><td>&#8750;B&middot;dl = &#956;&#8320;I<sub>enclosed</sub></td><td>Closed loop integral</td></tr>
+      </table>
+      <div class="note-box"><strong>Analogy:</strong> Biot-Savart parallels Coulomb's law; Ampere's law parallels Gauss's law. Master right-hand rules for both force and field directions.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch4-exercise">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Exercise Types &amp; Exam Tips</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch4-exercise','Ch4 Tips')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <ul class="fl">
+        <li>Cyclotron calculations, magnetic field from wire configurations</li>
+        <li>Torque on current loops, force between conductors</li>
+        <li>Conceptual: Lorentz force direction, helical motion, galvanometer working</li>
+        <li>Cyclotron and mass spectrometer — frequently tested in competitive exams</li>
+      </ul>
+      <div class="tip-box"><strong>Strategy:</strong> Strong vector cross-product intuition needed. Practice direction determination — most errors happen here.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch4-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch4-notes','Ch4 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Magnetic Force — Lorentz Force</h4>
+      <div class="formula">F = q(v × B) = qvB sinθ</div>
+      <ul class="fl">
+        <li>Direction: use right-hand rule for v×B (for +ve charge); reverse for −ve charge</li>
+        <li>Magnetic force is always perpendicular to velocity → does NO work → doesn't change KE or speed</li>
+        <li>F = 0 when charge moves parallel to B (θ = 0°)</li>
+        <li>F = qvB (maximum) when perpendicular (θ = 90°)</li>
+      </ul>
+      <h4>2. Motion in Magnetic Field</h4>
+      <ul class="fl">
+        <li><strong>v ⊥ B:</strong> Circular motion. Radius r = mv/qB; Period T = 2πm/qB (independent of speed!)</li>
+        <li><strong>v ∥ B:</strong> No force, straight-line motion unchanged</li>
+        <li><strong>v at angle θ:</strong> Helical path — circular (perpendicular component) + linear (parallel component)</li>
+      </ul>
+      <h4>3. Cyclotron</h4>
+      <ul class="fl">
+        <li>Uses perpendicular magnetic field to give charged particles circular paths</li>
+        <li>AC electric field (at cyclotron frequency) accelerates particles each half-cycle</li>
+        <li>Cyclotron frequency: f = qB/2πm — independent of speed (key principle!)</li>
+        <li>Limitation: cannot accelerate electrons (relativistic at low energy), cannot accelerate neutral particles</li>
+        <li>Maximum KE: KE_max = q²B²R²/2m (R = radius of dee)</li>
+      </ul>
+      <h4>4. Force on Current-Carrying Conductor</h4>
+      <div class="formula">F = IL × B = BIL sinθ</div>
+      <ul class="fl">
+        <li>Direction from Fleming's Left-Hand Rule (thumb = force, index = field, middle = current)</li>
+        <li>Force between two parallel wires: F/L = μ₀I₁I₂/2πd</li>
+        <li>Same direction currents: ATTRACTIVE; Opposite: REPULSIVE</li>
+        <li>Definition of 1 Ampere: force of 2×10⁻⁷ N/m between parallel wires 1 m apart</li>
+      </ul>
+      <h4>5. Biot-Savart Law vs Ampere's Law</h4>
+      <table class="ftable">
+        <tr><th>Feature</th><th>Biot-Savart Law</th><th>Ampere's Law</th></tr>
+        <tr><td>Use for</td><td>Any current distribution</td><td>Highly symmetric distributions</td></tr>
+        <tr><td>Analogous to</td><td>Coulomb's Law</td><td>Gauss's Law</td></tr>
+        <tr><td>Integration</td><td>Over current elements dI</td><td>Over closed loop (Amperian loop)</td></tr>
+      </table>
+      <h4>6. Magnetic Field from Standard Configurations</h4>
+      <table class="ftable">
+        <tr><th>Configuration</th><th>Field</th><th>Location</th></tr>
+        <tr><td>Infinite straight wire</td><td>B = μ₀I/2πr</td><td>At perpendicular distance r</td></tr>
+        <tr><td>Circular loop (N turns)</td><td>B = μ₀NI/2R</td><td>At centre</td></tr>
+        <tr><td>Solenoid (n turns/m)</td><td>B = μ₀nI</td><td>Inside (uniform); outside ≈ 0</td></tr>
+        <tr><td>Toroid (N turns)</td><td>B = μ₀NI/2πr</td><td>Inside; outside = 0 exactly</td></tr>
+      </table>
+      <h4>7. Torque on Current Loop and Galvanometer</h4>
+      <div class="formula">τ = nBIA sinθ = MB sinθ (M = nIA = magnetic dipole moment)</div>
+      <ul class="fl">
+        <li>Moving coil galvanometer: spring torque balances magnetic torque → θ ∝ I</li>
+        <li>Converted to ammeter: add low resistance shunt in parallel</li>
+        <li>Converted to voltmeter: add high resistance in series</li>
+      </ul>
+      <div class="note-box"><strong>⚠️ Common Mistakes:</strong><br>
+        • Right-hand rule: curl fingers in direction of current flow in loop → thumb points in direction of B (at centre)<br>
+        • Cyclotron frequency is independent of particle speed — this is the KEY principle<br>
+        • Magnetic force does NO work (always perpendicular to displacement)</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 5 -->
+<div class="chapter" id="u3-ch5" data-chapter="Magnetism and Matter">
+  <div class="chapter-head">
+    <span class="ch-icon">&#129522;</span>
+    <div class="ch-title">Chapter 5: Magnetism and Matter <span>Conceptual Weight: MEDIUM | Numerical: LOW</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u3-ch5','Ch5_Magnetism_Matter')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch5-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch5-topics','Ch5 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag">HIGH Conceptual</span><span class="tag green">LOW Numerical</span><span class="tag">Priority 3</span></div>
+      <ul class="fl">
+        <li>Magnetic dipole moment of bar magnet</li>
+        <li>Magnetic field on axial and equatorial lines of bar magnet</li>
+        <li>Torque and potential energy of magnetic dipole in uniform field</li>
+        <li>Earth's magnetism: <strong>declination, inclination, horizontal component</strong></li>
+        <li>Magnetization and magnetic intensity</li>
+        <li>Magnetic susceptibility (&#967;<sub>m</sub>) and permeability (&#956;<sub>r</sub>)</li>
+        <li><strong>Hysteresis</strong>: soft and hard magnetic materials</li>
+        <li>Diamagnetism, paramagnetism, ferromagnetism</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch5-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch5-formulas','Ch5 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Axial field (bar magnet)</td><td>B = (&#956;&#8320;/4&#960;) &middot; (2M/r&sup3;)</td><td>Along axis</td></tr>
+        <tr><td>Equatorial field</td><td>B = (&#956;&#8320;/4&#960;) &middot; (M/r&sup3;)</td><td>Perpendicular bisector</td></tr>
+        <tr><td>Torque</td><td>&#964; = MB sin&#952;</td><td>In uniform field B</td></tr>
+        <tr><td>Potential energy</td><td>U = &minus;MB cos&#952;</td><td>Stable: &#952; = 0&deg;</td></tr>
+        <tr><td>B, H, I relation</td><td>B = &#956;&#8320;(H + I) = &#956;&#8320;&#956;<sub>r</sub>H</td><td>Inside magnetic material</td></tr>
+        <tr><td>Susceptibility</td><td>&#967;<sub>m</sub> = I/H</td><td>Dimensionless</td></tr>
+        <tr><td>Relative permeability</td><td>&#956;<sub>r</sub> = 1 + &#967;<sub>m</sub></td><td>For all materials</td></tr>
+      </table>
+      <div class="note-box"><strong>Classification:</strong> Diamagnetic (&#967;<sub>m</sub> &lt; 0, repelled), Paramagnetic (&#967;<sub>m</sub> small &gt; 0, weakly attracted), Ferromagnetic (&#967;<sub>m</sub> very large, strongly attracted). Hysteresis curve: narrow = soft (transformer cores), wide = hard (permanent magnets).</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch5-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch5-notes','Ch5 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Magnetic Dipole — Bar Magnet</h4>
+      <ul class="fl">
+        <li>Bar magnet is a magnetic dipole with moment M = m × 2l (m = pole strength, 2l = length)</li>
+        <li>Axial field (on axis): B = (μ₀/4π)(2M/r³) — in direction of M</li>
+        <li>Equatorial field (perpendicular bisector): B = (μ₀/4π)(M/r³) — opposite to M</li>
+        <li>At same distance: B_axial = 2 × B_equatorial</li>
+      </ul>
+      <h4>2. Torque and Energy of Magnetic Dipole</h4>
+      <div class="formula">Torque: τ = MB sinθ (tends to align dipole with field)</div>
+      <div class="formula">Potential energy: U = −MB cosθ</div>
+      <ul class="fl">
+        <li>Stable equilibrium: θ = 0° (M parallel to B), U = −MB (minimum)</li>
+        <li>Unstable equilibrium: θ = 180°, U = +MB (maximum)</li>
+      </ul>
+      <h4>3. Earth's Magnetism — Three Elements</h4>
+      <table class="ftable">
+        <tr><th>Element</th><th>Definition</th><th>Value at Equator/Poles</th></tr>
+        <tr><td>Magnetic Declination (D)</td><td>Angle between geographic North and magnetic North</td><td>Varies by location</td></tr>
+        <tr><td>Magnetic Inclination / Dip (I)</td><td>Angle of total B with horizontal</td><td>0° at equator, 90° at poles</td></tr>
+        <tr><td>Horizontal Component (H)</td><td>H = B cosI</td><td>Max at equator, 0 at poles</td></tr>
+      </table>
+      <div class="formula">Total field: B = √(H² + V²); V = B sinI; H = B cosI; tan I = V/H</div>
+      <h4>4. Magnetic Materials — Classification</h4>
+      <table class="ftable">
+        <tr><th>Property</th><th>Diamagnetic</th><th>Paramagnetic</th><th>Ferromagnetic</th></tr>
+        <tr><td>Susceptibility χ_m</td><td>Small, negative (−1 to 0)</td><td>Small, positive</td><td>Very large, positive (10³–10⁵)</td></tr>
+        <tr><td>Relative permeability μ_r</td><td>Slightly &lt; 1</td><td>Slightly &gt; 1</td><td>Very large (&gt;&gt; 1)</td></tr>
+        <tr><td>In non-uniform B field</td><td>Move to weaker field region</td><td>Move to stronger field region</td></tr>
+        <tr><td>Temperature effect</td><td>Independent of T</td><td>χ ∝ 1/T (Curie's Law)</td><td>Loses ferromagnetism above Curie temp</td></tr>
+        <tr><td>Examples</td><td>Bi, Cu, water, N₂</td><td>Al, Na, O₂, Pt</td><td>Fe, Co, Ni</td></tr>
+      </table>
+      <h4>5. Hysteresis and Applications</h4>
+      <ul class="fl">
+        <li>Hysteresis loop area = energy lost per cycle (as heat) in the material</li>
+        <li><strong>Soft magnetic materials</strong> (small loop, low retentivity): Fe-Si — used in transformer cores, electromagnets (easy to magnetize/demagnetize)</li>
+        <li><strong>Hard magnetic materials</strong> (wide loop, high retentivity, high coercivity): Steel — used in permanent magnets</li>
+        <li>Retentivity = B when H = 0 (residual magnetism)</li>
+        <li>Coercivity = H needed to reduce B to zero (demagnetizing field)</li>
+      </ul>
+      <div class="note-box"><strong>⚠️ Key Points:</strong><br>
+        • Curie temperature for Fe ≈ 1043 K — above this, ferromagnetic becomes paramagnetic<br>
+        • Superconductors are perfect diamagnets (χ_m = −1, μ_r = 0) — Meissner effect<br>
+        • Earth's geographic north is near magnetic south (compass north → magnetic south)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ UNIT 4: EMI & AC ═══════════ -->
+<!-- CHAPTER 6 -->
+<div class="chapter" id="u4-ch6" data-chapter="Electromagnetic Induction">
+  <div class="unit-head">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12h4l3-9 4 18 3-9h4"/></svg>
+    Unit 4: EMI &amp; AC <span class="unit-badge">Ch 6–7</span>
+  </div>
+  <div class="chapter-head">
+    <span class="ch-icon">&#9889;</span>
+    <div class="ch-title">Chapter 6: Electromagnetic Induction <span>Conceptual Weight: HIGH | Numerical: HIGH</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u4-ch6','Ch6_EMI')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch6-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch6-topics','Ch6 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag red">HIGH Numerical</span><span class="tag">Graph-Based</span><span class="tag gold">Priority 2</span></div>
+      <ul class="fl">
+        <li><strong>Faraday's Laws</strong> of Electromagnetic Induction</li>
+        <li><strong>Lenz's Law</strong>: direction of induced EMF</li>
+        <li>Motional EMF: E = Blv</li>
+        <li>Self-induction and self-inductance (L)</li>
+        <li>Mutual induction and mutual inductance (M)</li>
+        <li>Self-inductance of solenoid and toroid</li>
+        <li>Energy stored in inductor: U = &frac12;LI&sup2;</li>
+        <li>Eddy currents: applications and minimization</li>
+        <li>AC generator principle</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch6-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch6-formulas','Ch6 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Faraday's Law</td><td>E = &minus;d&#934;<sub>B</sub>/dt</td><td>Negative sign = Lenz's law</td></tr>
+        <tr><td>Motional EMF</td><td>E = Blv sin&#952;</td><td>Conductor moving in field</td></tr>
+        <tr><td>Rotating rod EMF</td><td>E = &frac12;B&#969;l&sup2;</td><td>Rod rotating about one end</td></tr>
+        <tr><td>Self-inductance (solenoid)</td><td>L = &#956;&#8320;n&sup2;Al</td><td>n = turns/length</td></tr>
+        <tr><td>Mutual inductance</td><td>M = &#956;&#8320;n&#8321;n&#8322;Al</td><td>Two coaxial solenoids</td></tr>
+        <tr><td>Back EMF</td><td>E = &minus;L(dI/dt)</td><td>Self-induced EMF</td></tr>
+        <tr><td>Energy in inductor</td><td>U = &frac12;LI&sup2;</td><td>Parallels &frac12;CV&sup2;</td></tr>
+        <tr><td>Magnetic energy density</td><td>u<sub>B</sub> = B&sup2;/2&#956;&#8320;</td><td>Per unit volume</td></tr>
+      </table>
+      <div class="note-box"><strong>Key Insight:</strong> The negative sign in Faraday's law IS Lenz's law — induced EMF opposes change in flux. Energy in inductor (&frac12;LI&sup2;) parallels capacitor (&frac12;CV&sup2;) — important for LC oscillations in Ch 7.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch6-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch6-notes','Ch6 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Faraday's Laws of EMI</h4>
+      <ul class="fl">
+        <li><strong>First Law:</strong> Whenever magnetic flux through a circuit changes, an EMF is induced</li>
+        <li><strong>Second Law:</strong> Induced EMF = −dΦ_B/dt (rate of change of flux); magnitude = |ΔΦ/Δt|</li>
+        <li>Magnetic flux: Φ_B = BA cosθ (B = field, A = area, θ = angle between B and normal to surface)</li>
+        <li>Flux can change by: changing B, changing A (deforming loop), changing θ (rotating loop)</li>
+      </ul>
+      <h4>2. Lenz's Law</h4>
+      <ul class="fl">
+        <li>Direction of induced current opposes the cause that produces it (consequence of energy conservation)</li>
+        <li>If flux is increasing → induced current creates field opposing B (reduces flux)</li>
+        <li>If flux is decreasing → induced current creates field supporting B (increases flux)</li>
+        <li>This is why there's a braking force on moving conductors in a field</li>
+      </ul>
+      <h4>3. Motional EMF</h4>
+      <div class="formula">E = Blv sinθ — conductor of length l moving at speed v in field B</div>
+      <div class="formula">Rotating rod about one end: E = ½Bωl²</div>
+      <ul class="fl">
+        <li>Free electrons experience Lorentz force F = qvB → charge separation → EMF</li>
+        <li>For a complete circuit: I = Blv/R (R = circuit resistance)</li>
+        <li>Power needed to maintain velocity: P = B²l²v²/R</li>
+      </ul>
+      <h4>4. Self-Inductance (L)</h4>
+      <div class="formula">Φ_B = LI → Self-induced EMF: E = −L(dI/dt)</div>
+      <ul class="fl">
+        <li>L depends on geometry only (shape, turns, core material)</li>
+        <li>Solenoid: L = μ₀n²Al = μ₀N²A/l (n = turns/length, N = total turns)</li>
+        <li>Toroid: L = μ₀N²A/2πr</li>
+        <li>Unit: Henry (H) = Ω·s</li>
+        <li>L opposes change in current — acts like "electrical inertia"</li>
+      </ul>
+      <h4>5. Mutual Inductance (M)</h4>
+      <div class="formula">M = μ₀n₁n₂Al (for two coaxial solenoids)</div>
+      <div class="formula">EMF induced in coil 2: E₂ = −M(dI₁/dt)</div>
+      <ul class="fl">
+        <li>M depends on geometry and relative orientation of the two coils</li>
+        <li>M is symmetric: M₁₂ = M₂₁</li>
+        <li>Transformer works on mutual induction principle</li>
+      </ul>
+      <h4>6. Eddy Currents</h4>
+      <ul class="fl">
+        <li>Induced currents in bulk conductors due to changing magnetic flux</li>
+        <li>Cause heating (I²R loss) — harmful in transformer cores → use laminated cores</li>
+        <li>Useful applications: induction heating, magnetic braking, speedometers, induction cooktops</li>
+      </ul>
+      <h4>7. Energy in Magnetic Field</h4>
+      <div class="formula">U = ½LI² (energy stored in inductor)</div>
+      <div class="formula">Magnetic energy density: u_B = B²/2μ₀</div>
+      <div class="note-box"><strong>⚠️ Important Analogies:</strong><br>
+        • Capacitor ↔ Inductor: Q ↔ I, V ↔ EMF, C ↔ L, U = ½CV² ↔ U = ½LI²<br>
+        • In LC oscillation: energy oscillates between electric (capacitor) and magnetic (inductor)<br>
+        • AC Generator: E = NBAω sin(ωt) = E₀ sin(ωt)</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 7 -->
+<div class="chapter" id="u4-ch7" data-chapter="Alternating Current">
+  <div class="chapter-head">
+    <span class="ch-icon">&#126;</span>
+    <div class="ch-title">Chapter 7: Alternating Current <span>Conceptual Weight: HIGH | Numerical: HIGH</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u4-ch7','Ch7_AC_Circuits')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch7-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch7-topics','Ch7 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag red">HIGH Numerical</span><span class="tag">Phasor Diagrams</span><span class="tag gold">Priority 1</span></div>
+      <ul class="fl">
+        <li>AC voltage and current: sinusoidal representation</li>
+        <li>Phasor diagrams and rotating vectors</li>
+        <li>AC through resistor, inductor, capacitor</li>
+        <li>Impedance and phase relationships</li>
+        <li><strong>Series LCR circuits and resonance</strong></li>
+        <li>Quality factor (Q-factor) and bandwidth</li>
+        <li>Power: true, apparent, reactive; <strong>power factor cos&#966;</strong></li>
+        <li>LC oscillations and <strong>transformer</strong> principles</li>
+        <li>Wattless current</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch7-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch7-formulas','Ch7 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Instantaneous voltage</td><td>V = V<sub>m</sub> sin(&#969;t)</td><td>V<sub>m</sub> = peak voltage</td></tr>
+        <tr><td>Inductive reactance</td><td>X<sub>L</sub> = &#969;L</td><td>Increases with frequency</td></tr>
+        <tr><td>Capacitive reactance</td><td>X<sub>C</sub> = 1/&#969;C</td><td>Decreases with frequency</td></tr>
+        <tr><td>Impedance (LCR)</td><td>Z = &radic;[R&sup2; + (X<sub>L</sub> &minus; X<sub>C</sub>)&sup2;]</td><td>Total opposition</td></tr>
+        <tr><td>Phase angle</td><td>tan&#966; = (X<sub>L</sub> &minus; X<sub>C</sub>)/R</td><td>V leads/lags I</td></tr>
+        <tr><td>Resonant frequency</td><td>&#969;&#8320; = 1/&radic;(LC)</td><td>X<sub>L</sub> = X<sub>C</sub></td></tr>
+        <tr><td>Q-factor</td><td>Q = &#969;&#8320;L/R = 1/&#969;&#8320;CR = (1/R)&radic;(L/C)</td><td>Sharpness of resonance</td></tr>
+        <tr><td>Power</td><td>P = VI cos&#966; = I&sup2;R</td><td>True/real power</td></tr>
+        <tr><td>Transformer</td><td>V<sub>s</sub>/V<sub>p</sub> = N<sub>s</sub>/N<sub>p</sub> = I<sub>p</sub>/I<sub>s</sub></td><td>Ideal transformer</td></tr>
+      </table>
+      <div class="note-box"><strong>Key Insight:</strong> At resonance: Z = R (minimum), current is maximum, power factor = 1. Wattless current is the 90&deg; component that does no work.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch7-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch7-notes','Ch7 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. AC Basics</h4>
+      <div class="formula">V = V_m sin(ωt); I = I_m sin(ωt + φ)</div>
+      <ul class="fl">
+        <li>V_rms = V_m/√2 ≈ 0.707 V_m (root mean square value)</li>
+        <li>I_rms = I_m/√2; Average voltage over full cycle = 0</li>
+        <li>AC frequency in India: 50 Hz; Angular frequency ω = 2πf = 2π×50 ≈ 314 rad/s</li>
+        <li>Peak mains voltage: V_m = 230√2 ≈ 325 V (not 230 V — that's V_rms)</li>
+      </ul>
+      <h4>2. AC Through Single Components</h4>
+      <table class="ftable">
+        <tr><th>Component</th><th>Phase Relationship</th><th>Reactance</th><th>Power</th></tr>
+        <tr><td>Pure Resistor R</td><td>V and I in phase (φ = 0)</td><td>R (constant)</td><td>P = I²_rms × R (non-zero)</td></tr>
+        <tr><td>Pure Inductor L</td><td>V leads I by 90°</td><td>X_L = ωL</td><td>P = 0 (wattless)</td></tr>
+        <tr><td>Pure Capacitor C</td><td>I leads V by 90°</td><td>X_C = 1/ωC</td><td>P = 0 (wattless)</td></tr>
+      </table>
+      <h4>3. Series LCR Circuit</h4>
+      <div class="formula">Z = √[R² + (X_L − X_C)²]; tan φ = (X_L − X_C)/R</div>
+      <ul class="fl">
+        <li>If X_L > X_C: inductive circuit, V leads I</li>
+        <li>If X_L &lt; X_C: capacitive circuit, I leads V</li>
+        <li>If X_L = X_C: resonance, Z = R (minimum), φ = 0, I is maximum</li>
+      </ul>
+      <h4>4. Resonance</h4>
+      <div class="formula">At resonance: ω₀ = 1/√(LC) → f₀ = 1/(2π√LC)</div>
+      <ul class="fl">
+        <li>Z = R (minimum) → I = V/R (maximum)</li>
+        <li>Power factor cos φ = 1 (unity)</li>
+        <li>V_L = V_C (equal and opposite, they cancel); V_R = V (source)</li>
+        <li>V_L and V_C can individually be much larger than source voltage (resonance amplification)</li>
+      </ul>
+      <h4>5. Q-Factor (Quality Factor)</h4>
+      <div class="formula">Q = ω₀L/R = 1/(ω₀CR) = (1/R)√(L/C)</div>
+      <ul class="fl">
+        <li>Higher Q → sharper resonance peak, smaller bandwidth</li>
+        <li>Bandwidth Δω = ω₀/Q = R/L</li>
+        <li>Q also = V_L/V or V_C/V at resonance (voltage amplification factor)</li>
+      </ul>
+      <h4>6. Power in AC Circuits</h4>
+      <div class="formula">P = V_rms × I_rms × cosφ = I²_rms × R</div>
+      <ul class="fl">
+        <li>Power factor cosφ: ranges from 0 (pure L or C) to 1 (pure R or resonance)</li>
+        <li>Wattless current: component of current 90° out of phase with V — does no work</li>
+        <li>Apparent power (VA) = V_rms × I_rms; True power (W) = V_rms × I_rms × cosφ</li>
+        <li>Reactive power (VAR) = V_rms × I_rms × sinφ</li>
+      </ul>
+      <h4>7. Transformers</h4>
+      <div class="formula">V_s/V_p = N_s/N_p = I_p/I_s (ideal transformer)</div>
+      <ul class="fl">
+        <li>Step-up: N_s > N_p → V_s > V_p, but I_s &lt; I_p</li>
+        <li>Step-down: N_s &lt; N_p → V_s &lt; V_p, but I_s > I_p</li>
+        <li>Ideal transformer: P_input = P_output (100% efficiency)</li>
+        <li>Losses in real transformer: copper loss (I²R), iron loss (eddy currents + hysteresis)</li>
+        <li>High-voltage transmission reduces I → reduces I²R power loss in transmission lines</li>
+      </ul>
+      <div class="note-box"><strong>⚠️ Phasor Diagram Tips:</strong><br>
+        • Draw R along reference; V_L leads by 90°; V_C lags by 90°<br>
+        • V_net = √(V_R² + (V_L − V_C)²)<br>
+        • LC oscillations: ω = 1/√(LC) — same as resonance frequency</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ UNIT 5: EM WAVES ═══════════ -->
+<div class="chapter" id="u5-ch8" data-chapter="Electromagnetic Waves">
+  <div class="unit-head">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 12h4l3-9 4 18 3-9h4"/></svg>
+    Unit 5: Electromagnetic Waves <span class="unit-badge">Ch 8</span>
+  </div>
+  <div class="chapter-head">
+    <span class="ch-icon">&#128267;</span>
+    <div class="ch-title">Chapter 8: Electromagnetic Waves <span>Conceptual Weight: MEDIUM | Numerical: LOW</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u5-ch8','Ch8_EM_Waves')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch8-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch8-topics','Ch8 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag">HIGH Conceptual</span><span class="tag green">LOW Numerical</span><span class="tag">Priority 3</span></div>
+      <ul class="fl">
+        <li><strong>Displacement current</strong> and Maxwell's modification of Ampere's law</li>
+        <li>Maxwell's equations (integral form)</li>
+        <li>EM wave generation and propagation (transverse nature)</li>
+        <li>Relationship between E and B fields: E&#8320;/B&#8320; = c</li>
+        <li>Energy density and <strong>Poynting vector</strong></li>
+        <li><strong>EM spectrum</strong>: radio → microwave → infrared → visible → UV → X-ray → gamma</li>
+        <li>Propagation characteristics in different media</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch8-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas &amp; EM Spectrum</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch8-formulas','Ch8 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Displacement current</td><td>I<sub>D</sub> = &#949;&#8320;(d&#934;<sub>E</sub>/dt)</td><td>Maxwell's addition</td></tr>
+        <tr><td>Wave speed</td><td>c = 1/&radic;(&#956;&#8320;&#949;&#8320;) &asymp; 3&times;10&sup8; m/s</td><td>In vacuum</td></tr>
+        <tr><td>E/B ratio</td><td>E&#8320;/B&#8320; = c</td><td>In any EM wave</td></tr>
+        <tr><td>Electric energy density</td><td>u<sub>E</sub> = &frac12;&#949;&#8320;E&sup2;</td><td>Always = u<sub>B</sub></td></tr>
+        <tr><td>Magnetic energy density</td><td>u<sub>B</sub> = B&sup2;/2&#956;&#8320;</td><td>Equal to u<sub>E</sub></td></tr>
+        <tr><td>Total energy density</td><td>u = &#949;&#8320;E&sup2; = B&sup2;/&#956;&#8320;</td><td>u<sub>E</sub> = u<sub>B</sub> always</td></tr>
+        <tr><td>Intensity (Poynting avg)</td><td>I = &frac12;c&#949;&#8320;E&#8320;&sup2;</td><td>Average power per area</td></tr>
+        <tr><td>Momentum (absorbed)</td><td>p = U/c</td><td>For reflected: p = 2U/c</td></tr>
+      </table>
+      <h4>EM Spectrum — Must Memorize</h4>
+      <table class="ftable">
+        <tr><th>Wave Type</th><th>Wavelength Range</th><th>Key Application</th></tr>
+        <tr><td>Radio waves</td><td>&gt; 0.1 m</td><td>Communication, broadcasting</td></tr>
+        <tr><td>Microwaves</td><td>1 mm – 0.1 m</td><td>Radar, microwave ovens</td></tr>
+        <tr><td>Infrared</td><td>700 nm – 1 mm</td><td>Heating, remote sensing</td></tr>
+        <tr><td>Visible light</td><td>400 – 700 nm</td><td>Vision, photography</td></tr>
+        <tr><td>Ultraviolet</td><td>10 – 400 nm</td><td>Sterilization, fluorescence</td></tr>
+        <tr><td>X-rays</td><td>0.01 – 10 nm</td><td>Medical imaging, crystallography</td></tr>
+        <tr><td>Gamma rays</td><td>&lt; 0.01 nm</td><td>Nuclear reactions, cancer therapy</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch8-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch8-notes','Ch8 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Displacement Current — Maxwell's Addition</h4>
+      <ul class="fl">
+        <li>Problem: Ampere's law failed when applied to a capacitor being charged (no real current between plates)</li>
+        <li>Maxwell introduced displacement current: I_D = ε₀(dΦ_E/dt) — produced by changing electric field</li>
+        <li>Total current = conduction current (I) + displacement current (I_D)</li>
+        <li>I_D = I at all times in a capacitor circuit (current appears continuous)</li>
+      </ul>
+      <h4>2. Maxwell's Equations (Conceptual)</h4>
+      <table class="ftable">
+        <tr><th>Equation</th><th>Physical Meaning</th></tr>
+        <tr><td>∮E·dA = q/ε₀ (Gauss for E)</td><td>Electric charges are sources of electric field</td></tr>
+        <tr><td>∮B·dA = 0 (Gauss for B)</td><td>No magnetic monopoles; B field lines are closed loops</td></tr>
+        <tr><td>∮E·dl = −dΦ_B/dt (Faraday)</td><td>Changing magnetic field produces electric field</td></tr>
+        <tr><td>∮B·dl = μ₀(I + I_D) (Ampere+Maxwell)</td><td>Current and changing electric field produce magnetic field</td></tr>
+      </table>
+      <h4>3. Electromagnetic Waves — Properties</h4>
+      <ul class="fl">
+        <li>Transverse waves: E and B oscillate perpendicular to each other AND to direction of propagation</li>
+        <li>E, B, and direction of travel form a mutually perpendicular triad (right-hand set)</li>
+        <li>E₀/B₀ = c (ratio of amplitudes equals speed of light)</li>
+        <li>Speed in vacuum: c = 1/√(μ₀ε₀) = 3×10⁸ m/s</li>
+        <li>Speed in medium: v = c/n (n = refractive index of medium)</li>
+        <li>E and B are in phase (both reach maximum and minimum at same time and place)</li>
+      </ul>
+      <h4>4. Energy in EM Waves</h4>
+      <div class="formula">u_E = ½ε₀E² and u_B = B²/2μ₀ are ALWAYS EQUAL in EM waves</div>
+      <div class="formula">Total energy density: u = ε₀E² = B²/μ₀</div>
+      <div class="formula">Intensity (Poynting vector average): I = ½cε₀E₀² = P/A</div>
+      <ul class="fl">
+        <li>Radiation pressure: P = I/c (absorption); P = 2I/c (perfect reflection)</li>
+        <li>EM waves carry momentum: p = U/c (for absorbed); p = 2U/c (for reflected)</li>
+      </ul>
+      <h4>5. Generation of EM Waves</h4>
+      <ul class="fl">
+        <li>Accelerating charges produce EM waves (oscillating dipole antenna)</li>
+        <li>Oscillating LC circuit: natural frequency f = 1/(2π√LC)</li>
+        <li>EM waves are self-sustaining: changing E produces B, changing B produces E</li>
+      </ul>
+      <div class="note-box"><strong>⚠️ Key Facts to Memorize:</strong><br>
+        • All EM waves travel at same speed c in vacuum regardless of frequency<br>
+        • All EM waves are transverse; sound is longitudinal (NOT EM)<br>
+        • u_E = u_B always — unique property of EM waves<br>
+        • EM spectrum: radio → micro → IR → visible → UV → X-ray → gamma (increasing frequency/energy, decreasing wavelength)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ UNIT 6: OPTICS ═══════════ -->
+<!-- CHAPTER 9 -->
+<div class="chapter" id="u6-ch9" data-chapter="Ray Optics and Optical Instruments">
+  <div class="unit-head">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Unit 6: Optics (Ray + Wave) <span class="unit-badge">Ch 9–10 — CUET combines both</span>
+  </div>
+  <div class="chapter-head">
+    <span class="ch-icon">&#128269;</span>
+    <div class="ch-title">Chapter 9: Ray Optics and Optical Instruments <span>Conceptual Weight: HIGH | Numerical: HIGH</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u6-ch9','Ch9_Ray_Optics')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch9-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch9-topics','Ch9 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag red">HIGH Numerical</span><span class="tag">Ray Diagrams</span><span class="tag gold">Priority 1</span></div>
+      <ul class="fl">
+        <li>Reflection: plane and spherical mirrors (sign convention)</li>
+        <li>Refraction: Snell's law, refractive index</li>
+        <li><strong>Total Internal Reflection</strong> and critical angle</li>
+        <li>Refraction through prism: minimum deviation</li>
+        <li>Lens formula and lensmaker's equation</li>
+        <li>Power of lens: P = 1/f (diopters)</li>
+        <li>Combination of thin lenses</li>
+        <li>Simple microscope, compound microscope</li>
+        <li>Astronomical telescope: refracting and reflecting</li>
+        <li>Eye defects: myopia, hypermetropia, astigmatism</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch9-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch9-formulas','Ch9 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Mirror formula</td><td>1/f = 1/v + 1/u</td><td>Cartesian sign convention</td></tr>
+        <tr><td>Magnification (mirror)</td><td>m = &minus;v/u = f/(f&minus;u)</td><td>Negative = inverted</td></tr>
+        <tr><td>Snell's Law</td><td>n&#8321; sin i = n&#8322; sin r</td><td>At any interface</td></tr>
+        <tr><td>Critical angle</td><td>sin i<sub>c</sub> = n&#8322;/n&#8321;</td><td>n&#8321; &gt; n&#8322; required</td></tr>
+        <tr><td>Prism deviation</td><td>&#948; = i + e &minus; A</td><td>A = prism angle</td></tr>
+        <tr><td>Refractive index (prism)</td><td>n = sin[(A+&#948;<sub>m</sub>)/2] / sin(A/2)</td><td>At minimum deviation</td></tr>
+        <tr><td>Lensmaker's formula</td><td>1/f = (n&minus;1)(1/R&#8321; &minus; 1/R&#8322;)</td><td>For thin lens</td></tr>
+        <tr><td>Lens formula</td><td>1/f = 1/v &minus; 1/u</td><td>Note sign difference from mirror</td></tr>
+        <tr><td>Microscope power</td><td>M = (v/u)(D/f<sub>e</sub>)</td><td>D = 25 cm (least dist.)</td></tr>
+        <tr><td>Telescope power</td><td>M = f<sub>o</sub>/f<sub>e</sub></td><td>Normal adjustment</td></tr>
+        <tr><td>Resolving power (telescope)</td><td>RP = D/1.22&#955;</td><td>D = aperture</td></tr>
+      </table>
+      <div class="warn-box"><strong>Common Error:</strong> Sign convention must be applied consistently (Cartesian). Mirror formula uses + and &minus; differently from lens formula. Magnifying power (angular) &ne; magnification (size ratio) for optical instruments.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch9-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch9-notes','Ch9 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Reflection — Mirrors (Cartesian Sign Convention)</h4>
+      <ul class="fl">
+        <li>All distances measured from pole (P) of mirror</li>
+        <li>Distances in direction of incident ray: <strong>positive</strong>; opposite: <strong>negative</strong></li>
+        <li>Object is always placed to the left, so u is always <strong>negative</strong></li>
+        <li>f is negative for concave mirror, positive for convex mirror</li>
+      </ul>
+      <div class="formula">Mirror formula: 1/f = 1/v + 1/u &nbsp;|&nbsp; Magnification: m = −v/u</div>
+      <table class="ftable">
+        <tr><th>Object Position (Concave)</th><th>Image Nature</th><th>Size</th></tr>
+        <tr><td>At infinity</td><td>At F, Real, Inverted</td><td>Point/Highly diminished</td></tr>
+        <tr><td>Beyond C</td><td>Between F &amp; C, Real, Inverted</td><td>Diminished</td></tr>
+        <tr><td>At C</td><td>At C, Real, Inverted</td><td>Same size</td></tr>
+        <tr><td>Between C &amp; F</td><td>Beyond C, Real, Inverted</td><td>Magnified</td></tr>
+        <tr><td>At F</td><td>At infinity</td><td>Highly magnified</td></tr>
+        <tr><td>Between F &amp; P</td><td>Behind mirror, Virtual, Erect</td><td>Magnified</td></tr>
+      </table>
+      <h4>2. Refraction — Snell's Law</h4>
+      <div class="formula">n₁ sinθ₁ = n₂ sinθ₂ &nbsp;|&nbsp; n = c/v (refractive index)</div>
+      <ul class="fl">
+        <li>Light bends toward normal when going denser→rarer, away when rarer→denser</li>
+        <li>Absolute refractive index n = c/v; Relative: ₁n₂ = n₂/n₁ = v₁/v₂ = sinθ₁/sinθ₂</li>
+        <li>n depends on wavelength → violet light has highest n, red has lowest (dispersion)</li>
+      </ul>
+      <h4>3. Total Internal Reflection (TIR)</h4>
+      <div class="formula">Critical angle: sin C = n₂/n₁ (for n₁ &gt; n₂)</div>
+      <ul class="fl">
+        <li>Conditions: (a) Light travels from denser to rarer medium (b) Angle of incidence &gt; critical angle</li>
+        <li>Applications: optical fibre, diamond brilliance, mirage, prism reflectors, endoscopy</li>
+        <li>Diamond: C ≈ 24° (very small due to high n ≈ 2.42) → sparkle due to repeated TIR</li>
+      </ul>
+      <h4>4. Prism — Refraction</h4>
+      <div class="formula">Deviation: δ = i + e − A &nbsp;|&nbsp; Minimum deviation: n = sin[(A + δ_m)/2] / sin(A/2)</div>
+      <ul class="fl">
+        <li>At minimum deviation: i = e and r₁ = r₂ = A/2 (ray passes symmetrically)</li>
+        <li>Dispersion: different colours deviate by different amounts (violet most, red least)</li>
+        <li>Angular dispersion = δ_v − δ_r; Dispersive power ω = (δ_v − δ_r)/δ_y</li>
+      </ul>
+      <h4>5. Thin Lens — Lensmaker's Equation</h4>
+      <div class="formula">1/f = (n−1)(1/R₁ − 1/R₂) &nbsp;|&nbsp; Lens formula: 1/f = 1/v − 1/u</div>
+      <ul class="fl">
+        <li>Power P = 1/f (f in metres) → unit: Dioptre (D)</li>
+        <li>Lenses in contact: P_eq = P₁ + P₂ + P₃ ...</li>
+        <li>Convex lens: f positive; Concave lens: f negative</li>
+        <li>Magnification m = v/u (positive = erect/virtual; negative = inverted/real)</li>
+      </ul>
+      <h4>6. Optical Instruments</h4>
+      <table class="ftable">
+        <tr><th>Instrument</th><th>Magnifying Power</th><th>Key Point</th></tr>
+        <tr><td>Simple microscope</td><td>m = 1 + D/f (image at D) &nbsp;|&nbsp; m = D/f (image at ∞)</td><td>D = 25 cm (least distance of distinct vision)</td></tr>
+        <tr><td>Compound microscope</td><td>M = (L/f_o) × (D/f_e)</td><td>L = tube length; two-stage magnification</td></tr>
+        <tr><td>Astronomical telescope</td><td>M = f_o/f_e (normal adjustment)</td><td>Large f_o, small f_e for high power</td></tr>
+        <tr><td>Reflecting telescope</td><td>M = f_o/f_e</td><td>No chromatic aberration; larger aperture possible</td></tr>
+      </table>
+      <h4>7. Eye Defects &amp; Correction</h4>
+      <table class="ftable">
+        <tr><th>Defect</th><th>Problem</th><th>Correction</th></tr>
+        <tr><td>Myopia (Nearsightedness)</td><td>Cannot see distant objects; image forms before retina</td><td>Concave lens (−ve power)</td></tr>
+        <tr><td>Hypermetropia (Farsightedness)</td><td>Cannot see near objects; image forms behind retina</td><td>Convex lens (+ve power)</td></tr>
+        <tr><td>Presbyopia</td><td>Both near &amp; far vision impaired (old age)</td><td>Bifocal lens</td></tr>
+        <tr><td>Astigmatism</td><td>Blurred vision due to irregular cornea</td><td>Cylindrical lens</td></tr>
+      </table>
+      <div class="note-box"><strong>⚠️ Exam Traps:</strong><br>
+        • Lens formula sign: 1/v − 1/u (note: MINUS, unlike mirror formula 1/v + 1/u)<br>
+        • Magnifying power = angular size of image / angular size of object (NOT linear ratio)<br>
+        • Resolving power of telescope = D/1.22λ — larger aperture = better resolution<br>
+        • Reflecting telescope avoids chromatic aberration; uses concave mirror instead of lens</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 10 -->
+<div class="chapter" id="u6-ch10" data-chapter="Wave Optics">
+  <div class="chapter-head">
+    <span class="ch-icon">&#127752;</span>
+    <div class="ch-title">Chapter 10: Wave Optics <span>Conceptual Weight: HIGH | Numerical: MEDIUM</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u6-ch10','Ch10_Wave_Optics')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch10-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch10-topics','Ch10 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag">Graph-Based</span><span class="tag gold">Priority 2</span><span class="tag">Wave-Particle Link</span></div>
+      <ul class="fl">
+        <li>Wavefront: spherical, cylindrical, plane; Huygens' principle</li>
+        <li>Coherent sources and interference conditions</li>
+        <li><strong>Young's Double Slit Experiment</strong></li>
+        <li>Fringe width and intensity distribution</li>
+        <li>Diffraction: single slit (Fraunhofer)</li>
+        <li>Width of central maximum and secondary maxima</li>
+        <li>Polarization: <strong>Brewster's law, Malus's law</strong></li>
+        <li>Polaroids and applications</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch10-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch10-formulas','Ch10 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Path difference</td><td>&#916; = d sin&#952;</td><td>Between two slits</td></tr>
+        <tr><td>Bright fringe condition</td><td>&#916; = n&#955; (n = 0, 1, 2...)</td><td>Constructive interference</td></tr>
+        <tr><td>Dark fringe condition</td><td>&#916; = (n + &frac12;)&#955;</td><td>Destructive interference</td></tr>
+        <tr><td>Fringe width</td><td>&#946; = &#955;D/d</td><td>D = screen distance, d = slit sep.</td></tr>
+        <tr><td>Angular fringe width</td><td>&#952; = &#955;/d</td><td>In radians</td></tr>
+        <tr><td>Diffraction minima</td><td>a sin&#952; = n&#955;</td><td>Single slit; a = slit width</td></tr>
+        <tr><td>Central max width</td><td>2&#955;D/a</td><td>Double the secondary maxima width</td></tr>
+        <tr><td>Brewster's angle</td><td>tan i<sub>B</sub> = n&#8322;/n&#8321; = &#956;</td><td>Reflected ray fully polarized</td></tr>
+        <tr><td>Malus's Law</td><td>I = I&#8320; cos&sup2;&#952;</td><td>Intensity through polarizer</td></tr>
+        <tr><td>Resolving power (microscope)</td><td>RP = 2&#956; sin&#952;/&#955;</td><td>&#956; = refractive index of medium</td></tr>
+      </table>
+      <div class="note-box"><strong>Key Distinction:</strong> d &gt;&gt; &#955; gives interference; a &asymp; &#955; gives diffraction. Polarization proves transverse nature of light.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch10-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch10-notes','Ch10 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Huygens' Principle</h4>
+      <ul class="fl">
+        <li>Every point on a wavefront acts as a secondary source of spherical wavelets</li>
+        <li>New wavefront = envelope of all secondary wavelets after time t</li>
+        <li>Explains reflection, refraction, and diffraction geometrically</li>
+        <li>Types of wavefronts: Spherical (point source), Cylindrical (line source), Plane (source at infinity)</li>
+      </ul>
+      <h4>2. Interference — Young's Double Slit</h4>
+      <ul class="fl">
+        <li>Coherent sources: same frequency, constant phase difference (must use same source)</li>
+        <li>Path difference Δ = d sinθ ≈ yd/D (y = fringe position, D = screen distance, d = slit separation)</li>
+        <li>Constructive: Δ = nλ → bright fringes</li>
+        <li>Destructive: Δ = (n + ½)λ → dark fringes</li>
+      </ul>
+      <div class="formula">Fringe width β = λD/d — spacing between consecutive bright (or dark) fringes</div>
+      <ul class="fl">
+        <li>β increases if: λ increases, D increases, d decreases</li>
+        <li>If entire setup is immersed in medium n: λ_medium = λ/n → β decreases by factor n</li>
+        <li>Intensity: I = 4I₀ cos²(δ/2) where δ = phase difference = (2π/λ)Δ</li>
+      </ul>
+      <h4>3. Single Slit Diffraction</h4>
+      <div class="formula">Minima: a sinθ = nλ (n = 1, 2, 3...) where a = slit width</div>
+      <ul class="fl">
+        <li>Width of central maximum = 2λD/a (twice the secondary maxima width)</li>
+        <li>Angular width of central maximum = 2λ/a</li>
+        <li>Secondary maxima at: a sinθ = (2n+1)λ/2 (approximately)</li>
+        <li>Intensity of secondary maxima decreases rapidly (1st = 4.5% of central)</li>
+        <li>Narrower slit → wider diffraction pattern (Δ ∝ 1/a)</li>
+      </ul>
+      <h4>4. Interference vs Diffraction</h4>
+      <table class="ftable">
+        <tr><th>Feature</th><th>Interference (YDSE)</th><th>Diffraction (Single Slit)</th></tr>
+        <tr><td>Source</td><td>Two coherent sources (d &gt;&gt; λ)</td><td>Single slit (a ~ λ)</td></tr>
+        <tr><td>Fringes</td><td>Equal width, equal intensity bright fringes</td><td>Central max = 2× others; intensity falls</td></tr>
+        <tr><td>Minima condition</td><td>Δ = (n+½)λ</td><td>a sinθ = nλ</td></tr>
+        <tr><td>Pattern</td><td>Uniform alternating bands</td><td>Bright central + fading sides</td></tr>
+      </table>
+      <h4>5. Polarization</h4>
+      <ul class="fl">
+        <li>Unpolarized light: vibrations in all planes perpendicular to propagation</li>
+        <li>Plane polarized light: vibrations in one plane only</li>
+        <li>Only transverse waves can be polarized (NOT longitudinal like sound)</li>
+      </ul>
+      <div class="formula">Malus's Law: I = I₀ cos²θ (θ = angle between transmission axis and polarization direction)</div>
+      <div class="formula">Brewster's Law: tan i_B = n₂/n₁ = μ (reflected ray is completely polarized)</div>
+      <ul class="fl">
+        <li>At Brewster's angle: reflected and refracted rays are perpendicular (r + i_B = 90°)</li>
+        <li>Polaroids: selectively transmit one direction of vibration; used in sunglasses, cameras, LCD screens</li>
+      </ul>
+      <h4>6. Resolving Power</h4>
+      <table class="ftable">
+        <tr><th>Instrument</th><th>Resolving Power</th><th>How to Improve</th></tr>
+        <tr><td>Telescope</td><td>RP = D/1.22λ</td><td>Larger aperture D, smaller λ</td></tr>
+        <tr><td>Microscope</td><td>RP = 2μ sinθ/λ</td><td>Oil immersion (higher μ), smaller λ (UV/e-beam)</td></tr>
+      </table>
+      <div class="note-box"><strong>⚠️ Key Points:</strong><br>
+        • Central fringe in YDSE is always bright (zero path difference)<br>
+        • If one slit covered: fringe pattern disappears (need two coherent sources for interference)<br>
+        • Polarization is PROOF that light is a transverse wave<br>
+        • After two polaroids at 90°: zero intensity; at 45°: I = I₀/2</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ UNIT 7: DUAL NATURE ═══════════ -->
+<div class="chapter" id="u7-ch11" data-chapter="Dual Nature of Radiation and Matter">
+  <div class="unit-head">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+    Unit 7: Dual Nature of Radiation &amp; Matter <span class="unit-badge">Ch 11</span>
+  </div>
+  <div class="chapter-head">
+    <span class="ch-icon">&#128161;</span>
+    <div class="ch-title">Chapter 11: Dual Nature of Radiation and Matter <span>Conceptual Weight: HIGH | Numerical: MEDIUM</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u7-ch11','Ch11_Dual_Nature')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch11-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch11-topics','Ch11 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag">Graph-Based</span><span class="tag">Assertion-R</span><span class="tag gold">Priority 2</span></div>
+      <ul class="fl">
+        <li>Electron emission: thermionic, photoelectric, field emission</li>
+        <li><strong>Photoelectric effect</strong>: experimental observations (3 key results)</li>
+        <li>Einstein's photoelectric equation</li>
+        <li>Work function and threshold frequency</li>
+        <li>Stopping potential and maximum KE of photoelectrons</li>
+        <li><strong>de Broglie hypothesis</strong>: matter waves &#955; = h/p</li>
+        <li>Davisson-Germer experiment (electron diffraction proof)</li>
+        <li>Wave-particle duality</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch11-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch11-formulas','Ch11 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Einstein's PE equation</td><td>h&#957; = &#966; + KE<sub>max</sub> = &#966; + eV<sub>s</sub></td><td>Energy conservation</td></tr>
+        <tr><td>Work function</td><td>&#966; = h&#957;&#8320;</td><td>&#957;&#8320; = threshold frequency</td></tr>
+        <tr><td>Max KE</td><td>KE<sub>max</sub> = h(&#957; &minus; &#957;&#8320;) = eV<sub>s</sub></td><td>Independent of intensity</td></tr>
+        <tr><td>Stopping potential</td><td>V<sub>s</sub> = (h/e)(&#957; &minus; &#957;&#8320;)</td><td>V<sub>s</sub> vs &#957; slope = h/e</td></tr>
+        <tr><td>de Broglie wavelength</td><td>&#955; = h/p = h/(mv)</td><td>For any particle</td></tr>
+        <tr><td>For electrons (accelerated)</td><td>&#955; = h/&radic;(2meV) = 1.227/&radic;V nm</td><td>V in volts</td></tr>
+        <tr><td>For any particle (accelerated)</td><td>&#955; = h/&radic;(2mqV)</td><td>q = charge of particle</td></tr>
+      </table>
+      <div class="note-box"><strong>3 Key PE Observations (classical theory fails):</strong> (1) Instantaneous emission, (2) Frequency threshold exists, (3) KE independent of intensity. Only photon concept explains all three.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch11-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch11-notes','Ch11 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Electron Emission — Types</h4>
+      <table class="ftable">
+        <tr><th>Type</th><th>Mechanism</th><th>Example</th></tr>
+        <tr><td>Thermionic emission</td><td>Heat energy frees electrons</td><td>Vacuum tubes, CRT</td></tr>
+        <tr><td>Photoelectric emission</td><td>Light (photons) frees electrons</td><td>Solar cells, LDR</td></tr>
+        <tr><td>Field emission</td><td>Strong electric field extracts electrons</td><td>Field emission display</td></tr>
+        <tr><td>Secondary emission</td><td>High-speed electrons knock out electrons</td><td>Photomultiplier tubes</td></tr>
+      </table>
+      <h4>2. Photoelectric Effect — Experimental Observations</h4>
+      <ul class="fl">
+        <li><strong>Observation 1:</strong> Photoelectrons are emitted <em>instantaneously</em> (no time delay)</li>
+        <li><strong>Observation 2:</strong> Emission occurs only if frequency ν &gt; threshold frequency ν₀ (not intensity)</li>
+        <li><strong>Observation 3:</strong> Maximum KE of photoelectrons increases with frequency, NOT intensity</li>
+        <li><strong>Observation 4:</strong> Number of photoelectrons (photocurrent) ∝ intensity of light</li>
+        <li>Classical wave theory FAILS to explain Obs 1, 2, 3 → Einstein's photon model needed</li>
+      </ul>
+      <h4>3. Einstein's Photoelectric Equation</h4>
+      <div class="formula">hν = φ + KE_max &nbsp;|&nbsp; hν = hν₀ + eV_s</div>
+      <ul class="fl">
+        <li>h = Planck's constant = 6.626 × 10⁻³⁴ J·s</li>
+        <li>φ = work function = minimum energy to free an electron = hν₀</li>
+        <li>KE_max = eV_s (stopping potential × charge)</li>
+        <li>Graph of V_s vs ν: straight line with slope h/e — used to measure h experimentally</li>
+        <li>x-intercept of V_s vs ν graph = threshold frequency ν₀</li>
+      </ul>
+      <h4>4. Work Function — Values to Know</h4>
+      <table class="ftable">
+        <tr><th>Metal</th><th>Work Function (eV)</th><th>Threshold Wavelength (approx)</th></tr>
+        <tr><td>Caesium (Cs)</td><td>~2.0 eV</td><td>~620 nm (visible light works)</td></tr>
+        <tr><td>Sodium (Na)</td><td>~2.3 eV</td><td>~540 nm</td></tr>
+        <tr><td>Platinum (Pt)</td><td>~5.6 eV</td><td>~220 nm (UV needed)</td></tr>
+      </table>
+      <h4>5. de Broglie Hypothesis — Matter Waves</h4>
+      <div class="formula">λ = h/p = h/mv (de Broglie wavelength for any matter)</div>
+      <div class="formula">For particle accelerated through V volts: λ = h/√(2mqV)</div>
+      <div class="formula">For electron: λ = 1.227/√V nm (V in volts)</div>
+      <ul class="fl">
+        <li>Any particle with momentum p has associated wavelength λ = h/p</li>
+        <li>Large mass → very small λ → wave nature undetectable (macroscopic objects)</li>
+        <li>Electron at 100 V: λ ≈ 0.123 nm (comparable to atomic spacing → diffraction possible)</li>
+      </ul>
+      <h4>6. Davisson-Germer Experiment</h4>
+      <ul class="fl">
+        <li>Electrons fired at Nickel crystal; detected intensity at various angles</li>
+        <li>Found constructive interference peak at specific angles (like X-ray diffraction)</li>
+        <li>Peak at θ = 50° for V = 54 V → calculated λ matches de Broglie prediction!</li>
+        <li>Confirmed: matter waves are real (electrons show wave behavior)</li>
+      </ul>
+      <h4>7. Wave-Particle Duality</h4>
+      <ul class="fl">
+        <li>Light: wave (interference, diffraction, polarization) AND particle (photoelectric effect)</li>
+        <li>Electrons: particle (charge, mass) AND wave (Davisson-Germer diffraction)</li>
+        <li>Heisenberg Uncertainty Principle: Δx · Δp ≥ h/4π (position &amp; momentum cannot both be exact)</li>
+        <li>Photon: E = hν, p = h/λ = E/c, rest mass = 0</li>
+      </ul>
+      <div class="note-box"><strong>⚠️ Exam Traps:</strong><br>
+        • Intensity of light increases number of photons (not energy per photon) → more electrons emitted, NOT faster<br>
+        • KE_max depends ONLY on frequency (not intensity)<br>
+        • Photocurrent depends ONLY on intensity (not frequency, as long as ν &gt; ν₀)<br>
+        • Stopping potential is INDEPENDENT of intensity of incident light</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ UNIT 8: ATOMS & NUCLEI ═══════════ -->
+<!-- CHAPTER 12 -->
+<div class="chapter" id="u8-ch12" data-chapter="Atoms">
+  <div class="unit-head">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 0 20"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"/></svg>
+    Unit 8: Atoms &amp; Nuclei <span class="unit-badge">Ch 12–13</span>
+  </div>
+  <div class="chapter-head">
+    <span class="ch-icon">&#9883;</span>
+    <div class="ch-title">Chapter 12: Atoms <span>Conceptual Weight: MEDIUM | Numerical: MEDIUM</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u8-ch12','Ch12_Atoms')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch12-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch12-topics','Ch12 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag">Spectral Series</span><span class="tag">Priority 3</span></div>
+      <ul class="fl">
+        <li>Alpha-particle scattering: Rutherford's experiment</li>
+        <li>Rutherford's nuclear model; distance of closest approach</li>
+        <li><strong>Bohr's model</strong>: postulates, quantization condition</li>
+        <li>Electron orbits: radii and velocities</li>
+        <li>Energy levels: hydrogen atom</li>
+        <li>Spectral series: <strong>Lyman (UV), Balmer (visible), Paschen (IR)</strong></li>
+        <li>Limitations of Bohr's model</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch12-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch12-formulas','Ch12 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Bohr radius (ground)</td><td>a&#8320; = 0.529 &#197;</td><td>For H atom, n=1</td></tr>
+        <tr><td>Orbit radius</td><td>r<sub>n</sub> = a&#8320; &middot; n&sup2;/Z</td><td>n = orbit number, Z = atomic no.</td></tr>
+        <tr><td>Electron velocity</td><td>v<sub>n</sub> = (c/137) &middot; Z/n</td><td>Decreases with n</td></tr>
+        <tr><td>Angular momentum</td><td>L = nħ = nh/2&#960;</td><td>Quantization condition</td></tr>
+        <tr><td>Total energy</td><td>E<sub>n</sub> = &minus;13.6 Z&sup2;/n&sup2; eV</td><td>Negative = bound state</td></tr>
+        <tr><td>KE, PE relation</td><td>KE = |E<sub>n</sub>|, PE = 2E<sub>n</sub></td><td>Virial theorem</td></tr>
+        <tr><td>Rydberg formula</td><td>1/&#955; = R(1/n&#8321;&sup2; &minus; 1/n&#8322;&sup2;)</td><td>n&#8322; &gt; n&#8321;</td></tr>
+        <tr><td>Rydberg constant</td><td>R = 1.097 &times; 10&sup7; m&#8315;&sup1;</td><td>Memorize value</td></tr>
+      </table>
+      <h4>Spectral Series</h4>
+      <table class="ftable">
+        <tr><th>Series</th><th>n&#8321;</th><th>Region</th><th>n&#8322; values</th></tr>
+        <tr><td>Lyman</td><td>1</td><td>Ultraviolet</td><td>2, 3, 4...</td></tr>
+        <tr><td>Balmer</td><td>2</td><td>Visible</td><td>3, 4, 5...</td></tr>
+        <tr><td>Paschen</td><td>3</td><td>Infrared</td><td>4, 5, 6...</td></tr>
+        <tr><td>Brackett</td><td>4</td><td>Far infrared</td><td>5, 6, 7...</td></tr>
+        <tr><td>Pfund</td><td>5</td><td>Far infrared</td><td>6, 7, 8...</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch12-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch12-notes','Ch12 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Alpha Particle Scattering — Rutherford's Experiment</h4>
+      <ul class="fl">
+        <li>Alpha particles (He²⁺) fired at thin gold foil and detected by scintillation screen</li>
+        <li>Most passed straight through → atom is mostly empty space</li>
+        <li>Few deflected at large angles → massive positive charge concentrated in tiny nucleus</li>
+        <li>Very few (1 in 20,000) bounced back → nucleus is hard, dense</li>
+        <li>Distance of closest approach: r₀ = (1/4πε₀)(2Ze²/KE_α) — gives nuclear size estimate</li>
+      </ul>
+      <h4>2. Bohr's Model — Postulates</h4>
+      <ul class="fl">
+        <li><strong>Postulate 1:</strong> Electrons revolve in certain allowed circular orbits without radiating energy (stationary states)</li>
+        <li><strong>Postulate 2:</strong> Angular momentum is quantized: L = mvr = nh/2π = nħ (n = 1, 2, 3...)</li>
+        <li><strong>Postulate 3:</strong> Energy is radiated/absorbed only when electron jumps between orbits: E = hν = E_i − E_f</li>
+      </ul>
+      <h4>3. Bohr's Model — Results for Hydrogen (Z=1)</h4>
+      <div class="formula">Orbit radius: r_n = n²a₀/Z where a₀ = 0.529 Å (Bohr radius)</div>
+      <div class="formula">Total energy: E_n = −13.6 Z²/n² eV (negative → bound state)</div>
+      <div class="formula">Velocity: v_n = (Z/n) × 2.18×10⁶ m/s = (c/137)(Z/n)</div>
+      <table class="ftable">
+        <tr><th>n (shell)</th><th>r_n (H atom)</th><th>E_n (H atom)</th><th>Name</th></tr>
+        <tr><td>1</td><td>0.529 Å</td><td>−13.6 eV</td><td>K shell (ground state)</td></tr>
+        <tr><td>2</td><td>2.12 Å</td><td>−3.4 eV</td><td>L shell</td></tr>
+        <tr><td>3</td><td>4.76 Å</td><td>−1.51 eV</td><td>M shell</td></tr>
+        <tr><td>∞</td><td>∞</td><td>0 eV</td><td>Ionization limit</td></tr>
+      </table>
+      <h4>4. Virial Theorem Relations</h4>
+      <div class="formula">KE = |E_n| = 13.6 Z²/n² eV (positive)</div>
+      <div class="formula">PE = 2E_n = −2 × 13.6 Z²/n² eV (negative, twice total)</div>
+      <ul class="fl">
+        <li>Total energy = KE + PE = |E| − 2|E| = −|E| (verified: always negative for bound state)</li>
+        <li>Ionization energy of H atom = 13.6 eV (energy to remove electron from n=1 to ∞)</li>
+      </ul>
+      <h4>5. Spectral Series</h4>
+      <div class="formula">Rydberg formula: 1/λ = R_H × (1/n₁² − 1/n₂²) where R_H = 1.097 × 10⁷ m⁻¹</div>
+      <table class="ftable">
+        <tr><th>Series</th><th>Lower level n₁</th><th>Upper level n₂</th><th>Spectral Region</th><th>Wavelength range</th></tr>
+        <tr><td>Lyman</td><td>1</td><td>2, 3, 4...</td><td>Ultraviolet</td><td>91–122 nm</td></tr>
+        <tr><td>Balmer</td><td>2</td><td>3, 4, 5...</td><td>Visible</td><td>365–656 nm</td></tr>
+        <tr><td>Paschen</td><td>3</td><td>4, 5, 6...</td><td>Infrared</td><td>820 nm–1.87 μm</td></tr>
+        <tr><td>Brackett</td><td>4</td><td>5, 6...</td><td>Far infrared</td><td>1.46–2.63 μm</td></tr>
+      </table>
+      <h4>6. Limitations of Bohr's Model</h4>
+      <ul class="fl">
+        <li>Does NOT explain spectra of multi-electron atoms (only works for H-like ions)</li>
+        <li>Cannot explain fine structure (doublets in spectrum)</li>
+        <li>Violates Heisenberg uncertainty principle (assigns precise orbit)</li>
+        <li>Does not explain why angular momentum is quantized (explained later by de Broglie)</li>
+      </ul>
+      <div class="note-box"><strong>⚠️ Quick Calculations:</strong><br>
+        • Number of possible transitions from level n: n(n−1)/2<br>
+        • Balmer series visible lines: Hα (n=3→2, 656 nm, red), Hβ (n=4→2, 486 nm, blue-green)<br>
+        • For ionized He⁺ (Z=2): E_n = −54.4/n² eV; for Li²⁺ (Z=3): E_n = −122.4/n² eV<br>
+        • Maximum wavelength of a series = minimum energy transition (to next level)<br>
+        • Minimum wavelength (series limit) = maximum energy transition (to ∞)</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 13 -->
+<div class="chapter" id="u8-ch13" data-chapter="Nuclei">
+  <div class="chapter-head">
+    <span class="ch-icon">&#9883;</span>
+    <div class="ch-title">Chapter 13: Nuclei <span>Conceptual Weight: MEDIUM | Numerical: MEDIUM</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u8-ch13','Ch13_Nuclei')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch13-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch13-topics','Ch13 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag">BE/A Curve</span><span class="tag">Priority 3</span><span class="tag gold">Graph-Based</span></div>
+      <ul class="fl">
+        <li>Nuclear composition: protons and neutrons; atomic mass unit</li>
+        <li>Nuclear size and density (constant density property)</li>
+        <li><strong>Mass defect and binding energy</strong></li>
+        <li>Binding energy per nucleon curve — peak at Fe-56</li>
+        <li>Nuclear forces: short-range, strong, charge-independent</li>
+        <li>Radioactivity: alpha, beta, gamma decay</li>
+        <li>Decay law: N = N&#8320;e<sup>&minus;&#955;t</sup></li>
+        <li>Half-life and mean life</li>
+        <li>Nuclear fission and fusion; nuclear reactor principles</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch13-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch13-formulas','Ch13 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Nuclear radius</td><td>R = R&#8320;A<sup>1/3</sup></td><td>R&#8320; = 1.2 fm</td></tr>
+        <tr><td>Mass defect</td><td>&#916;m = [Zm<sub>p</sub> + (A&minus;Z)m<sub>n</sub> &minus; m<sub>nucleus</sub>]</td><td>Always positive</td></tr>
+        <tr><td>Binding energy</td><td>BE = &#916;m &middot; c&sup2;</td><td>In MeV: &times;931.5</td></tr>
+        <tr><td>BE per nucleon</td><td>BE/A</td><td>Peak at Fe-56 (~8.8 MeV)</td></tr>
+        <tr><td>Decay law</td><td>N = N&#8320; e<sup>&minus;&#955;t</sup></td><td>&#955; = decay constant</td></tr>
+        <tr><td>Half-life</td><td>T<sub>1/2</sub> = ln(2)/&#955; = 0.693/&#955;</td><td>Time for half to decay</td></tr>
+        <tr><td>Mean life</td><td>&#964; = 1/&#955; = T<sub>1/2</sub>/0.693</td><td>&#964; &gt; T<sub>1/2</sub> always</td></tr>
+        <tr><td>Activity</td><td>A = &#955;N = A&#8320;e<sup>&minus;&#955;t</sup></td><td>Unit: Becquerel (Bq)</td></tr>
+        <tr><td>Q-value</td><td>Q = (m<sub>initial</sub> &minus; m<sub>final</sub>)c&sup2;</td><td>Energy released in decay</td></tr>
+      </table>
+      <div class="note-box"><strong>BE/A Curve Insight:</strong> Peak at Fe-56 means both fission (heavy nuclei splitting) AND fusion (light nuclei combining) release energy. Nuclear density &asymp; constant = 2.3 &times; 10<sup>17</sup> kg/m&sup3;.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch13-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch13-notes','Ch13 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Nuclear Composition &amp; Size</h4>
+      <ul class="fl">
+        <li>Nucleus = Protons (Z) + Neutrons (N); Mass number A = Z + N</li>
+        <li>Isotopes: same Z, different A (e.g., H-1, H-2, H-3); Isobars: same A; Isotones: same N</li>
+        <li>Atomic mass unit: 1 u = 1.66054 × 10⁻²⁷ kg = 931.5 MeV/c²</li>
+        <li>Nuclear radius: R = R₀A^(1/3), R₀ = 1.2 fm (1 fm = 10⁻¹⁵ m)</li>
+        <li>Nuclear density ≈ 2.3 × 10¹⁷ kg/m³ — same for all nuclei (constant!)</li>
+      </ul>
+      <h4>2. Mass Defect &amp; Binding Energy</h4>
+      <div class="formula">Mass defect: Δm = [Z·m_p + (A−Z)·m_n] − m_nucleus</div>
+      <div class="formula">Binding energy: BE = Δm × c² = Δm × 931.5 MeV (if Δm in u)</div>
+      <ul class="fl">
+        <li>BE per nucleon = BE/A — measures nuclear stability</li>
+        <li>Higher BE/A → more stable nucleus</li>
+        <li>Fe-56 has maximum BE/A ≈ 8.8 MeV — most stable nucleus</li>
+        <li>Light nuclei (A &lt; 56): fusion releases energy (BE/A increases)</li>
+        <li>Heavy nuclei (A &gt; 56): fission releases energy (BE/A increases for products)</li>
+      </ul>
+      <h4>3. Nuclear Forces</h4>
+      <ul class="fl">
+        <li>Strongest of four fundamental forces; only acts over very short range (&lt; 2–3 fm)</li>
+        <li>Charge-independent: n-n, p-p, n-p forces are all equal</li>
+        <li>Attractive for r &gt; 0.8 fm; repulsive for r &lt; 0.8 fm (prevents collapse)</li>
+        <li>Spin-dependent: parallel spins give stronger binding</li>
+        <li>Non-central: not always along line joining nucleons</li>
+      </ul>
+      <h4>4. Radioactivity — Types of Decay</h4>
+      <table class="ftable">
+        <tr><th>Type</th><th>Particle</th><th>Change in Z, A</th><th>Penetrating Power</th></tr>
+        <tr><td>Alpha (α) decay</td><td>⁴₂He nucleus</td><td>Z−2, A−4</td><td>Lowest (stopped by paper)</td></tr>
+        <tr><td>Beta⁻ (β⁻) decay</td><td>Electron + antineutrino</td><td>Z+1, A unchanged</td><td>Medium (stopped by Al)</td></tr>
+        <tr><td>Beta⁺ (β⁺) decay</td><td>Positron + neutrino</td><td>Z−1, A unchanged</td><td>Medium</td></tr>
+        <tr><td>Gamma (γ) decay</td><td>High energy photon</td><td>No change (just energy)</td><td>Highest (needs Pb/concrete)</td></tr>
+      </table>
+      <h4>5. Radioactive Decay Law</h4>
+      <div class="formula">N(t) = N₀ e^(−λt) &nbsp;|&nbsp; Activity: A = λN = A₀ e^(−λt)</div>
+      <div class="formula">Half-life: T₁/₂ = 0.693/λ &nbsp;|&nbsp; Mean life: τ = 1/λ = 1.44 × T₁/₂</div>
+      <ul class="fl">
+        <li>After n half-lives: N = N₀/2ⁿ; Activity = A₀/2ⁿ</li>
+        <li>τ (mean life) &gt; T₁/₂ always (mean life is 44% longer than half-life)</li>
+        <li>Decay is statistical — individual decay is random; law describes average behavior</li>
+        <li>SI unit of activity: Becquerel (Bq) = 1 decay/second; 1 Curie = 3.7 × 10¹⁰ Bq</li>
+      </ul>
+      <h4>6. Fission &amp; Fusion</h4>
+      <div class="grid2">
+        <div>
+          <h5>Nuclear Fission</h5>
+          <div class="formula">²³⁵₉₂U + n → ⁹⁴₃₆Kr + ¹³⁹₅₆Ba + 3n + ~200 MeV</div>
+          <ul class="fl">
+            <li>Heavy nucleus splits into two medium-mass nuclei</li>
+            <li>Releases neutrons → chain reaction possible</li>
+            <li>Critical mass needed for self-sustained reaction</li>
+            <li>Used in nuclear reactors and atomic bombs</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Nuclear Fusion</h5>
+          <div class="formula">²₁H + ³₁H → ⁴₂He + n + 17.6 MeV</div>
+          <ul class="fl">
+            <li>Light nuclei combine to form heavier nucleus</li>
+            <li>Requires very high temperature (~10⁷ K) — thermonuclear</li>
+            <li>Source of energy in stars (Sun)</li>
+            <li>More energy per unit mass than fission</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note-box"><strong>⚠️ Key Numbers:</strong><br>
+        • 1 u = 931.5 MeV/c² — use this for BE calculations<br>
+        • Mass of proton = 1.007276 u; neutron = 1.008665 u<br>
+        • Q-value &gt; 0: exothermic (energy released); Q &lt; 0: endothermic (energy absorbed)<br>
+        • In nuclear reactions: Charge (Z) and Mass number (A) are both conserved</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ UNIT 9: SEMICONDUCTOR ELECTRONICS ═══════════ -->
+<div class="chapter" id="u9-ch14" data-chapter="Semiconductor Electronics">
+  <div class="unit-head">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="7" y1="7" x2="7" y2="17"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="17" y1="7" x2="17" y2="17"/></svg>
+    Unit 9: Electronic Devices <span class="unit-badge">Ch 14</span>
+  </div>
+  <div class="chapter-head">
+    <span class="ch-icon">&#128267;</span>
+    <div class="ch-title">Chapter 14: Semiconductor Electronics <span>Conceptual Weight: MEDIUM | Numerical: LOW</span></div>
+    <button class="ch-pdf-btn" onclick="downloadChapterPDF('u9-ch14','Ch14_Semiconductors')">&#11015; PDF</button>
+  </div>
+
+  <div class="section" id="sec-ch14-topics">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Core Topics</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch14-topics','Ch14 Topics')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="sec-meta"><span class="tag">HIGH Conceptual</span><span class="tag green">LOW Numerical</span><span class="tag">Logic Gates</span><span class="tag">Priority 3</span></div>
+      <ul class="fl">
+        <li>Energy bands: conductor (no gap), insulator (large gap), semiconductor (small gap ~1 eV)</li>
+        <li>Intrinsic semiconductors: Si, Ge</li>
+        <li>Extrinsic: <strong>p-type</strong> (trivalent dopant) and <strong>n-type</strong> (pentavalent dopant)</li>
+        <li>P-N junction formation and <strong>depletion region</strong></li>
+        <li>P-N junction diode: forward and reverse bias; I-V characteristics</li>
+        <li>Rectifiers: half-wave and full-wave</li>
+        <li>Special diodes: Zener, LED, photodiode, solar cell</li>
+        <li>Junction transistor: n-p-n and p-n-p; transistor action</li>
+        <li>Transistor characteristics (CE configuration); amplifier and oscillator</li>
+        <li><strong>Logic gates</strong>: OR, AND, NOT, NAND, NOR; Boolean expressions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch14-formulas">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">Key Formulas &amp; Logic Gates</span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch14-formulas','Ch14 Formulas')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <table class="ftable">
+        <tr><th>Formula / Concept</th><th>Expression</th><th>Note</th></tr>
+        <tr><td>Diode current</td><td>I = I&#8320;(e<sup>eV/k<sub>B</sub>T</sup> &minus; 1)</td><td>Shockley equation</td></tr>
+        <tr><td>Half-wave rectifier efficiency</td><td>&#951; = 40.6% (max)</td><td>Single diode</td></tr>
+        <tr><td>Full-wave rectifier efficiency</td><td>&#951; = 81.2% (max)</td><td>Two / four diodes</td></tr>
+        <tr><td>DC current gain</td><td>&#946; = I<sub>C</sub>/I<sub>B</sub></td><td>Transistor amplification</td></tr>
+        <tr><td>Alpha (emitter efficiency)</td><td>&#945; = I<sub>C</sub>/I<sub>E</sub></td><td>Always &lt; 1</td></tr>
+        <tr><td>&#945;-&#946; relation</td><td>&#945; = &#946;/(1+&#946;) &nbsp;|&nbsp; &#946; = &#945;/(1&minus;&#945;)</td><td>Useful conversion</td></tr>
+        <tr><td>Voltage gain</td><td>A<sub>V</sub> = &#946;(R<sub>L</sub>/R<sub>i</sub>)</td><td>CE amplifier</td></tr>
+        <tr><td>Power gain</td><td>A<sub>P</sub> = &#946;&sup2;(R<sub>L</sub>/R<sub>i</sub>)</td><td>= A<sub>V</sub> &times; &#946;</td></tr>
+      </table>
+      <h4>Logic Gates — Truth Table Summary</h4>
+      <table class="ftable">
+        <tr><th>Gate</th><th>Expression</th><th>Key Property</th></tr>
+        <tr><td>AND</td><td>Y = A&middot;B</td><td>Output 1 only if both inputs 1</td></tr>
+        <tr><td>OR</td><td>Y = A+B</td><td>Output 1 if any input 1</td></tr>
+        <tr><td>NOT</td><td>Y = &#256;</td><td>Inverts input</td></tr>
+        <tr><td>NAND</td><td>Y = &#256;&middot;&#0257;</td><td>Universal gate — can make any gate</td></tr>
+        <tr><td>NOR</td><td>Y = &#256;+&#0257;</td><td>Universal gate — can make any gate</td></tr>
+      </table>
+      <div class="tip-box"><strong>Key Insight:</strong> NAND and NOR are universal gates. Base must be thin and lightly doped for transistor action. Energy band gap: Si = 1.1 eV, Ge = 0.7 eV. Connects to Ch 3 (temperature dependence) and Ch 7 (diode in AC).</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ch14-notes">
+    <div class="sec-head" onclick="tog(this)">
+      <span class="sec-title">📖 Detailed Notes <span class="sec-hi">/ विस्तृत नोट्स</span></span>
+      <div class="sec-right"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();secPDF('sec-ch14-notes','Ch14 Detailed Notes')">&#11015;</button><span class="sec-arrow">&#9660;</span></div>
+    </div>
+    <div class="sec-body">
+      <h4>1. Energy Band Theory</h4>
+      <table class="ftable">
+        <tr><th>Material</th><th>Band Gap (E_g)</th><th>Conductivity</th><th>Example</th></tr>
+        <tr><td>Conductor</td><td>0 (overlap)</td><td>Very high</td><td>Cu, Ag, Al</td></tr>
+        <tr><td>Semiconductor</td><td>~0.1–2 eV</td><td>Moderate; increases with T</td><td>Si (1.1 eV), Ge (0.7 eV)</td></tr>
+        <tr><td>Insulator</td><td>&gt; 3 eV</td><td>Very low</td><td>Diamond (5.5 eV), glass</td></tr>
+      </table>
+      <ul class="fl">
+        <li>In semiconductors at room temp: some electrons cross the gap → conductivity</li>
+        <li>Higher temperature → more electron-hole pairs → higher conductivity (opposite to metals)</li>
+        <li>Holes: positive charge carriers (absence of electron in valence band)</li>
+      </ul>
+      <h4>2. Intrinsic vs Extrinsic Semiconductors</h4>
+      <div class="grid2">
+        <div>
+          <h5>n-type (pentavalent dopant)</h5>
+          <ul class="fl">
+            <li>Dopants: P, As, Sb (5 valence electrons)</li>
+            <li>Extra electron donated → majority carriers = electrons</li>
+            <li>Minority carriers = holes</li>
+            <li>Fermi level shifts toward conduction band</li>
+          </ul>
+        </div>
+        <div>
+          <h5>p-type (trivalent dopant)</h5>
+          <ul class="fl">
+            <li>Dopants: B, Al, Ga, In (3 valence electrons)</li>
+            <li>Electron accepted → creates hole → majority carriers = holes</li>
+            <li>Minority carriers = electrons</li>
+            <li>Fermi level shifts toward valence band</li>
+          </ul>
+        </div>
+      </div>
+      <h4>3. P-N Junction Diode</h4>
+      <ul class="fl">
+        <li>Depletion region: formed at junction; has no free carriers; creates built-in potential barrier (~0.3 V Ge, ~0.7 V Si)</li>
+        <li><strong>Forward bias:</strong> p connected to +ve terminal; barrier reduced; current flows; threshold voltage ~0.7 V (Si)</li>
+        <li><strong>Reverse bias:</strong> p connected to −ve terminal; barrier increased; negligible current (only minority carriers) until breakdown</li>
+        <li>Zener diode: works in controlled reverse breakdown; used as voltage regulator (V_Z = constant)</li>
+      </ul>
+      <h4>4. Rectifiers</h4>
+      <table class="ftable">
+        <tr><th>Type</th><th>Diodes Used</th><th>Output</th><th>Ripple Frequency</th><th>Max Efficiency</th></tr>
+        <tr><td>Half-wave</td><td>1</td><td>Pulsating DC (half cycles)</td><td>f (same as input)</td><td>40.6%</td></tr>
+        <tr><td>Full-wave (centre-tap)</td><td>2</td><td>Pulsating DC (both halves)</td><td>2f</td><td>81.2%</td></tr>
+        <tr><td>Bridge rectifier</td><td>4</td><td>Same as full-wave</td><td>2f</td><td>81.2%</td></tr>
+      </table>
+      <h4>5. Special Purpose Diodes</h4>
+      <table class="ftable">
+        <tr><th>Diode</th><th>Working Principle</th><th>Application</th></tr>
+        <tr><td>Zener diode</td><td>Controlled reverse breakdown (Zener effect)</td><td>Voltage regulation</td></tr>
+        <tr><td>LED</td><td>Forward bias → electron-hole recombination → photon emitted</td><td>Display, indicators, optical fibre</td></tr>
+        <tr><td>Photodiode</td><td>Reverse bias; light generates electron-hole pairs → photocurrent</td><td>Light detection, optical communication</td></tr>
+        <tr><td>Solar cell</td><td>p-n junction; photons generate e-h pairs → EMF (no bias needed)</td><td>Solar panels, photovoltaic power</td></tr>
+      </table>
+      <h4>6. Transistor — Action &amp; Configurations</h4>
+      <ul class="fl">
+        <li>Three regions: Emitter (heavily doped), Base (thin, lightly doped), Collector (moderately doped)</li>
+        <li>Transistor action: base must be very thin so most injected carriers diffuse to collector</li>
+        <li>α = I_C/I_E (always &lt; 1); β = I_C/I_B (typically 20–200)</li>
+        <li>Relation: I_E = I_B + I_C; β = α/(1−α); α = β/(1+β)</li>
+        <li>CE configuration: most commonly used; provides current, voltage, and power gain</li>
+      </ul>
+      <h4>7. Transistor as Amplifier (CE Mode)</h4>
+      <div class="formula">Voltage gain A_V = β × (R_C/R_i) &nbsp;|&nbsp; Power gain A_P = β² × (R_C/R_i)</div>
+      <ul class="fl">
+        <li>Output is 180° out of phase with input in CE mode</li>
+        <li>Transconductance g_m = ΔI_C/ΔV_BE = β/r_i</li>
+      </ul>
+      <h4>8. Logic Gates — Complete Truth Tables</h4>
+      <table class="ftable">
+        <tr><th>A</th><th>B</th><th>AND (A·B)</th><th>OR (A+B)</th><th>NOT (Ā)</th><th>NAND</th><th>NOR</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+      </table>
+      <ul class="fl">
+        <li>NAND = NOT(AND): universal gate — any logic function can be built using only NAND gates</li>
+        <li>NOR = NOT(OR): also universal gate</li>
+        <li>De Morgan's theorems: (A·B)' = A' + B'; (A+B)' = A'·B'</li>
+      </ul>
+      <div class="note-box"><strong>⚠️ Final Exam Checklist for Ch 14:</strong><br>
+        • Draw energy band diagrams for conductor, semiconductor, insulator<br>
+        • Know I-V characteristics of diode (forward &amp; reverse bias) — frequently asked<br>
+        • Full-wave bridge rectifier: 4 diodes, no centre-tap transformer needed<br>
+        • LED emits light in forward bias; photodiode detects in reverse bias (opposite!)<br>
+        • NAND and NOR are universal — this statement appears almost every exam</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .main -->
+
+<button id="stb" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<!-- DONATE POPUP -->
+<div id="donateModal">
+  <div class="donate-box">
+    <button class="donate-close" onclick="closeDonate()" title="Close">&#x2715;</button>
+    <div class="donate-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <div class="donate-title">Support ThunderStudy!</div>
+    <div class="donate-sub">These notes are <strong>free forever</strong> — but keeping them updated takes real effort.<br>If they've helped you, consider supporting the creator!</div>
+    <a class="donate-btn" href="https://commercesehoga.github.io/help" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Donate &amp; Support
+    </a>
+    <div class="donate-powered">Made with love by Wondermayank &middot; commercesehoga.github.io</div>
+  </div>
+</div>
+
+<!-- MORE DETAILS BANNER -->
+<div style="background:linear-gradient(135deg,#0e3fa0 0%,#1a6fff 60%,#1e7fd4 100%);padding:36px 20px;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-40px;left:-40px;width:180px;height:180px;background:rgba(255,255,255,.05);border-radius:50%;"></div>
+  <div style="position:absolute;bottom:-50px;right:-30px;width:220px;height:220px;background:rgba(255,255,255,.04);border-radius:50%;"></div>
+  <div style="position:relative;max-width:600px;margin:0 auto;">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:5px 16px;margin-bottom:14px;font-size:12px;font-weight:700;color:#fde68a;letter-spacing:.6px;text-transform:uppercase;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="2.5" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      ThunderStudy Extended Notes
+    </div>
+    <h2 style="color:#fff;font-size:clamp(20px,4vw,30px);font-weight:900;margin:0 0 10px;line-height:1.25;">Want Even More Detailed Notes?</h2>
+    <p style="color:rgba(255,255,255,.85);font-size:14px;line-height:1.7;margin:0 0 24px;">Get chapter-wise in-depth explanations, solved examples, NCERT solutions, PYQ analysis and much more &mdash; completely free!</p>
+    <a href="https://commercesehoga.github.io/science/phy/notes_12" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#fde68a,#f59e0b);color:#1a2b45;font-weight:900;font-size:15px;padding:14px 32px;border-radius:50px;text-decoration:none;letter-spacing:.4px;box-shadow:0 6px 24px rgba(245,158,11,.45);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      More Detailed Notes &mdash; Click Here
+    </a>
+    <div style="margin-top:14px;font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.3px;">commercesehoga.github.io/science/phy/notes_12</div>
+  </div>
+</div>
+
+<footer>
+  Made With
+  <svg style="display:inline-block;vertical-align:middle;margin:0 3px" width="14" height="14" viewBox="0 0 24 24" fill="#fde68a" stroke="#fde68a" stroke-width="1.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+  By <a href="https://wondermayank.github.io" target="_blank" rel="noopener">Wondermayank</a>
+  <span class="footer-divider">|</span>
+  Free Mocks &amp; Resources at <a href="https://commercesehoga.github.io" target="_blank" rel="noopener">CommerceSeHoga.github.io</a>
+</footer>
+
+<script>
+/* TOGGLE */
+function tog(head){
+  const sec=head.closest('.section');
+  sec.classList.toggle('open');
+}
+function expandAll(){document.querySelectorAll('.section').forEach(s=>s.classList.add('open'));}
+function collapseAll(){document.querySelectorAll('.section').forEach(s=>s.classList.remove('open'));}
+
+/* SCROLL TOP */
+window.addEventListener('scroll',()=>{
+  document.getElementById('stb').classList.toggle('show',window.scrollY>500);
+});
+
+/* SEARCH */
+function doSearch(q){
+  const val=q.trim().toLowerCase();
+  if(!val){
+    document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('hidden-ch'));
+    document.querySelectorAll('.section').forEach(s=>{
+      s.classList.remove('hidden-sec');
+      s.querySelectorAll('.hl').forEach(h=>{
+        h.outerHTML=h.innerHTML;
+      });
+    });
+    return;
+  }
+  document.querySelectorAll('.chapter').forEach(ch=>{
+    let anyVisible=false;
+    ch.querySelectorAll('.section').forEach(sec=>{
+      const txt=sec.textContent.toLowerCase();
+      if(txt.includes(val)){sec.classList.remove('hidden-sec');anyVisible=true;}
+      else sec.classList.add('hidden-sec');
+    });
+    ch.classList.toggle('hidden-ch',!anyVisible);
+  });
+}
+
+/* PDF HELPERS */
+function setPDFProg(pct){
+  const b=document.getElementById('pdfProgBar');
+  if(b) b.style.width=Math.min(100,pct)+'%';
+}
+function showPDFOverlay(msg,pct){
+  document.getElementById('pdfOverlay').classList.add('show');
+  document.getElementById('pdfMsg').textContent=msg||'Generating PDF…';
+  if(pct!==undefined) setPDFProg(pct);
+}
+function hidePDFOverlay(){
+  document.getElementById('pdfOverlay').classList.remove('show');
+  setPDFProg(5);
+}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+async function captureAsPDF(el,filename){
+  showPDFOverlay('Rendering content…',10);
+  const wasClosed=!el.classList.contains('open');
+  el.classList.add('open');
+  const bodies=el.querySelectorAll('.sec-body');
+  bodies.forEach(b=>b.style.display='block');
+  await sleep(300);
+  try{
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF({orientation:'p',unit:'mm',format:'a4'});
+    const pageW=210,pageH=297,margin=10,printW=pageW-margin*2;
+    let first=true;
+    const targets=el.querySelectorAll('.sec-body');
+    let tidx=0;
+    for(const tgt of (targets.length?targets:[el])){
+      tidx++;
+      showPDFOverlay('Capturing…',Math.round(10+(tidx/(targets.length||1))*80));
+      const canvas=await html2canvas(tgt,{scale:1.2,backgroundColor:'#fff',useCORS:true,logging:false,windowWidth:900});
+      const imgW=canvas.width,imgH=canvas.height;
+      let srcY=0,remainH=imgH;
+      while(remainH>0){
+        const sliceH=Math.min(remainH,(pageH-margin*2)*(imgW/printW));
+        const tmp=document.createElement('canvas');tmp.width=imgW;tmp.height=sliceH;
+        tmp.getContext('2d').drawImage(canvas,0,srcY,imgW,sliceH,0,0,imgW,sliceH);
+        const printH=(sliceH/imgW)*printW;
+        if(!first)pdf.addPage();first=false;
+        pdf.addImage(tmp.toDataURL('image/jpeg',.75),'JPEG',margin,margin,printW,printH);
+        srcY+=sliceH;remainH-=sliceH;
+      }
+    }
+    showPDFOverlay('Saving…',95);await sleep(150);
+    pdf.save(filename+'.pdf');
+  }catch(e){console.error(e);alert('PDF error: '+e.message);}
+  if(wasClosed)el.classList.remove('open');
+  hidePDFOverlay();
+}
+
+async function secPDF(secId,name){
+  const el=document.getElementById(secId);
+  if(!el)return;
+  await captureAsPDF(el,'ThunderStudy_Physics_'+name.replace(/\s+/g,'_'));
+}
+
+async function downloadChapterPDF(chapterId,name){
+  const el=document.getElementById(chapterId);
+  if(!el)return;
+  showPDFOverlay('Preparing chapter PDF…',8);
+  const sections=el.querySelectorAll('.section');
+  sections.forEach(s=>s.classList.add('open'));
+  await sleep(300);
+  try{
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF({orientation:'p',unit:'mm',format:'a4'});
+    const pageW=210,pageH=297,margin=10,printW=pageW-margin*2;
+    let first=true;const total=sections.length;let idx=0;
+    for(const sec of sections){
+      const body=sec.querySelector('.sec-body');
+      if(!body)continue;
+      idx++;
+      showPDFOverlay('Capturing: '+sec.querySelector('.sec-title')?.textContent?.slice(0,28)+'…',Math.round(10+(idx/total)*80));
+      await sleep(60);
+      const canvas=await html2canvas(body,{scale:1.2,backgroundColor:'#fff',useCORS:true,logging:false,windowWidth:900});
+      let srcY=0,remainH=canvas.height;
+      while(remainH>0){
+        const sliceH=Math.min(remainH,(pageH-margin*2)*(canvas.width/printW));
+        const tmp=document.createElement('canvas');tmp.width=canvas.width;tmp.height=sliceH;
+        tmp.getContext('2d').drawImage(canvas,0,srcY,canvas.width,sliceH,0,0,canvas.width,sliceH);
+        const printH=(sliceH/canvas.width)*printW;
+        if(!first)pdf.addPage();first=false;
+        pdf.addImage(tmp.toDataURL('image/jpeg',.75),'JPEG',margin,margin,printW,printH);
+        srcY+=sliceH;remainH-=sliceH;
+      }
+    }
+    showPDFOverlay('Saving…',95);await sleep(150);
+    pdf.save('ThunderStudy_Physics_'+name+'.pdf');
+  }catch(e){console.error(e);alert('PDF error: '+e.message);}
+  hidePDFOverlay();
+}
+
+async function downloadAllPDF(){
+  showPDFOverlay('Preparing full Physics notes PDF…',5);
+  expandAll();await sleep(400);
+  try{
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF({orientation:'p',unit:'mm',format:'a4'});
+    const pageW=210,pageH=297,margin=10,printW=pageW-margin*2;
+    let first=true;
+    const bodies=document.querySelectorAll('.sec-body');
+    let i=0;
+    for(const body of bodies){
+      i++;
+      showPDFOverlay(`Capturing section ${i} of ${bodies.length}…`,Math.round(5+(i/bodies.length)*88));
+      await sleep(40);
+      const canvas=await html2canvas(body,{scale:1.2,backgroundColor:'#fff',useCORS:true,logging:false,windowWidth:900});
+      let srcY=0,remainH=canvas.height;
+      while(remainH>0){
+        const sliceH=Math.min(remainH,(pageH-margin*2)*(canvas.width/printW));
+        const tmp=document.createElement('canvas');tmp.width=canvas.width;tmp.height=sliceH;
+        tmp.getContext('2d').drawImage(canvas,0,srcY,canvas.width,sliceH,0,0,canvas.width,sliceH);
+        const printH=(sliceH/canvas.width)*printW;
+        if(!first)pdf.addPage();first=false;
+        pdf.addImage(tmp.toDataURL('image/jpeg',.75),'JPEG',margin,margin,printW,printH);
+        srcY+=sliceH;remainH-=sliceH;
+      }
+    }
+    showPDFOverlay('Saving…',96);await sleep(150);
+    pdf.save('ThunderStudy_Physics_Full_Notes.pdf');
+  }catch(e){console.error(e);alert('PDF error: '+e.message);}
+  hidePDFOverlay();
+}
+
+/* PAGE LOADER */
+(function(){
+  const bar=document.getElementById('loaderBar');
+  const lbl=document.getElementById('loaderLabel');
+  const loader=document.getElementById('pageLoader');
+  const steps=[[15,'Loading styles…'],[40,'Preparing notes…'],[70,'Almost ready…'],[90,'Finishing…'],[100,'Done!']];
+  let i=0;
+  function nextStep(){if(i>=steps.length)return;const[w,t]=steps[i++];bar.style.width=w+'%';lbl.textContent=t;}
+  nextStep();
+  const iv=setInterval(nextStep,200);
+  function done(){
+    clearInterval(iv);bar.style.width='100%';lbl.textContent='Done!';
+    setTimeout(()=>{loader.classList.add('hide');setTimeout(()=>{loader.style.display='none';showDonate();},420);},180);
+  }
+  if(document.readyState==='complete')done();
+  else window.addEventListener('load',done);
+})();
+
+/* DONATE */
+function showDonate(){document.getElementById('donateModal').classList.add('show');}
+function closeDonate(){document.getElementById('donateModal').classList.remove('show');}
+document.getElementById('donateModal').addEventListener('click',function(e){if(e.target===this)closeDonate();});
+</script>
+</body>
+</html>
