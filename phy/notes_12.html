@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Class 12 Physics — Chapter Index | ThunderStudy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lavender:      #ede9f6;
+  --lavender-mid:  #d8cff0;
+  --lavender-deep: #b8a9e3;
+  --purple:        #7c5cbf;
+  --purple-dark:   #5a3d9a;
+  --purple-light:  #9b7dd4;
+  --plum:          #3b2470;
+  --white:         #ffffff;
+  --off-white:     #faf9fd;
+  --text:          #2d1f55;
+  --muted:         #7a6da0;
+  --green:         #22c55e;
+  --red:           #ef4444;
+  --gold:          #f59e0b;
+  --card-shadow:   0 4px 24px rgba(124,92,191,.13);
+  --card-hover:    0 12px 40px rgba(124,92,191,.22);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--off-white);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUND DECORATION ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(180,155,230,.25) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -150px; left: -150px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(156,124,212,.18) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── HEADER ── */
+.hdr {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1.5px solid var(--lavender-mid);
+  box-shadow: 0 2px 20px rgba(124,92,191,.08);
+}
+.hdr-in {
+  max-width: 900px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 24px; gap: 12px;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+}
+.logo-bolt {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--purple), var(--plum));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 3px 12px rgba(90,61,154,.35);
+}
+.logo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px; font-weight: 700;
+  color: var(--plum);
+  letter-spacing: .2px;
+}
+.logo-name span { color: var(--purple-light); }
+.hdr-badge {
+  background: linear-gradient(135deg, var(--lavender), var(--lavender-mid));
+  color: var(--purple-dark);
+  font-size: 11px; font-weight: 700;
+  padding: 4px 12px; border-radius: 20px;
+  border: 1.5px solid var(--lavender-deep);
+  letter-spacing: .5px; text-transform: uppercase;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 56px 24px 48px;
+  background: linear-gradient(160deg, #f3f0fc 0%, #ede9f6 40%, #e8e1f7 100%);
+  border-bottom: 2px solid var(--lavender-mid);
+  overflow: hidden;
+}
+.hero::before {
+  content: '⚛';
+  position: absolute; top: -20px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 260px; opacity: .035;
+  pointer-events: none; user-select: none;
+  color: var(--purple);
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(124,92,191,.1);
+  border: 1.5px solid var(--lavender-deep);
+  color: var(--purple);
+  font-size: 11.5px; font-weight: 700;
+  padding: 5px 14px; border-radius: 20px;
+  margin-bottom: 18px; letter-spacing: .5px; text-transform: uppercase;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 900; color: var(--plum);
+  line-height: 1.15; margin-bottom: 10px;
+}
+.hero h1 em { color: var(--purple); font-style: normal; }
+.hero p {
+  color: var(--muted); font-size: 14.5px;
+  max-width: 460px; margin: 0 auto 26px; line-height: 1.7;
+}
+.hero-stats {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center;
+}
+.stat-pill {
+  background: var(--white);
+  border: 1.5px solid var(--lavender-mid);
+  border-radius: 24px; padding: 6px 16px;
+  font-size: 12.5px; font-weight: 600;
+  color: var(--purple-dark);
+  box-shadow: 0 2px 8px rgba(124,92,191,.08);
+}
+.stat-pill strong { color: var(--purple); }
+
+/* ── MAIN ── */
+.main {
+  position: relative; z-index: 1;
+  max-width: 900px; margin: 0 auto;
+  padding: 36px 20px 20px;
+}
+
+/* ── UNIT BLOCK ── */
+.unit {
+  margin-bottom: 10px;
+  background: var(--white);
+  border: 1.5px solid var(--lavender-mid);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: box-shadow .25s, transform .22s;
+  animation: slideUp .45s ease both;
+}
+.unit:hover {
+  box-shadow: var(--card-hover);
+  transform: translateY(-2px);
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.unit:nth-child(1) { animation-delay: .05s; }
+.unit:nth-child(2) { animation-delay: .10s; }
+.unit:nth-child(3) { animation-delay: .14s; }
+.unit:nth-child(4) { animation-delay: .18s; }
+.unit:nth-child(5) { animation-delay: .22s; }
+.unit:nth-child(6) { animation-delay: .26s; }
+.unit:nth-child(7) { animation-delay: .30s; }
+.unit:nth-child(8) { animation-delay: .34s; }
+.unit:nth-child(9) { animation-delay: .38s; }
+.unit:nth-child(10){ animation-delay: .42s; }
+
+/* UNIT HEADER */
+.unit-hdr {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px;
+  background: linear-gradient(90deg, #f0ebfd, #ede9f6);
+  border-bottom: 1.5px solid var(--lavender-mid);
+  cursor: pointer;
+  user-select: none;
+}
+.unit-dot {
+  width: 8px; height: 8px;
+  background: var(--purple);
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(124,92,191,.18);
+}
+.unit-label {
+  font-size: 12px; font-weight: 700;
+  color: var(--purple);
+  text-transform: uppercase; letter-spacing: .6px;
+  flex: 1;
+}
+.unit-badge-pill {
+  background: var(--purple);
+  color: #fff;
+  font-size: 10.5px; font-weight: 700;
+  padding: 2px 10px; border-radius: 14px;
+  letter-spacing: .3px;
+}
+.unit-badge-pill.not-cuet {
+  background: #ef4444;
+}
+
+/* NOT IN CUET UNIT */
+.unit.not-cuet-unit {
+  border-color: rgba(239,68,68,.25);
+  background: #fffbfb;
+}
+.unit.not-cuet-unit .unit-hdr {
+  background: linear-gradient(90deg, #fff5f5, #ffe8e8);
+  border-bottom-color: rgba(239,68,68,.2);
+}
+.unit.not-cuet-unit .unit-dot { background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.15); }
+.unit.not-cuet-unit .unit-label { color: #b91c1c; }
+
+/* CHAPTER ROWS */
+.chapters { padding: 4px 0 8px; }
+
+.ch-row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px 10px 16px;
+  border-bottom: 1px solid var(--lavender);
+  transition: background .15s;
+  position: relative;
+}
+.ch-row:last-child { border-bottom: none; }
+.ch-row:hover { background: #f8f5ff; }
+.ch-row.not-cuet-ch:hover { background: #fff5f5; }
+
+.ch-num {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800;
+  background: linear-gradient(135deg, var(--lavender), var(--lavender-mid));
+  color: var(--purple-dark);
+  flex-shrink: 0;
+}
+.ch-row.not-cuet-ch .ch-num {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.ch-info { min-width: 0; }
+.ch-name {
+  font-size: 14px; font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.ch-row.not-cuet-ch .ch-name { color: #9ca3af; text-decoration: line-through; }
+.ch-sub {
+  font-size: 11px; color: var(--muted); font-weight: 400;
+}
+.ch-row.not-cuet-ch .ch-sub { color: #fca5a5; }
+
+/* STATUS ICON */
+.ch-status {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+.ch-status.ok { background: #dcfce7; color: #16a34a; font-weight: 800; }
+.ch-status.no { background: #fee2e2; color: #dc2626; font-weight: 800; font-size: 13px; }
+
+/* BUTTONS */
+.ch-btns {
+  display: flex; gap: 5px; align-items: center;
+  flex-shrink: 0;
+}
+.ch-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  border: none; border-radius: 8px;
+  padding: 5px 11px;
+  font-size: 11.5px; font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .18s;
+  white-space: nowrap;
+  letter-spacing: .2px;
+}
+.ch-btn-short {
+  background: var(--lavender);
+  color: var(--purple-dark);
+  border: 1.5px solid var(--lavender-mid);
+}
+.ch-btn-short:hover {
+  background: var(--lavender-mid);
+  color: var(--plum);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(124,92,191,.18);
+}
+.ch-btn-detail {
+  background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+  color: #fff;
+  border: 1.5px solid var(--purple);
+}
+.ch-btn-detail:hover {
+  background: linear-gradient(135deg, var(--purple-dark), var(--plum));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(90,61,154,.32);
+}
+.ch-btn.disabled {
+  opacity: .38; cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* NOT IN CUET NOTE */
+.not-cuet-notice {
+  margin: 4px 16px 10px;
+  background: #fff1f1;
+  border: 1.5px solid #fecaca;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 12px; color: #b91c1c;
+  display: flex; align-items: flex-start; gap: 8px;
+  line-height: 1.5;
+}
+.not-cuet-notice svg { flex-shrink: 0; margin-top: 1px; }
+
+/* CUET NOTE */
+.cuet-note {
+  background: #f5f0ff;
+  border: 1.5px solid var(--lavender-deep);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin: 4px 16px 10px;
+  font-size: 12.5px; color: var(--purple-dark);
+  display: flex; align-items: flex-start; gap: 8px;
+  line-height: 1.5;
+}
+
+/* ── CUET SPECIAL SECTION ── */
+.cuet-special {
+  position: relative; z-index: 1;
+  margin: 12px 20px 0;
+  max-width: 900px;
+  margin-left: auto; margin-right: auto;
+  background: linear-gradient(135deg, #3b2470 0%, #5a3d9a 55%, #7c5cbf 100%);
+  border-radius: 22px;
+  padding: 36px 28px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(59,36,112,.28);
+  animation: slideUp .5s ease .45s both;
+}
+.cuet-special::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(255,255,255,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cuet-special-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3);
+  color: #fde68a;
+  font-size: 11px; font-weight: 700;
+  padding: 4px 14px; border-radius: 20px;
+  margin-bottom: 14px; letter-spacing: .6px; text-transform: uppercase;
+}
+.cuet-special h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 4vw, 26px);
+  font-weight: 900; color: #fff;
+  margin-bottom: 8px; line-height: 1.2;
+}
+.cuet-special p {
+  color: rgba(255,255,255,.78);
+  font-size: 13px; margin-bottom: 22px; line-height: 1.6;
+}
+.cuet-cta-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: linear-gradient(135deg, #fde68a, #f59e0b);
+  color: #3b2470;
+  font-size: 14.5px; font-weight: 800;
+  padding: 13px 30px; border-radius: 50px;
+  text-decoration: none; letter-spacing: .3px;
+  box-shadow: 0 6px 24px rgba(245,158,11,.4);
+  transition: .2s;
+}
+.cuet-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(245,158,11,.5);
+}
+.cuet-url {
+  margin-top: 12px;
+  font-size: 11px; color: rgba(255,255,255,.45);
+  letter-spacing: .3px;
+}
+
+/* ── LEGEND ── */
+.legend {
+  position: relative; z-index: 1;
+  display: flex; flex-wrap: wrap; gap: 14px;
+  justify-content: center;
+  max-width: 900px; margin: 22px auto 0;
+  padding: 0 20px;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; color: var(--muted); font-weight: 500;
+}
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 28px 20px;
+  margin-top: 32px;
+  border-top: 1.5px solid var(--lavender-mid);
+  background: var(--white);
+  font-size: 13px; color: var(--muted);
+  line-height: 1.9;
+}
+footer a {
+  color: var(--purple);
+  text-decoration: none; font-weight: 700;
+  transition: color .15s;
+}
+footer a:hover { color: var(--plum); text-decoration: underline; }
+.footer-heart { color: #e879a3; display: inline-block; animation: heartbeat .9s ease-in-out infinite alternate; }
+@keyframes heartbeat { from { transform: scale(.9); } to { transform: scale(1.12); } }
+.footer-div { margin: 0 8px; opacity: .35; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 580px) {
+  .ch-row { grid-template-columns: 32px 1fr; grid-template-rows: auto auto; }
+  .ch-btns { grid-column: 1 / -1; padding-left: 42px; }
+  .ch-status { display: none; }
+  .ch-btn { padding: 4px 9px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-in">
+    <a href="#" class="logo">
+      <div class="logo-bolt">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <span class="logo-name"><span>Thunder</span>Study</span>
+    </a>
+    <span class="hdr-badge">Class 12 Physics</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    CUET UG 2026 — Complete Chapter Index
+  </div>
+  <h1>Class 12 <em>Physics</em><br>Chapter Index</h1>
+  <p>All 14 NCERT chapters organised unit-wise. Access Short Notes &amp; Detailed Notes for every chapter instantly.</p>
+  <div class="hero-stats">
+    <div class="stat-pill"><strong>9</strong> Units</div>
+    <div class="stat-pill"><strong>14</strong> CUET Chapters</div>
+    <div class="stat-pill"><strong>1</strong> Not in Syllabus</div>
+    <div class="stat-pill">Short + Detailed Notes</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- ── UNIT 1 ── -->
+  <div class="unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">🔹 Unit 1 &nbsp;·&nbsp; Electrostatics</span>
+      <span class="unit-badge-pill">Ch 1–2</span>
+    </div>
+    <div class="chapters">
+      <!-- Ch 1 -->
+      <div class="ch-row">
+        <div class="ch-num">1</div>
+        <div class="ch-info">
+          <div class="ch-name">Electric Charges and Fields</div>
+          <div class="ch-sub">Coulomb's law · Gauss's theorem · Electric field · Dipole</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes1" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter1" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+      <!-- Ch 2 -->
+      <div class="ch-row">
+        <div class="ch-num">2</div>
+        <div class="ch-info">
+          <div class="ch-name">Electrostatic Potential and Capacitance</div>
+          <div class="ch-sub">Potential · Capacitors · Dielectrics · Energy density</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes2" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter2" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── UNIT 2 ── -->
+  <div class="unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">🔹 Unit 2 &nbsp;·&nbsp; Current Electricity</span>
+      <span class="unit-badge-pill">Ch 3</span>
+    </div>
+    <div class="chapters">
+      <div class="ch-row">
+        <div class="ch-num">3</div>
+        <div class="ch-info">
+          <div class="ch-name">Current Electricity</div>
+          <div class="ch-sub">Ohm's law · Kirchhoff's laws · Wheatstone bridge · Potentiometer</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes3" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter3" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── UNIT 3 ── -->
+  <div class="unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">🔹 Unit 3 &nbsp;·&nbsp; Magnetic Effects of Current &amp; Magnetism</span>
+      <span class="unit-badge-pill">Ch 4–5</span>
+    </div>
+    <div class="chapters">
+      <div class="ch-row">
+        <div class="ch-num">4</div>
+        <div class="ch-info">
+          <div class="ch-name">Moving Charges and Magnetism</div>
+          <div class="ch-sub">Lorentz force · Biot-Savart · Ampere's law · Cyclotron</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes4" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter4" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+      <div class="ch-row">
+        <div class="ch-num">5</div>
+        <div class="ch-info">
+          <div class="ch-name">Magnetism and Matter</div>
+          <div class="ch-sub">Bar magnet · Earth's magnetism · Hysteresis · Dia/Para/Ferromagnetism</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes5" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter5" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── UNIT 4 ── -->
+  <div class="unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">🔹 Unit 4 &nbsp;·&nbsp; EMI &amp; AC</span>
+      <span class="unit-badge-pill">Ch 6–7</span>
+    </div>
+    <div class="chapters">
+      <div class="ch-row">
+        <div class="ch-num">6</div>
+        <div class="ch-info">
+          <div class="ch-name">Electromagnetic Induction</div>
+          <div class="ch-sub">Faraday's law · Lenz's law · Self &amp; mutual inductance · Eddy currents</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes6" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter6" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+      <div class="ch-row">
+        <div class="ch-num">7</div>
+        <div class="ch-info">
+          <div class="ch-name">Alternating Current</div>
+          <div class="ch-sub">Phasors · LCR resonance · Power factor · Transformer</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes7" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter7" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── UNIT 5 ── -->
+  <div class="unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">🔹 Unit 5 &nbsp;·&nbsp; Electromagnetic Waves</span>
+      <span class="unit-badge-pill">Ch 8</span>
+    </div>
+    <div class="chapters">
+      <div class="ch-row">
+        <div class="ch-num">8</div>
+        <div class="ch-info">
+          <div class="ch-name">Electromagnetic Waves</div>
+          <div class="ch-sub">Maxwell's equations · Displacement current · EM spectrum</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes8" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter8" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── UNIT 6 ── -->
+  <div class="unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">🔹 Unit 6 &nbsp;·&nbsp; Optics (Ray + Wave merged in CUET)</span>
+      <span class="unit-badge-pill">Ch 9–10</span>
+    </div>
+    <div class="chapters">
+      <div class="cuet-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>CUET combines Ray Optics &amp; Wave Optics into <strong>one unit</strong> — both chapters are fully in syllabus.</span>
+      </div>
+      <div class="ch-row">
+        <div class="ch-num">9</div>
+        <div class="ch-info">
+          <div class="ch-name">Ray Optics and Optical Instruments</div>
+          <div class="ch-sub">Mirrors · Refraction · TIR · Lenses · Microscope · Telescope</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes9" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter9" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+      <div class="ch-row">
+        <div class="ch-num">10</div>
+        <div class="ch-info">
+          <div class="ch-name">Wave Optics</div>
+          <div class="ch-sub">Interference · YDSE · Diffraction · Polarization · Huygens' principle</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes10" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter10" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── UNIT 7 ── -->
+  <div class="unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">🔹 Unit 7 &nbsp;·&nbsp; Dual Nature of Radiation &amp; Matter</span>
+      <span class="unit-badge-pill">Ch 11</span>
+    </div>
+    <div class="chapters">
+      <div class="ch-row">
+        <div class="ch-num">11</div>
+        <div class="ch-info">
+          <div class="ch-name">Dual Nature of Radiation and Matter</div>
+          <div class="ch-sub">Photoelectric effect · Einstein's equation · de Broglie hypothesis</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes11" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter11" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── UNIT 8 ── -->
+  <div class="unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">🔹 Unit 8 &nbsp;·&nbsp; Atoms &amp; Nuclei</span>
+      <span class="unit-badge-pill">Ch 12–13</span>
+    </div>
+    <div class="chapters">
+      <div class="ch-row">
+        <div class="ch-num">12</div>
+        <div class="ch-info">
+          <div class="ch-name">Atoms</div>
+          <div class="ch-sub">Rutherford model · Bohr's model · Energy levels · Spectral series</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes12" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter12" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+      <div class="ch-row">
+        <div class="ch-num">13</div>
+        <div class="ch-info">
+          <div class="ch-name">Nuclei</div>
+          <div class="ch-sub">Binding energy · Radioactivity · Nuclear fission &amp; fusion</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes13" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter13" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── UNIT 9 ── -->
+  <div class="unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">🔹 Unit 9 &nbsp;·&nbsp; Electronic Devices</span>
+      <span class="unit-badge-pill">Ch 14</span>
+    </div>
+    <div class="chapters">
+      <div class="ch-row">
+        <div class="ch-num">14</div>
+        <div class="ch-info">
+          <div class="ch-name">Semiconductor Electronics</div>
+          <div class="ch-sub">Diodes · Transistors · Rectifiers · Logic gates · Energy bands</div>
+        </div>
+        <div class="ch-status ok">✔</div>
+        <div class="ch-btns">
+          <a class="ch-btn ch-btn-short" href="https://commercesehoga.github.io/science/phy/notes14" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Short Notes
+          </a>
+          <a class="ch-btn ch-btn-detail" href="https://commercesehoga.github.io/science/phy/chapter14" target="_blank" rel="noopener">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Detail Notes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NOT IN CUET ── -->
+  <div class="unit not-cuet-unit">
+    <div class="unit-hdr">
+      <div class="unit-dot"></div>
+      <span class="unit-label">❌ Not in CUET Syllabus</span>
+      <span class="unit-badge-pill not-cuet">Excluded</span>
+    </div>
+    <div class="chapters">
+      <div class="not-cuet-notice">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <span>Chapter 15 is <strong>NOT included in the CUET UG 2026 Physics syllabus</strong>. You do not need to study this for CUET. No notes buttons are provided.</span>
+      </div>
+      <div class="ch-row not-cuet-ch">
+        <div class="ch-num">15</div>
+        <div class="ch-info">
+          <div class="ch-name">Communication Systems</div>
+          <div class="ch-sub">🚫 Removed from CUET syllabus — skip this chapter entirely</div>
+        </div>
+        <div class="ch-status no">✕</div>
+        <div class="ch-btns">
+          <span class="ch-btn ch-btn-short disabled">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Not in CUET
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .main -->
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item">
+    <div style="width:18px;height:18px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#16a34a;">✔</div>
+    In CUET Syllabus
+  </div>
+  <div class="legend-item">
+    <div style="width:18px;height:18px;border-radius:50%;background:#fee2e2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#dc2626;">✕</div>
+    Not in CUET
+  </div>
+  <div class="legend-item">
+    <div style="height:22px;background:var(--lavender);border:1.5px solid var(--lavender-mid);border-radius:7px;padding:0 8px;display:flex;align-items:center;font-size:10px;font-weight:700;color:var(--purple-dark);">Short Notes</div>
+    Quick Revision
+  </div>
+  <div class="legend-item">
+    <div style="height:22px;background:linear-gradient(135deg,var(--purple),var(--purple-dark));border-radius:7px;padding:0 8px;display:flex;align-items:center;font-size:10px;font-weight:700;color:#fff;">Detail Notes</div>
+    In-Depth Study
+  </div>
+</div>
+
+<!-- CUET SPECIAL SECTION -->
+<div class="cuet-special">
+  <div class="cuet-special-tag">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    CUET Special
+  </div>
+  <h2>CUET UG Physics — Special Notes &amp; PYQs</h2>
+  <p>Get specially curated CUET-pattern notes, previous year questions, and exam-focused revision material — completely free.</p>
+  <a class="cuet-cta-btn" href="https://commercesehoga.github.io/science/phy/physics_notes_cuet.html" target="_blank" rel="noopener">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    Open CUET Special Notes
+  </a>
+  <div class="cuet-url">commercesehoga.github.io/science/phy/physics_notes_cuet.html</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Made With <span class="footer-heart">💕</span> By
+  <a href="https://wondermayank.github.io" target="_blank" rel="noopener">Wondermayank</a>
+  <span class="footer-div">|</span>
+  Free Resources at
+  <a href="https://commercesehoga.github.io" target="_blank" rel="noopener">CommerceSeHoga.github.io</a>
+  <br>
+  <span style="font-size:11.5px;opacity:.6;">Class 12 Physics Notes · CUET UG 2026 · ThunderStudy</span>
+</footer>
+
+</body>
+</html>
