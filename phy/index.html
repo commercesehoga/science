@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Physics Hub — JEE, NEET, CUET, Class 11 & 12 | Free Study Material & Mock Tests</title>
+<meta name="description" content="India's premium physics dashboard for JEE, NEET, CUET, Class 11 & 12. Free mock tests, notes, formulas, PYQs and complete study material. Powered by ThunderStudy & Wondermayank."/>
+<meta name="author" content="Wondermayank"/>
+<link rel="icon" type="image/svg+xml" href="https://commercesehoga.github.io/science/phy/favicon.svg"/>
+<link rel="shortcut icon" href="https://commercesehoga.github.io/science/phy/favicon.svg"/>
+<meta property="og:title" content="Physics Hub — JEE, NEET, CUET, Class 11 & 12"/>
+<meta property="og:description" content="Free physics notes, formula sheets, NCERT solutions, PYQs and CBT mock tests for JEE, NEET, CUET, Class 11 & 12. Powered by ThunderStudy & Wondermayank."/>
+<meta property="og:image" content="https://commercesehoga.github.io/science/phy/og-image.png"/>
+<meta property="og:url" content="https://commercesehoga.github.io/science/phy/"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://commercesehoga.github.io/science/phy/og-image.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --brand:#85C6F4;
+  --accent:#858EF4;
+  --brand-vivid:#4AACEE;
+  --accent-vivid:#6B75F2;
+  --bg-dark:#f0f6ff;
+  --text:#1a1f3a;
+  --muted:#5a6a8a;
+  --card-bg:rgba(255,255,255,0.75);
+  --card-border:rgba(133,198,244,0.35);
+  --card-hover:rgba(255,255,255,0.95);
+  --glow-brand:rgba(133,198,244,0.4);
+  --glow-accent:rgba(133,142,244,0.35);
+  --fn:'Syne',sans-serif;
+  --fn-body:'DM Sans',sans-serif;
+  --fn-mono:'JetBrains Mono',monospace;
+  --r:14px;--r-lg:20px;--r-xl:28px;
+  --sidebar-w:228px;
+  --transition:0.28s cubic-bezier(0.34,1.56,0.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  min-height:100vh;
+  background:#f0f6ff;
+  background-image:
+    radial-gradient(ellipse 80% 55% at 10% 0%,rgba(133,142,244,0.18) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 100%,rgba(133,198,244,0.22) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%,rgba(240,246,255,0.8) 0%,transparent 70%);
+  color:#1a1f3a;
+  font-family:var(--fn-body);
+  overflow-x:hidden;
+}
+
+/* ── BOOT ── */
+#boot{
+  position:fixed;inset:0;z-index:99999;
+  background:linear-gradient(135deg,#e8eeff 0%,#ddf0fc 50%,#ede8ff 100%);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:28px;
+}
+#boot::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(133,142,244,0.2) 1px,transparent 1px);
+  background-size:44px 44px;animation:gridIn .8s ease-out .3s both;
+}
+@keyframes gridIn{from{opacity:0}to{opacity:1}}
+.boot-atom{position:relative;z-index:2;animation:atomDrop .6s cubic-bezier(.22,1,.36,1) .5s both;}
+@keyframes atomDrop{0%{transform:translateY(-160px);opacity:0}70%{transform:translateY(8px);opacity:1}100%{transform:translateY(0);opacity:1}}
+.boot-atom svg{width:88px;height:88px;filter:drop-shadow(0 0 20px rgba(133,142,244,.5)) drop-shadow(0 0 40px rgba(133,198,244,.35));animation:atomPulse 2s ease-in-out 1.3s infinite;}
+@keyframes atomPulse{0%,100%{filter:drop-shadow(0 0 24px rgba(133,198,244,.8))}50%{filter:drop-shadow(0 0 44px rgba(133,198,244,1)) drop-shadow(0 0 90px rgba(133,142,244,.7))}}
+.boot-brand{position:relative;z-index:2;text-align:center;animation:brandUp .5s ease .9s both;}
+@keyframes brandUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.boot-title{font-family:var(--fn);font-size:30px;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(90deg,#1a1f3a 20%,var(--accent-vivid) 60%,var(--brand-vivid) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.boot-sub{font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(107,117,242,.65);margin-top:4px;}
+.boot-bar-wrap{position:relative;z-index:2;width:200px;animation:brandUp .5s ease 1.1s both;}
+.boot-bar-track{height:3px;background:rgba(133,142,244,.18);border-radius:2px;overflow:hidden;}
+.boot-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent-vivid),var(--brand-vivid));border-radius:2px;animation:barFill 2.4s ease-out 1.2s forwards;}
+@keyframes barFill{0%{width:0}60%{width:72%}85%{width:90%}100%{width:100%}}
+.boot-bar-label{font-size:10px;color:rgba(26,31,58,.4);text-align:center;margin-top:8px;font-family:var(--fn-mono);}
+
+/* ── LAYOUT ── */
+#app{display:flex;min-height:100vh;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
+#app.visible{opacity:1;transform:translateY(0);}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:var(--sidebar-w);min-height:100vh;
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(20px) saturate(1.2);
+  border-right:1px solid rgba(133,198,244,0.25);
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;
+  padding:22px 0;overflow:hidden;flex-shrink:0;
+}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 18px 20px;border-bottom:1px solid rgba(133,198,244,.2);}
+.sidebar-logo-icon{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent-vivid),var(--brand-vivid));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px var(--glow-accent);flex-shrink:0;
+}
+.sidebar-logo-text{font-family:var(--fn);font-size:14px;font-weight:700;}
+.sidebar-logo-sub{font-size:9px;color:var(--muted);letter-spacing:.4px;}
+.sidebar-nav{flex:1;padding:14px 10px;display:flex;flex-direction:column;gap:2px;}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 11px;border-radius:11px;cursor:pointer;
+  transition:background .2s ease,color .2s ease;
+  border:1px solid transparent;
+  text-decoration:none;color:rgba(90,106,138,0.9);
+  font-size:13px;font-weight:500;
+}
+.nav-item:hover{background:rgba(133,198,244,.18);color:#1a1f3a;}
+.nav-item.active{background:rgba(133,198,244,.22);color:#1a1f3a;border-color:rgba(133,198,244,.35);}
+.nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:.55;}
+.nav-item.active svg,.nav-item:hover svg{opacity:1;color:var(--brand);}
+.nav-divider{height:1px;background:rgba(133,198,244,.22);margin:6px 10px;}
+.sidebar-footer{padding:14px 18px;border-top:1px solid rgba(133,198,244,.2);}
+.sidebar-footer-text{font-size:10px;color:rgba(26,31,58,.45);line-height:1.7;}
+.sidebar-footer-text a{color:var(--brand);text-decoration:none;}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;min-height:100vh;overflow-y:auto;padding-bottom:90px;}
+#main-scroll{overflow-y:auto;}
+.main-inner{max-width:980px;margin:0 auto;width:100%;padding:30px 26px 40px;}
+
+/* ── PAGES ── */
+.page{display:none;animation:pageIn .32s ease both;}
+.page.active{display:block;}
+@keyframes pageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── PAGE HEADER ── */
+.page-header{margin-bottom:28px;}
+.page-header h1{font-family:var(--fn);font-size:26px;font-weight:800;letter-spacing:-.8px;margin-bottom:5px;}
+.page-header p{color:var(--muted);font-size:13.5px;line-height:1.65;}
+.page-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;
+  background:rgba(133,142,244,.1);border:1px solid rgba(133,142,244,.25);
+}
+
+/* ── CARDS ── */
+.card{
+  background:var(--card-bg);backdrop-filter:blur(14px) saturate(1.2);
+  border:1px solid var(--card-border);border-radius:var(--r-lg);padding:22px;
+  transition:background .22s ease,border-color .22s ease,transform .22s ease,box-shadow .22s ease;
+}
+.card:hover{background:var(--card-hover);border-color:rgba(133,198,244,.35);transform:translateY(-2px);box-shadow:0 10px 36px rgba(91,179,240,.14);}
+.card-sm{padding:16px 18px;}
+.card-link{text-decoration:none;color:inherit;display:block;}
+.card-title{font-family:var(--fn);font-size:14px;font-weight:700;margin-bottom:3px;}
+.card-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* ── GRIDS ── */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;}
+
+/* ── SECTION LABELS ── */
+.section-label{
+  font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(26,31,58,.4);margin-bottom:13px;margin-top:26px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:rgba(133,198,244,.3);}
+
+/* ── CHAPTER SQUARE CARDS (3 per row) ── */
+.chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:7px;}
+.chapter-card{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:11px;padding:10px 13px;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:row;align-items:center;gap:9px;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.chapter-card:hover{background:var(--card-hover);border-color:rgba(91,179,240,.5);transform:translateX(2px);box-shadow:0 4px 16px rgba(91,179,240,.15);}
+.chapter-card .ch-num{font-family:var(--fn-mono);font-size:9.5px;color:var(--accent-vivid);background:rgba(133,142,244,.12);padding:2px 6px;border-radius:5px;font-weight:600;flex-shrink:0;}
+.chapter-card .ch-title{font-family:var(--fn);font-size:12px;font-weight:700;line-height:1.3;flex:1;}
+.chapter-card .ch-tag{font-size:9px;color:var(--muted);background:rgba(133,198,244,.12);padding:1px 5px;border-radius:4px;white-space:nowrap;flex-shrink:0;}
+
+/* ── ACCORDION (JEE/NEET subsections) ── */
+.accord-wrap{display:flex;flex-direction:column;gap:8px;}
+.accord-item{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--r-lg);overflow:hidden;transition:border-color .2s;}
+.accord-item.open{border-color:rgba(133,142,244,.4);}
+.accord-head{
+  display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;
+  transition:background .2s;
+}
+.accord-head:hover{background:rgba(133,198,244,.12);}
+.accord-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.accord-title{font-family:var(--fn);font-size:14px;font-weight:700;flex:1;}
+.accord-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.accord-arrow{width:16px;height:16px;opacity:.5;transition:transform .25s ease,opacity .2s;}
+.accord-item.open .accord-arrow{transform:rotate(180deg);opacity:.9;}
+.accord-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(0.4,0,0.2,1);}
+.accord-body.open{max-height:3000px;}
+.accord-inner{padding:0 16px 16px;}
+
+/* ── LINK PILLS ── */
+.link-pills{display:flex;flex-direction:column;gap:7px;}
+.link-pill{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 13px;border-radius:10px;
+  background:rgba(255,255,255,.7);border:1px solid rgba(133,198,244,.25);
+  font-size:12.5px;color:var(--text);text-decoration:none;
+  transition:background .18s,transform .18s,border-color .18s;
+}
+.link-pill:hover{background:rgba(133,198,244,.1);border-color:rgba(133,198,244,.25);transform:translateX(3px);}
+.link-pill svg{width:14px;height:14px;opacity:.55;flex-shrink:0;}
+.link-pill .pill-label{flex:1;font-weight:500;}
+.link-pill .pill-tag{font-size:9.5px;color:var(--muted);background:rgba(133,198,244,.15);padding:2px 7px;border-radius:6px;white-space:nowrap;}
+
+/* ── MOCK CARDS ── */
+.mock-card{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;border-radius:var(--r-lg);
+  background:var(--card-bg);border:1px solid var(--card-border);
+  text-decoration:none;color:inherit;
+  transition:background .2s,transform .2s,border-color .2s,box-shadow .2s;
+}
+.mock-card:hover{background:var(--card-hover);border-color:rgba(133,198,244,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(133,198,244,.18);}
+.mock-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mock-icon svg{width:20px;height:20px;}
+.mock-info{flex:1;}
+.mock-title{font-family:var(--fn);font-size:13.5px;font-weight:700;}
+.mock-meta{font-size:11px;color:var(--muted);margin-top:2px;}
+.mock-arrow{opacity:.4;}
+
+/* ── STAT CARDS ── */
+.stat{display:flex;flex-direction:column;gap:5px;background:rgba(255,255,255,.75);border:1px solid rgba(133,198,244,.3);border-radius:var(--r);padding:18px;}
+.stat-val{font-family:var(--fn);font-size:26px;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(135deg,#1a1f3a 20%,var(--accent-vivid));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:10px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;}
+
+/* ── HOME HERO ── */
+.hero{
+  background:rgba(255,255,255,.7);border:1px solid rgba(133,198,244,.3);
+  border-radius:var(--r-xl);padding:40px 36px;margin-bottom:28px;
+  position:relative;overflow:hidden;text-align:center;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 40% at 30% 30%,rgba(133,142,244,.12) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 50% at 70% 70%,rgba(133,198,244,.12) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-atom{width:68px;height:68px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;}
+.hero-atom svg{width:68px;height:68px;filter:drop-shadow(0 0 18px rgba(133,198,244,.5));}
+.hero h1{font-family:var(--fn);font-size:32px;font-weight:800;letter-spacing:-1.2px;margin-bottom:8px;
+  background:linear-gradient(135deg,#1a1f3a 10%,var(--accent-vivid) 55%,var(--brand-vivid) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero p{color:var(--muted);font-size:14px;line-height:1.7;max-width:480px;margin:0 auto 22px;}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 26px;border-radius:50px;
+  background:linear-gradient(135deg,var(--accent-vivid),var(--brand-vivid));
+  color:#fff;font-weight:600;font-size:13.5px;text-decoration:none;cursor:pointer;border:none;
+  box-shadow:0 6px 28px rgba(107,117,242,.5);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(107,117,242,.65);}
+
+/* ── QNAV (home quick nav) ── */
+.qnav{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:26px;}
+.qnav-item{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:16px 10px;border-radius:var(--r-lg);
+  background:rgba(255,255,255,.7);border:1px solid rgba(133,198,244,.28);
+  cursor:pointer;transition:background .2s,transform .2s,border-color .2s;
+  text-align:center;
+}
+.qnav-item:hover{background:rgba(255,255,255,.95);transform:translateY(-2px);border-color:rgba(133,198,244,.55);box-shadow:0 4px 18px rgba(133,198,244,.2);}
+.qnav-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.qnav-icon svg{width:18px;height:18px;}
+.qnav-label{font-family:var(--fn);font-size:12px;font-weight:700;}
+.qnav-sub{font-size:10px;color:var(--muted);}
+
+/* ── FAQ ── */
+.faq-wrap{display:flex;flex-direction:column;gap:8px;}
+.faq-item{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--r-lg);overflow:hidden;}
+.faq-item.open{border-color:rgba(133,142,244,.4);}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:15px 18px;cursor:pointer;font-size:13.5px;font-weight:600;
+  transition:background .2s;
+}
+.faq-q:hover{background:rgba(133,198,244,.1);}
+.faq-q svg{width:16px;height:16px;flex-shrink:0;opacity:.5;transition:transform .25s ease;}
+.faq-item.open .faq-q svg{transform:rotate(180deg);opacity:.9;}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.faq-a.open{max-height:300px;}
+.faq-a-inner{padding:0 18px 15px;font-size:13px;color:var(--muted);line-height:1.7;}
+
+/* ── STUDY MATERIALS TABS ── */
+.tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;}
+.tab-btn{
+  padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;
+  border:1px solid rgba(133,198,244,.3);background:rgba(255,255,255,.6);
+  color:var(--muted);transition:all .2s;
+}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent-vivid),var(--brand-vivid));color:#fff;border-color:transparent;box-shadow:0 3px 14px rgba(107,117,242,.35);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* ── DOCK ── */
+.dock-wrap{
+  position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+  z-index:1000;padding:0 16px;
+}
+.dock{
+  display:flex;align-items:center;gap:4px;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(24px) saturate(1.3);
+  border:1px solid rgba(133,198,244,0.3);
+  border-radius:28px;padding:8px 12px;
+  box-shadow:0 8px 32px rgba(133,198,244,.25),0 0 0 1px rgba(255,255,255,.6);
+}
+.dock-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:7px 12px;border-radius:20px;cursor:pointer;
+  transition:background .2s,transform .2s;color:rgba(90,106,138,.8);
+  min-width:52px;
+}
+.dock-item:hover{background:rgba(133,198,244,.2);color:#1a1f3a;transform:translateY(-2px);}
+.dock-item.active{background:rgba(133,198,244,.25);color:#1a1f3a;}
+.dock-item svg{width:18px;height:18px;}
+.dock-label{font-size:9px;font-weight:600;letter-spacing:.4px;}
+.dock-divider{width:1px;height:32px;background:rgba(133,198,244,.3);margin:0 2px;}
+
+/* ── FOOTER ── */
+footer{
+  background:rgba(255,255,255,.6);border-top:1px solid rgba(133,198,244,.25);
+  padding:36px 28px 24px;margin-top:20px;
+}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-bottom:24px;}
+.footer-brand-name{font-family:var(--fn);font-size:15px;font-weight:800;margin-bottom:6px;
+  background:linear-gradient(90deg,#1a1f3a,var(--accent-vivid));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.footer-brand-desc{font-size:11.5px;color:var(--muted);line-height:1.6;margin-bottom:8px;}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(26,31,58,.45);margin-bottom:10px;}
+.footer-link{display:block;font-size:12px;color:rgba(26,31,58,.55);text-decoration:none;margin-bottom:6px;transition:color .2s;}
+.footer-link:hover{color:var(--brand);}
+.footer-bar{display:flex;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid rgba(133,198,244,.2);}
+.footer-copy{font-size:11px;color:rgba(26,31,58,.4);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .sidebar{display:none;}
+  .chapter-grid{grid-template-columns:repeat(3,1fr);}
+  .qnav{grid-template-columns:repeat(3,1fr);}
+  .footer-grid{grid-template-columns:repeat(2,1fr);}
+  .grid-3{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:600px){
+  .chapter-grid{grid-template-columns:repeat(2,1fr);}
+  .qnav{grid-template-columns:repeat(3,1fr);}
+  .footer-grid{grid-template-columns:1fr;}
+  .hero h1{font-size:24px;}
+  .main-inner{padding:20px 14px 30px;}
+  .grid-3{grid-template-columns:1fr 1fr;}
+}
+
+/* ── BACK TO TOP ── */
+.back-top{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;border-radius:20px;border:1px solid rgba(133,198,244,.2);
+  background:rgba(133,198,244,.07);color:var(--muted);font-size:12px;
+  cursor:pointer;transition:all .2s;margin-top:20px;
+}
+.back-top:hover{background:rgba(133,198,244,.25);color:#1a1f3a;border-color:rgba(133,198,244,.5);}
+
+/* ── RESOURCE CARDS (formula / NCERT / study material) ── */
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px;margin-bottom:6px;}
+.resource-card{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;border-radius:11px;
+  background:var(--card-bg);border:1px solid var(--card-border);
+  text-decoration:none;color:var(--text);
+  transition:background .18s,border-color .18s,transform .18s,box-shadow .18s;
+  position:relative;overflow:hidden;
+}
+.resource-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .18s;
+  background:linear-gradient(135deg,rgba(133,142,244,.08),rgba(133,198,244,.08));}
+.resource-card:hover{background:var(--card-hover);border-color:rgba(133,142,244,.4);transform:translateY(-2px);box-shadow:0 4px 16px rgba(133,142,244,.15);}
+.resource-card:hover::before{opacity:1;}
+.rc-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.rc-icon svg{width:15px;height:15px;}
+.rc-body{flex:1;min-width:0;}
+.rc-title{font-family:var(--fn);font-size:12px;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rc-tag{font-size:9px;font-weight:600;letter-spacing:.4px;margin-top:1px;}
+
+/* ── PYQ YEAR GRID ── */
+.pyq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:7px;}
+.pyq-card{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  padding:13px 10px;border-radius:11px;text-align:center;
+  background:var(--card-bg);border:1px solid var(--card-border);
+  text-decoration:none;color:var(--text);
+  transition:background .18s,border-color .18s,transform .18s,box-shadow .18s;
+}
+.pyq-card:hover{background:var(--card-hover);border-color:rgba(133,198,244,.5);transform:translateY(-2px);box-shadow:0 4px 14px rgba(133,198,244,.18);}
+.pyq-year{font-family:var(--fn);font-size:18px;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(135deg,var(--accent-vivid),var(--brand-vivid));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.pyq-label{font-size:10px;color:var(--muted);font-weight:500;}
+.pyq-tag{font-size:9px;background:rgba(133,198,244,.15);color:var(--accent-vivid);padding:1px 6px;border-radius:4px;font-weight:600;}
+
+/* ── GRADIENT BADGE ── */
+.badge-grad{
+  display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;
+  background:linear-gradient(135deg,var(--accent-vivid),var(--brand-vivid));color:#fff;letter-spacing:.5px;
+}
+
+/* ── MOCK DASHBOARD LINK CARD ── */
+.dash-link{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 20px;border-radius:var(--r-lg);
+  background:linear-gradient(135deg,rgba(133,142,244,.1),rgba(133,198,244,.1));
+  border:1px solid rgba(133,198,244,.2);
+  text-decoration:none;color:inherit;
+  transition:all .2s;
+}
+.dash-link:hover{background:linear-gradient(135deg,rgba(133,142,244,.18),rgba(133,198,244,.18));transform:translateY(-2px);box-shadow:0 8px 28px rgba(133,198,244,.25);}
+.dash-link-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent-vivid),var(--brand-vivid));display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px var(--glow-accent);}
+.dash-link-icon svg{width:22px;height:22px;stroke:#fff;}
+.dash-link-info{flex:1;}
+.dash-link-title{font-family:var(--fn);font-size:14px;font-weight:700;}
+.dash-link-sub{font-size:11.5px;color:var(--muted);margin-top:2px;}
+</style>
+</head>
+<body>
+
+<!-- BOOT SCREEN -->
+<div id="boot">
+  <div class="boot-atom">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="50" rx="44" ry="16" stroke="#85C6F4" stroke-width="2" opacity=".85"/>
+      <ellipse cx="50" cy="50" rx="44" ry="16" stroke="#858EF4" stroke-width="2" opacity=".85" transform="rotate(60 50 50)"/>
+      <ellipse cx="50" cy="50" rx="44" ry="16" stroke="#85C6F4" stroke-width="2" opacity=".85" transform="rotate(-60 50 50)"/>
+      <circle cx="50" cy="50" r="7" fill="url(#hg)"/>
+      <circle cx="94" cy="50" r="4" fill="#fff"/>
+      <circle cx="28.5" cy="15.5" r="4" fill="#fff"/>
+      <circle cx="28.5" cy="84.5" r="4" fill="#fff"/>
+      <defs><radialGradient id="hg" cx="30%" cy="30%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#85C6F4"/></radialGradient></defs>
+    </svg>
+  </div>
+  <div class="boot-brand">
+    <div class="boot-title">Physics Hub</div>
+    <div class="boot-sub">JEE · NEET · CUET · Class 11 & 12</div>
+  </div>
+  <div class="boot-bar-wrap">
+    <div class="boot-bar-track"><div class="boot-bar-fill"></div></div>
+    <div class="boot-bar-label">Loading physics materials…</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/>
+        </svg>
+      </div>
+      <div>
+        <div class="sidebar-logo-text">Physics Hub</div>
+        <div class="sidebar-logo-sub">By Wondermayank</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-page="home" onclick="goto('home')" href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </a>
+      <div class="nav-divider"></div>
+      <a class="nav-item" data-page="jee" onclick="goto('jee')" href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        JEE Physics
+      </a>
+      <a class="nav-item" data-page="neet" onclick="goto('neet')" href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        NEET Physics
+      </a>
+      <a class="nav-item" data-page="cuet" onclick="goto('cuet')" href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        CUET Physics
+      </a>
+      <div class="nav-divider"></div>
+      <a class="nav-item" data-page="class12" onclick="goto('class12')" href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        Class 12
+      </a>
+      <a class="nav-item" data-page="class11" onclick="goto('class11')" href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        Class 11
+      </a>
+      <div class="nav-divider"></div>
+      <a class="nav-item" data-page="materials" onclick="goto('materials')" href="javascript:void(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        Study Materials
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-text">
+        Powered by <a href="https://thunderstudy.github.io" target="_blank">ThunderStudy</a><br/>
+        &copy; 2025 Wondermayank
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="main-scroll" role="main">
+    <div class="main-inner">
+
+      <!-- ═══════ HOME ═══════ -->
+      <section class="page active" id="page-home">
+        <div class="hero">
+          <div class="hero-atom">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="50" cy="50" rx="44" ry="16" stroke="#85C6F4" stroke-width="2" opacity=".8"/>
+              <ellipse cx="50" cy="50" rx="44" ry="16" stroke="#858EF4" stroke-width="2" opacity=".8" transform="rotate(60 50 50)"/>
+              <ellipse cx="50" cy="50" rx="44" ry="16" stroke="#85C6F4" stroke-width="2" opacity=".8" transform="rotate(-60 50 50)"/>
+              <circle cx="50" cy="50" r="7" fill="url(#hg2)"/>
+              <circle cx="94" cy="50" r="4" fill="#fff"/>
+              <circle cx="28.5" cy="15.5" r="4" fill="#fff"/>
+              <circle cx="28.5" cy="84.5" r="4" fill="#fff"/>
+              <defs><radialGradient id="hg2" cx="30%" cy="30%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#85C6F4"/></radialGradient></defs>
+            </svg>
+          </div>
+          <h1>Your Physics Command Centre</h1>
+          <p>Everything you need for JEE, NEET, CUET and board exams — notes, derivations, mock tests and chapter-wise practice, all in one place. Free forever.</p>
+          <button class="hero-cta" onclick="goto('class12')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+            Start Studying
+          </button>
+        </div>
+
+        <div class="qnav">
+          <div class="qnav-item" onclick="goto('jee')">
+            <div class="qnav-icon" style="background:rgba(133,142,244,.2);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <div class="qnav-label">JEE</div>
+            <div class="qnav-sub">Advanced & Mains</div>
+          </div>
+          <div class="qnav-item" onclick="goto('neet')">
+            <div class="qnav-icon" style="background:rgba(52,211,153,.14);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div class="qnav-label">NEET</div>
+            <div class="qnav-sub">UG Medical</div>
+          </div>
+          <div class="qnav-item" onclick="goto('cuet')">
+            <div class="qnav-icon" style="background:rgba(251,191,36,.11);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fcd34d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="qnav-label">CUET</div>
+            <div class="qnav-sub">Domain Physics</div>
+          </div>
+          <div class="qnav-item" onclick="goto('class12')">
+            <div class="qnav-icon" style="background:rgba(133,198,244,.14);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#85C6F4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+            </div>
+            <div class="qnav-label">Class 12</div>
+            <div class="qnav-sub">NCERT Board</div>
+          </div>
+          <div class="qnav-item" onclick="goto('class11')">
+            <div class="qnav-icon" style="background:rgba(244,114,182,.14);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#f9a8d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+            </div>
+            <div class="qnav-label">Class 11</div>
+            <div class="qnav-sub">Foundation</div>
+          </div>
+        </div>
+
+        <div class="section-label">Platform Stats</div>
+        <div class="grid-4">
+          <div class="stat"><div class="stat-val">500+</div><div class="stat-label">Mock Tests</div></div>
+          <div class="stat"><div class="stat-val">28+</div><div class="stat-label">Chapters</div></div>
+          <div class="stat"><div class="stat-val">PYQ</div><div class="stat-label">2020–2025</div></div>
+          <div class="stat"><div class="stat-val">Free</div><div class="stat-label">Always</div></div>
+        </div>
+
+        <div class="section-label">What's Inside</div>
+        <div class="grid-2">
+          <div class="card card-sm">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <div class="card-title">Chapter Notes</div>
+            </div>
+            <div class="card-desc">NCERT-aligned notes covering every concept, derivation, and solved numerical for Class 11, 12, JEE, NEET & CUET.</div>
+          </div>
+          <div class="card card-sm">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#85C6F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+              <div class="card-title">Formula Sheets</div>
+            </div>
+            <div class="card-desc">Quick-reference formula sheets for Mechanics, Electromagnetism and Modern Physics — printable and mobile-friendly.</div>
+          </div>
+          <div class="card card-sm">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fcd34d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div class="card-title">Mock Tests (CBT)</div>
+            </div>
+            <div class="card-desc">Chapter-wise and full-length computer-based mock tests with score analytics, time tracking and leaderboard.</div>
+          </div>
+          <div class="card card-sm">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <div class="card-title">PYQ Practice</div>
+            </div>
+            <div class="card-desc">Previous year questions from JEE, NEET and CUET (2020–2025) organised by chapter for targeted revision.</div>
+          </div>
+        </div>
+
+        <!-- Mock Dashboard Links on Home -->
+        <div class="section-label">Mock Test Dashboards</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a class="dash-link" href="https://commercesehoga.github.io/jee-neet" target="_blank" rel="noopener">
+            <div class="dash-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="dash-link-info">
+              <div class="dash-link-title">JEE Mock Test Dashboard</div>
+              <div class="dash-link-sub">Full-length & chapter-wise JEE Mains + Advanced Physics tests · CBT format</div>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a class="dash-link" href="https://commercesehoga.github.io/jee-neet" target="_blank" rel="noopener">
+            <div class="dash-link-icon" style="background:linear-gradient(135deg,#059669,#34d399);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <div class="dash-link-info">
+              <div class="dash-link-title">NEET Mock Test Dashboard</div>
+              <div class="dash-link-sub">Biology + Physics + Physics · NEET UG pattern · Full-length & chapter tests</div>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a class="dash-link" href="https://commercesehoga.github.io/cuet" target="_blank" rel="noopener">
+            <div class="dash-link-icon" style="background:linear-gradient(135deg,#d97706,#fcd34d);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <div class="dash-link-info">
+              <div class="dash-link-title">CUET Mock Test Dashboard</div>
+              <div class="dash-link-sub">Domain Physics · CUET UG pattern · Section-wise practice</div>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- FAQ -->
+        <div class="section-label">Frequently Asked Questions</div>
+        <div class="faq-wrap">
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              Is this platform completely free?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">Yes! Physics Hub is 100% free — no paywalls, no subscriptions, no ads. Every note, formula sheet, and mock test is freely accessible to all students. It is powered by Wondermayank and ThunderStudy as a public education initiative.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              Which exams does this platform cover?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">We cover JEE Mains & Advanced, NEET UG, CUET UG, and CBSE Board exams for Class 11 and Class 12. Our physics content is carefully mapped to NCERT with additional topic coverage for competitive exams.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              How are the mock tests structured?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">All mock tests are in CBT (Computer-Based Test) format — the same interface used in the actual JEE and NEET exams. We offer full-length mocks, chapter-wise tests, and PYQ practice sets with detailed solutions and score analytics.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              Are the notes aligned with NCERT?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">Absolutely. All notes follow the NCERT syllabus chapter by chapter. For JEE and NEET, we also include additional concepts and questions that go beyond NCERT but are frequently asked in competitive exams.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              How is JEE different from NEET physics?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">JEE physics emphasises Mechanics & Thermal Physics calculations, Organic mechanisms, and numericals in depth. NEET physics is more factual, covering NCERT lines and conceptual understanding. Both share most of the same Class 11 & 12 chapters, but with different question styles and difficulty levels.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              Can I access this on mobile?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">Yes! Physics Hub is fully responsive and works on mobile, tablet, and desktop. Use the bottom dock to navigate on mobile. For mock tests, we recommend a desktop or tablet for the best CBT experience.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              Who makes this content?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a"><div class="faq-a-inner">Content is curated and developed by Wondermayank, a student-run education initiative. The platform is part of the ThunderStudy and CommerceSeHoga ecosystem — built by students, for students across India.</div></div>
+          </div>
+        </div>
+
+        <button class="back-top" onclick="scrollTop()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+          Back to Top
+        </button>
+      </section>
+
+      <!-- ═══════ JEE ═══════ -->
+      <section class="page" id="page-jee">
+        <div class="page-header">
+          <div class="page-badge">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            JEE Advanced & Mains
+          </div>
+          <h1>JEE Physics</h1>
+          <p>Complete study arsenal for JEE Mains and Advanced Physics — mock tests, chapter notes, formula sheets, derivations, PYQs and more.</p>
+        </div>
+
+        <!-- Mock Dashboard Link -->
+        <a class="dash-link" style="margin-bottom:18px;display:flex;" href="https://commercesehoga.github.io/jee-neet" target="_blank" rel="noopener">
+          <div class="dash-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="dash-link-info">
+            <div class="dash-link-title">Open JEE Mock Dashboard</div>
+            <div class="dash-link-sub">Full-length · Chapter-wise · PYQ · CBT format · Score analytics</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:.4;align-self:center;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+
+        <div class="accord-wrap">
+          <!-- Mechanics & Thermal Physics -->
+          <div class="accord-item open" id="jee-physical">
+            <div class="accord-head" onclick="toggleAccord('jee-physical')">
+              <div class="accord-icon" style="background:rgba(133,142,244,.18);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              </div>
+              <div>
+                <div class="accord-title">Mechanics & Thermal Physics</div>
+                <div class="accord-sub">10 chapters · Numericals & Derivations</div>
+              </div>
+              <svg class="accord-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="accord-body open" id="body-jee-physical">
+              <div class="accord-inner">
+                <div class="chapter-grid">
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/notes/mole-concept" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 1</span>
+                    <span class="ch-title">Units, Dimensions & Measurement</span>
+                    <span class="ch-tag">Physical</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/notes/atomic-structure" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 2</span>
+                    <span class="ch-title">Kinematics (1D & 2D)</span>
+                    <span class="ch-tag">Physical</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/notes/thermodynamics" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 3</span>
+                    <span class="ch-title">Laws of Motion & Friction</span>
+                    <span class="ch-tag">Physical</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/notes/equilibrium" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 4</span>
+                    <span class="ch-title">Work, Energy & Power</span>
+                    <span class="ch-tag">Physical</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/notes/ionic-eq" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 5</span>
+                    <span class="ch-title">Rotational Motion</span>
+                    <span class="ch-tag">Physical</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/notes/electrophysics" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 6</span>
+                    <span class="ch-title">Gravitation</span>
+                    <span class="ch-tag">Physical</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/notes/kinetics" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 7</span>
+                    <span class="ch-title">Properties of Matter & SHM</span>
+                    <span class="ch-tag">Physical</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/notes/solutions" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 8</span>
+                    <span class="ch-title">Kinetic Theory & Thermodynamics</span>
+                    <span class="ch-tag">Physical</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/notes/surface" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 9</span>
+                    <span class="ch-title">Heat Transfer</span>
+                    <span class="ch-tag">Physical</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Waves & Optics -->
+          <div class="accord-item" id="jee-organic">
+            <div class="accord-head" onclick="toggleAccord('jee-organic')">
+              <div class="accord-icon" style="background:rgba(52,211,153,.14);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/></svg>
+              </div>
+              <div>
+                <div class="accord-title">Waves & Optics</div>
+                <div class="accord-sub">10 chapters · Problems & Applications</div>
+              </div>
+              <svg class="accord-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="accord-body" id="body-jee-organic">
+              <div class="accord-inner">
+                <div class="chapter-grid">
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/organic/basics" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 1</span>
+                    <span class="ch-title">Electrostatics</span>
+                    <span class="ch-tag">Organic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/organic/isomerism" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 2</span>
+                    <span class="ch-title">Current Electricity</span>
+                    <span class="ch-tag">Organic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/organic/hydrocarbons" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 3</span>
+                    <span class="ch-title">Magnetic Effects of Current</span>
+                    <span class="ch-tag">Organic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/organic/haloalkane" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 4</span>
+                    <span class="ch-title">Electromagnetic Induction</span>
+                    <span class="ch-tag">Organic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/organic/alcohol" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 5</span>
+                    <span class="ch-title">Alternating Current</span>
+                    <span class="ch-tag">Organic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/organic/carbonyl" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 6</span>
+                    <span class="ch-title">Ray Optics</span>
+                    <span class="ch-tag">Organic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/organic/carboxylic" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 7</span>
+                    <span class="ch-title">Wave Optics</span>
+                    <span class="ch-tag">Organic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/organic/amines" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 8</span>
+                    <span class="ch-title">Modern Physics & Photoelectric Effect</span>
+                    <span class="ch-tag">Organic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/organic/biomolecules" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 9</span>
+                    <span class="ch-title">Semiconductors & Communication</span>
+                    <span class="ch-tag">Organic</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modern Physics -->
+          <div class="accord-item" id="jee-inorganic">
+            <div class="accord-head" onclick="toggleAccord('jee-inorganic')">
+              <div class="accord-icon" style="background:rgba(251,191,36,.12);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fcd34d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+              </div>
+              <div>
+                <div class="accord-title">Modern Physics</div>
+                <div class="accord-sub">8 chapters · Electromagnetism to Modern Physics</div>
+              </div>
+              <svg class="accord-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="accord-body" id="body-jee-inorganic">
+              <div class="accord-inner">
+                <div class="chapter-grid">
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/inorganic/periodic" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 1</span>
+                    <span class="ch-title">Dual Nature of Radiation</span>
+                    <span class="ch-tag">Inorganic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/inorganic/bonding" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 2</span>
+                    <span class="ch-title">Atoms & Nuclei</span>
+                    <span class="ch-tag">Inorganic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/inorganic/sblock" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 3</span>
+                    <span class="ch-title">Semiconductor Devices</span>
+                    <span class="ch-tag">Inorganic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/inorganic/pblock" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 4</span>
+                    <span class="ch-title">Communication Systems</span>
+                    <span class="ch-tag">Inorganic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/inorganic/dblock" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 5</span>
+                    <span class="ch-title">Experimental Physics</span>
+                    <span class="ch-tag">Inorganic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/inorganic/coordination" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 6</span>
+                    <span class="ch-title">Magnetism & Matter</span>
+                    <span class="ch-tag">Inorganic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/inorganic/metallurgy" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 7</span>
+                    <span class="ch-title">Electromagnetic Waves</span>
+                    <span class="ch-tag">Inorganic</span>
+                  </a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/inorganic/environment" target="_blank" rel="noopener">
+                    <span class="ch-num">Ch 8</span>
+                    <span class="ch-title">Special Relativity (Adv)</span>
+                    <span class="ch-tag">Inorganic</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label">Resources &amp; Formula</div>
+        <div class="resource-grid">
+          <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/formula" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div>
+            <div class="rc-body"><div class="rc-title">JEE Physics Formula</div><div class="rc-tag" style="color:var(--accent-vivid);">Complete</div></div>
+          </a>
+          <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/notes" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,198,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#4AACEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Mechanics & Thermal Notes</div><div class="rc-tag" style="color:var(--brand-vivid);">JEE</div></div>
+          </a>
+          <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/organic" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(52,211,153,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Wave & Optics Notes</div><div class="rc-tag" style="color:#059669;">Problems</div></div>
+          </a>
+          <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/shortcut" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(251,191,36,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Shortcuts &amp; Tricks</div><div class="rc-tag" style="color:#d97706;">JEE Tips</div></div>
+          </a>
+          <a class="resource-card" href="https://wondermayank.github.io/rank/jee-neet" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(244,114,182,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Rank Predictor</div><div class="rc-tag" style="color:#db2777;">AIR</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/jee-neet" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="rc-body"><div class="rc-title">JEE Mock Dashboard</div><div class="rc-tag" style="color:var(--accent-vivid);">CBT</div></div>
+          </a>
+        </div>
+
+        <div class="section-label">JEE PYQ — Year-wise</div>
+        <div class="pyq-grid">
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/jee/2026" target="_blank" rel="noopener"><div class="pyq-year">2026</div><div class="pyq-label">JEE Mains</div><div class="pyq-tag">Latest</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/jee/2025" target="_blank" rel="noopener"><div class="pyq-year">2025</div><div class="pyq-label">JEE Mains</div><div class="pyq-tag">JEE</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/jee/2024" target="_blank" rel="noopener"><div class="pyq-year">2024</div><div class="pyq-label">JEE Mains</div><div class="pyq-tag">JEE</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/jee/2023" target="_blank" rel="noopener"><div class="pyq-year">2023</div><div class="pyq-label">JEE Mains</div><div class="pyq-tag">JEE</div></a>
+        </div>
+
+        <button class="back-top" onclick="scrollTop()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+          Back to Top
+        </button>
+      </section>
+
+      <!-- ═══════ NEET ═══════ -->
+      <section class="page" id="page-neet">
+        <div class="page-header">
+          <div class="page-badge">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            NEET UG Medical
+          </div>
+          <h1>NEET Physics</h1>
+          <p>NCERT-based chapter notes, chapter-wise tests and PYQs for NEET UG — the complete physics resource for medical aspirants.</p>
+        </div>
+
+        <a class="dash-link" style="margin-bottom:18px;display:flex;" href="https://commercesehoga.github.io/jee-neet" target="_blank" rel="noopener">
+          <div class="dash-link-icon" style="background:linear-gradient(135deg,#059669,#34d399);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="dash-link-info">
+            <div class="dash-link-title">Open NEET Mock Dashboard</div>
+            <div class="dash-link-sub">Full-length · Chapter-wise · PYQ · NEET UG pattern</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:.4;align-self:center;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+
+        <div class="accord-wrap">
+          <div class="accord-item open" id="neet-class11">
+            <div class="accord-head" onclick="toggleAccord('neet-class11')">
+              <div class="accord-icon" style="background:rgba(244,114,182,.14);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f9a8d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+              </div>
+              <div>
+                <div class="accord-title">Class 11 Chapters (NEET)</div>
+                <div class="accord-sub">15 chapters · NCERT aligned</div>
+              </div>
+              <svg class="accord-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="accord-body open" id="body-neet-class11">
+              <div class="accord-inner">
+                <div class="chapter-grid">
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/basic-concepts" target="_blank" rel="noopener"><span class="ch-num">Ch 1</span><span class="ch-title">Physical World & Units</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/atomic-structure" target="_blank" rel="noopener"><span class="ch-num">Ch 2</span><span class="ch-title">Kinematics</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/periodic" target="_blank" rel="noopener"><span class="ch-num">Ch 3</span><span class="ch-title">Periodic Classification</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/bonding" target="_blank" rel="noopener"><span class="ch-num">Ch 4</span><span class="ch-title">Atoms & Nuclei</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/states" target="_blank" rel="noopener"><span class="ch-num">Ch 5</span><span class="ch-title">System of Particles & Rotation</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/thermo" target="_blank" rel="noopener"><span class="ch-num">Ch 6</span><span class="ch-title">Laws of Motion & Friction</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/equil" target="_blank" rel="noopener"><span class="ch-num">Ch 7</span><span class="ch-title">Gravitation</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/redox" target="_blank" rel="noopener"><span class="ch-num">Ch 8</span><span class="ch-title">Properties of Bulk Matter</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/hydrogen" target="_blank" rel="noopener"><span class="ch-num">Ch 9</span><span class="ch-title">Thermal Properties</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/sblock" target="_blank" rel="noopener"><span class="ch-num">Ch 10</span><span class="ch-title">Semiconductor Devices</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/pblock11" target="_blank" rel="noopener"><span class="ch-num">Ch 11</span><span class="ch-title">p-Block (Gr. 13 & 14)</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/organic-basics" target="_blank" rel="noopener"><span class="ch-num">Ch 12</span><span class="ch-title">Waves</span><span class="ch-tag">Class 11</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/hydrocarbons" target="_blank" rel="noopener"><span class="ch-num">Ch 13</span><span class="ch-title">Magnetic Effects of Current</span><span class="ch-tag">Class 11</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accord-item" id="neet-class12">
+            <div class="accord-head" onclick="toggleAccord('neet-class12')">
+              <div class="accord-icon" style="background:rgba(133,198,244,.14);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#85C6F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+              </div>
+              <div>
+                <div class="accord-title">Class 12 Chapters (NEET)</div>
+                <div class="accord-sub">16 chapters · NCERT aligned</div>
+              </div>
+              <svg class="accord-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="accord-body" id="body-neet-class12">
+              <div class="accord-inner">
+                <div class="chapter-grid">
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/solutions" target="_blank" rel="noopener"><span class="ch-num">Ch 1</span><span class="ch-title">Electric Charges & Fields</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/electrophysics" target="_blank" rel="noopener"><span class="ch-num">Ch 2</span><span class="ch-title">Gravitation</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/kinetics" target="_blank" rel="noopener"><span class="ch-num">Ch 3</span><span class="ch-title">Properties of Matter & SHM</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/dblock" target="_blank" rel="noopener"><span class="ch-num">Ch 4</span><span class="ch-title">Experimental Physics</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/coordination" target="_blank" rel="noopener"><span class="ch-num">Ch 5</span><span class="ch-title">Magnetism & Matter</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/haloalkane" target="_blank" rel="noopener"><span class="ch-num">Ch 6</span><span class="ch-title">Electromagnetic Induction</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/alcohol" target="_blank" rel="noopener"><span class="ch-num">Ch 7</span><span class="ch-title">Alternating Current</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/carbonyl" target="_blank" rel="noopener"><span class="ch-num">Ch 8</span><span class="ch-title">Ray Optics</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/carboxylic" target="_blank" rel="noopener"><span class="ch-num">Ch 9</span><span class="ch-title">Wave Opticss</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/amines" target="_blank" rel="noopener"><span class="ch-num">Ch 10</span><span class="ch-title">Modern Physics & Photoelectric Effect</span><span class="ch-tag">Class 12</span></a>
+                  <a class="chapter-card" href="https://thunderstudy.github.io/jee-neet/study/neet/biomolecules" target="_blank" rel="noopener"><span class="ch-num">Ch 11</span><span class="ch-title">Dual Nature of Radiation</span><span class="ch-tag">Class 12</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label">Quick Links</div>
+        <div class="link-pills">
+          <a class="link-pill" href="https://commercesehoga.github.io/pyqs/neet" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg><span class="pill-label">NEET PYQ Practice 2020–2025</span><span class="pill-tag">PYQ</span></a>
+          <a class="link-pill" href="https://thunderstudy.github.io/jee-neet/study/neet-formula" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg><span class="pill-label">NEET Physics Formula & Revision Sheet</span><span class="pill-tag">Formula</span></a>
+          <a class="link-pill" href="https://thunderstudy.github.io/jee-neet/study/ncert-lines" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Important NCERT Lines for NEET Physics</span><span class="pill-tag">Notes</span></a>
+        </div>
+        <button class="back-top" onclick="scrollTop()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+          Back to Top
+        </button>
+      </section>
+
+      <!-- ═══════ CUET ═══════ -->
+      <section class="page" id="page-cuet">
+        <div class="page-header">
+          <div class="page-badge">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            CUET UG Domain Physics
+          </div>
+          <h1>CUET Physics</h1>
+          <p>Class 12 NCERT-based chapter-wise notes, mock tests and PYQs for CUET UG Domain Physics (Code 303).</p>
+        </div>
+
+        <a class="dash-link" style="margin-bottom:18px;display:flex;" href="https://commercesehoga.github.io/cuet" target="_blank" rel="noopener">
+          <div class="dash-link-icon" style="background:linear-gradient(135deg,#d97706,#fcd34d);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="dash-link-info">
+            <div class="dash-link-title">Open CUET Mock Dashboard</div>
+            <div class="dash-link-sub">Section A & B · Domain Physics · CBT format · Full-length mocks</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:.4;align-self:center;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+
+        <div class="section-label">CUET Physics — Chapter Notes (Class 12 NCERT)</div>
+        <div class="chapter-grid">
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/solutions" target="_blank" rel="noopener"><span class="ch-num">Ch 1</span><span class="ch-title">Electric Charges & Fields</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/electrophysics" target="_blank" rel="noopener"><span class="ch-num">Ch 2</span><span class="ch-title">Gravitation</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/kinetics" target="_blank" rel="noopener"><span class="ch-num">Ch 3</span><span class="ch-title">Properties of Matter & SHM</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/dblock" target="_blank" rel="noopener"><span class="ch-num">Ch 4</span><span class="ch-title">d & f Block</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/coordination" target="_blank" rel="noopener"><span class="ch-num">Ch 5</span><span class="ch-title">Magnetism & Matter</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/haloalkane" target="_blank" rel="noopener"><span class="ch-num">Ch 6</span><span class="ch-title">Electromagnetic Induction</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/alcohol" target="_blank" rel="noopener"><span class="ch-num">Ch 7</span><span class="ch-title">Alternating Current</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/carbonyl" target="_blank" rel="noopener"><span class="ch-num">Ch 8</span><span class="ch-title">Ray Optics</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/carboxylic" target="_blank" rel="noopener"><span class="ch-num">Ch 9</span><span class="ch-title">Wave Opticss</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/amines" target="_blank" rel="noopener"><span class="ch-num">Ch 10</span><span class="ch-title">Modern Physics & Photoelectric Effect</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/biomolecules" target="_blank" rel="noopener"><span class="ch-num">Ch 11</span><span class="ch-title">Dual Nature of Radiation</span><span class="ch-tag">CUET</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/cuet/polymers" target="_blank" rel="noopener"><span class="ch-num">Ch 12</span><span class="ch-title">Atoms & Nuclei</span><span class="ch-tag">CUET</span></a>
+        </div>
+
+        <div class="section-label">Quick Links</div>
+        <div class="link-pills">
+          <a class="link-pill" href="https://commercesehoga.github.io/science/phy/cuet/pyq" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg><span class="pill-label">CUET Physics PYQ 2022–2025</span><span class="pill-tag">PYQ</span></a>
+          <a class="link-pill" href="https://commercesehoga.github.io/science/phy/cuet/formula" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg><span class="pill-label">CUET Physics Formula Sheet</span><span class="pill-tag">Formula</span></a>
+          <a class="link-pill" href="https://commercesehoga.github.io/science/phy/cuet/sample-paper" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">CUET Sample Papers</span><span class="pill-tag">Practice</span></a>
+        </div>
+        <div class="section-label">NEET Resources &amp; Formula</div>
+        <div class="resource-grid">
+          <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/neet-formula" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div>
+            <div class="rc-body"><div class="rc-title">NEET Formula Sheet</div><div class="rc-tag" style="color:var(--accent-vivid);">Revision</div></div>
+          </a>
+          <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/neet-notes" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,198,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#4AACEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="rc-body"><div class="rc-title">NEET Chapter Notes</div><div class="rc-tag" style="color:var(--brand-vivid);">All Chapters</div></div>
+          </a>
+          <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/ncert-lines" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(52,211,153,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div class="rc-body"><div class="rc-title">NCERT Important Lines</div><div class="rc-tag" style="color:#059669;">NEET</div></div>
+          </a>
+          <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/neet-mnemonics" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(251,191,36,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Mnemonics &amp; Tricks</div><div class="rc-tag" style="color:#d97706;">Memory</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/jee-neet" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="rc-body"><div class="rc-title">NEET Mock Tests</div><div class="rc-tag" style="color:var(--accent-vivid);">CBT</div></div>
+          </a>
+        </div>
+
+        <div class="section-label">NEET PYQ — Year-wise</div>
+        <div class="pyq-grid">
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/cuet/phy/2026" target="_blank" rel="noopener"><div class="pyq-year">2026</div><div class="pyq-label">NEET UG</div><div class="pyq-tag">Latest</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/cuet/phy/2025" target="_blank" rel="noopener"><div class="pyq-year">2025</div><div class="pyq-label">NEET UG</div><div class="pyq-tag">NEET</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/cuet/phy/2024" target="_blank" rel="noopener"><div class="pyq-year">2024</div><div class="pyq-label">NEET UG</div><div class="pyq-tag">NEET</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/cuet/phy/2023" target="_blank" rel="noopener"><div class="pyq-year">2023</div><div class="pyq-label">NEET UG</div><div class="pyq-tag">NEET</div></a>
+        </div>
+
+        <button class="back-top" onclick="scrollTop()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+          Back to Top
+        </button>
+      </section>
+
+      <!-- ═══════ CLASS 12 ═══════ -->
+      <section class="page" id="page-class12">
+        <div class="page-header">
+          <div class="page-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg> Class 12 NCERT</div>
+          <h1>Class 12 Physics</h1>
+          <p>Chapter-wise notes, NCERT solutions, formula sheets and board exam sample papers for all 16 chapters of Class 12 Physics.</p>
+        </div>
+
+        <div class="section-label">Chapter Notes — All 16 Chapters</div>
+        <div class="chapter-grid">
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/solutions" target="_blank" rel="noopener"><span class="ch-num">Ch 1</span><span class="ch-title">Electric Charges & Fields</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/electrophysics" target="_blank" rel="noopener"><span class="ch-num">Ch 2</span><span class="ch-title">Gravitation</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/kinetics" target="_blank" rel="noopener"><span class="ch-num">Ch 3</span><span class="ch-title">Properties of Matter & SHM</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/dblock" target="_blank" rel="noopener"><span class="ch-num">Ch 4</span><span class="ch-title">Experimental Physics</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/coordination" target="_blank" rel="noopener"><span class="ch-num">Ch 5</span><span class="ch-title">Magnetism & Matter</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/haloalkane" target="_blank" rel="noopener"><span class="ch-num">Ch 6</span><span class="ch-title">Electromagnetic Induction</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/alcohol" target="_blank" rel="noopener"><span class="ch-num">Ch 7</span><span class="ch-title">Alternating Current</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/carbonyl" target="_blank" rel="noopener"><span class="ch-num">Ch 8</span><span class="ch-title">Ray Optics</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/carboxylic" target="_blank" rel="noopener"><span class="ch-num">Ch 9</span><span class="ch-title">Wave Opticss</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/amines" target="_blank" rel="noopener"><span class="ch-num">Ch 10</span><span class="ch-title">Modern Physics & Photoelectric Effect</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/biomolecules" target="_blank" rel="noopener"><span class="ch-num">Ch 11</span><span class="ch-title">Dual Nature of Radiation</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/polymers" target="_blank" rel="noopener"><span class="ch-num">Ch 12</span><span class="ch-title">Atoms & Nuclei</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/everyday" target="_blank" rel="noopener"><span class="ch-num">Ch 13</span><span class="ch-title">Semiconductor Devices</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/pblock" target="_blank" rel="noopener"><span class="ch-num">Ch 14</span><span class="ch-title">Communication Systems (Gr. 15–18)</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/metallurgy" target="_blank" rel="noopener"><span class="ch-num">Ch 15</span><span class="ch-title">Electromagnetic Waves</span><span class="ch-tag">Class 12</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class12/surface" target="_blank" rel="noopener"><span class="ch-num">Ch 16</span><span class="ch-title">Heat Transfer</span><span class="ch-tag">Class 12</span></a>
+        </div>
+
+        <div class="section-label">Formula, NCERT &amp; Resources</div>
+        <div class="resource-grid">
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class12/formula" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Formula Sheet</div><div class="rc-tag" style="color:var(--accent-vivid);">Class 12</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class12/ncert-solutions" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,198,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#4AACEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div class="rc-body"><div class="rc-title">NCERT Electric Charges & Fields</div><div class="rc-tag" style="color:var(--brand-vivid);">All Chapters</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class12/sample-paper" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(52,211,153,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Sample Papers</div><div class="rc-tag" style="color:#059669;">Board Pattern</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class12/revision" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(251,191,36,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Quick Revision</div><div class="rc-tag" style="color:#d97706;">Class 12</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class12/important-q" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(244,114,182,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Important Questions</div><div class="rc-tag" style="color:#db2777;">Exam Focus</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/cuet" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="rc-body"><div class="rc-title">CBT Mock Tests</div><div class="rc-tag" style="color:var(--accent-vivid);">CUET Platform</div></div>
+          </a>
+        </div>
+
+        <div class="section-label">PYQ — Class 12 Board &amp; Competitive</div>
+        <div class="pyq-grid">
+          <a class="pyq-card" href="https://commercesehoga.github.io/science/phy/class12/pyq/2026" target="_blank" rel="noopener"><div class="pyq-year">2026</div><div class="pyq-label">Board PYQ</div><div class="pyq-tag">Latest</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/science/phy/class12/pyq/2025" target="_blank" rel="noopener"><div class="pyq-year">2025</div><div class="pyq-label">Board PYQ</div><div class="pyq-tag">Class 12</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/science/phy/class12/pyq/2024" target="_blank" rel="noopener"><div class="pyq-year">2024</div><div class="pyq-label">Board PYQ</div><div class="pyq-tag">Class 12</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/science/phy/class12/pyq/2023" target="_blank" rel="noopener"><div class="pyq-year">2023</div><div class="pyq-label">Board PYQ</div><div class="pyq-tag">Class 12</div></a>
+        </div>
+
+        <button class="back-top" onclick="scrollTop()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+          Back to Top
+        </button>
+      </section>
+
+      <!-- ═══════ CLASS 11 ═══════ -->
+      <section class="page" id="page-class11">
+        <div class="page-header">
+          <div class="page-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg> Class 11 NCERT</div>
+          <h1>Class 11 Physics</h1>
+          <p>Build a strong foundation with Class 11 Physics — NCERT notes, formulas, solved examples and practice questions for every chapter.</p>
+        </div>
+
+        <div class="section-label">Chapter Notes — All 13 Chapters</div>
+        <div class="chapter-grid">
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/basic-concepts" target="_blank" rel="noopener"><span class="ch-num">Ch 1</span><span class="ch-title">Physical World & Units</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/atomic-structure" target="_blank" rel="noopener"><span class="ch-num">Ch 2</span><span class="ch-title">Kinematics</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/periodic-table" target="_blank" rel="noopener"><span class="ch-num">Ch 3</span><span class="ch-title">Laws of Motion</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/chemical-bonding" target="_blank" rel="noopener"><span class="ch-num">Ch 4</span><span class="ch-title">Atoms & Nuclei & Molecular Structure</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/states-of-matter" target="_blank" rel="noopener"><span class="ch-num">Ch 5</span><span class="ch-title">System of Particles & Rotation</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/thermodynamics" target="_blank" rel="noopener"><span class="ch-num">Ch 6</span><span class="ch-title">Laws of Motion & Friction</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/equilibrium" target="_blank" rel="noopener"><span class="ch-num">Ch 7</span><span class="ch-title">Gravitation</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/redox" target="_blank" rel="noopener"><span class="ch-num">Ch 8</span><span class="ch-title">Properties of Bulk Matter</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/hydrogen" target="_blank" rel="noopener"><span class="ch-num">Ch 9</span><span class="ch-title">Thermal Properties</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/s-block" target="_blank" rel="noopener"><span class="ch-num">Ch 10</span><span class="ch-title">Semiconductor Devices</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/p-block" target="_blank" rel="noopener"><span class="ch-num">Ch 11</span><span class="ch-title">Oscillations</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/organic-basics" target="_blank" rel="noopener"><span class="ch-num">Ch 12</span><span class="ch-title">Waves</span><span class="ch-tag">Class 11</span></a>
+          <a class="chapter-card" href="https://commercesehoga.github.io/science/phy/class11/hydrocarbons" target="_blank" rel="noopener"><span class="ch-num">Ch 13</span><span class="ch-title">Magnetic Effects of Current</span><span class="ch-tag">Class 11</span></a>
+        </div>
+
+        <div class="section-label">Formula, NCERT &amp; Resources</div>
+        <div class="resource-grid">
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class11/formula" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Formula Sheet</div><div class="rc-tag" style="color:var(--accent-vivid);">Class 11</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class11/ncert-solutions" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,198,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#4AACEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div class="rc-body"><div class="rc-title">NCERT Electric Charges & Fields</div><div class="rc-tag" style="color:var(--brand-vivid);">All Chapters</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class11/practice" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(52,211,153,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Practice Questions</div><div class="rc-tag" style="color:#059669;">Chapter-wise</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class11/revision" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(251,191,36,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Quick Revision</div><div class="rc-tag" style="color:#d97706;">Class 11</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/science/phy/class11/important-q" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(244,114,182,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="rc-body"><div class="rc-title">Important Questions</div><div class="rc-tag" style="color:#db2777;">Exam Focus</div></div>
+          </a>
+          <a class="resource-card" href="https://commercesehoga.github.io/cuet" target="_blank" rel="noopener">
+            <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="rc-body"><div class="rc-title">CBT Mock Tests</div><div class="rc-tag" style="color:var(--accent-vivid);">CUET Platform</div></div>
+          </a>
+        </div>
+
+        <div class="section-label">PYQ — Class 11 Exams</div>
+        <div class="pyq-grid">
+          <a class="pyq-card" href="https://commercesehoga.github.io/science/phy/class11/pyq/2026" target="_blank" rel="noopener"><div class="pyq-year">2026</div><div class="pyq-label">Class 11 PYQ</div><div class="pyq-tag">Latest</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/science/phy/class11/pyq/2025" target="_blank" rel="noopener"><div class="pyq-year">2025</div><div class="pyq-label">Class 11 PYQ</div><div class="pyq-tag">Class 11</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/science/phy/class11/pyq/2024" target="_blank" rel="noopener"><div class="pyq-year">2024</div><div class="pyq-label">Class 11 PYQ</div><div class="pyq-tag">Class 11</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/science/phy/class11/pyq/2023" target="_blank" rel="noopener"><div class="pyq-year">2023</div><div class="pyq-label">Class 11 PYQ</div><div class="pyq-tag">Class 11</div></a>
+        </div>
+
+        <button class="back-top" onclick="scrollTop()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+          Back to Top
+        </button>
+      </section>
+
+      <!-- ═══════ STUDY MATERIALS ═══════ -->
+      <section class="page" id="page-materials">
+        <div class="page-header">
+          <div class="page-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Study Materials</div>
+          <h1>Study Materials</h1>
+          <p>All notes, formula sheets, NCERT solutions, and extra resources for Class 11, Class 12, JEE, NEET, and CUET Physics — organised for easy access.</p>
+        </div>
+
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this,'tab-cl11')">Class 11</button>
+          <button class="tab-btn" onclick="switchTab(this,'tab-cl12')">Class 12</button>
+          <button class="tab-btn" onclick="switchTab(this,'tab-jee-m')">JEE</button>
+          <button class="tab-btn" onclick="switchTab(this,'tab-neet-m')">NEET</button>
+          <button class="tab-btn" onclick="switchTab(this,'tab-cuet-m')">CUET</button>
+        </div>
+
+        <div id="tab-cl11" class="tab-content active">
+          <div class="section-label">Class 11 Resources</div>
+          <div class="link-pills">
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class11/basic-concepts" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Ch 1 — Physical World & Measurement Notes</span><span class="pill-tag">Notes</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class11/atomic-structure" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Ch 2 — Kinematics Notes</span><span class="pill-tag">Notes</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class11/periodic-table" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Ch 3 — Laws of Motion Notes</span><span class="pill-tag">Notes</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class11/chemical-bonding" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Ch 4 — Work, Energy & Power Notes</span><span class="pill-tag">Notes</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class11/thermodynamics" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Ch 6 — Laws of Motion & Friction Notes</span><span class="pill-tag">Notes</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class11/formula" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg><span class="pill-label">Class 11 Physics Formula Sheet</span><span class="pill-tag">Formula</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class11/ncert-solutions" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/></svg><span class="pill-label">NCERT Electric Charges & Fields — Class 11 Physics</span><span class="pill-tag">Electric Charges & Fields</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class11/mindmaps" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><line x1="1.05" y1="12" x2="7" y2="12"/><line x1="17.01" y1="12" x2="22.96" y2="12"/></svg><span class="pill-label">Class 11 Mind Maps & Concept Maps</span><span class="pill-tag">Visual</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class11/important-q" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="pill-label">Most Important Questions — Class 11 Physics</span><span class="pill-tag">Exam</span></a>
+          </div>
+        </div>
+
+        <div id="tab-cl12" class="tab-content">
+          <div class="section-label">Class 12 Resources</div>
+          <div class="link-pills">
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class12/solutions" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Ch 1 — Electric Charges & Fields Notes</span><span class="pill-tag">Notes</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class12/electrophysics" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Ch 2 — Current Electricity Notes</span><span class="pill-tag">Notes</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class12/kinetics" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Ch 3 — Magnetic Effects of Current Notes</span><span class="pill-tag">Notes</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class12/coordination" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="pill-label">Ch 5 — Magnetism & Matter Notes</span><span class="pill-tag">Notes</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class12/formula" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg><span class="pill-label">Class 12 Physics Formula Sheet</span><span class="pill-tag">Formula</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class12/ncert-solutions" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/></svg><span class="pill-label">NCERT Electric Charges & Fields — Class 12 Physics</span><span class="pill-tag">Electric Charges & Fields</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class12/sample-paper" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg><span class="pill-label">Sample Papers — Board Pattern (Physics)</span><span class="pill-tag">Practice</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class12/important-q" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="pill-label">Most Important Questions — Class 12 Physics</span><span class="pill-tag">Exam</span></a>
+            <a class="link-pill" href="https://commercesehoga.github.io/science/phy/class12/revision" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="pill-label">Quick Revision Notes — Class 12 Physics</span><span class="pill-tag">Revision</span></a>
+          </div>
+        </div>
+
+        <div id="tab-jee-m" class="tab-content">
+          <div class="section-label">JEE Resources</div>
+          <div class="resource-grid">
+            <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/notes" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+              <div class="rc-body"><div class="rc-title">Mechanics & Thermal Notes</div><div class="rc-tag" style="color:var(--accent-vivid);">JEE</div></div>
+            </a>
+            <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/organic" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(52,211,153,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+              <div class="rc-body"><div class="rc-title">Wave & Optics Notes</div><div class="rc-tag" style="color:#059669;">Problems</div></div>
+            </a>
+            <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/formula" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(133,198,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#4AACEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div>
+              <div class="rc-body"><div class="rc-title">JEE Physics Formula</div><div class="rc-tag" style="color:var(--brand-vivid);">Complete</div></div>
+            </a>
+            <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/shortcut" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(251,191,36,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+              <div class="rc-body"><div class="rc-title">Shortcuts &amp; Tricks</div><div class="rc-tag" style="color:#d97706;">JEE Tips</div></div>
+            </a>
+            <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/rank" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(244,114,182,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+              <div class="rc-body"><div class="rc-title">Rank Predictor</div><div class="rc-tag" style="color:#db2777;">AIR</div></div>
+            </a>
+            <a class="resource-card" href="https://commercesehoga.github.io/jee-neet" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div class="rc-body"><div class="rc-title">JEE Mock Dashboard</div><div class="rc-tag" style="color:var(--accent-vivid);">CBT</div></div>
+            </a>
+          </div>
+          <div class="section-label">JEE PYQ — Year-wise</div>
+          <div class="pyq-grid">
+            <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/jee/2026" target="_blank" rel="noopener"><div class="pyq-year">2026</div><div class="pyq-label">JEE Mains</div><div class="pyq-tag">Latest</div></a>
+            <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/jee/2025" target="_blank" rel="noopener"><div class="pyq-year">2025</div><div class="pyq-label">JEE Mains</div><div class="pyq-tag">JEE</div></a>
+            <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/jee/2024" target="_blank" rel="noopener"><div class="pyq-year">2024</div><div class="pyq-label">JEE Mains</div><div class="pyq-tag">JEE</div></a>
+            <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/jee/2023" target="_blank" rel="noopener"><div class="pyq-year">2023</div><div class="pyq-label">JEE Mains</div><div class="pyq-tag">JEE</div></a>
+          </div>
+        </div>
+
+        <div id="tab-neet-m" class="tab-content">
+          <div class="section-label">NEET Resources</div>
+          <div class="resource-grid">
+            <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/neet-notes" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(133,198,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#4AACEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+              <div class="rc-body"><div class="rc-title">NEET Chapter Notes</div><div class="rc-tag" style="color:var(--brand-vivid);">All Chapters</div></div>
+            </a>
+            <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/ncert-lines" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(52,211,153,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+              <div class="rc-body"><div class="rc-title">Important NCERT Lines</div><div class="rc-tag" style="color:#059669;">NEET Focus</div></div>
+            </a>
+            <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/neet-formula" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div>
+              <div class="rc-body"><div class="rc-title">NEET Formula Sheet</div><div class="rc-tag" style="color:var(--accent-vivid);">Revision</div></div>
+            </a>
+            <a class="resource-card" href="https://thunderstudy.github.io/jee-neet/study/neet-mnemonics" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(251,191,36,.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+              <div class="rc-body"><div class="rc-title">Mnemonics &amp; Tricks</div><div class="rc-tag" style="color:#d97706;">Memory</div></div>
+            </a>
+            <a class="resource-card" href="https://commercesehoga.github.io/jee-neet" target="_blank" rel="noopener">
+              <div class="rc-icon" style="background:rgba(133,142,244,.14);"><svg viewBox="0 0 24 24" fill="none" stroke="#858EF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div class="rc-body"><div class="rc-title">NEET Mock Tests</div><div class="rc-tag" style="color:var(--accent-vivid);">CBT</div></div>
+            </a>
+          </div>
+          <div class="section-label">NEET PYQ — Year-wise</div>
+          <div class="pyq-grid">
+            <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/neet/2026" target="_blank" rel="noopener"><div class="pyq-year">2026</div><div class="pyq-label">NEET UG</div><div class="pyq-tag">Latest</div></a>
+            <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/neet/2025" target="_blank" rel="noopener"><div class="pyq-year">2025</div><div class="pyq-label">NEET UG</div><div class="pyq-tag">NEET</div></a>
+            <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/neet/2024" target="_blank" rel="noopener"><div class="pyq-year">2024</div><div class="pyq-label">NEET UG</div><div class="pyq-tag">NEET</div></a>
+            <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/neet/2023" target="_blank" rel="noopener"><div class="pyq-year">2023</div><div class="pyq-label">NEET UG</div><div class="pyq-tag">NEET</div></a>
+          </div>
+        </div>
+
+
+        <div class="section-label">CUET PYQ — Year-wise</div>
+        <div class="pyq-grid">
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyqs/cuet/phy/2026" target="_blank" rel="noopener"><div class="pyq-year">2026</div><div class="pyq-label">CUET UG</div><div class="pyq-tag">Latest</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyq/cuet/phy/2025" target="_blank" rel="noopener"><div class="pyq-year">2025</div><div class="pyq-label">CUET UG</div><div class="pyq-tag">CUET</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/pyq/cuet/phy/2024" target="_blank" rel="noopener"><div class="pyq-year">2024</div><div class="pyq-label">CUET UG</div><div class="pyq-tag">CUET</div></a>
+          <a class="pyq-card" href="https://commercesehoga.github.io/cuet/cuet/phy/2023" target="_blank" rel="noopener"><div class="pyq-year">2023</div><div class="pyq-label">CUET UG</div><div class="pyq-tag">CUET</div></a>
+        </div>
+
+        <button class="back-top" onclick="scrollTop()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+          Back to Top
+        </button>
+      </section>
+
+      <!-- FOOTER -->
+      <footer>
+        <div class="footer-grid">
+          <div>
+            <div class="footer-brand-name">Wondermayank</div>
+            <div class="footer-brand-desc">Owner and provider of Physics Hub, ThunderStudy and CommerceSeHoga — free education for every Indian student.</div>
+            <a class="footer-link" href="https://wondermayank.github.io" target="_blank" rel="noopener">wondermayank.github.io</a>
+          </div>
+          <div>
+            <div class="footer-col-title">Study Sites</div>
+            <a class="footer-link" href="https://thunderstudy.github.io" target="_blank" rel="noopener">ThunderStudy — Main Study Site</a>
+            <a class="footer-link" href="https://commercesehoga.blogspot.com" target="_blank" rel="noopener">CommerceSeHoga Blog</a>
+            <a class="footer-link" href="https://commercesehoga.github.io/dashboard" target="_blank" rel="noopener">CBT Mock Platform</a>
+            <a class="footer-link" href="https://commercesehoga.github.io/help" target="_blank" rel="noopener">Donation & Support</a>
+          </div>
+          <div>
+            <div class="footer-col-title">Physics</div>
+            <a class="footer-link" href="javascript:void(0)" onclick="goto('class11')">Class 11 Physics</a>
+            <a class="footer-link" href="javascript:void(0)" onclick="goto('class12')">Class 12 Physics</a>
+            <a class="footer-link" href="javascript:void(0)" onclick="goto('jee')">JEE Physics</a>
+            <a class="footer-link" href="javascript:void(0)" onclick="goto('neet')">NEET Physics</a>
+            <a class="footer-link" href="javascript:void(0)" onclick="goto('cuet')">CUET Physics</a>
+          </div>
+          <div>
+            <div class="footer-col-title">Legal</div>
+            <a class="footer-link" href="https://wondermayank.github.io/terms" target="_blank" rel="noopener">Terms of Service</a>
+            <a class="footer-link" href="https://wondermayank.github.io/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+            <a class="footer-link" href="https://wondermayank.github.io/disclaimer" target="_blank" rel="noopener">Disclaimer</a>
+          </div>
+        </div>
+        <div class="footer-bar">
+          <div class="footer-copy">&copy; 2025 Wondermayank. Physics Hub is free for all students. No ads, no paywalls.</div>
+          <div class="footer-copy">Physics Hub v2.0</div>
+        </div>
+      </footer>
+
+    </div><!-- /main-inner -->
+  </main>
+</div><!-- /app -->
+
+<!-- DOCK -->
+<nav class="dock-wrap" role="navigation" aria-label="Bottom navigation">
+  <div class="dock">
+    <div class="dock-item" id="dock-jee" onclick="goto('jee')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span class="dock-label">JEE</span>
+    </div>
+    <div class="dock-item" id="dock-neet" onclick="goto('neet')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <span class="dock-label">NEET</span>
+    </div>
+    <div class="dock-divider"></div>
+    <div class="dock-item active" id="dock-home" onclick="goto('home')" style="background:rgba(133,198,244,.25);border:1px solid rgba(133,198,244,.4);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/></svg>
+      <span class="dock-label">HOME</span>
+    </div>
+    <div class="dock-divider"></div>
+    <div class="dock-item" id="dock-cuet" onclick="goto('cuet')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <span class="dock-label">CUET</span>
+    </div>
+    <div class="dock-item" id="dock-materials" onclick="goto('materials')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      <span class="dock-label">Materials</span>
+    </div>
+  </div>
+</nav>
+
+<script>
+const PAGES=['home','jee','neet','cuet','class12','class11','materials'];
+
+function goto(id){
+  PAGES.forEach(p=>{
+    document.getElementById('page-'+p)?.classList.toggle('active',p===id);
+  });
+  document.querySelectorAll('.nav-item').forEach(el=>{
+    el.classList.toggle('active',el.dataset.page===id);
+  });
+  PAGES.forEach(p=>{
+    const d=document.getElementById('dock-'+p);
+    if(d)d.classList.toggle('active',p===id);
+  });
+  // Scroll to top on every section change
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('main-scroll')?.scrollTo({top:0,behavior:'smooth'});
+}
+
+function scrollTop(){
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('main-scroll')?.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleAccord(id){
+  const item=document.getElementById(id);
+  const body=document.getElementById('body-'+id);
+  const isOpen=item.classList.contains('open');
+  item.classList.toggle('open',!isOpen);
+  body.classList.toggle('open',!isOpen);
+}
+
+function toggleFaq(el){
+  const item=el.parentElement;
+  const ans=item.querySelector('.faq-a');
+  const isOpen=item.classList.contains('open');
+  item.classList.toggle('open',!isOpen);
+  ans.classList.toggle('open',!isOpen);
+}
+
+function switchTab(btn,targetId){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(targetId)?.classList.add('active');
+}
+
+// ── Sidebar/Dock mutual exclusivity ──
+function syncNavVisibility(){
+  const sidebar=document.querySelector('.sidebar');
+  const dockWrap=document.querySelector('.dock-wrap');
+  if(!sidebar||!dockWrap)return;
+  // Sidebar is shown when viewport >= 900px (CSS hides it below 900)
+  const sidebarVisible=window.getComputedStyle(sidebar).display!=='none';
+  if(sidebarVisible){
+    dockWrap.style.display='none';
+  }else{
+    dockWrap.style.display='';
+  }
+}
+
+// Run on load and on resize
+window.addEventListener('resize',syncNavVisibility);
+
+// Boot
+window.addEventListener('load',()=>{
+  syncNavVisibility();
+  setTimeout(()=>{
+    const boot=document.getElementById('boot');
+    const app=document.getElementById('app');
+    boot.style.transition='opacity .55s ease,transform .55s ease';
+    boot.style.opacity='0';
+    boot.style.transform='scale(1.03)';
+    setTimeout(()=>{
+      boot.style.display='none';
+      app.classList.add('visible');
+      syncNavVisibility();
+    },580);
+  },2800);
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  const map={'h':'home','j':'jee','n':'neet','c':'cuet','1':'class11','2':'class12','m':'materials'};
+  if(map[e.key])goto(map[e.key]);
+});
+</script>
+</body>
+</html>
