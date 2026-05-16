@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUET Mathematics 11–15 May 2026 — by Wondermayank</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --p:#7C3AED;--pm:#A78BFA;--pl:#C4B5FD;
+    --b:#60A5FA;--bl:#B9D9DC;
+    --g:rgba(255,255,255,.74);--gb:rgba(167,139,250,.18);
+    --t:#1e1b4b;--m:#6b7280;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#f8f5ff 0%,#eff8ff 55%,#f0f7ff 100%);min-height:100vh;color:var(--t);overflow-x:hidden}
+
+  /* HERO */
+  .hero{position:relative;padding:50px 20px 32px;text-align:center}
+  .hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:520px;height:260px;background:radial-gradient(ellipse,rgba(167,139,250,.22) 0%,transparent 70%);pointer-events:none}
+  .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.18);border-radius:100px;padding:5px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--p);text-transform:uppercase;margin-bottom:16px}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(22px,5.5vw,44px);font-weight:800;line-height:1.15;background:linear-gradient(135deg,#7C3AED,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px}
+  .sub{font-size:14px;color:var(--m);margin-bottom:20px}
+  .pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:22px}
+  .pill{padding:4px 12px;border-radius:100px;font-size:11px;font-weight:500}
+  .pp{background:rgba(196,181,253,.3);color:var(--p);border:1px solid rgba(167,139,250,.3)}
+  .pb{background:rgba(185,217,220,.3);color:#0369a1;border:1px solid rgba(96,165,250,.3)}
+
+  /* QUICK LINKS */
+  .ql{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:460px;margin:0 auto 26px;padding:0 14px}
+  .qlc{background:var(--g);border:1px solid var(--gb);border-radius:16px;padding:12px 8px;text-align:center;text-decoration:none;backdrop-filter:blur(12px);box-shadow:0 3px 14px rgba(96,165,250,.1);transition:transform .2s;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .qlc:hover{transform:translateY(-3px)}
+  .qi{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+  .ipu{background:linear-gradient(135deg,#C4B5FD,#A78BFA)}
+  .ibl{background:linear-gradient(135deg,#B9D9DC,#60A5FA)}
+  .ign{background:linear-gradient(135deg,#bbf7d0,#34d399)}
+  .qlc span{font-size:11px;font-weight:600;color:var(--t);line-height:1.2}
+
+  /* LAYOUT */
+  .sec{padding:0 16px 4px;max-width:520px;margin:0 auto}
+  .slbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--pm);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.22),transparent);margin:4px auto 16px;max-width:488px}
+
+  /* OVERVIEW */
+  .ocard{background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(239,248,255,.8));border:1px solid rgba(96,165,250,.2);border-radius:22px;padding:20px 18px;backdrop-filter:blur(16px);box-shadow:0 4px 24px rgba(96,165,250,.11);margin-bottom:14px}
+  .otitle{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .ogrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+  .obox{border-radius:11px;padding:10px;text-align:center}
+  .obox .v{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;display:block}
+  .obox .l{font-size:10px;font-weight:500;color:var(--m);margin-top:1px}
+  .ob1{background:rgba(196,181,253,.25);border:1px solid rgba(167,139,250,.25)}.ob1 .v{color:var(--p)}
+  .ob2{background:rgba(185,217,220,.25);border:1px solid rgba(96,165,250,.25)}.ob2 .v{color:#0369a1}
+  .ob3{background:rgba(254,202,202,.3);border:1px solid rgba(248,113,113,.3)}.ob3 .v{color:#dc2626}
+  .ob4{background:rgba(254,243,199,.4);border:1px solid rgba(251,191,36,.3)}.ob4 .v{color:#d97706}
+
+  /* WEIGHTAGE BARS */
+  .wb{display:flex;flex-direction:column;gap:7px}
+  .wbr{display:flex;align-items:center;gap:8px}
+  .wbl{font-size:11px;width:110px;flex-shrink:0;color:var(--t);font-weight:500}
+  .wbt{flex:1;height:10px;background:rgba(167,139,250,.1);border-radius:100px;overflow:hidden}
+  .wbf{height:100%;border-radius:100px}
+  .wbv{font-size:10px;font-weight:700;width:32px;text-align:right;color:var(--t)}
+  .c1{background:linear-gradient(90deg,#7C3AED,#A78BFA)}
+  .c2{background:linear-gradient(90deg,#60A5FA,#B9D9DC)}
+  .c3{background:linear-gradient(90deg,#f87171,#fca5a5)}
+  .c4{background:linear-gradient(90deg,#34d399,#6ee7b7)}
+  .c5{background:linear-gradient(90deg,#fbbf24,#fde68a)}
+  .c6{background:linear-gradient(90deg,#a78bfa,#c4b5fd)}
+  .c7{background:linear-gradient(90deg,#fb923c,#fdba74)}
+  .c8{background:linear-gradient(90deg,#22d3ee,#67e8f9)}
+
+  /* DAY CARDS */
+  .day-card{background:linear-gradient(135deg,rgba(255,255,255,.88),rgba(239,248,255,.78));border:1px solid rgba(96,165,250,.2);border-radius:20px;padding:18px 16px;margin-bottom:12px;backdrop-filter:blur(14px);box-shadow:0 4px 20px rgba(96,165,250,.1)}
+  .day-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .dnum{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:white}
+  .d1{background:linear-gradient(135deg,#7C3AED,#A78BFA)}
+  .d2{background:linear-gradient(135deg,#60A5FA,#B9D9DC)}
+  .d3{background:linear-gradient(135deg,#f87171,#fca5a5)}
+  .d4{background:linear-gradient(135deg,#34d399,#6ee7b7)}
+  .d5{background:linear-gradient(135deg,#fbbf24,#fde68a);color:#92400e !important}
+  .dtitle{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
+  .ddate{font-size:11px;color:var(--m);margin-top:1px}
+  .dbadge{margin-left:auto;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:700;flex-shrink:0}
+  .bmod{background:rgba(254,243,199,.6);color:#d97706;border:1px solid rgba(251,191,36,.3)}
+  .bhard{background:rgba(254,202,202,.4);color:#dc2626;border:1px solid rgba(248,113,113,.3)}
+  .beasy{background:rgba(187,247,208,.5);color:#059669;border:1px solid rgba(52,211,153,.3)}
+
+  /* TOPIC CHIPS */
+  .topic-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+  .tc{padding:4px 10px;border-radius:8px;font-size:11px;font-weight:500}
+  .tcp{background:rgba(196,181,253,.2);color:#5b21b6;border:1px solid rgba(167,139,250,.2)}
+  .tcb{background:rgba(185,217,220,.2);color:#0369a1;border:1px solid rgba(96,165,250,.2)}
+  .tcg{background:rgba(187,247,208,.25);color:#065f46;border:1px solid rgba(52,211,153,.2)}
+  .tcy{background:rgba(254,243,199,.4);color:#92400e;border:1px solid rgba(251,191,36,.25)}
+  .tcr{background:rgba(254,202,202,.3);color:#991b1b;border:1px solid rgba(248,113,113,.2)}
+
+  /* SEC ROW */
+  .sr2{margin-bottom:12px}
+  .sr2-title{font-size:11px;font-weight:700;color:var(--p);display:flex;align-items:center;gap:6px;margin-bottom:6px}
+
+  /* QUESTION CARDS */
+  .qc{background:var(--g);border:1px solid var(--gb);border-radius:13px;padding:12px 13px;margin-bottom:8px;backdrop-filter:blur(8px)}
+  .qn{font-family:'Space Mono',monospace;font-size:10px;color:var(--pm);letter-spacing:1px;margin-bottom:4px}
+  .qt{font-size:13px;font-weight:500;margin-bottom:8px;line-height:1.55;color:var(--t)}
+  .qt .math{font-family:'Space Mono',monospace;font-size:12px;color:var(--p);background:rgba(124,58,237,.06);padding:1px 5px;border-radius:4px}
+  .qa{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,rgba(124,58,237,.07),rgba(96,165,250,.07));border:1px solid rgba(124,58,237,.12);border-radius:100px;padding:4px 12px;font-size:12px;font-weight:600;color:var(--p);margin-top:2px}
+  .qa svg{width:12px;height:12px}
+  .qa .math{font-family:'Space Mono',monospace;font-size:11px}
+  .opts{display:flex;flex-direction:column;gap:3px;margin-bottom:7px}
+  .opt{display:flex;align-items:flex-start;gap:7px;padding:6px 9px;border-radius:8px;font-size:12px;border:1px solid rgba(167,139,250,.14);background:rgba(255,255,255,.6);line-height:1.4}
+  .opt.correct{background:rgba(187,247,208,.35);border-color:rgba(52,211,153,.4);color:#065f46;font-weight:600}
+  .olbl{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;min-width:16px;color:var(--pm);margin-top:1px}
+  .opt.correct .olbl{color:#059669}
+  .sol-box{background:rgba(239,248,255,.7);border:1px solid rgba(96,165,250,.18);border-radius:9px;padding:8px 10px;font-size:11px;color:var(--m);line-height:1.55;margin-top:5px}
+  .sol-box strong{color:var(--p)}
+
+  /* DIFF BARS inside day card */
+  .br{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+  .bl2{font-size:11px;width:100px;flex-shrink:0;color:var(--m);font-weight:500}
+  .bt{flex:1;height:8px;background:rgba(167,139,250,.1);border-radius:100px;overflow:hidden}
+  .bf{height:100%;border-radius:100px}
+  .be{background:linear-gradient(90deg,#34d399,#6ee7b7)}
+  .bm{background:linear-gradient(90deg,#fbbf24,#fde68a)}
+  .bh{background:linear-gradient(90deg,#f87171,#fca5a5)}
+  .bmx{background:linear-gradient(90deg,#a78bfa,#c4b5fd)}
+  .bvl{font-size:10px;font-weight:600;width:28px;text-align:right;color:var(--t)}
+
+  /* INFO BOXES */
+  .info-box{background:rgba(254,243,199,.5);border:1px solid rgba(251,191,36,.3);border-radius:10px;padding:8px 11px;font-size:11px;color:#92400e;margin-bottom:9px;display:flex;gap:6px;align-items:flex-start}
+  .purple-note{background:rgba(245,240,255,.7);border:1px solid rgba(167,139,250,.22);border-radius:10px;padding:8px 11px;font-size:11px;color:#5b21b6;margin-bottom:9px;display:flex;gap:6px;align-items:flex-start}
+  .green-note{background:rgba(187,247,208,.3);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:8px 11px;font-size:11px;color:#065f46;margin-bottom:9px;display:flex;gap:6px;align-items:flex-start}
+
+  /* CHAPTER GRID */
+  .ch-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px}
+  .ch-box{background:rgba(255,255,255,.8);border:1px solid rgba(167,139,250,.18);border-radius:11px;padding:9px 10px}
+  .ch-name{font-size:11px;font-weight:700;color:var(--p);margin-bottom:3px}
+  .ch-info{font-size:10px;color:var(--m)}
+  .ch-qs{display:inline-block;background:rgba(124,58,237,.08);color:var(--p);border-radius:100px;padding:1px 7px;font-size:10px;font-weight:700;margin-top:3px}
+
+  /* FOOTER */
+  .fl{padding:18px 16px 10px;max-width:520px;margin:0 auto}
+  .fg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+  .fa{display:flex;align-items:center;gap:7px;background:var(--g);border:1px solid var(--gb);border-radius:11px;padding:9px 10px;text-decoration:none;color:var(--t);font-size:11px;font-weight:500;backdrop-filter:blur(8px);transition:border-color .2s,transform .15s}
+  .fa:hover{border-color:var(--pm);transform:translateY(-1px)}
+  footer{background:linear-gradient(135deg,rgba(245,240,255,.9),rgba(239,248,255,.8));border-top:1px solid rgba(167,139,250,.15);padding:16px;max-width:520px;margin:0 auto;text-align:center}
+  .fb{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;background:linear-gradient(135deg,var(--p),var(--b));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px}
+  .fp{display:flex;flex-wrap:wrap;justify-content:center;gap:5px 11px;margin-bottom:7px}
+  .fp a{font-size:10px;color:var(--m);text-decoration:none}.fp a:hover{color:var(--p)}
+  .fc{font-size:10px;color:#9ca3af}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .hero{animation:fadeUp .5s ease both}.sec{animation:fadeUp .55s ease both .06s}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    CUET UG 2026 · Mathematics
+  </div>
+  <h1>Mathematics<br>11–15 May 2026</h1>
+  <p class="sub">Day-wise analysis, memory-based questions & chapter weightage · by Wondermayank</p>
+  <div class="pills">
+    <span class="pill pp">Calculus</span>
+    <span class="pill pb">Matrices & Determinants</span>
+    <span class="pill pp">3D Geometry</span>
+    <span class="pill pb">Probability</span>
+    <span class="pill pp">Differential Equations</span>
+    <span class="pill pb">Linear Programming</span>
+    <span class="pill pp">Vectors</span>
+    <span class="pill pb">Integration</span>
+  </div>
+</div>
+
+<!-- QUICK LINKS -->
+<div class="ql">
+  <a class="qlc" href="https://commercesehoga.github.io/cuet" target="_blank">
+    <div class="qi ipu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg></div>
+    <span>Free Mock Tests</span>
+  </a>
+  <a class="qlc" href="https://wondermayank.github.io" target="_blank">
+    <div class="qi ibl"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg></div>
+    <span>Wondermayank</span>
+  </a>
+  <a class="qlc" href="https://commercesehoga.blogspot.com" target="_blank">
+    <div class="qi ign"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+    <span>Free Notes</span>
+  </a>
+</div>
+
+<!-- OVERVIEW -->
+<div class="sec">
+  <p class="slbl"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Mathematics Overview — 5 Days</p>
+
+  <div class="ocard">
+    <div class="otitle">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      CUET Maths — Key Facts
+    </div>
+    <div style="font-size:12px;color:var(--m);line-height:1.6;margin-bottom:12px;">
+      CUET Mathematics is one of the top 3 most-opted domain subjects. The paper contains <strong style="color:var(--t)">50 MCQs · 60 minutes · +5/–1 marking.</strong> All questions are compulsory. Paper is based on <strong style="color:var(--t)">Class 12 NCERT Mathematics</strong> and tends to be <strong style="color:var(--t)">moderate to difficult</strong> with a heavy focus on Calculus. Time management is critical.
+    </div>
+    <div class="ogrid">
+      <div class="obox ob1"><span class="v">50</span><span class="l">Questions</span></div>
+      <div class="obox ob2"><span class="v">60 min</span><span class="l">Duration</span></div>
+      <div class="obox ob3"><span class="v">Mod–Hard</span><span class="l">Overall Level</span></div>
+      <div class="obox ob4"><span class="v">NCERT</span><span class="l">Based On</span></div>
+    </div>
+
+    <!-- Chapter Weightage -->
+    <div class="slbl" style="margin-bottom:10px;">Historical Chapter Weightage (CUET PYQ Analysis)</div>
+    <div class="wb">
+      <div class="wbr"><span class="wbl">3D Geometry</span><div class="wbt"><div class="wbf c1" style="width:76%"></div></div><span class="wbv">~19 Qs*</span></div>
+      <div class="wbr"><span class="wbl">Probability</span><div class="wbt"><div class="wbf c2" style="width:76%"></div></div><span class="wbv">~19 Qs*</span></div>
+      <div class="wbr"><span class="wbl">Matrices</span><div class="wbt"><div class="wbf c3" style="width:76%"></div></div><span class="wbv">~19 Qs*</span></div>
+      <div class="wbr"><span class="wbl">Continuity & Diff.</span><div class="wbt"><div class="wbf c4" style="width:60%"></div></div><span class="wbv">~15 Qs*</span></div>
+      <div class="wbr"><span class="wbl">Diff. Equations</span><div class="wbt"><div class="wbf c5" style="width:52%"></div></div><span class="wbv">~13 Qs*</span></div>
+      <div class="wbr"><span class="wbl">Linear Programming</span><div class="wbt"><div class="wbf c6" style="width:52%"></div></div><span class="wbv">~13 Qs*</span></div>
+      <div class="wbr"><span class="wbl">App. of Derivatives</span><div class="wbt"><div class="wbf c7" style="width:52%"></div></div><span class="wbv">~13 Qs*</span></div>
+      <div class="wbr"><span class="wbl">Vectors</span><div class="wbt"><div class="wbf c8" style="width:44%"></div></div><span class="wbv">~11 Qs*</span></div>
+    </div>
+    <div style="font-size:10px;color:var(--m);margin-top:7px;">*Cumulative across previous CUET years. Each paper = 50 Qs total.</div>
+
+    <!-- 2026 Observed Pattern -->
+    <div style="margin-top:14px;background:rgba(124,58,237,.06);border-radius:11px;padding:11px 13px;border:1px solid rgba(124,58,237,.1)">
+      <div style="font-size:11px;font-weight:700;color:var(--p);margin-bottom:7px;display:flex;align-items:center;gap:5px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        2026 Observed Pattern (11–15 May)
+      </div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:5px">
+        <li style="font-size:11px;color:var(--m);display:flex;gap:6px;align-items:flex-start">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Calculus dominated — heavily concept-based, not just formula application
+        </li>
+        <li style="font-size:11px;color:var(--m);display:flex;gap:6px;align-items:flex-start">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          15–16 questions from Matrices/Determinants + Integrals combined
+        </li>
+        <li style="font-size:11px;color:var(--m);display:flex;gap:6px;align-items:flex-start">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>
+          Integration, 3D Geometry & Differential Equations — tougher than PYQs in 2026
+        </li>
+        <li style="font-size:11px;color:var(--m);display:flex;gap:6px;align-items:flex-start">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>
+          Probability — direct and formula-based, relatively easier
+        </li>
+        <li style="font-size:11px;color:var(--m);display:flex;gap:6px;align-items:flex-start">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>
+          Vectors — moderate, similar to previous years
+        </li>
+        <li style="font-size:11px;color:var(--m);display:flex;gap:6px;align-items:flex-start">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>
+          Linear Programming — figure-based and conceptual
+        </li>
+        <li style="font-size:11px;color:var(--m);display:flex;gap:6px;align-items:flex-start">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Paper was lengthy — time management was the biggest challenge reported
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- DAY TABS -->
+<div style="display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;max-width:520px;margin:0 auto;scrollbar-width:none">
+  <a style="flex-shrink:0;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(96,165,250,.1));border:1px solid rgba(124,58,237,.3);color:var(--p);text-decoration:none" href="#d11">11 May</a>
+  <a style="flex-shrink:0;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;background:rgba(255,255,255,.7);border:1px solid rgba(167,139,250,.2);color:var(--m);text-decoration:none" href="#d12">12 May</a>
+  <a style="flex-shrink:0;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;background:rgba(255,255,255,.7);border:1px solid rgba(167,139,250,.2);color:var(--m);text-decoration:none" href="#d13">13 May</a>
+  <a style="flex-shrink:0;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;background:rgba(255,255,255,.7);border:1px solid rgba(167,139,250,.2);color:var(--m);text-decoration:none" href="#d14">14 May</a>
+  <a style="flex-shrink:0;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;background:rgba(255,255,255,.7);border:1px solid rgba(167,139,250,.2);color:var(--m);text-decoration:none" href="#d15">15 May</a>
+</div>
+
+<!-- ━━━━━ DAY 1 — MAY 11 ━━━━━ -->
+<div class="sec" id="d11">
+  <p class="slbl"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Day 1 — 11 May 2026</p>
+  <div class="day-card">
+    <div class="day-header">
+      <div class="dnum d1">D1</div>
+      <div><div class="dtitle">Mathematics — Shift 1</div><div class="ddate">May 11 · Difficulty: Moderate to Hard</div></div>
+      <div class="dbadge bhard">Mod–Hard</div>
+    </div>
+    <div class="info-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span>Maths conducted in Shift 1 on Day 1. Paper was <strong>challenging and lengthy</strong>. Time management was a major issue for most students. Students who had practised mock tests and sample papers reported performing better.</span></div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Topics Asked</div>
+      <div class="topic-chips">
+        <span class="tc tcr">Integrals (heavy)</span>
+        <span class="tc tcr">Differentiation (lengthy)</span>
+        <span class="tc tcp">Matrices & Determinants</span>
+        <span class="tc tcp">Application of Derivatives</span>
+        <span class="tc tcb">3D Geometry</span>
+        <span class="tc tcb">Vectors</span>
+        <span class="tc tcg">Probability</span>
+        <span class="tc tcg">Linear Programming</span>
+        <span class="tc tcy">Relations & Functions</span>
+        <span class="tc tcy">Inverse Trig Functions</span>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>Memory-Based Questions</div>
+
+      <div class="qc">
+        <div class="qn">Matrices · Q01</div>
+        <div class="qt">If A and B are symmetric matrices of the same order, then <span class="math">AB − BA</span> is a:</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>Symmetric matrix</div>
+          <div class="opt"><span class="olbl">B</span>Zero matrix</div>
+          <div class="opt correct"><span class="olbl">C</span>Skew-symmetric matrix ✓</div>
+          <div class="opt"><span class="olbl">D</span>Identity matrix</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> For symmetric matrices A and B: (AB−BA)ᵀ = BᵀAᵀ − AᵀBᵀ = BA − AB = −(AB−BA). Since the transpose equals the negative, AB−BA is <strong>skew-symmetric</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Determinants · Q02</div>
+        <div class="qt">If <span class="math">A</span> is a square matrix of order 3 and <span class="math">|A| = 5</span>, find <span class="math">|3A|</span>.</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>15</div>
+          <div class="opt"><span class="olbl">B</span>45</div>
+          <div class="opt correct"><span class="olbl">C</span>135 ✓</div>
+          <div class="opt"><span class="olbl">D</span>25</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> |kA| = kⁿ|A| for an n×n matrix. Here n=3, k=3: |3A| = 3³ × 5 = 27 × 5 = <strong>135</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Integrals · Q03</div>
+        <div class="qt">Evaluate: <span class="math">∫ 1/(1 + cos x) dx</span></div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>tan(x/2) + C</div>
+          <div class="opt correct"><span class="olbl">B</span>tan(x/2) + C ✓</div>
+          <div class="opt"><span class="olbl">C</span>−cot(x/2) + C</div>
+          <div class="opt"><span class="olbl">D</span>sec x + C</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> Use 1 + cos x = 2cos²(x/2). So ∫1/(2cos²(x/2))dx = (1/2)∫sec²(x/2)dx = <strong>tan(x/2) + C</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Application of Derivatives · Q04</div>
+        <div class="qt">The function <span class="math">f(x) = x³ − 3x</span> is increasing on which interval?</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>(−1, 1)</div>
+          <div class="opt"><span class="olbl">B</span>(−∞, −1)</div>
+          <div class="opt correct"><span class="olbl">C</span>(−∞,−1) ∪ (1,∞) ✓</div>
+          <div class="opt"><span class="olbl">D</span>(0, ∞)</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> f'(x) = 3x²−3 = 3(x²−1). f'(x) > 0 when x² > 1, i.e. x &lt; −1 or x > 1. Increasing on <strong>(−∞,−1) ∪ (1,∞)</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Probability · Q05</div>
+        <div class="qt">A bag contains 3 red and 4 blue balls. Two balls are drawn at random. Find the probability both are red.</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>1/7</div>
+          <div class="opt correct"><span class="olbl">B</span>3/21 = 1/7 ✓</div>
+          <div class="opt"><span class="olbl">C</span>6/49</div>
+          <div class="opt"><span class="olbl">D</span>2/7</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> P = C(3,2)/C(7,2) = 3/21 = <strong>1/7</strong>.</div>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Difficulty Snapshot</div>
+      <div class="br"><span class="bl2">Integrals</span><div class="bt"><div class="bf bh" style="width:28%"></div></div><span class="bvl">Hard</span></div>
+      <div class="br"><span class="bl2">Diff. Equations</span><div class="bt"><div class="bf bh" style="width:32%"></div></div><span class="bvl">Hard</span></div>
+      <div class="br"><span class="bl2">3D Geometry</span><div class="bt"><div class="bf bm" style="width:46%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Matrices</span><div class="bt"><div class="bf bm" style="width:52%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Probability</span><div class="bt"><div class="bf be" style="width:68%"></div></div><span class="bvl">Easy</span></div>
+      <div class="br"><span class="bl2">Vectors</span><div class="bt"><div class="bf be" style="width:62%"></div></div><span class="bvl">Easy</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━━━ DAY 2 — MAY 12 ━━━━━ -->
+<div class="sec" id="d12">
+  <p class="slbl"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Day 2 — 12 May 2026</p>
+  <div class="day-card">
+    <div class="day-header">
+      <div class="dnum d2">D2</div>
+      <div><div class="dtitle">Mathematics — Shift 2</div><div class="ddate">May 12 · Difficulty: Moderate to Hard</div></div>
+      <div class="dbadge bhard">Mod–Hard</div>
+    </div>
+    <div class="purple-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Most detailed student feedback came from this shift. Calculus section was tougher than PYQs — required deeper conceptual clarity, not just formula use. Matrices, Probability and Vectors were comparatively easier and direct.</span></div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Topics Asked</div>
+      <div class="topic-chips">
+        <span class="tc tcr">Calculus — heavy & conceptual</span>
+        <span class="tc tcr">Integration — lengthy</span>
+        <span class="tc tcp">Matrices & Determinants</span>
+        <span class="tc tcb">Probability — direct</span>
+        <span class="tc tcb">Vectors — moderate</span>
+        <span class="tc tcg">Linear Programming — figure-based</span>
+        <span class="tc tcg">3D Geometry</span>
+        <span class="tc tcy">Continuity & Differentiability</span>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>Memory-Based Questions</div>
+
+      <div class="qc">
+        <div class="qn">Continuity & Differentiability · Q01</div>
+        <div class="qt">If <span class="math">f(x) = x²</span>, find the derivative using first principles (limit definition).</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>x</div>
+          <div class="opt correct"><span class="olbl">B</span>2x ✓</div>
+          <div class="opt"><span class="olbl">C</span>2x + 1</div>
+          <div class="opt"><span class="olbl">D</span>x²</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> f'(x) = lim[h→0] [(x+h)²−x²]/h = lim[h→0] [2xh+h²]/h = lim[h→0] (2x+h) = <strong>2x</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Integration · Q02</div>
+        <div class="qt">Evaluate: <span class="math">∫ x·eˣ dx</span></div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>eˣ + C</div>
+          <div class="opt"><span class="olbl">B</span>xeˣ + C</div>
+          <div class="opt correct"><span class="olbl">C</span>eˣ(x − 1) + C ✓</div>
+          <div class="opt"><span class="olbl">D</span>eˣ(x + 1) + C</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> Integration by parts: ∫x·eˣdx = x·eˣ − ∫eˣdx = x·eˣ − eˣ = <strong>eˣ(x−1) + C</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Probability · Q03</div>
+        <div class="qt">Two cards are drawn at random from a deck of 52. What is the probability that both are kings?</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>1/52</div>
+          <div class="opt correct"><span class="olbl">B</span>1/221 ✓</div>
+          <div class="opt"><span class="olbl">C</span>4/52</div>
+          <div class="opt"><span class="olbl">D</span>1/169</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> P = C(4,2)/C(52,2) = 6/1326 = <strong>1/221</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Vectors · Q04</div>
+        <div class="qt">If <span class="math">|a⃗| = 3</span> and <span class="math">|b⃗| = 4</span> and <span class="math">a⃗ · b⃗ = 0</span>, find <span class="math">|a⃗ + b⃗|</span>.</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>7</div>
+          <div class="opt correct"><span class="olbl">B</span>5 ✓</div>
+          <div class="opt"><span class="olbl">C</span>1</div>
+          <div class="opt"><span class="olbl">D</span>12</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> Since a⃗·b⃗ = 0 (perpendicular): |a⃗+b⃗|² = |a⃗|² + |b⃗|² = 9 + 16 = 25. So |a⃗+b⃗| = <strong>5</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Linear Programming · Q05</div>
+        <div class="qt">In an LPP, the feasible region is bounded by the constraints <span class="math">x ≥ 0, y ≥ 0, x + y ≤ 4</span>. The maximum of <span class="math">Z = 3x + 4y</span> occurs at:</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>(4, 0)</div>
+          <div class="opt correct"><span class="olbl">B</span>(0, 4) ✓</div>
+          <div class="opt"><span class="olbl">C</span>(2, 2)</div>
+          <div class="opt"><span class="olbl">D</span>(0, 0)</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> Corner points: (0,0)→0, (4,0)→12, (0,4)→16. Maximum Z = 16 at <strong>(0,4)</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">3D Geometry · Q06</div>
+        <div class="qt">Find the distance between the parallel planes <span class="math">2x + 3y − z = 4</span> and <span class="math">4x + 6y − 2z = 10</span>.</div>
+        <div class="opts">
+          <div class="opt correct"><span class="olbl">A</span>1/√14 ✓</div>
+          <div class="opt"><span class="olbl">B</span>2/√14</div>
+          <div class="opt"><span class="olbl">C</span>3/√14</div>
+          <div class="opt"><span class="olbl">D</span>√14</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> Rewrite: 2x+3y−z=5 and 2x+3y−z=4. Distance = |5−4|/√(4+9+1) = 1/√14.</div>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Difficulty Snapshot</div>
+      <div class="br"><span class="bl2">Calculus</span><div class="bt"><div class="bf bh" style="width:25%"></div></div><span class="bvl">Hard</span></div>
+      <div class="br"><span class="bl2">Integration</span><div class="bt"><div class="bf bh" style="width:30%"></div></div><span class="bvl">Hard</span></div>
+      <div class="br"><span class="bl2">3D Geometry</span><div class="bt"><div class="bf bm" style="width:45%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Lin. Programming</span><div class="bt"><div class="bf bm" style="width:50%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Matrices</span><div class="bt"><div class="bf be" style="width:65%"></div></div><span class="bvl">Easy</span></div>
+      <div class="br"><span class="bl2">Probability</span><div class="bt"><div class="bf be" style="width:70%"></div></div><span class="bvl">Easy</span></div>
+      <div class="br"><span class="bl2">Vectors</span><div class="bt"><div class="bf be" style="width:62%"></div></div><span class="bvl">Easy</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━━━ DAY 3 — MAY 13 ━━━━━ -->
+<div class="sec" id="d13">
+  <p class="slbl"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Day 3 — 13 May 2026</p>
+  <div class="day-card">
+    <div class="day-header">
+      <div class="dnum d3">D3</div>
+      <div><div class="dtitle">Mathematics — Shift 1</div><div class="ddate">May 13 · Difficulty: Moderate (tougher Calculus)</div></div>
+      <div class="dbadge bmod">Moderate</div>
+    </div>
+    <div class="info-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span>May 13 Shift 1 continued the trend — Mathematics was comparatively difficult due to lengthy, concept-based Calculus questions. Students advised to focus on conceptual clarity, PYQs and mock tests.</span></div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Topics Asked</div>
+      <div class="topic-chips">
+        <span class="tc tcr">Calculus — concept-heavy</span>
+        <span class="tc tcp">Differential Equations</span>
+        <span class="tc tcp">Matrices & Determinants</span>
+        <span class="tc tcb">3D Geometry</span>
+        <span class="tc tcb">Probability</span>
+        <span class="tc tcg">Inverse Trigonometric Functions</span>
+        <span class="tc tcg">Relations & Functions</span>
+        <span class="tc tcy">Continuity & Differentiability</span>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>Memory-Based Questions</div>
+
+      <div class="qc">
+        <div class="qn">Differential Equations · Q01</div>
+        <div class="qt">Find the general solution of <span class="math">dy/dx = y/x</span>.</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>y = x + C</div>
+          <div class="opt correct"><span class="olbl">B</span>y = Cx ✓</div>
+          <div class="opt"><span class="olbl">C</span>y = x²/2 + C</div>
+          <div class="opt"><span class="olbl">D</span>y = Ce^x</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> Separable: dy/y = dx/x → ln|y| = ln|x| + ln|C| → <strong>y = Cx</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Inverse Trigonometry · Q02</div>
+        <div class="qt">Find the value of <span class="math">sin⁻¹(sin 5π/6)</span>.</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>5π/6</div>
+          <div class="opt correct"><span class="olbl">B</span>π/6 ✓</div>
+          <div class="opt"><span class="olbl">C</span>−π/6</div>
+          <div class="opt"><span class="olbl">D</span>π/3</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> 5π/6 is outside [−π/2, π/2]. sin(5π/6) = sin(π−5π/6) = sin(π/6). So sin⁻¹(sin 5π/6) = <strong>π/6</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Matrices · Q03</div>
+        <div class="qt">If A = <span class="math">[2 0; 1 3]</span> and B = <span class="math">[1 2; 0 1]</span>, find AB.</div>
+        <div class="opts">
+          <div class="opt correct"><span class="olbl">A</span>[2 4; 1 5] ✓</div>
+          <div class="opt"><span class="olbl">B</span>[2 2; 1 3]</div>
+          <div class="opt"><span class="olbl">C</span>[3 4; 1 5]</div>
+          <div class="opt"><span class="olbl">D</span>[2 4; 0 3]</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> AB = [(2×1+0×0)(2×2+0×1); (1×1+3×0)(1×2+3×1)] = [2,4; 1,5]. Answer: <strong>[2 4; 1 5]</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">3D Geometry · Q04</div>
+        <div class="qt">The direction cosines of the line joining origin to (2, 3, 6) are:</div>
+        <div class="opts">
+          <div class="opt correct"><span class="olbl">A</span>2/7, 3/7, 6/7 ✓</div>
+          <div class="opt"><span class="olbl">B</span>2/6, 3/6, 6/6</div>
+          <div class="opt"><span class="olbl">C</span>2/5, 3/5, 6/5</div>
+          <div class="opt"><span class="olbl">D</span>1/7, 2/7, 3/7</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> Distance = √(4+9+36) = √49 = 7. DCs = (2/7, 3/7, 6/7).</div>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Difficulty Snapshot</div>
+      <div class="br"><span class="bl2">Calculus</span><div class="bt"><div class="bf bh" style="width:28%"></div></div><span class="bvl">Hard</span></div>
+      <div class="br"><span class="bl2">Diff. Equations</span><div class="bt"><div class="bf bm" style="width:45%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">3D Geometry</span><div class="bt"><div class="bf bm" style="width:50%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Inv. Trig</span><div class="bt"><div class="bf bm" style="width:52%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Matrices</span><div class="bt"><div class="bf be" style="width:65%"></div></div><span class="bvl">Easy</span></div>
+      <div class="br"><span class="bl2">Probability</span><div class="bt"><div class="bf be" style="width:68%"></div></div><span class="bvl">Easy</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━━━ DAY 4 — MAY 14 ━━━━━ -->
+<div class="sec" id="d14">
+  <p class="slbl"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Day 4 — 14 May 2026</p>
+  <div class="day-card">
+    <div class="day-header">
+      <div class="dnum d4">D4</div>
+      <div><div class="dtitle">Mathematics — Shift 1</div><div class="ddate">May 14 · Difficulty: Moderate to Hard</div></div>
+      <div class="dbadge bhard">Mod–Hard</div>
+    </div>
+    <div class="green-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg><span>May 14 Shift 1 was NCERT-oriented overall. Many questions were based on Class 12 NCERT examples. Pattern consistent with Days 1–3. Students who solved mock tests regularly reported managing time better.</span></div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Topics Asked</div>
+      <div class="topic-chips">
+        <span class="tc tcr">Integrals (lengthy)</span>
+        <span class="tc tcr">Application of Integrals (area)</span>
+        <span class="tc tcp">Matrices & Determinants</span>
+        <span class="tc tcp">Application of Derivatives</span>
+        <span class="tc tcb">3D Geometry</span>
+        <span class="tc tcb">Vectors</span>
+        <span class="tc tcg">Probability (Bayes' Theorem)</span>
+        <span class="tc tcg">Linear Programming</span>
+        <span class="tc tcy">Continuity & Differentiability</span>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>Memory-Based Questions</div>
+
+      <div class="qc">
+        <div class="qn">Probability · Bayes' Theorem · Q01</div>
+        <div class="qt">A factory has machines A and B producing 60% and 40% of items respectively. Machine A produces 2% defective, B produces 3% defective. An item is defective — find P(it came from B).</div>
+        <div class="opts">
+          <div class="opt correct"><span class="olbl">A</span>12/24 = 1/2 ✓</div>
+          <div class="opt"><span class="olbl">B</span>12/27</div>
+          <div class="opt"><span class="olbl">C</span>40/100</div>
+          <div class="opt"><span class="olbl">D</span>3/5</div>
+        </div>
+        <div class="sol-box"><strong>Solution (Bayes):</strong> P(D|A)=0.02, P(D|B)=0.03. P(D) = 0.6×0.02 + 0.4×0.03 = 0.012+0.012=0.024. P(B|D) = 0.4×0.03/0.024 = 0.012/0.024 = <strong>1/2</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Application of Integrals · Q02</div>
+        <div class="qt">Find the area enclosed between <span class="math">y = x²</span> and <span class="math">y = x</span>.</div>
+        <div class="opts">
+          <div class="opt correct"><span class="olbl">A</span>1/6 sq. units ✓</div>
+          <div class="opt"><span class="olbl">B</span>1/3 sq. units</div>
+          <div class="opt"><span class="olbl">C</span>1/2 sq. units</div>
+          <div class="opt"><span class="olbl">D</span>1/4 sq. units</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> Intersection: x=0,1. Area = ∫₀¹(x−x²)dx = [x²/2 − x³/3]₀¹ = 1/2 − 1/3 = <strong>1/6</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Application of Derivatives · Q03</div>
+        <div class="qt">The rate of change of area of a circle with respect to radius when r = 5 cm is:</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>5π</div>
+          <div class="opt correct"><span class="olbl">B</span>10π ✓</div>
+          <div class="opt"><span class="olbl">C</span>25π</div>
+          <div class="opt"><span class="olbl">D</span>2π</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> A = πr². dA/dr = 2πr. At r=5: dA/dr = <strong>10π</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Vectors · Q04</div>
+        <div class="qt">Find the cross product <span class="math">a⃗ × b⃗</span> if <span class="math">a⃗ = 2î + ĵ</span> and <span class="math">b⃗ = î + 2ĵ</span>.</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>3k̂</div>
+          <div class="opt correct"><span class="olbl">B</span>3k̂ ✓</div>
+          <div class="opt"><span class="olbl">C</span>−3k̂</div>
+          <div class="opt"><span class="olbl">D</span>0</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> a⃗×b⃗ = det[î,ĵ,k̂; 2,1,0; 1,2,0] = k̂(2×2−1×1) = k̂(4−1) = <strong>3k̂</strong>.</div>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Difficulty Snapshot</div>
+      <div class="br"><span class="bl2">Integration</span><div class="bt"><div class="bf bh" style="width:28%"></div></div><span class="bvl">Hard</span></div>
+      <div class="br"><span class="bl2">App. Integrals</span><div class="bt"><div class="bf bm" style="width:48%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">3D Geometry</span><div class="bt"><div class="bf bm" style="width:45%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Probability</span><div class="bt"><div class="bf bm" style="width:52%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Vectors</span><div class="bt"><div class="bf be" style="width:64%"></div></div><span class="bvl">Easy</span></div>
+      <div class="br"><span class="bl2">App. Derivatives</span><div class="bt"><div class="bf be" style="width:62%"></div></div><span class="bvl">Easy</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━━━ DAY 5 — MAY 15 ━━━━━ -->
+<div class="sec" id="d15">
+  <p class="slbl"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Day 5 — 15 May 2026</p>
+  <div class="day-card">
+    <div class="day-header">
+      <div class="dnum d5">D5</div>
+      <div><div class="dtitle">Mathematics — Shift 1</div><div class="ddate">May 15 · Difficulty: Moderate (pattern continuing)</div></div>
+      <div class="dbadge bmod">Moderate</div>
+    </div>
+    <div class="info-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span>Physics and Chemistry were the main domain subjects on May 15 Shift 1. Where Mathematics appeared, the pattern continued from previous days. Topics and questions below follow the established 5-day trend.</span></div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Expected / Continuing Topics</div>
+      <div class="topic-chips">
+        <span class="tc tcr">Integrals (definite & indefinite)</span>
+        <span class="tc tcp">Matrices & Determinants</span>
+        <span class="tc tcp">Differential Equations</span>
+        <span class="tc tcb">3D Geometry</span>
+        <span class="tc tcb">Vectors</span>
+        <span class="tc tcg">Probability</span>
+        <span class="tc tcg">Linear Programming</span>
+        <span class="tc tcy">Application of Derivatives</span>
+        <span class="tc tcy">Continuity & Differentiability</span>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>Practice Questions (Pattern-Based)</div>
+
+      <div class="qc">
+        <div class="qn">Definite Integrals · Q01</div>
+        <div class="qt">Evaluate: <span class="math">∫₀^(π/2) sin x dx</span></div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>0</div>
+          <div class="opt correct"><span class="olbl">B</span>1 ✓</div>
+          <div class="opt"><span class="olbl">C</span>π/2</div>
+          <div class="opt"><span class="olbl">D</span>−1</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> [−cos x]₀^(π/2) = −cos(π/2) + cos(0) = 0 + 1 = <strong>1</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Differential Equations · Q02</div>
+        <div class="qt">The order and degree of <span class="math">(d²y/dx²)³ + dy/dx = sin x</span> are:</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>Order 1, Degree 3</div>
+          <div class="opt correct"><span class="olbl">B</span>Order 2, Degree 3 ✓</div>
+          <div class="opt"><span class="olbl">C</span>Order 3, Degree 2</div>
+          <div class="opt"><span class="olbl">D</span>Order 2, Degree 1</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> Highest derivative = d²y/dx² → Order = 2. Power of highest order derivative = 3 → Degree = <strong>3</strong>.</div>
+      </div>
+
+      <div class="qc">
+        <div class="qn">Determinants · Q03</div>
+        <div class="qt">If A is a matrix of order 3×3 and |A| = −4, find |adj A|.</div>
+        <div class="opts">
+          <div class="opt"><span class="olbl">A</span>−4</div>
+          <div class="opt"><span class="olbl">B</span>4</div>
+          <div class="opt correct"><span class="olbl">C</span>16 ✓</div>
+          <div class="opt"><span class="olbl">D</span>−16</div>
+        </div>
+        <div class="sol-box"><strong>Solution:</strong> |adj A| = |A|^(n−1) = (−4)^(3−1) = (−4)² = <strong>16</strong>.</div>
+      </div>
+    </div>
+
+    <div class="sr2">
+      <div class="sr2-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Expected Difficulty</div>
+      <div class="br"><span class="bl2">Integration</span><div class="bt"><div class="bf bh" style="width:30%"></div></div><span class="bvl">Hard</span></div>
+      <div class="br"><span class="bl2">3D Geometry</span><div class="bt"><div class="bf bm" style="width:45%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Diff. Equations</span><div class="bt"><div class="bf bm" style="width:48%"></div></div><span class="bvl">Mod.</span></div>
+      <div class="br"><span class="bl2">Matrices</span><div class="bt"><div class="bf be" style="width:65%"></div></div><span class="bvl">Easy</span></div>
+      <div class="br"><span class="bl2">Probability</span><div class="bt"><div class="bf be" style="width:68%"></div></div><span class="bvl">Easy</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CHAPTER REVISION GRID -->
+<div class="sec">
+  <p class="slbl"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Must-Revise Chapters — All 5 Days</p>
+  <div class="ocard" style="padding:16px">
+    <div class="ch-grid">
+      <div class="ch-box">
+        <div class="ch-name">Matrices & Determinants</div>
+        <div class="ch-info">Symmetric, skew-sym., |kA|, adj A, inverse</div>
+        <div class="ch-qs">15–16 Qs combined</div>
+      </div>
+      <div class="ch-box">
+        <div class="ch-name">Integrals</div>
+        <div class="ch-info">By parts, substitution, definite, area — hardest section</div>
+        <div class="ch-qs">~8–10 Qs</div>
+      </div>
+      <div class="ch-box">
+        <div class="ch-name">3D Geometry</div>
+        <div class="ch-info">Direction cosines, dist. between planes, line eq.</div>
+        <div class="ch-qs">~5–7 Qs</div>
+      </div>
+      <div class="ch-box">
+        <div class="ch-name">Probability</div>
+        <div class="ch-info">Bayes' theorem, conditional prob., combinations</div>
+        <div class="ch-qs">~5–6 Qs (easiest)</div>
+      </div>
+      <div class="ch-box">
+        <div class="ch-name">Vectors</div>
+        <div class="ch-info">Dot product, cross product, magnitude, angle</div>
+        <div class="ch-qs">~4–5 Qs</div>
+      </div>
+      <div class="ch-box">
+        <div class="ch-name">Differential Equations</div>
+        <div class="ch-info">Order, degree, general solution, separable</div>
+        <div class="ch-qs">~4–5 Qs</div>
+      </div>
+      <div class="ch-box">
+        <div class="ch-name">App. of Derivatives</div>
+        <div class="ch-info">Increasing/decreasing, maxima/minima, rate of change</div>
+        <div class="ch-qs">~4–5 Qs</div>
+      </div>
+      <div class="ch-box">
+        <div class="ch-name">Linear Programming</div>
+        <div class="ch-info">Corner point method, figure-based, Z max/min</div>
+        <div class="ch-qs">~3–4 Qs</div>
+      </div>
+      <div class="ch-box">
+        <div class="ch-name">Continuity & Diff.</div>
+        <div class="ch-info">First principles, chain rule, product/quotient rule</div>
+        <div class="ch-qs">~3–4 Qs</div>
+      </div>
+      <div class="ch-box">
+        <div class="ch-name">Inv. Trig Functions</div>
+        <div class="ch-info">Principal values, sin⁻¹, cos⁻¹, tan⁻¹ identities</div>
+        <div class="ch-qs">~2–3 Qs</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;background:rgba(254,202,202,.3);border-radius:9px;padding:9px 12px;border:1px solid rgba(248,113,113,.2);font-size:11px;color:#991b1b;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <strong>Time Warning:</strong> The Maths paper is consistently lengthy. Attempt Probability and Matrices first (easier, quicker) — then move to Calculus. Skip and revisit if stuck.
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- RESOURCES -->
+<div class="fl">
+  <p class="slbl" style="margin-left:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>Useful Resources</p>
+  <div class="fg">
+    <a class="fa" href="https://commercesehoga.github.io/cuet" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.2" width="14" height="14"><path d="M9 11l3 3 8-8"/><circle cx="12" cy="12" r="10"/></svg>Free Mock Tests
+    </a>
+    <a class="fa" href="https://wondermayank.github.io" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.2" width="14" height="14"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg>Wondermayank
+    </a>
+    <a class="fa" href="https://commercesehoga.blogspot.com" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2" width="14" height="14"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>Free Notes Blog
+    </a>
+    <a class="fa" href="https://wondermayank.github.io/help" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.2" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Support / Donate
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="fb">by Wondermayank · ThunderStudy</div>
+  <div class="fp">
+    <a href="https://wondermayank.github.io/terms" target="_blank">Terms</a>
+    <a href="https://wondermayank.github.io/privacy" target="_blank">Privacy</a>
+    <a href="https://wondermayank.github.io/disclaimer" target="_blank">Disclaimer</a>
+    <a href="https://wondermayank.github.io/help" target="_blank">Help &amp; Donate</a>
+  </div>
+  <div class="fc">CUET Mathematics 11–15 May 2026 · Memory-Based Analysis · Not an official NTA resource</div>
+</footer>
+
+</body>
+</html>
