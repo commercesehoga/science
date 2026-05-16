@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+
+  <defs>
+    <linearGradient id="mathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#85C6F4"/>
+      <stop offset="100%" stop-color="#858EF4"/>
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="18" fill="#F0F6FF"/>
+
+  <!-- Soft Circle -->
+  <circle cx="32" cy="32" r="20"
+          fill="rgba(255,255,255,0.45)"/>
+
+  <!-- Integral Symbol -->
+  <path d="
+    M38 14
+    C30 14 28 20 28 28
+    V42
+    C28 48 26 50 22 50
+  "
+    fill="none"
+    stroke="url(#mathGrad)"
+    stroke-width="5"
+    stroke-linecap="round"
+    filter="url(#glow)"/>
+
+  <!-- Sigma -->
+  <path d="
+    M42 18
+    H50
+    L44 32
+    L50 46
+    H42
+  "
+    fill="none"
+    stroke="#858EF4"
+    stroke-width="4"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+
+  <!-- Dot Accent -->
+  <circle cx="22" cy="50" r="2.5"
+          fill="#85C6F4"/>
+
+</svg>
